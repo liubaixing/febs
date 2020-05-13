@@ -53,14 +53,14 @@ public interface IUserService  {
      *
      * @param userIds 用户 id数组
      */
-//    void deleteUsers(String[] userIds);
+    void deleteUsers(String[] userIds);
 
     /**
      * 修改用户
      *
      * @param user user
      */
-//    void updateUser(User user);
+    void updateUser(User user);
 
     /**
      * 重置密码
@@ -75,7 +75,7 @@ public interface IUserService  {
      * @param username 用户名
      * @param password 密码
      */
-//    void regist(String username, String password);
+    void regist(String username, String password);
 
     /**
      * 修改密码

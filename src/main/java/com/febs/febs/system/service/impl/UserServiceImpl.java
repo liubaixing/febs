@@ -68,17 +68,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 //        setUserRoles(user, roles);
     }
 
-    /*@Override
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteUsers(String[] userIds) {
         List<String> list = Arrays.asList(userIds);
         // 删除用户
         this.removeByIds(list);
         // 删除关联角色
-        this.userRoleService.deleteUserRolesByUserId(list);
-    }*/
+//        this.userRoleService.deleteUserRolesByUserId(list);
+    }
 
-    /*@Override
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateUser(User user) {
         String username = user.getUsername();
@@ -88,15 +88,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setModifyTime(new Date());
         updateById(user);
         // 更新关联角色
-        this.userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getUserId()));
-        String[] roles = user.getRoleId().split(StringPool.COMMA);
-        setUserRoles(user, roles);
-
-        User currentUser = FebsUtil.getCurrentUser();
-        if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), username)) {
-            shiroRealm.clearCache();
-        }
-    }*/
+//        this.userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getUserId()));
+//        String[] roles = user.getRoleId().split(StringPool.COMMA);
+//        setUserRoles(user, roles);
+//
+//        User currentUser = FebsUtil.getCurrentUser();
+//        if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), username)) {
+//            shiroRealm.clearCache();
+//        }
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -108,7 +108,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         });
     }
 
-    /*@Override
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void regist(String username, String password) {
         User user = new User();
@@ -123,11 +123,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setDescription("注册用户");
         this.save(user);
 
-        UserRole ur = new UserRole();
-        ur.setUserId(user.getUserId());
-        ur.setRoleId(FebsConstant.REGISTER_ROLE_ID);
-        this.userRoleService.save(ur);
-    }*/
+//        UserRole ur = new UserRole();
+//        ur.setUserId(user.getUserId());
+//        ur.setRoleId(FebsConstant.REGISTER_ROLE_ID);
+//        this.userRoleService.save(ur);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
