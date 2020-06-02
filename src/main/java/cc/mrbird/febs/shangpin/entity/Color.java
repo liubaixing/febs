@@ -2,6 +2,7 @@ package cc.mrbird.febs.shangpin.entity;
 
 import java.util.Date;
 
+import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -72,4 +73,11 @@ public class Color {
     @TableField("lastchanged")
     private Date lastchanged;
 
+    @ExcelField("创建时间")
+    @TableField("create_time")
+    private Date createTime;
+    @TableField("update_time")
+    private Date updateTime;
+    @TableField("deleted")
+    private Integer deleted;
 }
