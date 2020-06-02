@@ -1,0 +1,76 @@
+package cc.mrbird.febs.system.service.impl;
+
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.system.entity.Gys;
+import cc.mrbird.febs.system.mapper.GysMapper;
+import cc.mrbird.febs.system.service.IGysService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * 供应商 Service实现
+ *
+ * @author MrBird
+ * @date 2020-05-22 00:06:57
+ */
+@Service
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysService {
+
+    @Autowired
+    private GysMapper gysMapper;
+
+    @Override
+    public IPage<Gys> findGyss(QueryRequest request, Gys gys) {
+        Page<Gys> page = new Page<>(request.getPageNum(), request.getPageSize());
+        return this.gysMapper.selectDetailPage(page,gys);
+    }
+
+    @Override
+    public List<Gys> findGyss(Gys gys) {
+        return this.gysMapper.selectDetail(gys);
+    }
+
+    @Override
+    @Transactional
+    public void createGys(Gys gys) {
+        check(gys);
+        this.save(gys);
+    }
+
+    @Override
+    @Transactional
+    public void updateGys(Gys gys) {
+        if(gys.getId()==null){
+            throw new FebsException("id不能为空，添加失败");
+        }
+        this.saveOrUpdate(gys);
+    }
+
+    @Override
+    @Transactional
+    public void deleteGys(String[] ids) {
+        List<String> list = Arrays.asList(ids);
+        this.removeByIds(list);
+	}
+
+	private void check(Gys gys) throws FebsException{
+        LambdaQueryWrapper<Gys> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Gys::getGysdm,gys.getGysdm());
+        Integer count = this.baseMapper.selectCount(queryWrapper);
+        if (count>0) {
+            throw new FebsException("数据已存在，添加失败");
+        }
+    }
+
+}

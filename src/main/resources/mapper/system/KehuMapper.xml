@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.system.mapper.KehuMapper">
+
+    <sql id="findKehuDetailSql">
+        SELECT
+        k.*,
+        u.USERNAME userName
+        FROM
+        `system_kehu` k
+        LEFT JOIN t_user u ON ( k.ssyh = u.USER_ID )
+        <where>
+            <if test="kehu.khdm != null and kehu.khdm != ''">
+                and k.khdm like CONCAT('%',#{kehu.khdm},'%')
+            </if>
+            <if test="kehu.khmc != null and kehu.khmc != ''">
+                and k.khmc like CONCAT('%',#{kehu.khmc},'%')
+            </if>
+            <if test="kehu.khlxId != null">
+                and k.khlx_id = #{kehu.khlxId}
+            </if>
+            <if test="kehu.userName != null and kehu.userName != ''">
+                and u.USERNAME like CONCAT('%',#{kehu.userName},'%')
+            </if>
+            <if test="kehu.tel != null and kehu.tel != ''">
+                and k.tel like CONCAT('%',#{kehu.tel},'%')
+            </if>
+            <if test="kehu.contact != null and kehu.contact != ''">
+                and k.contact like CONCAT('%',#{kehu.contact},'%')
+            </if>
+            <if test="kehu.status != null">
+                and k.status = #{kehu.status}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectDetailPage" parameterType="kehu" resultType="cc.mrbird.febs.system.entity.Kehu">
+        <include refid="findKehuDetailSql" />
+    </select>
+    <select id="selectDetail" parameterType="kehu" resultType="cc.mrbird.febs.system.entity.Kehu">
+        <include refid="findKehuDetailSql" />
+    </select>
+</mapper>

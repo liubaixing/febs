@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.system.mapper.GysMapper">
+
+    <sql id="findGysDetailSql">
+        SELECT
+            gys.*,
+            cu.USERNAME cgfzrmc,
+            xu.USERNAME xdfzrmc,
+            lx.fplxmc,
+            sd.fpsdmc
+        FROM
+            system_gys gys
+        LEFT JOIN basic_fplx lx ON gys.fplx_id = lx.id
+        LEFT JOIN basic_fpsd sd ON gys.fpsd_id = sd.id
+        left JOIN t_user cu on gys.cgfzr = cu.USER_ID
+        LEFT JOIN t_user xu on gys.xdfzr = xu.USER_ID
+        <where>
+            <if test="gys.gysdm != null and gys.gysdm != ''">
+                and gys.gysdm like CONCAT('%',#{gys.gysdm},'%')
+            </if>
+            <if test="gys.gysmc != null and gys.gysmc != ''">
+                and gys.gysmc like CONCAT('%',#{gys.gysmc},'%')
+            </if>
+            <if test="gys.lsr != null and gys.lsr != ''">
+                and gys.lsr like CONCAT('%',#{gys.lsr},'%')
+            </if>
+            <if test="gys.lsrdh != null and gys.lsrdh != ''">
+                and gys.lsrdh like CONCAT('%',#{gys.lsrdh},'%')
+            </if>
+            <if test="gys.wx != null and gys.wx != ''">
+                and gys.wx like CONCAT('%',#{gys.wx},'%')
+            </if>
+            <if test="gys.qq != null and gys.qq != ''">
+                and gys.qq like CONCAT('%',#{gys.qq},'%')
+            </if>
+            <if test="gys.hy != null and gys.hy != ''">
+                and gys.hy like CONCAT('%',#{gys.hy},'%')
+            </if>
+            <if test="gys.cgfzrmc != null and gys.cgfzrmc != ''">
+                and cu.USERNAME like CONCAT('%',#{gys.cgfzrmc},'%')
+            </if>
+            <if test="gys.xdfzrmc != null and gys.xdfzrmc != ''">
+                and xu.USERNAME like CONCAT('%',#{gys.xdfzrmc},'%')
+            </if>
+            <if test="gys.fplxId != null">
+                and gys.fplxId = #{gys.fplxId}
+            </if>
+            <if test="gys.fpsdId != null">
+                and gys.fpsdId = #{gys.fpsdId}
+            </if>
+            <if test="gys.sfyj != null">
+                and gys.sfyj = #{gys.sfyj}
+            </if>
+            <if test="gys.status != null">
+                and gys.status = #{gys.status}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="selectDetailPage" parameterType="gys" resultType="cc.mrbird.febs.system.entity.Gys">
+        <include refid="findGysDetailSql" />
+    </select>
+
+    <select id="selectDetail" parameterType="gys" resultType="cc.mrbird.febs.system.entity.Gys">
+        <include refid="findGysDetailSql" />
+    </select>
+
+</mapper>

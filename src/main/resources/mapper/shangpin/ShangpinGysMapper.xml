@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.shangpin.mapper.ShangpinGysMapper">
+
+    <resultMap id="BaseResultMap" type="cc.mrbird.febs.shangpin.entity.ShangpinGys">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="spdm" jdbcType="VARCHAR" property="spdm" />
+        <result column="spmc" jdbcType="VARCHAR" property="spmc" />
+        <result column="memo" jdbcType="VARCHAR" property="memo" />
+        <result column="xsj" jdbcType="DECIMAL" property="xsj" />
+        <result column="dpj" jdbcType="DECIMAL" property="dpj" />
+        <result column="ysj" jdbcType="DECIMAL" property="ysj" />
+        <result column="shangpin_id" jdbcType="INTEGER" property="shangpinId" />
+        <result column="cgj" jdbcType="DECIMAL" property="cgj" />
+        <result column="gys_id" jdbcType="INTEGER" property="gysId" />
+        <result column="qdl" jdbcType="INTEGER" property="qdl" />
+        <result column="jldw_id" jdbcType="INTEGER" property="jldwId" />
+        <result column="ck_id" jdbcType="INTEGER" property="ckId" />
+        <result column="mrtp" jdbcType="VARCHAR" property="mrtp" />
+        <result column="zl_id" jdbcType="INTEGER" property="zlId" />
+        <result column="dl_id" jdbcType="INTEGER" property="dlId" />
+        <result column="xl_id" jdbcType="INTEGER" property="xlId" />
+        <result column="qtlb_id" jdbcType="INTEGER" property="qtlbId" />
+        <result column="pp_id" jdbcType="INTEGER" property="ppId" />
+        <result column="lyxt" jdbcType="TINYINT" property="lyxt" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, spdm, spmc, memo, xsj, dpj, ysj, shangpin_id, cgj, gys_id, qdl, jldw_id, ck_id, 
+    mrtp, zl_id, dl_id, xl_id, qtlb_id, pp_id, lyxt, `status`, create_time, update_time, 
+    deleted
+  </sql>
+    <select id="selectByExample" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinGysExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from shangpin_gys
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from shangpin_gys
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shangpin_gys
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinGysExample">
+        delete from shangpin_gys
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinGys" useGeneratedKeys="true">
+    insert into shangpin_gys (spdm, spmc, memo, 
+      xsj, dpj, ysj, shangpin_id, 
+      cgj, gys_id, qdl, jldw_id, 
+      ck_id, mrtp, zl_id, dl_id, 
+      xl_id, qtlb_id, pp_id, 
+      lyxt, `status`, create_time, 
+      update_time, deleted)
+    values (#{spdm,jdbcType=VARCHAR}, #{spmc,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{xsj,jdbcType=DECIMAL}, #{dpj,jdbcType=DECIMAL}, #{ysj,jdbcType=DECIMAL}, #{shangpinId,jdbcType=INTEGER}, 
+      #{cgj,jdbcType=DECIMAL}, #{gysId,jdbcType=INTEGER}, #{qdl,jdbcType=INTEGER}, #{jldwId,jdbcType=INTEGER}, 
+      #{ckId,jdbcType=INTEGER}, #{mrtp,jdbcType=VARCHAR}, #{zlId,jdbcType=INTEGER}, #{dlId,jdbcType=INTEGER}, 
+      #{xlId,jdbcType=INTEGER}, #{qtlbId,jdbcType=INTEGER}, #{ppId,jdbcType=INTEGER}, 
+      #{lyxt,jdbcType=TINYINT}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinGys" useGeneratedKeys="true">
+        insert into shangpin_gys
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="spdm != null">
+                spdm,
+            </if>
+            <if test="spmc != null">
+                spmc,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="xsj != null">
+                xsj,
+            </if>
+            <if test="dpj != null">
+                dpj,
+            </if>
+            <if test="ysj != null">
+                ysj,
+            </if>
+            <if test="shangpinId != null">
+                shangpin_id,
+            </if>
+            <if test="cgj != null">
+                cgj,
+            </if>
+            <if test="gysId != null">
+                gys_id,
+            </if>
+            <if test="qdl != null">
+                qdl,
+            </if>
+            <if test="jldwId != null">
+                jldw_id,
+            </if>
+            <if test="ckId != null">
+                ck_id,
+            </if>
+            <if test="mrtp != null">
+                mrtp,
+            </if>
+            <if test="zlId != null">
+                zl_id,
+            </if>
+            <if test="dlId != null">
+                dl_id,
+            </if>
+            <if test="xlId != null">
+                xl_id,
+            </if>
+            <if test="qtlbId != null">
+                qtlb_id,
+            </if>
+            <if test="ppId != null">
+                pp_id,
+            </if>
+            <if test="lyxt != null">
+                lyxt,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="spdm != null">
+                #{spdm,jdbcType=VARCHAR},
+            </if>
+            <if test="spmc != null">
+                #{spmc,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="xsj != null">
+                #{xsj,jdbcType=DECIMAL},
+            </if>
+            <if test="dpj != null">
+                #{dpj,jdbcType=DECIMAL},
+            </if>
+            <if test="ysj != null">
+                #{ysj,jdbcType=DECIMAL},
+            </if>
+            <if test="shangpinId != null">
+                #{shangpinId,jdbcType=INTEGER},
+            </if>
+            <if test="cgj != null">
+                #{cgj,jdbcType=DECIMAL},
+            </if>
+            <if test="gysId != null">
+                #{gysId,jdbcType=INTEGER},
+            </if>
+            <if test="qdl != null">
+                #{qdl,jdbcType=INTEGER},
+            </if>
+            <if test="jldwId != null">
+                #{jldwId,jdbcType=INTEGER},
+            </if>
+            <if test="ckId != null">
+                #{ckId,jdbcType=INTEGER},
+            </if>
+            <if test="mrtp != null">
+                #{mrtp,jdbcType=VARCHAR},
+            </if>
+            <if test="zlId != null">
+                #{zlId,jdbcType=INTEGER},
+            </if>
+            <if test="dlId != null">
+                #{dlId,jdbcType=INTEGER},
+            </if>
+            <if test="xlId != null">
+                #{xlId,jdbcType=INTEGER},
+            </if>
+            <if test="qtlbId != null">
+                #{qtlbId,jdbcType=INTEGER},
+            </if>
+            <if test="ppId != null">
+                #{ppId,jdbcType=INTEGER},
+            </if>
+            <if test="lyxt != null">
+                #{lyxt,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinGysExample" resultType="java.lang.Long">
+        select count(*) from shangpin_gys
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update shangpin_gys
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.spdm != null">
+                spdm = #{record.spdm,jdbcType=VARCHAR},
+            </if>
+            <if test="record.spmc != null">
+                spmc = #{record.spmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.memo != null">
+                memo = #{record.memo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.xsj != null">
+                xsj = #{record.xsj,jdbcType=DECIMAL},
+            </if>
+            <if test="record.dpj != null">
+                dpj = #{record.dpj,jdbcType=DECIMAL},
+            </if>
+            <if test="record.ysj != null">
+                ysj = #{record.ysj,jdbcType=DECIMAL},
+            </if>
+            <if test="record.shangpinId != null">
+                shangpin_id = #{record.shangpinId,jdbcType=INTEGER},
+            </if>
+            <if test="record.cgj != null">
+                cgj = #{record.cgj,jdbcType=DECIMAL},
+            </if>
+            <if test="record.gysId != null">
+                gys_id = #{record.gysId,jdbcType=INTEGER},
+            </if>
+            <if test="record.qdl != null">
+                qdl = #{record.qdl,jdbcType=INTEGER},
+            </if>
+            <if test="record.jldwId != null">
+                jldw_id = #{record.jldwId,jdbcType=INTEGER},
+            </if>
+            <if test="record.ckId != null">
+                ck_id = #{record.ckId,jdbcType=INTEGER},
+            </if>
+            <if test="record.mrtp != null">
+                mrtp = #{record.mrtp,jdbcType=VARCHAR},
+            </if>
+            <if test="record.zlId != null">
+                zl_id = #{record.zlId,jdbcType=INTEGER},
+            </if>
+            <if test="record.dlId != null">
+                dl_id = #{record.dlId,jdbcType=INTEGER},
+            </if>
+            <if test="record.xlId != null">
+                xl_id = #{record.xlId,jdbcType=INTEGER},
+            </if>
+            <if test="record.qtlbId != null">
+                qtlb_id = #{record.qtlbId,jdbcType=INTEGER},
+            </if>
+            <if test="record.ppId != null">
+                pp_id = #{record.ppId,jdbcType=INTEGER},
+            </if>
+            <if test="record.lyxt != null">
+                lyxt = #{record.lyxt,jdbcType=TINYINT},
+            </if>
+            <if test="record.status != null">
+                `status` = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.deleted != null">
+                deleted = #{record.deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update shangpin_gys
+        set id = #{record.id,jdbcType=INTEGER},
+        spdm = #{record.spdm,jdbcType=VARCHAR},
+        spmc = #{record.spmc,jdbcType=VARCHAR},
+        memo = #{record.memo,jdbcType=VARCHAR},
+        xsj = #{record.xsj,jdbcType=DECIMAL},
+        dpj = #{record.dpj,jdbcType=DECIMAL},
+        ysj = #{record.ysj,jdbcType=DECIMAL},
+        shangpin_id = #{record.shangpinId,jdbcType=INTEGER},
+        cgj = #{record.cgj,jdbcType=DECIMAL},
+        gys_id = #{record.gysId,jdbcType=INTEGER},
+        qdl = #{record.qdl,jdbcType=INTEGER},
+        jldw_id = #{record.jldwId,jdbcType=INTEGER},
+        ck_id = #{record.ckId,jdbcType=INTEGER},
+        mrtp = #{record.mrtp,jdbcType=VARCHAR},
+        zl_id = #{record.zlId,jdbcType=INTEGER},
+        dl_id = #{record.dlId,jdbcType=INTEGER},
+        xl_id = #{record.xlId,jdbcType=INTEGER},
+        qtlb_id = #{record.qtlbId,jdbcType=INTEGER},
+        pp_id = #{record.ppId,jdbcType=INTEGER},
+        lyxt = #{record.lyxt,jdbcType=TINYINT},
+        `status` = #{record.status,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        deleted = #{record.deleted,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinGys">
+        update shangpin_gys
+        <set>
+            <if test="spdm != null">
+                spdm = #{spdm,jdbcType=VARCHAR},
+            </if>
+            <if test="spmc != null">
+                spmc = #{spmc,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="xsj != null">
+                xsj = #{xsj,jdbcType=DECIMAL},
+            </if>
+            <if test="dpj != null">
+                dpj = #{dpj,jdbcType=DECIMAL},
+            </if>
+            <if test="ysj != null">
+                ysj = #{ysj,jdbcType=DECIMAL},
+            </if>
+            <if test="shangpinId != null">
+                shangpin_id = #{shangpinId,jdbcType=INTEGER},
+            </if>
+            <if test="cgj != null">
+                cgj = #{cgj,jdbcType=DECIMAL},
+            </if>
+            <if test="gysId != null">
+                gys_id = #{gysId,jdbcType=INTEGER},
+            </if>
+            <if test="qdl != null">
+                qdl = #{qdl,jdbcType=INTEGER},
+            </if>
+            <if test="jldwId != null">
+                jldw_id = #{jldwId,jdbcType=INTEGER},
+            </if>
+            <if test="ckId != null">
+                ck_id = #{ckId,jdbcType=INTEGER},
+            </if>
+            <if test="mrtp != null">
+                mrtp = #{mrtp,jdbcType=VARCHAR},
+            </if>
+            <if test="zlId != null">
+                zl_id = #{zlId,jdbcType=INTEGER},
+            </if>
+            <if test="dlId != null">
+                dl_id = #{dlId,jdbcType=INTEGER},
+            </if>
+            <if test="xlId != null">
+                xl_id = #{xlId,jdbcType=INTEGER},
+            </if>
+            <if test="qtlbId != null">
+                qtlb_id = #{qtlbId,jdbcType=INTEGER},
+            </if>
+            <if test="ppId != null">
+                pp_id = #{ppId,jdbcType=INTEGER},
+            </if>
+            <if test="lyxt != null">
+                lyxt = #{lyxt,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinGys">
+    update shangpin_gys
+    set spdm = #{spdm,jdbcType=VARCHAR},
+      spmc = #{spmc,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      xsj = #{xsj,jdbcType=DECIMAL},
+      dpj = #{dpj,jdbcType=DECIMAL},
+      ysj = #{ysj,jdbcType=DECIMAL},
+      shangpin_id = #{shangpinId,jdbcType=INTEGER},
+      cgj = #{cgj,jdbcType=DECIMAL},
+      gys_id = #{gysId,jdbcType=INTEGER},
+      qdl = #{qdl,jdbcType=INTEGER},
+      jldw_id = #{jldwId,jdbcType=INTEGER},
+      ck_id = #{ckId,jdbcType=INTEGER},
+      mrtp = #{mrtp,jdbcType=VARCHAR},
+      zl_id = #{zlId,jdbcType=INTEGER},
+      dl_id = #{dlId,jdbcType=INTEGER},
+      xl_id = #{xlId,jdbcType=INTEGER},
+      qtlb_id = #{qtlbId,jdbcType=INTEGER},
+      pp_id = #{ppId,jdbcType=INTEGER},
+      lyxt = #{lyxt,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    
+    <sql id="findShangPinGysDetailSql">
+        SELECT
+        sp.*,
+        gys.gysmc,
+        dw.jldwmc,
+        ck.ckmc,
+        zl.zlmc,
+        dl.dlmc,
+        xl.xlmc,
+        qt.qtlbmc,
+        pp.ppglmc
+        FROM
+        shangpin_gys sp
+        LEFT JOIN system_gys gys ON sp.gys_id = gys.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        LEFT JOIN system_cangku ck ON sp.ck_id = ck.id
+        LEFT JOIN shangpin_zl zl ON sp.zl_id = zl.id
+        LEFT JOIN shangpin_dl dl ON sp.dl_id = dl.id
+        LEFT JOIN shangpin_xl xl ON sp.xl_id = xl.id
+        LEFT JOIN shangpin_qtlb qt ON sp.qtlb_id = qt.id
+        LEFT JOIN shangpin_ppgl pp ON sp.pp_id = pp.id
+        <where>
+            <if test="sp.spdm != null and sp.spdm != ''">
+                and sp.spdm like CONCAT('%',#{sp.spdm},'%')
+            </if>
+            <if test="sp.spmc != null and sp.spmc != ''">
+                and sp.spmc like CONCAT('%',#{sp.spmc},'%')
+            </if>
+            <if test="sp.memo != null and sp.memo != ''">
+                and sp.memo like CONCAT('%',#{sp.memo},'%')
+            </if>
+            <if test="sp.gysmc != null and sp.gysmc != ''">
+                and gys.gysmc like CONCAT('%',#{sp.gysmc},'%')
+            </if>
+            <if test="sp.jldwmc != null and sp.jldwmc != ''">
+                and dw.jldwmc like CONCAT('%',#{sp.jldwmc},'%')
+            </if>
+            <if test="sp.ckmc != null and sp.ckmc != ''">
+                and ck.ckmc like CONCAT('%',#{sp.ckmc},'%')
+            </if>
+            <if test="sp.zlmc != null and sp.zlmc != ''">
+                and zl.zlmc like CONCAT('%',#{sp.zlmc},'%')
+            </if>
+            <if test="sp.dlmc != null and sp.dlmc != ''">
+                and dl.dlmc like CONCAT('%',#{sp.dlmc},'%')
+            </if>
+            <if test="sp.xlmc != null and sp.xlmc != ''">
+                and xl.xlmc like CONCAT('%',#{sp.xlmc},'%')
+            </if>
+            <if test="sp.qtlbmc != null and sp.qtlbmc != ''">
+                and qt.qtlbmc like CONCAT('%',#{sp.qtlbmc},'%')
+            </if>
+            <if test="sp.ppId != null">
+                and sp.pp_id = #{sp.ppId}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectDetailPage" resultType="cc.mrbird.febs.shangpin.entity.ShangpinGys">
+        <include refid="findShangPinGysDetailSql" />
+    </select>
+
+    <select id="selectDetail" resultType="cc.mrbird.febs.shangpin.entity.ShangpinGys">
+        <include refid="findShangPinGysDetailSql" />
+    </select>
+
+</mapper>
