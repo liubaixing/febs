@@ -7,6 +7,7 @@ import cc.mrbird.febs.basic.mapper.BasicLllyMapper;
 import cc.mrbird.febs.basic.service.IBasicLllyService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -62,6 +63,11 @@ public class BasicLllyServiceImpl extends ServiceImpl<BasicLllyMapper, BasicLlly
     public void createBasicLlly(BasicLlly basicLlly) {
         check(basicLlly);
         this.save(basicLlly);
+        if(StringUtils.isBlank(basicLlly.getLllydm())){
+            String dm = StringUtil.padStart(basicLlly.getId());
+            basicLlly.setLllydm(dm);
+            this.updateById(basicLlly);
+        }
     }
 
     @Override
@@ -70,7 +76,7 @@ public class BasicLllyServiceImpl extends ServiceImpl<BasicLllyMapper, BasicLlly
         if(basicLlly.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicLlly);
+        this.updateById(basicLlly);
     }
 
     @Override
@@ -84,10 +90,10 @@ public class BasicLllyServiceImpl extends ServiceImpl<BasicLllyMapper, BasicLlly
         LambdaQueryWrapper<BasicLlly> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicLlly.getLllydm())){
             queryWrapper.eq(BasicLlly::getLllydm,basicLlly.getLllydm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 }

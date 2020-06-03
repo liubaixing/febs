@@ -6,6 +6,7 @@ import cc.mrbird.febs.basic.mapper.BasicHsxmMapper;
 import cc.mrbird.febs.basic.service.IBasicHsxmService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -61,6 +62,11 @@ public class BasicHsxmServiceImpl extends ServiceImpl<BasicHsxmMapper, BasicHsxm
     public void createBasicHsxm(BasicHsxm basicHsxm) {
         check(basicHsxm);
         this.save(basicHsxm);
+        if(StringUtils.isBlank(basicHsxm.getHsxmdm())){
+            String dm = StringUtil.padStart(basicHsxm.getId());
+            basicHsxm.setHsxmdm(dm);
+            this.updateById(basicHsxm);
+        }
     }
 
     @Override
@@ -69,7 +75,7 @@ public class BasicHsxmServiceImpl extends ServiceImpl<BasicHsxmMapper, BasicHsxm
         if(basicHsxm.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicHsxm);
+        this.updateById(basicHsxm);
     }
 
     @Override
@@ -83,10 +89,10 @@ public class BasicHsxmServiceImpl extends ServiceImpl<BasicHsxmMapper, BasicHsxm
         LambdaQueryWrapper<BasicHsxm> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicHsxm.getHsxmdm())){
             queryWrapper.eq(BasicHsxm::getHsxmdm,basicHsxm.getHsxmdm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 }

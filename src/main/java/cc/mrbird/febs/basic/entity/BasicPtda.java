@@ -29,7 +29,6 @@ public class BasicPtda {
     /**
      * 平台档案代码
      */
-    @NotBlank(message = "{required}")
     @TableField("ptdadm")
     private String ptdadm;
 

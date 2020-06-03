@@ -49,7 +49,7 @@ public class BasicKhlbController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicKhlb", exceptionMessage = "新增BasicKhlb失败")
+    @ControllerEndpoint(operation = "新增客户类别", exceptionMessage = "新增客户类别失败")
     @PostMapping("")
     @RequiresPermissions("basicKhlb:add")
     public FebsResponse addBasicKhlb(@Valid BasicKhlb basicKhlb) {
@@ -57,7 +57,7 @@ public class BasicKhlbController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicKhlb", exceptionMessage = "删除BasicKhlb失败")
+    @ControllerEndpoint(operation = "删除客户类别", exceptionMessage = "删除客户类别失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicKhlb:delete")
     public FebsResponse deleteBasicKhlb(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicKhlbController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicKhlb", exceptionMessage = "修改BasicKhlb失败")
+    @ControllerEndpoint(operation = "修改客户类别", exceptionMessage = "修改客户类别失败")
     @PostMapping("/update")
     @RequiresPermissions("basicKhlb:update")
     public FebsResponse updateBasicKhlb(BasicKhlb basicKhlb) {

@@ -50,7 +50,7 @@ public class ${className}Controller extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增${className}", exceptionMessage = "新增${className}失败")
+    @ControllerEndpoint(operation = "新增${tableComment}", exceptionMessage = "新增${tableComment}失败")
     @PostMapping("")
     @RequiresPermissions("${className?uncap_first}:add")
     public FebsResponse add${className}(@Valid ${className} ${className?uncap_first}) {
@@ -58,7 +58,7 @@ public class ${className}Controller extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除${className}", exceptionMessage = "删除${className}失败")
+    @ControllerEndpoint(operation = "删除${tableComment}", exceptionMessage = "删除${tableComment}失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("${className?uncap_first}:delete")
     public FebsResponse delete${className}(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -67,7 +67,7 @@ public class ${className}Controller extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改${className}", exceptionMessage = "修改${className}失败")
+    @ControllerEndpoint(operation = "修改${tableComment}", exceptionMessage = "修改${tableComment}失败")
     @PostMapping("/update")
     @RequiresPermissions("${className?uncap_first}:update")
     public FebsResponse update${className}(${className} ${className?uncap_first}) {

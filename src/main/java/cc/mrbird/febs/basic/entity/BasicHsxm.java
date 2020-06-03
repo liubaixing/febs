@@ -29,7 +29,6 @@ public class BasicHsxm {
     /**
      * 核算项目代码
      */
-    @NotBlank(message = "{required}")
     @TableField("hsxmdm")
     private String hsxmdm;
 

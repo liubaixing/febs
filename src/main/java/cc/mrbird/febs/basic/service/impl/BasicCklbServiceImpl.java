@@ -6,6 +6,7 @@ import cc.mrbird.febs.basic.mapper.BasicCklbMapper;
 import cc.mrbird.febs.basic.service.IBasicCklbService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -61,6 +62,11 @@ public class BasicCklbServiceImpl extends ServiceImpl<BasicCklbMapper, BasicCklb
     public void createBasicCklb(BasicCklb basicCklb) {
         check(basicCklb);
         this.save(basicCklb);
+        if(StringUtils.isBlank(basicCklb.getCklbdm())){
+            String dm = StringUtil.padStart(basicCklb.getId());
+            basicCklb.setCklbdm(dm);
+            this.updateById(basicCklb);
+        }
     }
 
     @Override
@@ -69,7 +75,7 @@ public class BasicCklbServiceImpl extends ServiceImpl<BasicCklbMapper, BasicCklb
         if(basicCklb.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicCklb);
+        this.updateById(basicCklb);
     }
 
     @Override
@@ -83,10 +89,10 @@ public class BasicCklbServiceImpl extends ServiceImpl<BasicCklbMapper, BasicCklb
         LambdaQueryWrapper<BasicCklb> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicCklb.getCklbdm())){
             queryWrapper.eq(BasicCklb::getCklbdm,basicCklb.getCklbdm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 

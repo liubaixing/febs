@@ -49,7 +49,7 @@ public class BasicJldwController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicJldw", exceptionMessage = "新增BasicJldw失败")
+    @ControllerEndpoint(operation = "新增计量单位", exceptionMessage = "新增计量单位失败")
     @PostMapping("")
     @RequiresPermissions("basicJldw:add")
     public FebsResponse addBasicJldw(@Valid BasicJldw basicJldw) {
@@ -57,7 +57,7 @@ public class BasicJldwController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicJldw", exceptionMessage = "删除BasicJldw失败")
+    @ControllerEndpoint(operation = "删除计量单位", exceptionMessage = "删除计量单位失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicJldw:delete")
     public FebsResponse deleteBasicJldw(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicJldwController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicJldw", exceptionMessage = "修改BasicJldw失败")
+    @ControllerEndpoint(operation = "修改计量单位", exceptionMessage = "修改计量单位失败")
     @PostMapping("/update")
     @RequiresPermissions("basicJldw:update")
     public FebsResponse updateBasicJldw(BasicJldw basicJldw) {

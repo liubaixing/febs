@@ -51,7 +51,7 @@ public class Shangpin {
     /**
      * 唯一码
      */
-    @ApiModelProperty("唯一码")
+    @ApiModelProperty("唯一码（必填）")
     @ExcelField("唯一码")
     @NotBlank(message = "{required}")
     @TableField("memo")
@@ -88,7 +88,7 @@ public class Shangpin {
     /**
      * 默认供应商 供应商表id
      */
-    @ApiModelProperty("供应商表id")
+    @ApiModelProperty("供应商表id（必填）")
     @NotNull(message = "{required}")
     @TableField("gys_id")
     private Integer gysId;
@@ -108,7 +108,7 @@ public class Shangpin {
      * 计量单位 计量单位id
      */
     @NotNull(message = "计量单位不能为空")
-    @ApiModelProperty("计量单位id")
+    @ApiModelProperty("计量单位id（必填）")
     @TableField("jldw_id")
     private Integer jldwId;
 
@@ -118,7 +118,7 @@ public class Shangpin {
     /**
      * 默认仓库 仓库id
      */
-    @ApiModelProperty("仓库id")
+    @ApiModelProperty("仓库id（必填）")
     @NotNull(message = "仓库不能为空")
     @TableField("ck_id")
     private Integer ckId;
@@ -135,7 +135,7 @@ public class Shangpin {
     /**
      * 总类 Shangpin_zl总类id
      */
-    @ApiModelProperty("总类id")
+    @ApiModelProperty("总类id（必填）")
     @TableField("zl_id")
     @NotNull(message = "{required}")
     private Integer zlId;

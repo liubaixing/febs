@@ -93,7 +93,7 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
         if(shangpinGys.getId()==null){
             throw new FebsException("id不能为空，添加失败");
         }
-        this.saveOrUpdate(shangpinGys);
+        this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
     }
 
     @Override

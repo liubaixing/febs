@@ -7,6 +7,7 @@ import cc.mrbird.febs.basic.mapper.BasicXsfsMapper;
 import cc.mrbird.febs.basic.service.IBasicXsfsService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -62,6 +63,11 @@ public class BasicXsfsServiceImpl extends ServiceImpl<BasicXsfsMapper, BasicXsfs
     public void createBasicXsfs(BasicXsfs basicXsfs) {
         check(basicXsfs);
         this.save(basicXsfs);
+        if(StringUtils.isBlank(basicXsfs.getXsfsdm())){
+            String dm = StringUtil.padStart(basicXsfs.getId());
+            basicXsfs.setXsfsdm(dm);
+            this.updateById(basicXsfs);
+        }
     }
 
     @Override
@@ -70,7 +76,7 @@ public class BasicXsfsServiceImpl extends ServiceImpl<BasicXsfsMapper, BasicXsfs
         if(basicXsfs.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicXsfs);
+        this.updateById(basicXsfs);
     }
 
     @Override
@@ -84,10 +90,10 @@ public class BasicXsfsServiceImpl extends ServiceImpl<BasicXsfsMapper, BasicXsfs
         LambdaQueryWrapper<BasicXsfs> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicXsfs.getXsfsdm())){
             queryWrapper.eq(BasicXsfs::getXsfsdm,basicXsfs.getXsfsdm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 }

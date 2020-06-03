@@ -49,7 +49,7 @@ public class BasicHsxmController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicHsxm", exceptionMessage = "新增BasicHsxm失败")
+    @ControllerEndpoint(operation = "新增核算项目", exceptionMessage = "新增核算项目失败")
     @PostMapping("")
     @RequiresPermissions("basicHsxm:add")
     public FebsResponse addBasicHsxm(@Valid BasicHsxm basicHsxm) {
@@ -57,7 +57,7 @@ public class BasicHsxmController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicHsxm", exceptionMessage = "删除BasicHsxm失败")
+    @ControllerEndpoint(operation = "删除核算项目", exceptionMessage = "删除核算项目失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicHsxm:delete")
     public FebsResponse deleteBasicHsxm(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicHsxmController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicHsxm", exceptionMessage = "修改BasicHsxm失败")
+    @ControllerEndpoint(operation = "修改核算项目", exceptionMessage = "修改核算项目失败")
     @PostMapping("/update")
     @RequiresPermissions("basicHsxm:update")
     public FebsResponse updateBasicHsxm(BasicHsxm basicHsxm) {

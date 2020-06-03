@@ -29,7 +29,6 @@ public class BasicDjlx {
     /**
      * 单据类型代码
      */
-    @NotBlank(message = "{required}")
     @TableField("djlxdm")
     private String djlxdm;
 

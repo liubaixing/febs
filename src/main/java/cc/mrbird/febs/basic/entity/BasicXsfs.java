@@ -29,7 +29,6 @@ public class BasicXsfs {
     /**
      * 销售方式代码
      */
-    @NotBlank(message = "{required}")
     @TableField("xsfsdm")
     private String xsfsdm;
 

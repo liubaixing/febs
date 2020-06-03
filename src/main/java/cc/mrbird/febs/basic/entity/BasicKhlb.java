@@ -29,7 +29,6 @@ public class BasicKhlb {
     /**
      * 客户类别代码
      */
-    @NotBlank(message = "{required}")
     @TableField("khlydm")
     private String khlydm;
 

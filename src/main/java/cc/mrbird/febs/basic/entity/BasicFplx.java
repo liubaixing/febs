@@ -29,7 +29,6 @@ public class BasicFplx {
     /**
      * 发票类型代码
      */
-    @NotBlank(message = "{required}")
     @TableField("fplxdm")
     private String fplxdm;
 

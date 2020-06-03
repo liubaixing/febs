@@ -7,6 +7,7 @@ import cc.mrbird.febs.basic.mapper.BasicKhqyMapper;
 import cc.mrbird.febs.basic.service.IBasicKhqyService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -62,6 +63,11 @@ public class BasicKhqyServiceImpl extends ServiceImpl<BasicKhqyMapper, BasicKhqy
     public void createBasicKhqy(BasicKhqy basicKhqy) {
         check(basicKhqy);
         this.save(basicKhqy);
+        if(StringUtils.isBlank(basicKhqy.getKhqydm())){
+            String dm = StringUtil.padStart(basicKhqy.getId());
+            basicKhqy.setKhqydm(dm);
+            this.updateById(basicKhqy);
+        }
     }
 
     @Override
@@ -70,7 +76,7 @@ public class BasicKhqyServiceImpl extends ServiceImpl<BasicKhqyMapper, BasicKhqy
         if(basicKhqy.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicKhqy);
+        this.updateById(basicKhqy);
     }
 
     @Override
@@ -84,10 +90,10 @@ public class BasicKhqyServiceImpl extends ServiceImpl<BasicKhqyMapper, BasicKhqy
         LambdaQueryWrapper<BasicKhqy> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicKhqy.getKhqydm())){
             queryWrapper.eq(BasicKhqy::getKhqydm,basicKhqy.getKhqydm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 }

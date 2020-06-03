@@ -29,7 +29,6 @@ public class BasicKhyh {
     /**
      * 开户银行代码
      */
-    @NotBlank(message = "{required}")
     @TableField("khyhdm")
     private String khyhdm;
 

@@ -49,7 +49,7 @@ public class BasicFpsdController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicFpsd", exceptionMessage = "新增BasicFpsd失败")
+    @ControllerEndpoint(operation = "新增发票税点", exceptionMessage = "新增发票税点失败")
     @PostMapping("")
     @RequiresPermissions("basicFpsd:add")
     public FebsResponse addBasicFpsd(@Valid BasicFpsd basicFpsd) {
@@ -57,7 +57,7 @@ public class BasicFpsdController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicFpsd", exceptionMessage = "删除BasicFpsd失败")
+    @ControllerEndpoint(operation = "删除发票税点", exceptionMessage = "删除发票税点失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicFpsd:delete")
     public FebsResponse deleteBasicFpsd(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicFpsdController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicFpsd", exceptionMessage = "修改BasicFpsd失败")
+    @ControllerEndpoint(operation = "修改发票税点", exceptionMessage = "修改发票税点失败")
     @PostMapping("/update")
     @RequiresPermissions("basicFpsd:update")
     public FebsResponse updateBasicFpsd(BasicFpsd basicFpsd) {

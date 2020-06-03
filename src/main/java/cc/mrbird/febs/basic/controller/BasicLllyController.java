@@ -49,7 +49,7 @@ public class BasicLllyController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicLlly", exceptionMessage = "新增BasicLlly失败")
+    @ControllerEndpoint(operation = "新增流量来源", exceptionMessage = "新增流量来源失败")
     @PostMapping("")
     @RequiresPermissions("basicLlly:add")
     public FebsResponse addBasicLlly(@Valid BasicLlly basicLlly) {
@@ -57,7 +57,7 @@ public class BasicLllyController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicLlly", exceptionMessage = "删除BasicLlly失败")
+    @ControllerEndpoint(operation = "删除流量来源", exceptionMessage = "删除流量来源失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicLlly:delete")
     public FebsResponse deleteBasicLlly(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicLllyController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicLlly", exceptionMessage = "修改BasicLlly失败")
+    @ControllerEndpoint(operation = "修改流量来源", exceptionMessage = "修改流量来源失败")
     @PostMapping("/update")
     @RequiresPermissions("basicLlly:update")
     public FebsResponse updateBasicLlly(BasicLlly basicLlly) {

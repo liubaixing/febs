@@ -76,11 +76,13 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     @Override
     @Transactional
     public void createShangpin(Shangpin shangpin) {
-        Integer dm = commonService.incr(IncrEnum.SHANGPIN.getCode());
-        shangpin.setSpdm(String.format("%07d", dm));
         shangpin.setCreateTime(new Date());
         check(shangpin);
         this.save(shangpin);
+        if(StringUtils.isBlank(shangpin.getSpdm())){
+            Integer dm = shangpin.getId();
+            shangpin.setSpdm(String.format("%07d", dm));
+        }
     }
 
     @Override
@@ -89,7 +91,7 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
         if(shangpin.getId()==null){
             throw new FebsException("id不能为空，添加失败");
         }
-        this.saveOrUpdate(shangpin);
+        this.shangpinMapper.updateByPrimaryKeySelective(shangpin);
     }
 
     @Override

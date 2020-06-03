@@ -49,7 +49,7 @@ public class BasicFplxController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicFplx", exceptionMessage = "新增BasicFplx失败")
+    @ControllerEndpoint(operation = "新增发票类型", exceptionMessage = "新增发票类型失败")
     @PostMapping("")
     @RequiresPermissions("basicFplx:add")
     public FebsResponse addBasicFplx(@Valid BasicFplx basicFplx) {
@@ -57,7 +57,7 @@ public class BasicFplxController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicFplx", exceptionMessage = "删除BasicFplx失败")
+    @ControllerEndpoint(operation = "删除发票类型", exceptionMessage = "删除发票类型失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicFplx:delete")
     public FebsResponse deleteBasicFplx(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicFplxController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicFplx", exceptionMessage = "修改BasicFplx失败")
+    @ControllerEndpoint(operation = "修改发票类型", exceptionMessage = "修改发票类型失败")
     @PostMapping("/update")
     @RequiresPermissions("basicFplx:update")
     public FebsResponse updateBasicFplx(BasicFplx basicFplx) {
