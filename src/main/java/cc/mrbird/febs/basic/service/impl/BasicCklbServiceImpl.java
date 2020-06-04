@@ -5,6 +5,7 @@ import cc.mrbird.febs.basic.entity.BasicKhly;
 import cc.mrbird.febs.basic.mapper.BasicCklbMapper;
 import cc.mrbird.febs.basic.service.IBasicCklbService;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.enums.IncrEnum;
 import cc.mrbird.febs.common.exception.FebsException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +63,10 @@ public class BasicCklbServiceImpl extends ServiceImpl<BasicCklbMapper, BasicCklb
     public void createBasicCklb(BasicCklb basicCklb) {
         check(basicCklb);
         this.save(basicCklb);
+        Integer dm = basicCklb.getId();
+        basicCklb.setCklbdm(String.format("%07d", dm));
+        basicCklb.setCreateTime(new Date());
+        this.saveOrUpdate(basicCklb);
     }
 
     @Override
