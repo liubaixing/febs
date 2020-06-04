@@ -29,15 +29,15 @@ public class BasicKhlb {
     /**
      * 客户类别代码
      */
-    @TableField("khlydm")
-    private String khlydm;
+    @TableField("khlbdm")
+    private String khlbdm;
 
     /**
      * 客户类别名称
      */
     @NotBlank(message = "{required}")
-    @TableField("khlymc")
-    private String khlymc;
+    @TableField("khlbmc")
+    private String khlbmc;
 
     /**
      * 备注

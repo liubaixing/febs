@@ -10,6 +10,7 @@ import cc.mrbird.febs.common.utils.MapUtil;
 import cc.mrbird.febs.shangpin.entity.Shangpin;
 import cc.mrbird.febs.shangpin.entity.ShangpinGys;
 import cc.mrbird.febs.shangpin.service.IShangpinGysService;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinGysResp;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.google.common.collect.Lists;
 import com.wuwenze.poi.ExcelKit;
@@ -52,14 +53,14 @@ public class ShangpinGysController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("shangpinGys:list")
-    public FebsResponse getAllShangpinGyss(ShangpinGys shangpinGys) {
+    public FebsResponse getAllShangpinGyss(ShangpinGysResp shangpinGys) {
         return new FebsResponse().success().data(shangpinGysService.findShangpinGyss(shangpinGys));
     }
 
     @ApiOperation("全部查询")
     @GetMapping("/list")
     @RequiresPermissions("shangpinGys:list")
-    public FebsResponse shangpinGysList(QueryRequest request, ShangpinGys shangpinGys) {
+    public FebsResponse shangpinGysList(QueryRequest request, ShangpinGysResp shangpinGys) {
         Map<String, Object> dataTable = getDataTable(this.shangpinGysService.findShangpinGyss(request, shangpinGys));
         return new FebsResponse().success().data(dataTable);
     }
@@ -116,13 +117,13 @@ public class ShangpinGysController extends BaseController {
     public ResponseEntity<?> excelImport(@RequestParam MultipartFile file) throws IOException {
         long beginMillis = System.currentTimeMillis();
 
-        List<ShangpinGys> successList = Lists.newArrayList();
+        List<ShangpinGysResp> successList = Lists.newArrayList();
         List<Map<String, Object>> errorList = Lists.newArrayList();
 
-        ExcelKit.$Import(ShangpinGys.class)
-                .readXlsx(file.getInputStream(), new ExcelReadHandler<ShangpinGys>() {
+        ExcelKit.$Import(ShangpinGysResp.class)
+                .readXlsx(file.getInputStream(), new ExcelReadHandler<ShangpinGysResp>() {
                     @Override
-                    public void onSuccess(int sheetIndex, int rowIndex, ShangpinGys entity) {
+                    public void onSuccess(int sheetIndex, int rowIndex, ShangpinGysResp entity) {
                         successList.add(entity); // 单行读取成功，加入入库队列。
                     }
                     @Override

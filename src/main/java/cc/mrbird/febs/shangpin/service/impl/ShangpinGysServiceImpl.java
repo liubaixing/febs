@@ -6,9 +6,11 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.enums.IncrEnum;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.service.CommonService;
+import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.shangpin.entity.*;
 import cc.mrbird.febs.shangpin.mapper.*;
 import cc.mrbird.febs.shangpin.service.IShangpinGysService;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinGysResp;
 import cc.mrbird.febs.system.entity.Cangku;
 import cc.mrbird.febs.system.entity.Gys;
 import cc.mrbird.febs.system.mapper.CangkuMapper;
@@ -80,11 +82,14 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
     @Override
     @Transactional
     public void createShangpinGys(ShangpinGys shangpinGys) {
-        Integer dm = commonService.incr(IncrEnum.SHANGPIN_GYS.getCode());
-        shangpinGys.setSpdm(String.format("%07d", dm));
-        shangpinGys.setCreateTime(new Date());
         check(shangpinGys);
-        this.save(shangpinGys);
+        shangpinGys.setCreateTime(new Date());
+        this.shangpinGysMapper.insertSelective(shangpinGys);
+        if(StringUtils.isBlank(shangpinGys.getSpdm())){
+            String dm = StringUtil.padStart(shangpinGys.getId());
+            shangpinGys.setSpdm(dm);
+            this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
+        }
     }
 
     @Override
@@ -118,21 +123,14 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
 
     @Override
     @Transactional
-    public void saveImport(List<ShangpinGys> data){
-        for(ShangpinGys sp:data){
+    public void saveImport(List<ShangpinGysResp> data){
+        for(ShangpinGysResp sp:data){
             if(StringUtils.isNotBlank(sp.getPpglmc())){
                 LambdaQueryWrapper<ShangpinPpgl> queryWrapper = new LambdaQueryWrapper<>();
                 queryWrapper.eq(ShangpinPpgl::getPpglmc,sp.getPpglmc());
                 ShangpinPpgl ppgl = ppglMapper.selectOne(queryWrapper);
                 if(ppgl == null) throw new FebsException("Excel品牌名称数据异常，导入失败！");
                 sp.setPpId(ppgl.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getCkmc())){
-                LambdaQueryWrapper<Cangku> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(Cangku::getCkmc,sp.getCkmc());
-                Cangku ck = ckMapper.selectOne(queryWrapper);
-                if(ck == null) throw new FebsException("Excel仓库名称数据异常，导入失败！");
-                sp.setCkId(ck.getId());
             }
             if(StringUtils.isNotBlank(sp.getZlmc())){
                 LambdaQueryWrapper<ShangpinZl> queryWrapper = new LambdaQueryWrapper<>();
@@ -185,10 +183,13 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
 
 	private void check(ShangpinGys shangpinGys) throws FebsException{
         LambdaQueryWrapper<ShangpinGys> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ShangpinGys::getMemo,shangpinGys.getMemo());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("唯一码重复，添加失败");
+        if(StringUtils.isNotBlank(shangpinGys.getSpdm())){
+            queryWrapper.eq(ShangpinGys::getSpdm,shangpinGys.getSpdm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("唯一码重复，添加失败");
+            }
         }
+
     }
 }

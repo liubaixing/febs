@@ -7,6 +7,9 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.utils.MapUtil;
 import cc.mrbird.febs.shangpin.entity.Shangpin;
 import cc.mrbird.febs.shangpin.service.IShangpinService;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinResp;
+import cc.mrbird.febs.system.vo.resp.KehuResp;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.google.common.collect.Lists;
 import com.wuwenze.poi.ExcelKit;
@@ -27,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -49,14 +54,14 @@ public class ShangpinController extends BaseController {
     @ApiOperation("全部查询")
     @GetMapping("")
     @RequiresPermissions("shangpin:list")
-    public FebsResponse getAllShangpins(Shangpin shangpin) {
+    public FebsResponse getAllShangpins(ShangpinResp shangpin) {
         return new FebsResponse().success().data(shangpinService.findShangpins(shangpin));
     }
 
     @ApiOperation("分页查询")
     @GetMapping("/list")
     @RequiresPermissions("shangpin:list")
-    public FebsResponse shangpinList(QueryRequest request, Shangpin shangpin) {
+    public FebsResponse shangpinList(QueryRequest request, ShangpinResp shangpin) {
         Map<String, Object> dataTable = getDataTable(this.shangpinService.findShangpins(request, shangpin));
         return new FebsResponse().success().data(dataTable);
     }
@@ -93,9 +98,14 @@ public class ShangpinController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("shangpin:export")
-    public void export(QueryRequest queryRequest, Shangpin shangpin, HttpServletResponse response) {
+    public void export(QueryRequest queryRequest, Shangpin shangpin, HttpServletResponse response) throws IOException {
         List<Shangpin> shangpins = this.shangpinService.findShangpins(queryRequest, shangpin).getRecords();
-        ExcelKit.$Export(Shangpin.class, response).downXlsx(shangpins, false);
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode("客户管理", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), KehuResp.class).sheet("sheet1").doWrite(shangpins);
+
     }
 
     @ApiOperation("导入")
@@ -104,13 +114,13 @@ public class ShangpinController extends BaseController {
     public ResponseEntity<?> excelImport(@RequestParam MultipartFile file) throws IOException{
         long beginMillis = System.currentTimeMillis();
 
-        List<Shangpin> successList = Lists.newArrayList();
+        List<ShangpinResp> successList = Lists.newArrayList();
         List<Map<String, Object>> errorList = Lists.newArrayList();
 
-        ExcelKit.$Import(Shangpin.class)
-                .readXlsx(file.getInputStream(), new ExcelReadHandler<Shangpin>() {
+        ExcelKit.$Import(ShangpinResp.class)
+                .readXlsx(file.getInputStream(), new ExcelReadHandler<ShangpinResp>() {
                     @Override
-                    public void onSuccess(int sheetIndex, int rowIndex, Shangpin entity) {
+                    public void onSuccess(int sheetIndex, int rowIndex, ShangpinResp entity) {
                         successList.add(entity); // 单行读取成功，加入入库队列。
                     }
                     @Override

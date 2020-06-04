@@ -1,7 +1,6 @@
 package cc.mrbird.febs.system.entity;
 
 import cc.mrbird.febs.common.annotation.IsMobile;
-import cc.mrbird.febs.common.converter.TimeConverter;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -128,21 +127,18 @@ public class User implements Serializable {
      * 创建时间
      */
     @TableField("CREATE_TIME")
-    @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
     /**
      * 修改时间
      */
     @TableField("MODIFY_TIME")
-    @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
     private Date modifyTime;
 
     /**
      * 最近访问时间
      */
     @TableField("LAST_LOGIN_TIME")
-    @ExcelField(value = "最近访问时间", writeConverter = TimeConverter.class)
     @JsonFormat(pattern = "yyyy年MM月dd日 HH时mm分ss秒", timezone = "GMT+8")
     private Date lastLoginTime;
 

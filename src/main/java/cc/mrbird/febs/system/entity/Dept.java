@@ -1,6 +1,5 @@
 package cc.mrbird.febs.system.entity;
 
-import cc.mrbird.febs.common.converter.TimeConverter;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -57,11 +56,9 @@ public class Dept implements Serializable {
      * 创建时间
      */
     @TableField("CREATE_TIME")
-    @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
     @TableField("MODIFY_TIME")
-    @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
     private Date modifyTime;
 
 }

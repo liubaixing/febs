@@ -3,6 +3,7 @@ package cc.mrbird.febs.shangpin.service;
 import cc.mrbird.febs.shangpin.entity.Shangpin;
 
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinResp;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -51,5 +52,5 @@ public interface IShangpinService extends IService<Shangpin> {
      */
     void deleteShangpin(String[] ids);
 
-    void saveImport(List<Shangpin> data);
+    void saveImport(List<ShangpinResp> data);
 }

@@ -38,11 +38,11 @@ public class BasicKhlbServiceImpl extends ServiceImpl<BasicKhlbMapper, BasicKhlb
     public IPage<BasicKhlb> findBasicKhlbs(QueryRequest request, BasicKhlb basicKhlb) {
         LambdaQueryWrapper<BasicKhlb> queryWrapper = new LambdaQueryWrapper<>();
         // TODO 设置查询条件
-        if(StringUtils.isNotBlank(basicKhlb.getKhlydm())){
-            queryWrapper.like(BasicKhlb::getKhlydm,basicKhlb.getKhlydm());
+        if(StringUtils.isNotBlank(basicKhlb.getKhlbdm())){
+            queryWrapper.like(BasicKhlb::getKhlbdm,basicKhlb.getKhlbdm());
         }
-        if(StringUtils.isNotBlank(basicKhlb.getKhlymc())){
-            queryWrapper.like(BasicKhlb::getKhlymc,basicKhlb.getKhlymc());
+        if(StringUtils.isNotBlank(basicKhlb.getKhlbmc())){
+            queryWrapper.like(BasicKhlb::getKhlbmc,basicKhlb.getKhlbmc());
         }
         if(basicKhlb.getStatus()!=null){
             queryWrapper.eq(BasicKhlb::getStatus,basicKhlb.getStatus());
@@ -63,9 +63,9 @@ public class BasicKhlbServiceImpl extends ServiceImpl<BasicKhlbMapper, BasicKhlb
     public void createBasicKhlb(BasicKhlb basicKhlb) {
         check(basicKhlb);
         this.save(basicKhlb);
-        if(StringUtils.isBlank(basicKhlb.getKhlydm())){
+        if(StringUtils.isBlank(basicKhlb.getKhlbdm())){
             String dm = StringUtil.padStart(basicKhlb.getId());
-            basicKhlb.setKhlydm(dm);
+            basicKhlb.setKhlbdm(dm);
             this.updateById(basicKhlb);
         }
     }
@@ -88,8 +88,8 @@ public class BasicKhlbServiceImpl extends ServiceImpl<BasicKhlbMapper, BasicKhlb
 
 	private void check(BasicKhlb basicKhlb) throws FebsException{
         LambdaQueryWrapper<BasicKhlb> queryWrapper = new LambdaQueryWrapper<>();
-        if(StringUtils.isNotBlank(basicKhlb.getKhlydm())){
-            queryWrapper.eq(BasicKhlb::getKhlydm,basicKhlb.getKhlydm());
+        if(StringUtils.isNotBlank(basicKhlb.getKhlbdm())){
+            queryWrapper.eq(BasicKhlb::getKhlbdm,basicKhlb.getKhlbdm());
             Integer count = this.baseMapper.selectCount(queryWrapper);
             if (count>0) {
                 throw new FebsException("代码重复，添加失败");

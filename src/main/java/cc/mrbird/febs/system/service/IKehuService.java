@@ -3,6 +3,7 @@ package cc.mrbird.febs.system.service;
 import cc.mrbird.febs.system.entity.Kehu;
 
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.system.vo.resp.KehuResp;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -22,7 +23,7 @@ public interface IKehuService extends IService<Kehu> {
      * @param kehu kehu
      * @return IPage<Kehu>
      */
-    IPage<Kehu> findKehus(QueryRequest request, Kehu kehu);
+    IPage<KehuResp> findKehus(QueryRequest request, KehuResp kehu);
 
     /**
      * 查询（所有）
@@ -30,7 +31,7 @@ public interface IKehuService extends IService<Kehu> {
      * @param kehu kehu
      * @return List<Kehu>
      */
-    List<Kehu> findKehus(Kehu kehu);
+    List<KehuResp> findKehus(KehuResp kehu);
 
     /**
      * 新增

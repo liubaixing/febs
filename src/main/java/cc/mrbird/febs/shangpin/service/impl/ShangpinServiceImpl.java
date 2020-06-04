@@ -9,6 +9,7 @@ import cc.mrbird.febs.common.service.CommonService;
 import cc.mrbird.febs.shangpin.entity.*;
 import cc.mrbird.febs.shangpin.mapper.*;
 import cc.mrbird.febs.shangpin.service.IShangpinService;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinResp;
 import cc.mrbird.febs.system.entity.Cangku;
 import cc.mrbird.febs.system.entity.Gys;
 import cc.mrbird.febs.system.mapper.CangkuMapper;
@@ -44,9 +45,6 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     private ShangpinPpglMapper ppglMapper;
 
     @Autowired
-    private CangkuMapper ckMapper;
-
-    @Autowired
     private ShangpinZlMapper zlMapper;
     @Autowired
     private ShangpinDlMapper dlMapper;
@@ -76,9 +74,9 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     @Override
     @Transactional
     public void createShangpin(Shangpin shangpin) {
-        shangpin.setCreateTime(new Date());
         check(shangpin);
-        this.save(shangpin);
+        shangpin.setCreateTime(new Date());
+        this.shangpinMapper.insertSelective(shangpin);
         if(StringUtils.isBlank(shangpin.getSpdm())){
             Integer dm = shangpin.getId();
             shangpin.setSpdm(String.format("%07d", dm));
@@ -102,21 +100,14 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
 	}
     @Override
     @Transactional
-    public void saveImport(List<Shangpin> data){
-        for(Shangpin sp:data){
+    public void saveImport(List<ShangpinResp> data){
+        for(ShangpinResp sp:data){
             if(StringUtils.isNotBlank(sp.getPpglmc())){
                 LambdaQueryWrapper<ShangpinPpgl> queryWrapper = new LambdaQueryWrapper<>();
                 queryWrapper.eq(ShangpinPpgl::getPpglmc,sp.getPpglmc());
                 ShangpinPpgl ppgl = ppglMapper.selectOne(queryWrapper);
                 if(ppgl == null) throw new FebsException("Excel品牌名称数据异常，导入失败！");
                 sp.setPpId(ppgl.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getCkmc())){
-                LambdaQueryWrapper<Cangku> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(Cangku::getCkmc,sp.getCkmc());
-                Cangku ck = ckMapper.selectOne(queryWrapper);
-                if(ck == null) throw new FebsException("Excel仓库名称数据异常，导入失败！");
-                sp.setCkId(ck.getId());
             }
             if(StringUtils.isNotBlank(sp.getZlmc())){
                 LambdaQueryWrapper<ShangpinZl> queryWrapper = new LambdaQueryWrapper<>();
@@ -170,11 +161,14 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
 
 	private void check(Shangpin shangpin) throws FebsException{
         LambdaQueryWrapper<Shangpin> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Shangpin::getMemo,shangpin.getMemo());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("唯一码重复，添加失败");
+        if(StringUtils.isNotBlank(shangpin.getSpdm())){
+            queryWrapper.eq(Shangpin::getSpdm,shangpin.getSpdm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("唯一码重复，添加失败");
+            }
         }
+
     }
 
 }
