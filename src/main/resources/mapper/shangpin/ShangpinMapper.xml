@@ -6,6 +6,7 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="spdm" jdbcType="VARCHAR" property="spdm" />
         <result column="spmc" jdbcType="VARCHAR" property="spmc" />
+        <result column="memo" jdbcType="VARCHAR" property="memo" />
         <result column="xsj" jdbcType="DECIMAL" property="xsj" />
         <result column="dpj" jdbcType="DECIMAL" property="dpj" />
         <result column="ysj" jdbcType="DECIMAL" property="ysj" />
@@ -142,6 +143,9 @@
             <if test="spmc != null">
                 spmc,
             </if>
+            <if test="memo != null">
+                memo,
+            </if>
             <if test="xsj != null">
                 xsj,
             </if>
@@ -200,6 +204,9 @@
             </if>
             <if test="spmc != null">
                 #{spmc,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
             </if>
             <if test="xsj != null">
                 #{xsj,jdbcType=DECIMAL},
@@ -363,6 +370,9 @@
             <if test="spmc != null">
                 spmc = #{spmc,jdbcType=VARCHAR},
             </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
             <if test="xsj != null">
                 xsj = #{xsj,jdbcType=DECIMAL},
             </if>
@@ -441,38 +451,6 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <resultMap id="BaseResultMapVO" type="cc.mrbird.febs.shangpin.entity.Shangpin">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="spdm" jdbcType="VARCHAR" property="spdm" />
-        <result column="spmc" jdbcType="VARCHAR" property="spmc" />
-        <result column="xsj" jdbcType="DECIMAL" property="xsj" />
-        <result column="dpj" jdbcType="DECIMAL" property="dpj" />
-        <result column="ysj" jdbcType="DECIMAL" property="ysj" />
-        <result column="cgj" jdbcType="DECIMAL" property="cgj" />
-        <result column="gys_id" jdbcType="INTEGER" property="gysId" />
-        <result column="qdl" jdbcType="INTEGER" property="qdl" />
-        <result column="jldw_id" jdbcType="INTEGER" property="jldwId" />
-        <result column="mrtp" jdbcType="VARCHAR" property="mrtp" />
-        <result column="zl_id" jdbcType="INTEGER" property="zlId" />
-        <result column="dl_id" jdbcType="INTEGER" property="dlId" />
-        <result column="xl_id" jdbcType="INTEGER" property="xlId" />
-        <result column="qtlb_id" jdbcType="INTEGER" property="qtlbId" />
-        <result column="status" jdbcType="INTEGER" property="status" />
-        <result column="pp_id" jdbcType="INTEGER" property="ppId" />
-
-
-        <result column="gysmc" jdbcType="VARCHAR" property="gysmc" />
-        <result column="jldwmc" jdbcType="VARCHAR" property="jldwmc" />
-        <result column="zlmc" jdbcType="VARCHAR" property="zlmc" />
-        <result column="dlmc" jdbcType="VARCHAR" property="dlmc" />
-        <result column="xlmc" jdbcType="VARCHAR" property="xlmc" />
-        <result column="qtlbmc" jdbcType="VARCHAR" property="qtlbmc" />
-        <result column="ppglmc" jdbcType="VARCHAR" property="ppglmc" />
-
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-        <result column="deleted" jdbcType="INTEGER" property="deleted" />
-    </resultMap>
 
     <sql id="findShangPinDetailSql">
         SELECT
@@ -499,6 +477,9 @@
             </if>
             <if test="sp.spmc != null and sp.spmc != ''">
                 and sp.spmc like CONCAT('%',#{sp.spmc},'%')
+            </if>
+            <if test="sp.memo != null and sp.memo != ''">
+                and sp.memo like CONCAT('%',#{sp.memo},'%')
             </if>
             <if test="sp.gysmc != null and sp.gysmc != ''">
                 and gys.gysmc like CONCAT('%',#{sp.gysmc},'%')
@@ -536,11 +517,11 @@
         </where>
     </sql>
 
-    <select id="selectDetailPage" resultType="cc.mrbird.febs.shangpin.entity.Shangpin">
+    <select id="selectDetailPage" resultType="cc.mrbird.febs.shangpin.vo.resp.ShangpinResp">
         <include refid="findShangPinDetailSql" />
     </select>
 
-    <select id="selectDetail" resultType="cc.mrbird.febs.shangpin.entity.Shangpin">
+    <select id="selectDetail" resultType="cc.mrbird.febs.shangpin.vo.resp.ShangpinResp">
         <include refid="findShangPinDetailSql" />
     </select>
 </mapper>

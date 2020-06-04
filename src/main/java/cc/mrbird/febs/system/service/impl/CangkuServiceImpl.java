@@ -2,6 +2,7 @@ package cc.mrbird.febs.system.service.impl;
 
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.system.entity.Cangku;
 import cc.mrbird.febs.system.mapper.CangkuMapper;
 import cc.mrbird.febs.system.service.ICangkuService;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +73,13 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
     @Transactional
     public void createCangku(Cangku cangku) {
         check(cangku);
-        this.save(cangku);
+        cangku.setCreateTime(new Date());
+        this.cangkuMapper.insertSelective(cangku);
+        if(StringUtils.isBlank(cangku.getCkdm())){
+            String dm = StringUtil.padStart(cangku.getId());
+            cangku.setCkdm(dm);
+            this.cangkuMapper.updateByPrimaryKeySelective(cangku);
+        }
     }
 
     @Override
@@ -80,7 +88,7 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
         if(cangku.getId()==null){
             throw new FebsException("id不能为空，添加失败");
         }
-        this.saveOrUpdate(cangku);
+        this.cangkuMapper.updateByPrimaryKeySelective(cangku);
     }
 
     @Override
@@ -92,10 +100,12 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
 
 	private void check(Cangku cangku) throws FebsException{
         LambdaQueryWrapper<Cangku> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Cangku::getCkdm,cangku.getCkdm());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
+        if(StringUtils.isNotBlank(cangku.getCkdm())){
+            queryWrapper.eq(Cangku::getCkdm,cangku.getCkdm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("数据已存在，添加失败");
+            }
         }
     }
 }

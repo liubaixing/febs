@@ -98,14 +98,13 @@ public class ShangpinController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("shangpin:export")
-    public void export(QueryRequest queryRequest, Shangpin shangpin, HttpServletResponse response) throws IOException {
-        List<Shangpin> shangpins = this.shangpinService.findShangpins(queryRequest, shangpin).getRecords();
+    public void export(QueryRequest queryRequest, ShangpinResp shangpin, HttpServletResponse response) throws IOException {
+        List<ShangpinResp> shangpins = this.shangpinService.findShangpins(queryRequest, shangpin).getRecords();
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("客户管理", "UTF-8");
+        String fileName = URLEncoder.encode("商品", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), KehuResp.class).sheet("sheet1").doWrite(shangpins);
-
+        EasyExcel.write(response.getOutputStream(), ShangpinResp.class).sheet("sheet1").doWrite(shangpins);
     }
 
     @ApiOperation("导入")

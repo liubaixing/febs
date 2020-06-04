@@ -2,6 +2,459 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cc.mrbird.febs.system.mapper.GysMapper">
 
+    <resultMap id="BaseResultMap" type="cc.mrbird.febs.system.entity.Gys">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="gysdm" jdbcType="VARCHAR" property="gysdm" />
+        <result column="gysmc" jdbcType="VARCHAR" property="gysmc" />
+        <result column="lsr" jdbcType="VARCHAR" property="lsr" />
+        <result column="lsrdh" jdbcType="VARCHAR" property="lsrdh" />
+        <result column="wx" jdbcType="VARCHAR" property="wx" />
+        <result column="qq" jdbcType="VARCHAR" property="qq" />
+        <result column="hy" jdbcType="VARCHAR" property="hy" />
+        <result column="cgfzr" jdbcType="VARCHAR" property="cgfzr" />
+        <result column="xdfzr" jdbcType="VARCHAR" property="xdfzr" />
+        <result column="fplx_id" jdbcType="INTEGER" property="fplxId" />
+        <result column="fpsd_id" jdbcType="INTEGER" property="fpsdId" />
+        <result column="sfyj" jdbcType="VARCHAR" property="sfyj" />
+        <result column="memo" jdbcType="VARCHAR" property="memo" />
+        <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+        <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+        <result column="ex3" jdbcType="VARCHAR" property="ex3" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, gysdm, gysmc, lsr, lsrdh, wx, qq, hy, cgfzr, xdfzr, fplx_id, fpsd_id, sfyj, memo, 
+    ex1, ex2, ex3, `status`, create_time, update_time, deleted
+  </sql>
+    <select id="selectByExample" parameterType="cc.mrbird.febs.system.entity.GysExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from system_gys
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from system_gys
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from system_gys
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="cc.mrbird.febs.system.entity.GysExample">
+        delete from system_gys
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gys" useGeneratedKeys="true">
+    insert into system_gys (gysdm, gysmc, lsr, 
+      lsrdh, wx, qq, hy, 
+      cgfzr, xdfzr, fplx_id, 
+      fpsd_id, sfyj, memo, 
+      ex1, ex2, ex3, `status`, 
+      create_time, update_time, deleted
+      )
+    values (#{gysdm,jdbcType=VARCHAR}, #{gysmc,jdbcType=VARCHAR}, #{lsr,jdbcType=VARCHAR}, 
+      #{lsrdh,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{hy,jdbcType=VARCHAR}, 
+      #{cgfzr,jdbcType=VARCHAR}, #{xdfzr,jdbcType=VARCHAR}, #{fplxId,jdbcType=INTEGER}, 
+      #{fpsdId,jdbcType=INTEGER}, #{sfyj,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gys" useGeneratedKeys="true">
+        insert into system_gys
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gysdm != null">
+                gysdm,
+            </if>
+            <if test="gysmc != null">
+                gysmc,
+            </if>
+            <if test="lsr != null">
+                lsr,
+            </if>
+            <if test="lsrdh != null">
+                lsrdh,
+            </if>
+            <if test="wx != null">
+                wx,
+            </if>
+            <if test="qq != null">
+                qq,
+            </if>
+            <if test="hy != null">
+                hy,
+            </if>
+            <if test="cgfzr != null">
+                cgfzr,
+            </if>
+            <if test="xdfzr != null">
+                xdfzr,
+            </if>
+            <if test="fplxId != null">
+                fplx_id,
+            </if>
+            <if test="fpsdId != null">
+                fpsd_id,
+            </if>
+            <if test="sfyj != null">
+                sfyj,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="ex1 != null">
+                ex1,
+            </if>
+            <if test="ex2 != null">
+                ex2,
+            </if>
+            <if test="ex3 != null">
+                ex3,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gysdm != null">
+                #{gysdm,jdbcType=VARCHAR},
+            </if>
+            <if test="gysmc != null">
+                #{gysmc,jdbcType=VARCHAR},
+            </if>
+            <if test="lsr != null">
+                #{lsr,jdbcType=VARCHAR},
+            </if>
+            <if test="lsrdh != null">
+                #{lsrdh,jdbcType=VARCHAR},
+            </if>
+            <if test="wx != null">
+                #{wx,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="hy != null">
+                #{hy,jdbcType=VARCHAR},
+            </if>
+            <if test="cgfzr != null">
+                #{cgfzr,jdbcType=VARCHAR},
+            </if>
+            <if test="xdfzr != null">
+                #{xdfzr,jdbcType=VARCHAR},
+            </if>
+            <if test="fplxId != null">
+                #{fplxId,jdbcType=INTEGER},
+            </if>
+            <if test="fpsdId != null">
+                #{fpsdId,jdbcType=INTEGER},
+            </if>
+            <if test="sfyj != null">
+                #{sfyj,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="ex1 != null">
+                #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="cc.mrbird.febs.system.entity.GysExample" resultType="java.lang.Long">
+        select count(*) from system_gys
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update system_gys
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.gysdm != null">
+                gysdm = #{record.gysdm,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gysmc != null">
+                gysmc = #{record.gysmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lsr != null">
+                lsr = #{record.lsr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lsrdh != null">
+                lsrdh = #{record.lsrdh,jdbcType=VARCHAR},
+            </if>
+            <if test="record.wx != null">
+                wx = #{record.wx,jdbcType=VARCHAR},
+            </if>
+            <if test="record.qq != null">
+                qq = #{record.qq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.hy != null">
+                hy = #{record.hy,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cgfzr != null">
+                cgfzr = #{record.cgfzr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.xdfzr != null">
+                xdfzr = #{record.xdfzr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fplxId != null">
+                fplx_id = #{record.fplxId,jdbcType=INTEGER},
+            </if>
+            <if test="record.fpsdId != null">
+                fpsd_id = #{record.fpsdId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sfyj != null">
+                sfyj = #{record.sfyj,jdbcType=VARCHAR},
+            </if>
+            <if test="record.memo != null">
+                memo = #{record.memo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex1 != null">
+                ex1 = #{record.ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex2 != null">
+                ex2 = #{record.ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex3 != null">
+                ex3 = #{record.ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                `status` = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.deleted != null">
+                deleted = #{record.deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update system_gys
+        set id = #{record.id,jdbcType=INTEGER},
+        gysdm = #{record.gysdm,jdbcType=VARCHAR},
+        gysmc = #{record.gysmc,jdbcType=VARCHAR},
+        lsr = #{record.lsr,jdbcType=VARCHAR},
+        lsrdh = #{record.lsrdh,jdbcType=VARCHAR},
+        wx = #{record.wx,jdbcType=VARCHAR},
+        qq = #{record.qq,jdbcType=VARCHAR},
+        hy = #{record.hy,jdbcType=VARCHAR},
+        cgfzr = #{record.cgfzr,jdbcType=VARCHAR},
+        xdfzr = #{record.xdfzr,jdbcType=VARCHAR},
+        fplx_id = #{record.fplxId,jdbcType=INTEGER},
+        fpsd_id = #{record.fpsdId,jdbcType=INTEGER},
+        sfyj = #{record.sfyj,jdbcType=VARCHAR},
+        memo = #{record.memo,jdbcType=VARCHAR},
+        ex1 = #{record.ex1,jdbcType=VARCHAR},
+        ex2 = #{record.ex2,jdbcType=VARCHAR},
+        ex3 = #{record.ex3,jdbcType=VARCHAR},
+        `status` = #{record.status,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        deleted = #{record.deleted,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.system.entity.Gys">
+        update system_gys
+        <set>
+            <if test="gysdm != null">
+                gysdm = #{gysdm,jdbcType=VARCHAR},
+            </if>
+            <if test="gysmc != null">
+                gysmc = #{gysmc,jdbcType=VARCHAR},
+            </if>
+            <if test="lsr != null">
+                lsr = #{lsr,jdbcType=VARCHAR},
+            </if>
+            <if test="lsrdh != null">
+                lsrdh = #{lsrdh,jdbcType=VARCHAR},
+            </if>
+            <if test="wx != null">
+                wx = #{wx,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                qq = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="hy != null">
+                hy = #{hy,jdbcType=VARCHAR},
+            </if>
+            <if test="cgfzr != null">
+                cgfzr = #{cgfzr,jdbcType=VARCHAR},
+            </if>
+            <if test="xdfzr != null">
+                xdfzr = #{xdfzr,jdbcType=VARCHAR},
+            </if>
+            <if test="fplxId != null">
+                fplx_id = #{fplxId,jdbcType=INTEGER},
+            </if>
+            <if test="fpsdId != null">
+                fpsd_id = #{fpsdId,jdbcType=INTEGER},
+            </if>
+            <if test="sfyj != null">
+                sfyj = #{sfyj,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="ex1 != null">
+                ex1 = #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                ex2 = #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                ex3 = #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.system.entity.Gys">
+    update system_gys
+    set gysdm = #{gysdm,jdbcType=VARCHAR},
+      gysmc = #{gysmc,jdbcType=VARCHAR},
+      lsr = #{lsr,jdbcType=VARCHAR},
+      lsrdh = #{lsrdh,jdbcType=VARCHAR},
+      wx = #{wx,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      hy = #{hy,jdbcType=VARCHAR},
+      cgfzr = #{cgfzr,jdbcType=VARCHAR},
+      xdfzr = #{xdfzr,jdbcType=VARCHAR},
+      fplx_id = #{fplxId,jdbcType=INTEGER},
+      fpsd_id = #{fpsdId,jdbcType=INTEGER},
+      sfyj = #{sfyj,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR},
+      ex3 = #{ex3,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    
     <sql id="findGysDetailSql">
         SELECT
             gys.*,

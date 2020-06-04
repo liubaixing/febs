@@ -40,8 +40,8 @@ public interface ShangpinMapper extends BaseMapper<Shangpin> {
 
     int updateByPrimaryKey(Shangpin record);
 
-    IPage<Shangpin> selectDetailPage(Page<Shangpin> page, @Param("sp")Shangpin sp);
+    IPage<ShangpinResp> selectDetailPage(Page<Shangpin> page, @Param("sp")ShangpinResp sp);
 
-    List<Shangpin> selectDetail(@Param("sp")Shangpin sp);
+    List<ShangpinResp> selectDetail(@Param("sp")ShangpinResp sp);
 
 }

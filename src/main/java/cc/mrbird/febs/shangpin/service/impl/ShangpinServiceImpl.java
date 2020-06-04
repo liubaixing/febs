@@ -2,10 +2,12 @@ package cc.mrbird.febs.shangpin.service.impl;
 
 import cc.mrbird.febs.basic.entity.BasicJldw;
 import cc.mrbird.febs.basic.mapper.BasicJldwMapper;
+import cc.mrbird.febs.common.constant.GoodsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.enums.IncrEnum;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.service.CommonService;
+import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.shangpin.entity.*;
 import cc.mrbird.febs.shangpin.mapper.*;
 import cc.mrbird.febs.shangpin.service.IShangpinService;
@@ -61,13 +63,13 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     private CommonService commonService;
 
     @Override
-    public IPage<Shangpin> findShangpins(QueryRequest request, Shangpin shangpin) {
+    public IPage<ShangpinResp> findShangpins(QueryRequest request, ShangpinResp shangpin) {
         Page<Shangpin> page = new Page<>(request.getPageNum(), request.getPageSize());
         return this.shangpinMapper.selectDetailPage(page,shangpin);
     }
 
     @Override
-    public List<Shangpin> findShangpins(Shangpin shangpin) {
+    public List<ShangpinResp> findShangpins(ShangpinResp shangpin) {
 		return this.shangpinMapper.selectDetail(shangpin);
     }
 
@@ -78,8 +80,9 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
         shangpin.setCreateTime(new Date());
         this.shangpinMapper.insertSelective(shangpin);
         if(StringUtils.isBlank(shangpin.getSpdm())){
-            Integer dm = shangpin.getId();
-            shangpin.setSpdm(String.format("%07d", dm));
+            String dm = StringUtil.padStart(shangpin.getId());
+            shangpin.setSpdm(GoodsConstant.GOODS_DM_PREFIX+dm);
+            this.shangpinMapper.updateByPrimaryKeySelective(shangpin);
         }
     }
 

@@ -2,6 +2,7 @@ package cc.mrbird.febs.system.service.impl;
 
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.system.entity.Gys;
 import cc.mrbird.febs.system.mapper.GysMapper;
 import cc.mrbird.febs.system.service.IGysService;
@@ -9,12 +10,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,7 +48,13 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
     @Transactional
     public void createGys(Gys gys) {
         check(gys);
-        this.save(gys);
+        gys.setCreateTime(new Date());
+        this.gysMapper.insertSelective(gys);
+        if(StringUtils.isBlank(gys.getGysdm())){
+            String dm = StringUtil.padStart(gys.getId());
+            gys.setGysdm(dm);
+            this.gysMapper.updateByPrimaryKeySelective(gys);
+        }
     }
 
     @Override
@@ -66,10 +75,12 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
 
 	private void check(Gys gys) throws FebsException{
         LambdaQueryWrapper<Gys> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Gys::getGysdm,gys.getGysdm());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
+        if(StringUtils.isNotBlank(gys.getGysdm())){
+            queryWrapper.eq(Gys::getGysdm,gys.getGysdm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("数据已存在，添加失败");
+            }
         }
     }
 

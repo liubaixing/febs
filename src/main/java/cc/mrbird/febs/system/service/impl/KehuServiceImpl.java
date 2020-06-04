@@ -2,6 +2,7 @@ package cc.mrbird.febs.system.service.impl;
 
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.system.entity.Kehu;
 import cc.mrbird.febs.system.mapper.KehuMapper;
 import cc.mrbird.febs.system.service.IKehuService;
@@ -10,12 +11,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,7 +49,13 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
     @Transactional
     public void createKehu(Kehu kehu) {
         check(kehu);
-        this.save(kehu);
+        kehu.setCreateTime(new Date());
+        this.kehuMapper.insertSelective(kehu);
+        if(StringUtils.isBlank(kehu.getKhdm())){
+            String dm = StringUtil.padStart(kehu.getId());
+            kehu.setKhdm(dm);
+            this.kehuMapper.updateByPrimaryKeySelective(kehu);
+        }
     }
 
     @Override
@@ -55,7 +64,8 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
         if(kehu.getId()==null){
             throw new FebsException("id不能为空，添加失败");
         }
-        this.saveOrUpdate(kehu);
+        this.kehuMapper.updateByPrimaryKeySelective(kehu);
+
     }
 
     @Override
@@ -68,10 +78,12 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
 
 	private void check(Kehu kehu) throws FebsException{
         LambdaQueryWrapper<Kehu> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Kehu::getKhdm,kehu.getKhdm());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
+        if(StringUtils.isNotBlank(kehu.getKhdm())){
+            queryWrapper.eq(Kehu::getKhdm,kehu.getKhdm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("数据已存在，添加失败");
+            }
         }
     }
 }

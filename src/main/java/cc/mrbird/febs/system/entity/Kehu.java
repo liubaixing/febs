@@ -1,6 +1,7 @@
 package cc.mrbird.febs.system.entity;
 
 
+import cc.mrbird.febs.common.converter.StatusConverter;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -35,14 +36,14 @@ public class Kehu {
      * 客户代码
      */
     @TableField("khdm")
-    @ExcelProperty(value = "客户代码",index = 1)
+    @ExcelProperty(value = "客户代码",index = 0)
     private String khdm;
 
     /**
      * 客户名称
      */
     @TableField("khmc")
-    @ExcelProperty(value = "客户名称",index = 2)
+    @ExcelProperty(value = "客户名称",index = 1)
     private String khmc;
 
     /**
@@ -63,21 +64,21 @@ public class Kehu {
      * 联系人电话
      */
     @TableField("tel")
-    @ExcelProperty(value = "联系人电话")
+    @ExcelProperty(value = "联系人电话",index = 4)
     private String tel;
 
     /**
      * 联系人
      */
     @TableField("contact")
-    @ExcelProperty(value = "联系人")
+    @ExcelProperty(value = "联系人",index = 5)
     private String contact;
 
     /**
      * 收货地址
      */
     @TableField("address")
-    @ExcelProperty(value = "收货地址")
+    @ExcelProperty(value = "收货地址",index = 6)
     private String address;
 
     /**
@@ -111,7 +112,7 @@ public class Kehu {
     /**
      * 是否启用 0:启用 1:停用
      */
-    @ExcelIgnore
+    @ExcelProperty(value = "状态",index = 7,converter = StatusConverter.class)
     @TableField("status")
     private Integer status;
 

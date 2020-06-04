@@ -79,7 +79,7 @@ public class KehuController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("kehu:export")
+//    @RequiresPermissions("kehu:export")
     public void export(QueryRequest queryRequest, KehuResp kehu, HttpServletResponse response)  throws IOException {
         List<KehuResp> kehus = this.kehuService.findKehus(queryRequest, kehu).getRecords();
         response.setContentType("application/vnd.ms-excel");

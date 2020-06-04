@@ -2,6 +2,7 @@ package cc.mrbird.febs.shangpin.service.impl;
 
 import cc.mrbird.febs.basic.entity.BasicJldw;
 import cc.mrbird.febs.basic.mapper.BasicJldwMapper;
+import cc.mrbird.febs.common.constant.GoodsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.enums.IncrEnum;
 import cc.mrbird.febs.common.exception.FebsException;
@@ -69,27 +70,21 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
     private CommonService commonService;
 
     @Override
-    public IPage<ShangpinGys> findShangpinGyss(QueryRequest request, ShangpinGys shangpinGys) {
-        Page<ShangpinGys> page = new Page<>(request.getPageNum(), request.getPageSize());
+    public IPage<ShangpinGysResp> findShangpinGyss(QueryRequest request, ShangpinGysResp shangpinGys) {
+        Page<ShangpinGysResp> page = new Page<>(request.getPageNum(), request.getPageSize());
         return shangpinGysMapper.selectDetailPage(page,shangpinGys);
     }
 
     @Override
-    public List<ShangpinGys> findShangpinGyss(ShangpinGys shangpinGys) {
+    public List<ShangpinGysResp> findShangpinGyss(ShangpinGysResp shangpinGys) {
 		return shangpinGysMapper.selectDetail(shangpinGys);
     }
 
     @Override
     @Transactional
     public void createShangpinGys(ShangpinGys shangpinGys) {
-        check(shangpinGys);
         shangpinGys.setCreateTime(new Date());
         this.shangpinGysMapper.insertSelective(shangpinGys);
-        if(StringUtils.isBlank(shangpinGys.getSpdm())){
-            String dm = StringUtil.padStart(shangpinGys.getId());
-            shangpinGys.setSpdm(dm);
-            this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
-        }
     }
 
     @Override
@@ -111,14 +106,22 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
 	@Override
     @Transactional
     public void checkGoods(ShangpinGys shangpinGys){
-        if(this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys) > 0){
-            Shangpin shangpin = new Shangpin();
-            BeanUtils.copyProperties(shangpinGys,shangpin);
-            Integer dm = commonService.incr(IncrEnum.SHANGPIN.getCode());
-            shangpin.setSpdm(String.format("%07d", dm));
-            shangpin.setCreateTime(new Date());
-            shangpinMapper.insertSelective(shangpin);
+        LambdaQueryWrapper<ShangpinGys> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ShangpinGys::getId,shangpinGys.getId());
+        ShangpinGys temp = this.baseMapper.selectOne(queryWrapper);
+        if(temp==null){
+            new FebsException("商品不存在");
         }
+        Shangpin shangpin = new Shangpin();
+        BeanUtils.copyProperties(shangpinGys,shangpin);
+        shangpin.setCreateTime(new Date());
+        shangpinMapper.insertSelective(shangpin);
+        String dm = StringUtil.padStart(shangpin.getId());
+        shangpin.setSpdm(GoodsConstant.GOODS_DM_PREFIX+dm);
+        shangpinMapper.updateByPrimaryKeySelective(shangpin);
+        shangpinGys.setSpdm(GoodsConstant.GOODS_DM_PREFIX+dm);
+        shangpinGys.setShangpinId(shangpin.getId());
+        this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
     }
 
     @Override

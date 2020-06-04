@@ -1,5 +1,347 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cc.mrbird.febs.system.mapper.GongsiMapper">
-
+    <resultMap id="BaseResultMap" type="cc.mrbird.febs.system.entity.Gongsi">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="gsdm" jdbcType="VARCHAR" property="gsdm" />
+        <result column="gsmc" jdbcType="VARCHAR" property="gsmc" />
+        <result column="tel" jdbcType="VARCHAR" property="tel" />
+        <result column="contact" jdbcType="VARCHAR" property="contact" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="memo" jdbcType="VARCHAR" property="memo" />
+        <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+        <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+        <result column="ex3" jdbcType="VARCHAR" property="ex3" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, gsdm, gsmc, tel, contact, address, memo, ex1, ex2, ex3, `status`, create_time, 
+    update_time, deleted
+  </sql>
+    <select id="selectByExample" parameterType="cc.mrbird.febs.system.entity.GongsiExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from system_gongsi
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from system_gongsi
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from system_gongsi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="cc.mrbird.febs.system.entity.GongsiExample">
+        delete from system_gongsi
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gongsi" useGeneratedKeys="true">
+    insert into system_gongsi (gsdm, gsmc, tel, 
+      contact, address, memo, 
+      ex1, ex2, ex3, `status`, 
+      create_time, update_time, deleted
+      )
+    values (#{gsdm,jdbcType=VARCHAR}, #{gsmc,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gongsi" useGeneratedKeys="true">
+        insert into system_gongsi
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gsdm != null">
+                gsdm,
+            </if>
+            <if test="gsmc != null">
+                gsmc,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="contact != null">
+                contact,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="ex1 != null">
+                ex1,
+            </if>
+            <if test="ex2 != null">
+                ex2,
+            </if>
+            <if test="ex3 != null">
+                ex3,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gsdm != null">
+                #{gsdm,jdbcType=VARCHAR},
+            </if>
+            <if test="gsmc != null">
+                #{gsmc,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null">
+                #{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="ex1 != null">
+                #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="cc.mrbird.febs.system.entity.GongsiExample" resultType="java.lang.Long">
+        select count(*) from system_gongsi
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update system_gongsi
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.gsdm != null">
+                gsdm = #{record.gsdm,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gsmc != null">
+                gsmc = #{record.gsmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.tel != null">
+                tel = #{record.tel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contact != null">
+                contact = #{record.contact,jdbcType=VARCHAR},
+            </if>
+            <if test="record.address != null">
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.memo != null">
+                memo = #{record.memo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex1 != null">
+                ex1 = #{record.ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex2 != null">
+                ex2 = #{record.ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex3 != null">
+                ex3 = #{record.ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                `status` = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.deleted != null">
+                deleted = #{record.deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update system_gongsi
+        set id = #{record.id,jdbcType=INTEGER},
+        gsdm = #{record.gsdm,jdbcType=VARCHAR},
+        gsmc = #{record.gsmc,jdbcType=VARCHAR},
+        tel = #{record.tel,jdbcType=VARCHAR},
+        contact = #{record.contact,jdbcType=VARCHAR},
+        address = #{record.address,jdbcType=VARCHAR},
+        memo = #{record.memo,jdbcType=VARCHAR},
+        ex1 = #{record.ex1,jdbcType=VARCHAR},
+        ex2 = #{record.ex2,jdbcType=VARCHAR},
+        ex3 = #{record.ex3,jdbcType=VARCHAR},
+        `status` = #{record.status,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        deleted = #{record.deleted,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.system.entity.Gongsi">
+        update system_gongsi
+        <set>
+            <if test="gsdm != null">
+                gsdm = #{gsdm,jdbcType=VARCHAR},
+            </if>
+            <if test="gsmc != null">
+                gsmc = #{gsmc,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null">
+                contact = #{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="ex1 != null">
+                ex1 = #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                ex2 = #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                ex3 = #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.system.entity.Gongsi">
+    update system_gongsi
+    set gsdm = #{gsdm,jdbcType=VARCHAR},
+      gsmc = #{gsmc,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR},
+      ex3 = #{ex3,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

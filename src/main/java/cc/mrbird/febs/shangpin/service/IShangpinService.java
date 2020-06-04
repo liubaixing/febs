@@ -23,7 +23,7 @@ public interface IShangpinService extends IService<Shangpin> {
      * @param shangpin shangpin
      * @return IPage<Shangpin>
      */
-    IPage<Shangpin> findShangpins(QueryRequest request, Shangpin shangpin);
+    IPage<ShangpinResp> findShangpins(QueryRequest request, ShangpinResp shangpin);
 
     /**
      * 查询（所有）
@@ -31,7 +31,7 @@ public interface IShangpinService extends IService<Shangpin> {
      * @param shangpin shangpin
      * @return List<Shangpin>
      */
-    List<Shangpin> findShangpins(Shangpin shangpin);
+    List<ShangpinResp> findShangpins(ShangpinResp shangpin);
 
     /**
      * 新增

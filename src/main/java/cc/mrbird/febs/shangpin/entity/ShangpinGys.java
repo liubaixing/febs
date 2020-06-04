@@ -3,6 +3,8 @@ package cc.mrbird.febs.shangpin.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import cc.mrbird.febs.common.converter.StatusConverter;
+import cc.mrbird.febs.common.converter.VerifyConverter;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.wuwenze.poi.annotation.Excel;
@@ -30,50 +32,58 @@ public class ShangpinGys {
     /**
      * 
      */
+    @ExcelIgnore
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 商品代码
      */
-    @NotBlank(message = "{required}")
+    @ExcelProperty(value = "商品代码",index = 0)
+    @ApiModelProperty("商品代码")
     @TableField("spdm")
     private String spdm;
 
     /**
      * 商品名称
      */
-    @ApiModelProperty("商品代码")
+    @ExcelProperty(value = "商品名称",index = 1)
+    @ApiModelProperty("商品名称（必填）")
     @NotBlank(message = "{required}")
     @TableField("spmc")
     private String spmc;
 
+    @ExcelProperty(value = "唯一码",index = 8)
+    @ApiModelProperty("唯一码")
+    private String memo;
 
+    @ExcelIgnore
+    private Integer shangpinId;
     /**
      * 销售价
      */
-    @ExcelProperty(value = "销售价")
+    @ExcelProperty(value = "销售价",index = 11)
     @ApiModelProperty("销售价")
     @TableField("xsj")
     private BigDecimal xsj;
     /**
      * 吊牌价
      */
-    @ExcelProperty(value = "吊牌价")
+    @ExcelProperty(value = "吊牌价",index = 9)
     @ApiModelProperty("吊牌价")
     @TableField("dpj")
     private BigDecimal dpj;
     /**
      * 预售价
      */
-    @ExcelProperty(value = "预售价")
+    @ExcelProperty(value = "预售价",index = 12)
     @ApiModelProperty("预售价")
     @TableField("ysj")
     private BigDecimal ysj;
     /**
      * 采购价
      */
-    @ExcelProperty(value = "采购价")
+    @ExcelProperty(value = "采购价",index = 10)
     @ApiModelProperty("采购价")
     @TableField("cgj")
     private BigDecimal cgj;
@@ -82,14 +92,14 @@ public class ShangpinGys {
      */
     @ExcelIgnore
     @ApiModelProperty("供应商表id（必填）")
-    @NotNull(message = "{required}")
+    @NotNull(message = "供应商不能为空")
     @TableField("gys_id")
     private Integer gysId;
 
     /**
      * 起订量
      */
-    @ExcelProperty(value = "起订量")
+    @ExcelProperty(value = "起订量",index = 7)
     @ApiModelProperty("起订量")
     @TableField("qdl")
     private Integer qdl;
@@ -117,7 +127,6 @@ public class ShangpinGys {
     @ExcelIgnore
     @ApiModelProperty("总类id（必填）")
     @TableField("zl_id")
-    @NotNull(message = "{required}")
     private Integer zlId;
 
 
@@ -127,7 +136,6 @@ public class ShangpinGys {
     @ExcelIgnore
     @ApiModelProperty("大类id")
     @TableField("dl_id")
-    @NotNull(message = "{required}")
     private Integer dlId;
 
 
@@ -137,7 +145,6 @@ public class ShangpinGys {
     @ExcelIgnore
     @ApiModelProperty("小类id")
     @TableField("xl_id")
-    @NotNull(message = "{required}")
     private Integer xlId;
 
 
@@ -157,39 +164,18 @@ public class ShangpinGys {
     @TableField("pp_id")
     private Integer ppId;
 
-    @ExcelProperty(value = "供应商")
-    @ExcelField("供应商")
-    private String gysmc;
-
-    @ExcelProperty(value = "计量单位")
-    private String jldwmc;
-
-    @ExcelProperty(value = "总类")
-    private String zlmc;
-
-    @ExcelProperty(value = "大类")
-    private String dlmc;
-
-    @ExcelProperty(value = "小类")
-    private String xlmc;
-
-    @ExcelProperty(value = "其他类别")
-    private String qtlbmc;
-
-    @ExcelProperty(value = "品牌名称")
-    private String ppglmc;
-
     /**
      * 审核状态 0 初始状态 1 已提交 2 已审核 3 已打回
      */
-    @ExcelIgnore
+    @ExcelProperty(value = "审核状态",index = 15,converter = VerifyConverter.class)
+    @ApiModelProperty("审核状态 0 初始状态 1 已提交 2 已审核 3 已打回 ")
     @TableField("lyxt")
     private Byte lyxt;
 
     /**
      * 是否启用 0:启用 1:停用
      */
-    @ExcelIgnore
+    @ExcelProperty(value = "状态",index = 16,converter = StatusConverter.class)
     @ApiModelProperty("是否启用 0:启用 1:停用")
     @TableField("status")
     private Integer status;

@@ -2,6 +2,7 @@ package cc.mrbird.febs.system.service.impl;
 
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.system.entity.Gongsi;
 import cc.mrbird.febs.system.entity.Kehu;
 import cc.mrbird.febs.system.mapper.GongsiMapper;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,7 +71,12 @@ public class GongsiServiceImpl extends ServiceImpl<GongsiMapper, Gongsi> impleme
     @Transactional
     public void createGongsi(Gongsi gongsi) {
         check(gongsi);
-        this.save(gongsi);
+        gongsi.setCreateTime(new Date());
+        if(StringUtils.isBlank(gongsi.getGsdm())){
+            String dm = StringUtil.padStart(gongsi.getId());
+            gongsi.setGsdm(dm);
+            this.gongsiMapper.updateByPrimaryKeySelective(gongsi);
+        }
     }
 
     @Override
@@ -78,7 +85,7 @@ public class GongsiServiceImpl extends ServiceImpl<GongsiMapper, Gongsi> impleme
         if(gongsi.getId()==null){
             throw new FebsException("id不能为空，添加失败");
         }
-        this.saveOrUpdate(gongsi);
+        this.gongsiMapper.updateByPrimaryKeySelective(gongsi);
     }
 
     @Override
@@ -90,10 +97,12 @@ public class GongsiServiceImpl extends ServiceImpl<GongsiMapper, Gongsi> impleme
 
 	private void check(Gongsi gongsi) throws FebsException{
         LambdaQueryWrapper<Gongsi> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Gongsi::getGsdm,gongsi.getGsdm());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
+        if(StringUtils.isNotBlank(gongsi.getGsdm())){
+            queryWrapper.eq(Gongsi::getGsdm,gongsi.getGsdm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("数据已存在，添加失败");
+            }
         }
     }
 

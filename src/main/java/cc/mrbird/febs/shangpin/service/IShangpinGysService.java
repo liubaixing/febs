@@ -24,7 +24,7 @@ public interface IShangpinGysService extends IService<ShangpinGys> {
      * @param shangpinGys shangpinGys
      * @return IPage<ShangpinGys>
      */
-    IPage<ShangpinGys> findShangpinGyss(QueryRequest request, ShangpinGys shangpinGys);
+    IPage<ShangpinGysResp> findShangpinGyss(QueryRequest request, ShangpinGysResp shangpinGys);
 
     /**
      * 查询（所有）
@@ -32,7 +32,7 @@ public interface IShangpinGysService extends IService<ShangpinGys> {
      * @param shangpinGys shangpinGys
      * @return List<ShangpinGys>
      */
-    List<ShangpinGys> findShangpinGyss(ShangpinGys shangpinGys);
+    List<ShangpinGysResp> findShangpinGyss(ShangpinGysResp shangpinGys);
 
     /**
      * 新增

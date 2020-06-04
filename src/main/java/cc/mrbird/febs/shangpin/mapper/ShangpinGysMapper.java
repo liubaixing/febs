@@ -41,8 +41,8 @@ public interface ShangpinGysMapper extends BaseMapper<ShangpinGys> {
     int updateByPrimaryKey(ShangpinGys record);
 
 
-    IPage<ShangpinGys> selectDetailPage(Page<ShangpinGys> page, @Param("sp")ShangpinGys sp);
+    IPage<ShangpinGysResp> selectDetailPage(Page<ShangpinGysResp> page, @Param("sp")ShangpinGysResp sp);
 
-    List<ShangpinGys> selectDetail(@Param("sp")ShangpinGys sp);
+    List<ShangpinGysResp> selectDetail(@Param("sp")ShangpinGysResp sp);
 
 }
