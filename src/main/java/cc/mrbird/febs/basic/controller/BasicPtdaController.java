@@ -49,7 +49,7 @@ public class BasicPtdaController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicPtda", exceptionMessage = "新增BasicPtda失败")
+    @ControllerEndpoint(operation = "新增平台档案", exceptionMessage = "新增平台档案失败")
     @PostMapping("")
     @RequiresPermissions("basicPtda:add")
     public FebsResponse addBasicPtda(@Valid BasicPtda basicPtda) {
@@ -57,7 +57,7 @@ public class BasicPtdaController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicPtda", exceptionMessage = "删除BasicPtda失败")
+    @ControllerEndpoint(operation = "删除平台档案", exceptionMessage = "删除平台档案失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicPtda:delete")
     public FebsResponse deleteBasicPtda(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicPtdaController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicPtda", exceptionMessage = "修改BasicPtda失败")
+    @ControllerEndpoint(operation = "修改平台档案", exceptionMessage = "修改平台档案失败")
     @PostMapping("/update")
     @RequiresPermissions("basicPtda:update")
     public FebsResponse updateBasicPtda(BasicPtda basicPtda) {

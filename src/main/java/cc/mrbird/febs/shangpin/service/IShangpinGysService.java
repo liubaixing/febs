@@ -4,6 +4,7 @@ import cc.mrbird.febs.shangpin.entity.Shangpin;
 import cc.mrbird.febs.shangpin.entity.ShangpinGys;
 
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinGysResp;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -54,5 +55,5 @@ public interface IShangpinGysService extends IService<ShangpinGys> {
 
     void checkGoods(ShangpinGys shangpinGys);
 
-    void saveImport(List<ShangpinGys> data);
+    void saveImport(List<ShangpinGysResp> data);
 }

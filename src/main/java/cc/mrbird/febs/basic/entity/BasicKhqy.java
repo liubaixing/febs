@@ -29,7 +29,6 @@ public class BasicKhqy {
     /**
      * 客户区域代码
      */
-    @NotBlank(message = "{required}")
     @TableField("khqydm")
     private String khqydm;
 

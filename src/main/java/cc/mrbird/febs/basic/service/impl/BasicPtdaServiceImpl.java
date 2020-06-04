@@ -7,6 +7,7 @@ import cc.mrbird.febs.basic.mapper.BasicPtdaMapper;
 import cc.mrbird.febs.basic.service.IBasicPtdaService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -62,6 +63,11 @@ public class BasicPtdaServiceImpl extends ServiceImpl<BasicPtdaMapper, BasicPtda
     public void createBasicPtda(BasicPtda basicPtda) {
         check(basicPtda);
         this.save(basicPtda);
+        if(StringUtils.isBlank(basicPtda.getPtdadm())){
+            String dm = StringUtil.padStart(basicPtda.getId());
+            basicPtda.setPtdadm(dm);
+            this.updateById(basicPtda);
+        }
     }
 
     @Override
@@ -70,7 +76,7 @@ public class BasicPtdaServiceImpl extends ServiceImpl<BasicPtdaMapper, BasicPtda
         if(basicPtda.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicPtda);
+        this.updateById(basicPtda);
     }
 
     @Override
@@ -84,10 +90,10 @@ public class BasicPtdaServiceImpl extends ServiceImpl<BasicPtdaMapper, BasicPtda
         LambdaQueryWrapper<BasicPtda> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicPtda.getPtdadm())){
             queryWrapper.eq(BasicPtda::getPtdadm,basicPtda.getPtdadm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 }

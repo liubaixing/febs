@@ -5,6 +5,7 @@ import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.system.entity.Kehu;
 import cc.mrbird.febs.system.mapper.KehuMapper;
 import cc.mrbird.febs.system.service.IKehuService;
+import cc.mrbird.febs.system.vo.resp.KehuResp;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -31,13 +32,13 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
     private KehuMapper kehuMapper;
 
     @Override
-    public IPage<Kehu> findKehus(QueryRequest request, Kehu kehu) {
+    public IPage<KehuResp> findKehus(QueryRequest request, KehuResp kehu) {
         Page<Kehu> page = new Page<>(request.getPageNum(), request.getPageSize());
         return this.kehuMapper.selectDetailPage(page,kehu);
     }
 
     @Override
-    public List<Kehu> findKehus(Kehu kehu) {
+    public List<KehuResp> findKehus(KehuResp kehu) {
         return this.kehuMapper.selectDetail(kehu);
     }
 

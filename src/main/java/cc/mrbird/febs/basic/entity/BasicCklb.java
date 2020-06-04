@@ -29,7 +29,6 @@ public class BasicCklb {
     /**
      * 仓库类别代码
      */
-    @NotBlank(message = "{required}")
     @TableField("cklbdm")
     private String cklbdm;
 

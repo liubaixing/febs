@@ -50,7 +50,7 @@ public class CangkuController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增Cangku", exceptionMessage = "新增Cangku失败")
+    @ControllerEndpoint(operation = "新增仓库", exceptionMessage = "新增仓库失败")
     @PostMapping("")
     @RequiresPermissions("cangku:add")
     public FebsResponse addCangku(@Valid Cangku cangku) {
@@ -58,7 +58,7 @@ public class CangkuController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除Cangku", exceptionMessage = "删除Cangku失败")
+    @ControllerEndpoint(operation = "删除仓库", exceptionMessage = "删除仓库失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("cangku:delete")
     public FebsResponse deleteCangku(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -67,7 +67,7 @@ public class CangkuController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改Cangku", exceptionMessage = "修改Cangku失败")
+    @ControllerEndpoint(operation = "修改仓库", exceptionMessage = "修改仓库失败")
     @PostMapping("/update")
     @RequiresPermissions("cangku:update")
     public FebsResponse updateCangku(Cangku cangku) {

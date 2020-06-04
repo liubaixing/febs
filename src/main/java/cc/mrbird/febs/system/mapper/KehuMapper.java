@@ -1,6 +1,7 @@
 package cc.mrbird.febs.system.mapper;
 
 import cc.mrbird.febs.system.entity.Kehu;
+import cc.mrbird.febs.system.vo.resp.KehuResp;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,8 +17,8 @@ import java.util.List;
  */
 public interface KehuMapper extends BaseMapper<Kehu> {
 
-    IPage<Kehu> selectDetailPage(Page<Kehu> page, @Param("kehu") Kehu kehu);
+    IPage<KehuResp> selectDetailPage(Page<Kehu> page, @Param("kehu") KehuResp kehu);
 
-    List<Kehu> selectDetail(@Param("kehu") Kehu kehu);
+    List<KehuResp> selectDetail(@Param("kehu") KehuResp kehu);
 
 }

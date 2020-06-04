@@ -50,7 +50,7 @@ public class GysController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增Gys", exceptionMessage = "新增Gys失败")
+    @ControllerEndpoint(operation = "新增供应商", exceptionMessage = "新增供应商失败")
     @PostMapping("")
     @RequiresPermissions("gys:add")
     public FebsResponse addGys(@Valid Gys gys) {
@@ -58,7 +58,7 @@ public class GysController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除Gys", exceptionMessage = "删除Gys失败")
+    @ControllerEndpoint(operation = "删除供应商", exceptionMessage = "删除供应商失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("gys:delete")
     public FebsResponse deleteGys(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -67,7 +67,7 @@ public class GysController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改Gys", exceptionMessage = "修改Gys失败")
+    @ControllerEndpoint(operation = "修改供应商", exceptionMessage = "修改供应商失败")
     @PostMapping("/update")
     @RequiresPermissions("gys:update")
     public FebsResponse updateGys(Gys gys) {

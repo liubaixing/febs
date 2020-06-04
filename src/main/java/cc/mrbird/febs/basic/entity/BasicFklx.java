@@ -29,7 +29,6 @@ public class BasicFklx {
     /**
      * 付款类型代码
      */
-    @NotBlank(message = "{required}")
     @TableField("fklxdm")
     private String fklxdm;
 

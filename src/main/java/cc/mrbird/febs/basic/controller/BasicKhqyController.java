@@ -49,7 +49,7 @@ public class BasicKhqyController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicKhqy", exceptionMessage = "新增BasicKhqy失败")
+    @ControllerEndpoint(operation = "新增客户区域", exceptionMessage = "新增客户区域失败")
     @PostMapping("")
     @RequiresPermissions("basicKhqy:add")
     public FebsResponse addBasicKhqy(@Valid BasicKhqy basicKhqy) {
@@ -57,7 +57,7 @@ public class BasicKhqyController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicKhqy", exceptionMessage = "删除BasicKhqy失败")
+    @ControllerEndpoint(operation = "删除客户区域", exceptionMessage = "删除客户区域失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicKhqy:delete")
     public FebsResponse deleteBasicKhqy(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicKhqyController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicKhqy", exceptionMessage = "修改BasicKhqy失败")
+    @ControllerEndpoint(operation = "修改客户区域", exceptionMessage = "修改客户区域失败")
     @PostMapping("/update")
     @RequiresPermissions("basicKhqy:update")
     public FebsResponse updateBasicKhqy(BasicKhqy basicKhqy) {

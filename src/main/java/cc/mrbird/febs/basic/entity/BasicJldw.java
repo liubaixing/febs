@@ -29,7 +29,6 @@ public class BasicJldw {
     /**
      * 计量单位代码
      */
-    @NotBlank(message = "{required}")
     @TableField("jldwdm")
     private String jldwdm;
 

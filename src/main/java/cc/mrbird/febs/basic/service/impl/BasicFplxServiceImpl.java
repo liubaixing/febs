@@ -5,6 +5,7 @@ import cc.mrbird.febs.basic.mapper.BasicFplxMapper;
 import cc.mrbird.febs.basic.service.IBasicFplxService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -60,6 +61,11 @@ public class BasicFplxServiceImpl extends ServiceImpl<BasicFplxMapper, BasicFplx
     public void createBasicFplx(BasicFplx basicFplx) {
         check(basicFplx);
         this.save(basicFplx);
+        if(StringUtils.isBlank(basicFplx.getFplxdm())){
+            String dm = StringUtil.padStart(basicFplx.getId());
+            basicFplx.setFplxdm(dm);
+            this.updateById(basicFplx);
+        }
     }
 
     @Override
@@ -68,7 +74,7 @@ public class BasicFplxServiceImpl extends ServiceImpl<BasicFplxMapper, BasicFplx
         if(basicFplx.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicFplx);
+        this.updateById(basicFplx);
     }
 
     @Override
@@ -82,10 +88,10 @@ public class BasicFplxServiceImpl extends ServiceImpl<BasicFplxMapper, BasicFplx
         LambdaQueryWrapper<BasicFplx> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicFplx.getFplxdm())){
             queryWrapper.eq(BasicFplx::getFplxdm,basicFplx.getFplxdm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 }

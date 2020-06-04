@@ -49,7 +49,7 @@ public class BasicXsfsController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicXsfs", exceptionMessage = "新增BasicXsfs失败")
+    @ControllerEndpoint(operation = "新增销售方式", exceptionMessage = "新增销售方式失败")
     @PostMapping("")
     @RequiresPermissions("basicXsfs:add")
     public FebsResponse addBasicXsfs(@Valid BasicXsfs basicXsfs) {
@@ -57,7 +57,7 @@ public class BasicXsfsController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicXsfs", exceptionMessage = "删除BasicXsfs失败")
+    @ControllerEndpoint(operation = "删除销售方式", exceptionMessage = "删除销售方式失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicXsfs:delete")
     public FebsResponse deleteBasicXsfs(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicXsfsController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicXsfs", exceptionMessage = "修改BasicXsfs失败")
+    @ControllerEndpoint(operation = "修改销售方式", exceptionMessage = "修改销售方式失败")
     @PostMapping("/update")
     @RequiresPermissions("basicXsfs:update")
     public FebsResponse updateBasicXsfs(BasicXsfs basicXsfs) {

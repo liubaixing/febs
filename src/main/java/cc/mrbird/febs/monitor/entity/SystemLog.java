@@ -1,6 +1,5 @@
 package cc.mrbird.febs.monitor.entity;
 
-import cc.mrbird.febs.common.converter.TimeConverter;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -72,7 +71,6 @@ public class SystemLog implements Serializable {
      * 创建时间
      */
     @TableField("CREATE_TIME")
-    @ExcelField(value = "操作时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
     /**

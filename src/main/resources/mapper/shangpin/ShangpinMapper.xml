@@ -6,7 +6,6 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="spdm" jdbcType="VARCHAR" property="spdm" />
         <result column="spmc" jdbcType="VARCHAR" property="spmc" />
-        <result column="memo" jdbcType="VARCHAR" property="memo" />
         <result column="xsj" jdbcType="DECIMAL" property="xsj" />
         <result column="dpj" jdbcType="DECIMAL" property="dpj" />
         <result column="ysj" jdbcType="DECIMAL" property="ysj" />
@@ -14,7 +13,6 @@
         <result column="gys_id" jdbcType="INTEGER" property="gysId" />
         <result column="qdl" jdbcType="INTEGER" property="qdl" />
         <result column="jldw_id" jdbcType="INTEGER" property="jldwId" />
-        <result column="ck_id" jdbcType="INTEGER" property="ckId" />
         <result column="mrtp" jdbcType="VARCHAR" property="mrtp" />
         <result column="zl_id" jdbcType="INTEGER" property="zlId" />
         <result column="dl_id" jdbcType="INTEGER" property="dlId" />
@@ -86,7 +84,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, spdm, spmc, memo, xsj, dpj, ysj, cgj, gys_id, qdl, jldw_id, ck_id, mrtp, zl_id, 
+    id, spdm, spmc, xsj, dpj, ysj, cgj, gys_id, qdl, jldw_id, mrtp, zl_id,
     dl_id, xl_id, qtlb_id, `status`, pp_id, create_time, update_time, deleted
   </sql>
     <select id="selectByExample" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinExample" resultMap="BaseResultMap">
@@ -120,17 +118,17 @@
         </if>
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.shangpin.entity.Shangpin" useGeneratedKeys="true">
-    insert into shangpin (spdm, spmc, memo, 
+    insert into shangpin (spdm, spmc,
       xsj, dpj, ysj, cgj, 
       gys_id, qdl, jldw_id, 
-      ck_id, mrtp, zl_id, dl_id, 
+      mrtp, zl_id, dl_id,
       xl_id, qtlb_id, `status`, 
       pp_id, create_time, update_time, 
       deleted)
-    values (#{spdm,jdbcType=VARCHAR}, #{spmc,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+    values (#{spdm,jdbcType=VARCHAR}, #{spmc,jdbcType=VARCHAR},
       #{xsj,jdbcType=DECIMAL}, #{dpj,jdbcType=DECIMAL}, #{ysj,jdbcType=DECIMAL}, #{cgj,jdbcType=DECIMAL}, 
       #{gysId,jdbcType=INTEGER}, #{qdl,jdbcType=INTEGER}, #{jldwId,jdbcType=INTEGER}, 
-      #{ckId,jdbcType=INTEGER}, #{mrtp,jdbcType=VARCHAR}, #{zlId,jdbcType=INTEGER}, #{dlId,jdbcType=INTEGER}, 
+      #{mrtp,jdbcType=VARCHAR}, #{zlId,jdbcType=INTEGER}, #{dlId,jdbcType=INTEGER},
       #{xlId,jdbcType=INTEGER}, #{qtlbId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{ppId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=INTEGER})
@@ -143,9 +141,6 @@
             </if>
             <if test="spmc != null">
                 spmc,
-            </if>
-            <if test="memo != null">
-                memo,
             </if>
             <if test="xsj != null">
                 xsj,
@@ -167,9 +162,6 @@
             </if>
             <if test="jldwId != null">
                 jldw_id,
-            </if>
-            <if test="ckId != null">
-                ck_id,
             </if>
             <if test="mrtp != null">
                 mrtp,
@@ -209,9 +201,6 @@
             <if test="spmc != null">
                 #{spmc,jdbcType=VARCHAR},
             </if>
-            <if test="memo != null">
-                #{memo,jdbcType=VARCHAR},
-            </if>
             <if test="xsj != null">
                 #{xsj,jdbcType=DECIMAL},
             </if>
@@ -232,9 +221,6 @@
             </if>
             <if test="jldwId != null">
                 #{jldwId,jdbcType=INTEGER},
-            </if>
-            <if test="ckId != null">
-                #{ckId,jdbcType=INTEGER},
             </if>
             <if test="mrtp != null">
                 #{mrtp,jdbcType=VARCHAR},
@@ -286,9 +272,6 @@
             <if test="record.spmc != null">
                 spmc = #{record.spmc,jdbcType=VARCHAR},
             </if>
-            <if test="record.memo != null">
-                memo = #{record.memo,jdbcType=VARCHAR},
-            </if>
             <if test="record.xsj != null">
                 xsj = #{record.xsj,jdbcType=DECIMAL},
             </if>
@@ -309,9 +292,6 @@
             </if>
             <if test="record.jldwId != null">
                 jldw_id = #{record.jldwId,jdbcType=INTEGER},
-            </if>
-            <if test="record.ckId != null">
-                ck_id = #{record.ckId,jdbcType=INTEGER},
             </if>
             <if test="record.mrtp != null">
                 mrtp = #{record.mrtp,jdbcType=VARCHAR},
@@ -353,7 +333,6 @@
         set id = #{record.id,jdbcType=INTEGER},
         spdm = #{record.spdm,jdbcType=VARCHAR},
         spmc = #{record.spmc,jdbcType=VARCHAR},
-        memo = #{record.memo,jdbcType=VARCHAR},
         xsj = #{record.xsj,jdbcType=DECIMAL},
         dpj = #{record.dpj,jdbcType=DECIMAL},
         ysj = #{record.ysj,jdbcType=DECIMAL},
@@ -361,7 +340,6 @@
         gys_id = #{record.gysId,jdbcType=INTEGER},
         qdl = #{record.qdl,jdbcType=INTEGER},
         jldw_id = #{record.jldwId,jdbcType=INTEGER},
-        ck_id = #{record.ckId,jdbcType=INTEGER},
         mrtp = #{record.mrtp,jdbcType=VARCHAR},
         zl_id = #{record.zlId,jdbcType=INTEGER},
         dl_id = #{record.dlId,jdbcType=INTEGER},
@@ -385,9 +363,6 @@
             <if test="spmc != null">
                 spmc = #{spmc,jdbcType=VARCHAR},
             </if>
-            <if test="memo != null">
-                memo = #{memo,jdbcType=VARCHAR},
-            </if>
             <if test="xsj != null">
                 xsj = #{xsj,jdbcType=DECIMAL},
             </if>
@@ -408,9 +383,6 @@
             </if>
             <if test="jldwId != null">
                 jldw_id = #{jldwId,jdbcType=INTEGER},
-            </if>
-            <if test="ckId != null">
-                ck_id = #{ckId,jdbcType=INTEGER},
             </if>
             <if test="mrtp != null">
                 mrtp = #{mrtp,jdbcType=VARCHAR},
@@ -449,7 +421,6 @@
     update shangpin
     set spdm = #{spdm,jdbcType=VARCHAR},
       spmc = #{spmc,jdbcType=VARCHAR},
-      memo = #{memo,jdbcType=VARCHAR},
       xsj = #{xsj,jdbcType=DECIMAL},
       dpj = #{dpj,jdbcType=DECIMAL},
       ysj = #{ysj,jdbcType=DECIMAL},
@@ -457,7 +428,6 @@
       gys_id = #{gysId,jdbcType=INTEGER},
       qdl = #{qdl,jdbcType=INTEGER},
       jldw_id = #{jldwId,jdbcType=INTEGER},
-      ck_id = #{ckId,jdbcType=INTEGER},
       mrtp = #{mrtp,jdbcType=VARCHAR},
       zl_id = #{zlId,jdbcType=INTEGER},
       dl_id = #{dlId,jdbcType=INTEGER},
@@ -470,13 +440,45 @@
       deleted = #{deleted,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    
+
+    <resultMap id="BaseResultMapVO" type="cc.mrbird.febs.shangpin.entity.Shangpin">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="spdm" jdbcType="VARCHAR" property="spdm" />
+        <result column="spmc" jdbcType="VARCHAR" property="spmc" />
+        <result column="xsj" jdbcType="DECIMAL" property="xsj" />
+        <result column="dpj" jdbcType="DECIMAL" property="dpj" />
+        <result column="ysj" jdbcType="DECIMAL" property="ysj" />
+        <result column="cgj" jdbcType="DECIMAL" property="cgj" />
+        <result column="gys_id" jdbcType="INTEGER" property="gysId" />
+        <result column="qdl" jdbcType="INTEGER" property="qdl" />
+        <result column="jldw_id" jdbcType="INTEGER" property="jldwId" />
+        <result column="mrtp" jdbcType="VARCHAR" property="mrtp" />
+        <result column="zl_id" jdbcType="INTEGER" property="zlId" />
+        <result column="dl_id" jdbcType="INTEGER" property="dlId" />
+        <result column="xl_id" jdbcType="INTEGER" property="xlId" />
+        <result column="qtlb_id" jdbcType="INTEGER" property="qtlbId" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="pp_id" jdbcType="INTEGER" property="ppId" />
+
+
+        <result column="gysmc" jdbcType="VARCHAR" property="gysmc" />
+        <result column="jldwmc" jdbcType="VARCHAR" property="jldwmc" />
+        <result column="zlmc" jdbcType="VARCHAR" property="zlmc" />
+        <result column="dlmc" jdbcType="VARCHAR" property="dlmc" />
+        <result column="xlmc" jdbcType="VARCHAR" property="xlmc" />
+        <result column="qtlbmc" jdbcType="VARCHAR" property="qtlbmc" />
+        <result column="ppglmc" jdbcType="VARCHAR" property="ppglmc" />
+
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    </resultMap>
+
     <sql id="findShangPinDetailSql">
         SELECT
             sp.*,
             gys.gysmc,
             dw.jldwmc,
-            ck.ckmc,
             zl.zlmc,
             dl.dlmc,
             xl.xlmc,
@@ -486,7 +488,6 @@
             shangpin sp
             LEFT JOIN system_gys gys ON sp.gys_id = gys.id
             LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
-            LEFT JOIN system_cangku ck ON sp.ck_id = ck.id
             LEFT JOIN shangpin_zl zl ON sp.zl_id = zl.id
             LEFT JOIN shangpin_dl dl ON sp.dl_id = dl.id
             LEFT JOIN shangpin_xl xl ON sp.xl_id = xl.id
@@ -499,9 +500,6 @@
             <if test="sp.spmc != null and sp.spmc != ''">
                 and sp.spmc like CONCAT('%',#{sp.spmc},'%')
             </if>
-            <if test="sp.memo != null and sp.memo != ''">
-                and sp.memo like CONCAT('%',#{sp.memo},'%')
-            </if>
             <if test="sp.gysmc != null and sp.gysmc != ''">
                 and gys.gysmc like CONCAT('%',#{sp.gysmc},'%')
             </if>
@@ -510,9 +508,6 @@
             </if>
             <if test="sp.jldwmc != null and sp.jldwmc != ''">
                 and dw.jldwmc like CONCAT('%',#{sp.jldwmc},'%')
-            </if>
-            <if test="sp.ckmc != null and sp.ckmc != ''">
-                and ck.ckmc like CONCAT('%',#{sp.ckmc},'%')
             </if>
             <if test="sp.zlId != null">
                 and sp.zl_id = #{sp.zlId}

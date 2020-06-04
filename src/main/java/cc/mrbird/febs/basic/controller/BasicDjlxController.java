@@ -49,7 +49,7 @@ public class BasicDjlxController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增BasicDjlx", exceptionMessage = "新增BasicDjlx失败")
+    @ControllerEndpoint(operation = "新增单据类型", exceptionMessage = "新增单据类型失败")
     @PostMapping("")
     @RequiresPermissions("basicDjlx:add")
     public FebsResponse addBasicDjlx(@Valid BasicDjlx basicDjlx) {
@@ -57,7 +57,7 @@ public class BasicDjlxController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除BasicDjlx", exceptionMessage = "删除BasicDjlx失败")
+    @ControllerEndpoint(operation = "删除单据类型", exceptionMessage = "删除单据类型失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("basicDjlx:delete")
     public FebsResponse deleteBasicDjlx(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class BasicDjlxController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改BasicDjlx", exceptionMessage = "修改BasicDjlx失败")
+    @ControllerEndpoint(operation = "修改单据类型", exceptionMessage = "修改单据类型失败")
     @PostMapping("/update")
     @RequiresPermissions("basicDjlx:update")
     public FebsResponse updateBasicDjlx(BasicDjlx basicDjlx) {

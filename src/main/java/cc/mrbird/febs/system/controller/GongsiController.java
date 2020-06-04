@@ -49,7 +49,7 @@ public class GongsiController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增Gongsi", exceptionMessage = "新增Gongsi失败")
+    @ControllerEndpoint(operation = "新增公司", exceptionMessage = "新增公司失败")
     @PostMapping("")
     @RequiresPermissions("gongsi:add")
     public FebsResponse addGongsi(@Valid Gongsi gongsi) {
@@ -57,7 +57,7 @@ public class GongsiController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除Gongsi", exceptionMessage = "删除Gongsi失败")
+    @ControllerEndpoint(operation = "删除公司", exceptionMessage = "删除公司失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("gongsi:delete")
     public FebsResponse deleteGongsi(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +66,7 @@ public class GongsiController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改Gongsi", exceptionMessage = "修改Gongsi失败")
+    @ControllerEndpoint(operation = "修改公司", exceptionMessage = "修改公司失败")
     @PostMapping("/update")
     @RequiresPermissions("gongsi:update")
     public FebsResponse updateGongsi(Gongsi gongsi) {

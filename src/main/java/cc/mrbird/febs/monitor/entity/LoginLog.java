@@ -1,6 +1,5 @@
 package cc.mrbird.febs.monitor.entity;
 
-import cc.mrbird.febs.common.converter.TimeConverter;
 import cc.mrbird.febs.common.utils.HttpContextUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -43,7 +42,6 @@ public class LoginLog implements Serializable {
      * 登录时间
      */
     @TableField("LOGIN_TIME")
-    @ExcelField(value = "登录时间", writeConverter = TimeConverter.class)
     private Date loginTime;
 
     /**

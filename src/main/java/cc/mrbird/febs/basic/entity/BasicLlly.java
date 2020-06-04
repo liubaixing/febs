@@ -29,7 +29,6 @@ public class BasicLlly {
     /**
      * 流量来源代码
      */
-    @NotBlank(message = "{required}")
     @TableField("lllydm")
     private String lllydm;
 

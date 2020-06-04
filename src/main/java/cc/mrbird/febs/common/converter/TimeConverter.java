@@ -13,7 +13,7 @@ import java.text.ParseException;
  *
  * @author MrBird
  */
-@Slf4j
+/*@Slf4j
 public class TimeConverter implements WriteConverter {
     @Override
     public String convert(Object value) {
@@ -29,4 +29,4 @@ public class TimeConverter implements WriteConverter {
             }
         }
     }
-}
+}*/

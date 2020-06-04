@@ -60,16 +60,18 @@ public class ShangpinPpglServiceImpl extends ServiceImpl<ShangpinPpglMapper, Sha
     @Override
     @Transactional
     public void createShangpinPpgl(ShangpinPpgl shangpinPpgl) {
-        Integer dm = commonService.incr(IncrEnum.SHANGPIN_PPGL.getCode());
-        shangpinPpgl.setPpgldm(String.format("%07d", dm));
-//        check(shangpinPpgl);
         this.save(shangpinPpgl);
+        if(StringUtils.isBlank(shangpinPpgl.getPpgldm())){
+            Integer dm = shangpinPpgl.getId();
+            shangpinPpgl.setPpgldm(String.format("%07d", dm));
+            this.updateById(shangpinPpgl);
+        }
     }
 
     @Override
     @Transactional
     public void updateShangpinPpgl(ShangpinPpgl shangpinPpgl) {
-        this.saveOrUpdate(shangpinPpgl);
+        this.updateById(shangpinPpgl);
     }
 
     @Override

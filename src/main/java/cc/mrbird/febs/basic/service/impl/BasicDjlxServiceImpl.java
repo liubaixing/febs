@@ -7,6 +7,7 @@ import cc.mrbird.febs.basic.mapper.BasicDjlxMapper;
 import cc.mrbird.febs.basic.service.IBasicDjlxService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -62,6 +63,11 @@ public class BasicDjlxServiceImpl extends ServiceImpl<BasicDjlxMapper, BasicDjlx
     public void createBasicDjlx(BasicDjlx basicDjlx) {
         check(basicDjlx);
         this.save(basicDjlx);
+        if(StringUtils.isBlank(basicDjlx.getDjlxdm())){
+            String dm = StringUtil.padStart(basicDjlx.getId());
+            basicDjlx.setDjlxdm(dm);
+            this.updateById(basicDjlx);
+        }
     }
 
     @Override
@@ -70,7 +76,7 @@ public class BasicDjlxServiceImpl extends ServiceImpl<BasicDjlxMapper, BasicDjlx
         if(basicDjlx.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicDjlx);
+        this.updateById(basicDjlx);
     }
 
     @Override
@@ -84,10 +90,10 @@ public class BasicDjlxServiceImpl extends ServiceImpl<BasicDjlxMapper, BasicDjlx
         LambdaQueryWrapper<BasicDjlx> queryWrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(basicDjlx.getDjlxdm())){
             queryWrapper.eq(BasicDjlx::getDjlxdm,basicDjlx.getDjlxdm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 

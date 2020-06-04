@@ -29,7 +29,6 @@ public class BasicFpsd {
     /**
      * 发票税点代码
      */
-    @NotBlank(message = "{required}")
     @TableField("fpsddm")
     private String fpsddm;
 

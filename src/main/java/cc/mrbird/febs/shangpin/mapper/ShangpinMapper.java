@@ -2,6 +2,7 @@ package cc.mrbird.febs.shangpin.mapper;
 
 import cc.mrbird.febs.shangpin.entity.Shangpin;
 import cc.mrbird.febs.shangpin.entity.ShangpinExample;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinResp;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

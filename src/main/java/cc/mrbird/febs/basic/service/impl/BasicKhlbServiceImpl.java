@@ -7,6 +7,7 @@ import cc.mrbird.febs.basic.mapper.BasicKhlbMapper;
 import cc.mrbird.febs.basic.service.IBasicKhlbService;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -37,11 +38,11 @@ public class BasicKhlbServiceImpl extends ServiceImpl<BasicKhlbMapper, BasicKhlb
     public IPage<BasicKhlb> findBasicKhlbs(QueryRequest request, BasicKhlb basicKhlb) {
         LambdaQueryWrapper<BasicKhlb> queryWrapper = new LambdaQueryWrapper<>();
         // TODO 设置查询条件
-        if(StringUtils.isNotBlank(basicKhlb.getKhlydm())){
-            queryWrapper.like(BasicKhlb::getKhlydm,basicKhlb.getKhlydm());
+        if(StringUtils.isNotBlank(basicKhlb.getKhlbdm())){
+            queryWrapper.like(BasicKhlb::getKhlbdm,basicKhlb.getKhlbdm());
         }
-        if(StringUtils.isNotBlank(basicKhlb.getKhlymc())){
-            queryWrapper.like(BasicKhlb::getKhlymc,basicKhlb.getKhlymc());
+        if(StringUtils.isNotBlank(basicKhlb.getKhlbmc())){
+            queryWrapper.like(BasicKhlb::getKhlbmc,basicKhlb.getKhlbmc());
         }
         if(basicKhlb.getStatus()!=null){
             queryWrapper.eq(BasicKhlb::getStatus,basicKhlb.getStatus());
@@ -62,6 +63,11 @@ public class BasicKhlbServiceImpl extends ServiceImpl<BasicKhlbMapper, BasicKhlb
     public void createBasicKhlb(BasicKhlb basicKhlb) {
         check(basicKhlb);
         this.save(basicKhlb);
+        if(StringUtils.isBlank(basicKhlb.getKhlbdm())){
+            String dm = StringUtil.padStart(basicKhlb.getId());
+            basicKhlb.setKhlbdm(dm);
+            this.updateById(basicKhlb);
+        }
     }
 
     @Override
@@ -70,7 +76,7 @@ public class BasicKhlbServiceImpl extends ServiceImpl<BasicKhlbMapper, BasicKhlb
         if(basicKhlb.getId()==null){
             throw new FebsException("id不能为空，修改失败");
         }
-        this.saveOrUpdate(basicKhlb);
+        this.updateById(basicKhlb);
     }
 
     @Override
@@ -82,12 +88,12 @@ public class BasicKhlbServiceImpl extends ServiceImpl<BasicKhlbMapper, BasicKhlb
 
 	private void check(BasicKhlb basicKhlb) throws FebsException{
         LambdaQueryWrapper<BasicKhlb> queryWrapper = new LambdaQueryWrapper<>();
-        if(StringUtils.isNotBlank(basicKhlb.getKhlydm())){
-            queryWrapper.eq(BasicKhlb::getKhlydm,basicKhlb.getKhlydm());
-        }
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码重复，添加失败");
+        if(StringUtils.isNotBlank(basicKhlb.getKhlbdm())){
+            queryWrapper.eq(BasicKhlb::getKhlbdm,basicKhlb.getKhlbdm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
         }
     }
 }
