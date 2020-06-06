@@ -4,12 +4,14 @@ import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.listener.KehuDataListener;
 import cc.mrbird.febs.system.entity.Kehu;
 import cc.mrbird.febs.system.service.IKehuService;
 import cc.mrbird.febs.system.vo.resp.KehuResp;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,11 +91,12 @@ public class KehuController extends BaseController {
         EasyExcel.write(response.getOutputStream(), KehuResp.class).sheet("sheet1").doWrite(kehus);
     }
 
-    /*@PostMapping("upload")
+    @ApiOperation("上传")
+    @PostMapping("upload")
     @ResponseBody
-    public String upload(MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), KehuResp.class, new UploadDataListener(uploadDAO)).sheet().doRead();
+    public String upload(@RequestParam MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), KehuResp.class, new KehuDataListener(kehuService)).sheet().doRead();
         return "success";
-    }*/
+    }
 
 }

@@ -46,6 +46,8 @@ public interface ICangkuService extends IService<Cangku> {
      */
     void updateCangku(Cangku cangku);
 
+    void excelInsert(Cangku cangku);
+
     /**
      * 删除
      */

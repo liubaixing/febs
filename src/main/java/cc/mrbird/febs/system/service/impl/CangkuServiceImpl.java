@@ -1,5 +1,7 @@
 package cc.mrbird.febs.system.service.impl;
 
+import cc.mrbird.febs.basic.entity.BasicCklb;
+import cc.mrbird.febs.basic.mapper.BasicCklbMapper;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.utils.StringUtil;
@@ -32,6 +34,8 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
 
     @Autowired
     private CangkuMapper cangkuMapper;
+    @Autowired
+    private BasicCklbMapper cklbMapper;
 
     @Override
     public IPage<Cangku> findCangkus(QueryRequest request, Cangku cangku) {
@@ -57,6 +61,9 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
         }
         if(cangku.getStatus()!=null){
             queryWrapper.eq(Cangku::getContact,cangku.getContact());
+        }
+        if(cangku.getDeleted() != null){
+            queryWrapper.eq(Cangku::getDeleted,cangku.getDeleted());
         }
         Page<Cangku> page = new Page<>(request.getPageNum(), request.getPageSize());
         return this.page(page, queryWrapper);
@@ -89,6 +96,19 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
             throw new FebsException("id不能为空，添加失败");
         }
         this.cangkuMapper.updateByPrimaryKeySelective(cangku);
+    }
+
+    @Override
+    @Transactional
+    public void excelInsert(Cangku cangku){
+        LambdaQueryWrapper<BasicCklb> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BasicCklb::getCklbmc,cangku.getCklxmc());
+        BasicCklb cklb = cklbMapper.selectOne(queryWrapper);
+        if(cklb == null){
+            throw new FebsException("仓库类型数据有误");
+        }
+        cangku.setCklxId(cklb.getId());
+        createCangku(cangku);
     }
 
     @Override

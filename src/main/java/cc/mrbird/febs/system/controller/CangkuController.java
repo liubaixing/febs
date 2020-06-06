@@ -1,6 +1,8 @@
 package cc.mrbird.febs.system.controller;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.listener.CangkuDataListener;
+import cc.mrbird.febs.common.listener.KehuDataListener;
 import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.controller.BaseController;
@@ -8,6 +10,8 @@ import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.system.entity.Cangku;
 import cc.mrbird.febs.system.service.ICangkuService;
+import cc.mrbird.febs.system.vo.resp.KehuResp;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +19,14 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -77,9 +86,20 @@ public class CangkuController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("cangku:export")
-    public void export(QueryRequest queryRequest, Cangku cangku, HttpServletResponse response) {
+//    @RequiresPermissions("cangku:export")
+    public void export(QueryRequest queryRequest, Cangku cangku, HttpServletResponse response) throws IOException {
         List<Cangku> cangkus = this.cangkuService.findCangkus(queryRequest, cangku).getRecords();
-        ExcelKit.$Export(Cangku.class, response).downXlsx(cangkus, false);
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode("仓库管理", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), Cangku.class).sheet("sheet1").doWrite(cangkus);
+    }
+
+    @PostMapping("upload")
+    @ResponseBody
+    public String upload(@RequestParam MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), Cangku.class, new CangkuDataListener(cangkuService)).sheet().doRead();
+        return "success";
     }
 }

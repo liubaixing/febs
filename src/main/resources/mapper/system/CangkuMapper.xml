@@ -374,4 +374,15 @@
       deleted = #{deleted,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+    <select id="selectPage" resultType="cc.mrbird.febs.system.entity.Cangku">
+        SELECT c.*,lb.cklbdm cklxmc
+        FROM system_cangku c
+        LEFT JOIN basic_cklb lb ON c.cklx_id = lb.id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
 </mapper>

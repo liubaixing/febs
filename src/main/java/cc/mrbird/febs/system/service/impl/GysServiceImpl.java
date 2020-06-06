@@ -4,8 +4,10 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.system.entity.Gys;
+import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.mapper.GysMapper;
 import cc.mrbird.febs.system.service.IGysService;
+import cc.mrbird.febs.system.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -32,6 +34,9 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
 
     @Autowired
     private GysMapper gysMapper;
+
+    @Autowired
+    private IUserService userService;
 
     @Override
     public IPage<Gys> findGyss(QueryRequest request, Gys gys) {
@@ -64,6 +69,26 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
             throw new FebsException("id不能为空，添加失败");
         }
         this.saveOrUpdate(gys);
+    }
+
+    @Override
+    @Transactional
+    public void excelInsert(Gys gys){
+        if(StringUtils.isNotBlank(gys.getCgfzrmc())){
+            User user = userService.findByName(gys.getCgfzrmc());
+            if(user == null){
+                throw  new FebsException("采购负责人数据异常");
+            }
+            gys.setCgfzr(user.getUserId());
+        }
+        if(StringUtils.isNotBlank(gys.getXdfzrmc())){
+            User user = userService.findByName(gys.getXdfzrmc());
+            if(user == null){
+                throw  new FebsException("下单负责人数据异常");
+            }
+            gys.setXdfzr(user.getUserId());
+        }
+        createGys(gys);
     }
 
     @Override

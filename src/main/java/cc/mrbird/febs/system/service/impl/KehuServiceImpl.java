@@ -4,14 +4,18 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.system.entity.Kehu;
+import cc.mrbird.febs.system.entity.KehuExample;
+import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.mapper.KehuMapper;
 import cc.mrbird.febs.system.service.IKehuService;
+import cc.mrbird.febs.system.service.IUserService;
 import cc.mrbird.febs.system.vo.resp.KehuResp;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,6 +37,9 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
 
     @Autowired
     private KehuMapper kehuMapper;
+
+    @Autowired
+    private IUserService userService;
 
     @Override
     public IPage<KehuResp> findKehus(QueryRequest request, KehuResp kehu) {
@@ -66,6 +73,21 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
         }
         this.kehuMapper.updateByPrimaryKeySelective(kehu);
 
+    }
+
+    @Override
+    @Transactional
+    public void excelInsert(KehuResp kehuResp){
+        if(StringUtils.isNotBlank(kehuResp.getUserName())){
+           User user = userService.findByName(kehuResp.getUserName());
+           if(user == null){
+               throw new FebsException("所属用户用户数据异常");
+           }
+           kehuResp.setSsyh(user.getUserId());
+        }
+        Kehu kehu = new Kehu();
+        BeanUtils.copyProperties(kehuResp,kehu);
+        createKehu(kehu);
     }
 
     @Override

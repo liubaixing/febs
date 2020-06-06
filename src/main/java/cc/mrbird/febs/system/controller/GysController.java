@@ -1,13 +1,17 @@
 package cc.mrbird.febs.system.controller;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.listener.CangkuDataListener;
+import cc.mrbird.febs.common.listener.GysDataListener;
 import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.system.entity.Cangku;
 import cc.mrbird.febs.system.entity.Gys;
 import cc.mrbird.febs.system.service.IGysService;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +19,14 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -77,9 +86,20 @@ public class GysController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("gys:export")
-    public void export(QueryRequest queryRequest, Gys gys, HttpServletResponse response) {
+//    @RequiresPermissions("gys:export")
+    public void export(QueryRequest queryRequest, Gys gys, HttpServletResponse response) throws IOException {
         List<Gys> gyss = this.gysService.findGyss(queryRequest, gys).getRecords();
-        ExcelKit.$Export(Gys.class, response).downXlsx(gyss, false);
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode("供应商管理", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), Gys.class).sheet("sheet1").doWrite(gyss);
+
+    }
+
+    @PostMapping("upload")
+    @ResponseBody
+    public void upload(@RequestParam MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), Cangku.class, new GysDataListener(gysService)).sheet().doRead();
     }
 }

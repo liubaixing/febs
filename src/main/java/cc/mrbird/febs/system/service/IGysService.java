@@ -46,6 +46,8 @@ public interface IGysService extends IService<Gys> {
      */
     void updateGys(Gys gys);
 
+    void excelInsert(Gys gys);
+
     /**
      * 删除
      */

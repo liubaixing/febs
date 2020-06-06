@@ -2,7 +2,10 @@ package cc.mrbird.febs.system.mapper;
 
 import cc.mrbird.febs.system.entity.Cangku;
 import cc.mrbird.febs.system.entity.CangkuExample;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.lettuce.core.dynamic.annotation.Param;
 
 import java.util.List;
@@ -36,5 +39,7 @@ public interface CangkuMapper extends BaseMapper<Cangku> {
     int updateByPrimaryKeySelective(Cangku record);
 
     int updateByPrimaryKey(Cangku record);
-    
+
+    IPage<Cangku> selectPage(Page<Cangku> page, @Param("ew") Wrapper queryWrapper);
+
 }

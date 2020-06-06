@@ -47,6 +47,8 @@ public interface IKehuService extends IService<Kehu> {
      */
     void updateKehu(Kehu kehu);
 
+    void excelInsert(KehuResp kehu);
+
     /**
      * 删除
      *

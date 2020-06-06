@@ -58,7 +58,7 @@ public class Kehu {
      */
     @ExcelIgnore
     @TableField("ssyh")
-    private Integer ssyh;
+    private Long ssyh;
 
     /**
      * 联系人电话

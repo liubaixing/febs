@@ -72,6 +72,7 @@ public class GongsiServiceImpl extends ServiceImpl<GongsiMapper, Gongsi> impleme
     public void createGongsi(Gongsi gongsi) {
         check(gongsi);
         gongsi.setCreateTime(new Date());
+        this.gongsiMapper.insertSelective(gongsi);
         if(StringUtils.isBlank(gongsi.getGsdm())){
             String dm = StringUtil.padStart(gongsi.getId());
             gongsi.setGsdm(dm);

@@ -7,7 +7,7 @@
         <result column="khdm" jdbcType="VARCHAR" property="khdm" />
         <result column="khmc" jdbcType="VARCHAR" property="khmc" />
         <result column="khlx_id" jdbcType="INTEGER" property="khlxId" />
-        <result column="ssyh" jdbcType="INTEGER" property="ssyh" />
+        <result column="ssyh" jdbcType="BIGINT" property="ssyh" />
         <result column="tel" jdbcType="VARCHAR" property="tel" />
         <result column="contact" jdbcType="VARCHAR" property="contact" />
         <result column="address" jdbcType="VARCHAR" property="address" />
@@ -119,7 +119,7 @@
       ex2, ex3, `status`, create_time, 
       update_time, deleted)
     values (#{khdm,jdbcType=VARCHAR}, #{khmc,jdbcType=VARCHAR}, #{khlxId,jdbcType=INTEGER}, 
-      #{ssyh,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{ssyh,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
       #{address,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{ex1,jdbcType=VARCHAR}, 
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
@@ -184,7 +184,7 @@
                 #{khlxId,jdbcType=INTEGER},
             </if>
             <if test="ssyh != null">
-                #{ssyh,jdbcType=INTEGER},
+                #{ssyh,jdbcType=BIGINT},
             </if>
             <if test="tel != null">
                 #{tel,jdbcType=VARCHAR},
@@ -221,6 +221,24 @@
             </if>
         </trim>
     </insert>
+
+    <insert id="insertBatch" keyColumn="id" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into system_kehu
+        ( khdm,khmc,khlx_id,ssyh,tel,contact,address,create_time)
+        values
+        <foreach collection="list" item="kehu" separator =",">
+        (
+            #{kehu.khdm,jdbcType=VARCHAR},
+            #{kehu.khmc,jdbcType=VARCHAR},
+            #{kehu.khlxId,jdbcType=INTEGER},
+            #{kehu.ssyh,jdbcType=BIGINT},
+            #{kehu.tel,jdbcType=VARCHAR},
+            #{kehu.contact,jdbcType=VARCHAR},
+            #{kehu.address,jdbcType=VARCHAR},
+            #{kehu.createTime,jdbcType=TIMESTAMP}
+        )
+        </foreach>
+    </insert>
     <select id="countByExample" parameterType="cc.mrbird.febs.system.entity.KehuExample" resultType="java.lang.Long">
         select count(*) from system_kehu
         <if test="_parameter != null">
@@ -243,7 +261,7 @@
                 khlx_id = #{record.khlxId,jdbcType=INTEGER},
             </if>
             <if test="record.ssyh != null">
-                ssyh = #{record.ssyh,jdbcType=INTEGER},
+                ssyh = #{record.ssyh,jdbcType=BIGINT},
             </if>
             <if test="record.tel != null">
                 tel = #{record.tel,jdbcType=VARCHAR},
@@ -289,7 +307,7 @@
         khdm = #{record.khdm,jdbcType=VARCHAR},
         khmc = #{record.khmc,jdbcType=VARCHAR},
         khlx_id = #{record.khlxId,jdbcType=INTEGER},
-        ssyh = #{record.ssyh,jdbcType=INTEGER},
+        ssyh = #{record.ssyh,jdbcType=BIGINT},
         tel = #{record.tel,jdbcType=VARCHAR},
         contact = #{record.contact,jdbcType=VARCHAR},
         address = #{record.address,jdbcType=VARCHAR},
@@ -318,7 +336,7 @@
                 khlx_id = #{khlxId,jdbcType=INTEGER},
             </if>
             <if test="ssyh != null">
-                ssyh = #{ssyh,jdbcType=INTEGER},
+                ssyh = #{ssyh,jdbcType=BIGINT},
             </if>
             <if test="tel != null">
                 tel = #{tel,jdbcType=VARCHAR},
@@ -361,7 +379,7 @@
     set khdm = #{khdm,jdbcType=VARCHAR},
       khmc = #{khmc,jdbcType=VARCHAR},
       khlx_id = #{khlxId,jdbcType=INTEGER},
-      ssyh = #{ssyh,jdbcType=INTEGER},
+      ssyh = #{ssyh,jdbcType=BIGINT},
       tel = #{tel,jdbcType=VARCHAR},
       contact = #{contact,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},

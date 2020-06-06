@@ -26,6 +26,8 @@ public interface KehuMapper extends BaseMapper<Kehu> {
 
     int insert(Kehu record);
 
+    int insertBatch(List<Kehu> data);
+
     int insertSelective(Kehu record);
 
     List<Kehu> selectByExample(KehuExample example);

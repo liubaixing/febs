@@ -8,6 +8,8 @@ import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.system.entity.Gongsi;
 import cc.mrbird.febs.system.service.IGongsiService;
+import cc.mrbird.febs.system.vo.resp.KehuResp;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +48,7 @@ public class GongsiController extends BaseController {
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("gongsi:list")
+//    @RequiresPermissions("gongsi:list")
     public FebsResponse gongsiList(QueryRequest request, Gongsi gongsi) {
         Map<String, Object> dataTable = getDataTable(this.gongsiService.findGongsis(request, gongsi));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +56,7 @@ public class GongsiController extends BaseController {
 
     @ControllerEndpoint(operation = "新增公司", exceptionMessage = "新增公司失败")
     @PostMapping("")
-    @RequiresPermissions("gongsi:add")
+//    @RequiresPermissions("gongsi:add")
     public FebsResponse addGongsi(@Valid Gongsi gongsi) {
         this.gongsiService.createGongsi(gongsi);
         return new FebsResponse().success();
@@ -76,9 +81,16 @@ public class GongsiController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("gongsi:export")
-    public void export(QueryRequest queryRequest, Gongsi gongsi, HttpServletResponse response) {
+//    @RequiresPermissions("gongsi:export")
+    public void export(QueryRequest queryRequest, Gongsi gongsi, HttpServletResponse response) throws IOException {
         List<Gongsi> gongsis = this.gongsiService.findGongsis(queryRequest, gongsi).getRecords();
-        ExcelKit.$Export(Gongsi.class, response).downXlsx(gongsis, false);
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode("公司管理", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), Gongsi.class).sheet("sheet1").doWrite(gongsis);
     }
+
+
+
 }

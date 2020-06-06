@@ -11,8 +11,8 @@
         <result column="wx" jdbcType="VARCHAR" property="wx" />
         <result column="qq" jdbcType="VARCHAR" property="qq" />
         <result column="hy" jdbcType="VARCHAR" property="hy" />
-        <result column="cgfzr" jdbcType="VARCHAR" property="cgfzr" />
-        <result column="xdfzr" jdbcType="VARCHAR" property="xdfzr" />
+        <result column="cgfzr" jdbcType="BIGINT" property="cgfzr" />
+        <result column="xdfzr" jdbcType="BIGINT" property="xdfzr" />
         <result column="fplx_id" jdbcType="INTEGER" property="fplxId" />
         <result column="fpsd_id" jdbcType="INTEGER" property="fpsdId" />
         <result column="sfyj" jdbcType="VARCHAR" property="sfyj" />
@@ -127,7 +127,7 @@
       )
     values (#{gysdm,jdbcType=VARCHAR}, #{gysmc,jdbcType=VARCHAR}, #{lsr,jdbcType=VARCHAR}, 
       #{lsrdh,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{hy,jdbcType=VARCHAR}, 
-      #{cgfzr,jdbcType=VARCHAR}, #{xdfzr,jdbcType=VARCHAR}, #{fplxId,jdbcType=INTEGER}, 
+      #{cgfzr,jdbcType=BIGINT}, #{xdfzr,jdbcType=BIGINT}, #{fplxId,jdbcType=INTEGER},
       #{fpsdId,jdbcType=INTEGER}, #{sfyj,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
       #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
@@ -220,10 +220,10 @@
                 #{hy,jdbcType=VARCHAR},
             </if>
             <if test="cgfzr != null">
-                #{cgfzr,jdbcType=VARCHAR},
+                #{cgfzr,jdbcType=BIGINT},
             </if>
             <if test="xdfzr != null">
-                #{xdfzr,jdbcType=VARCHAR},
+                #{xdfzr,jdbcType=BIGINT},
             </if>
             <if test="fplxId != null">
                 #{fplxId,jdbcType=INTEGER},
@@ -294,10 +294,10 @@
                 hy = #{record.hy,jdbcType=VARCHAR},
             </if>
             <if test="record.cgfzr != null">
-                cgfzr = #{record.cgfzr,jdbcType=VARCHAR},
+                cgfzr = #{record.cgfzr,jdbcType=BIGINT},
             </if>
             <if test="record.xdfzr != null">
-                xdfzr = #{record.xdfzr,jdbcType=VARCHAR},
+                xdfzr = #{record.xdfzr,jdbcType=BIGINT},
             </if>
             <if test="record.fplxId != null">
                 fplx_id = #{record.fplxId,jdbcType=INTEGER},
@@ -347,8 +347,8 @@
         wx = #{record.wx,jdbcType=VARCHAR},
         qq = #{record.qq,jdbcType=VARCHAR},
         hy = #{record.hy,jdbcType=VARCHAR},
-        cgfzr = #{record.cgfzr,jdbcType=VARCHAR},
-        xdfzr = #{record.xdfzr,jdbcType=VARCHAR},
+        cgfzr = #{record.cgfzr,jdbcType=BIGINT},
+        xdfzr = #{record.xdfzr,jdbcType=BIGINT},
         fplx_id = #{record.fplxId,jdbcType=INTEGER},
         fpsd_id = #{record.fpsdId,jdbcType=INTEGER},
         sfyj = #{record.sfyj,jdbcType=VARCHAR},
@@ -389,10 +389,10 @@
                 hy = #{hy,jdbcType=VARCHAR},
             </if>
             <if test="cgfzr != null">
-                cgfzr = #{cgfzr,jdbcType=VARCHAR},
+                cgfzr = #{cgfzr,jdbcType=BIGINT},
             </if>
             <if test="xdfzr != null">
-                xdfzr = #{xdfzr,jdbcType=VARCHAR},
+                xdfzr = #{xdfzr,jdbcType=BIGINT},
             </if>
             <if test="fplxId != null">
                 fplx_id = #{fplxId,jdbcType=INTEGER},
@@ -439,8 +439,8 @@
       wx = #{wx,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       hy = #{hy,jdbcType=VARCHAR},
-      cgfzr = #{cgfzr,jdbcType=VARCHAR},
-      xdfzr = #{xdfzr,jdbcType=VARCHAR},
+      cgfzr = #{cgfzr,jdbcType=BIGINT},
+      xdfzr = #{xdfzr,jdbcType=BIGINT},
       fplx_id = #{fplxId,jdbcType=INTEGER},
       fpsd_id = #{fpsdId,jdbcType=INTEGER},
       sfyj = #{sfyj,jdbcType=VARCHAR},
@@ -512,11 +512,11 @@
     </sql>
 
 
-    <select id="selectDetailPage" parameterType="gys" resultType="cc.mrbird.febs.system.entity.Gys">
+    <select id="selectDetailPage" resultType="cc.mrbird.febs.system.entity.Gys">
         <include refid="findGysDetailSql" />
     </select>
 
-    <select id="selectDetail" parameterType="gys" resultType="cc.mrbird.febs.system.entity.Gys">
+    <select id="selectDetail" resultType="cc.mrbird.febs.system.entity.Gys">
         <include refid="findGysDetailSql" />
     </select>
 
