@@ -102,7 +102,14 @@ public class GongsiServiceImpl extends ServiceImpl<GongsiMapper, Gongsi> impleme
             queryWrapper.eq(Gongsi::getGsdm,gongsi.getGsdm());
             Integer count = this.baseMapper.selectCount(queryWrapper);
             if (count>0) {
-                throw new FebsException("数据已存在，添加失败");
+                throw new FebsException("公司代码重复");
+            }
+        }
+        if(StringUtils.isNotBlank(gongsi.getGsmc())){
+            queryWrapper.eq(Gongsi::getGsmc,gongsi.getGsmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("公司名称重复");
             }
         }
     }

@@ -95,5 +95,12 @@ public class BasicXsfsServiceImpl extends ServiceImpl<BasicXsfsMapper, BasicXsfs
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicXsfs.getXsfsmc())){
+            queryWrapper.eq(BasicXsfs::getXsfsmc,basicXsfs.getXsfsmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
+        }
     }
 }

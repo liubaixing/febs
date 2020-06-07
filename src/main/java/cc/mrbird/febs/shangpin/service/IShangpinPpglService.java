@@ -51,5 +51,4 @@ public interface IShangpinPpglService extends IService<ShangpinPpgl> {
      */
     void deleteShangpinPpgl(String[] ids);
 
-    void saveImport(List<ShangpinPpgl> data);
 }

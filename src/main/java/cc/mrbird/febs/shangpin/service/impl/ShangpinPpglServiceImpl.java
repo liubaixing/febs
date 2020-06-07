@@ -4,6 +4,7 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.enums.IncrEnum;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.service.CommonService;
+import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.shangpin.entity.ShangpinPpgl;
 import cc.mrbird.febs.shangpin.mapper.ShangpinPpglMapper;
 import cc.mrbird.febs.shangpin.service.IShangpinPpglService;
@@ -60,10 +61,11 @@ public class ShangpinPpglServiceImpl extends ServiceImpl<ShangpinPpglMapper, Sha
     @Override
     @Transactional
     public void createShangpinPpgl(ShangpinPpgl shangpinPpgl) {
+        check(shangpinPpgl);
         this.save(shangpinPpgl);
         if(StringUtils.isBlank(shangpinPpgl.getPpgldm())){
-            Integer dm = shangpinPpgl.getId();
-            shangpinPpgl.setPpgldm(String.format("%07d", dm));
+            String dm = StringUtil.padStart(shangpinPpgl.getId());
+            shangpinPpgl.setPpgldm(dm);
             this.updateById(shangpinPpgl);
         }
     }
@@ -81,22 +83,21 @@ public class ShangpinPpglServiceImpl extends ServiceImpl<ShangpinPpglMapper, Sha
         this.removeByIds(list);
 	}
 
-    @Override
-    @Transactional
-    public void saveImport(List<ShangpinPpgl> data){
-        for(ShangpinPpgl sp : data){
-            Integer dm = commonService.incr(IncrEnum.SHANGPIN_PPGL.getCode());
-            sp.setPpgldm(String.format("%07d", dm));
-            this.baseMapper.insert(sp);
-        }
-    }
-
 	private void check(ShangpinPpgl shangpinPpgl) throws FebsException{
         LambdaQueryWrapper<ShangpinPpgl> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ShangpinPpgl::getPpgldm,shangpinPpgl.getPpgldm());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
+        if(StringUtils.isNotBlank(shangpinPpgl.getPpgldm())){
+            queryWrapper.eq(ShangpinPpgl::getPpgldm,shangpinPpgl.getPpgldm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("代码重复，添加失败");
+            }
+        }
+        if(StringUtils.isNotBlank(shangpinPpgl.getPpglmc())){
+            queryWrapper.eq(ShangpinPpgl::getPpglmc,shangpinPpgl.getPpglmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
         }
     }
 

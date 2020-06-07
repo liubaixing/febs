@@ -86,7 +86,7 @@ public class GysController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-//    @RequiresPermissions("gys:export")
+    @RequiresPermissions("gys:export")
     public void export(QueryRequest queryRequest, Gys gys, HttpServletResponse response) throws IOException {
         List<Gys> gyss = this.gysService.findGyss(queryRequest, gys).getRecords();
         response.setContentType("application/vnd.ms-excel");
@@ -100,6 +100,6 @@ public class GysController extends BaseController {
     @PostMapping("upload")
     @ResponseBody
     public void upload(@RequestParam MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), Cangku.class, new GysDataListener(gysService)).sheet().doRead();
+        EasyExcel.read(file.getInputStream(), Gys.class, new GysDataListener(gysService)).sheet().doRead();
     }
 }

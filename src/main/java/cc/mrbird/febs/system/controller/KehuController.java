@@ -79,9 +79,9 @@ public class KehuController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    @ControllerEndpoint(operation = "导出Excel", exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-//    @RequiresPermissions("kehu:export")
+    @RequiresPermissions("kehu:export")
     public void export(QueryRequest queryRequest, KehuResp kehu, HttpServletResponse response)  throws IOException {
         List<KehuResp> kehus = this.kehuService.findKehus(queryRequest, kehu).getRecords();
         response.setContentType("application/vnd.ms-excel");
@@ -91,12 +91,12 @@ public class KehuController extends BaseController {
         EasyExcel.write(response.getOutputStream(), KehuResp.class).sheet("sheet1").doWrite(kehus);
     }
 
-    @ApiOperation("上传")
+    @ApiOperation("导入")
+    @ControllerEndpoint(operation = "导入Excel", exceptionMessage = "导入Excel失败")
     @PostMapping("upload")
     @ResponseBody
-    public String upload(@RequestParam MultipartFile file) throws IOException {
+    public void upload(@RequestParam MultipartFile file) throws IOException {
         EasyExcel.read(file.getInputStream(), KehuResp.class, new KehuDataListener(kehuService)).sheet().doRead();
-        return "success";
     }
 
 }

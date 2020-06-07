@@ -35,15 +35,15 @@ public class Cangku {
     /**
      * 仓库代码
      */
-    @ExcelProperty(value = "仓库代码",index = 0)
+    @ExcelIgnore
     @TableField("ckdm")
     private String ckdm;
 
     /**
      * 仓库名称
      */
-    @ExcelProperty(value = "仓库代码",index = 1)
-    @NotBlank(message = "{required}")
+    @ExcelProperty(value = "仓库名称",index = 0)
+    @NotBlank(message = "仓库名称不能为空")
     @TableField("ckmc")
     private String ckmc;
 
@@ -56,13 +56,13 @@ public class Cangku {
     private Integer cklxId;
 
 
-    @ExcelProperty(value = "仓库代码",index = 2)
+    @ExcelProperty(value = "仓库类型",index = 1)
     private String cklxmc;
 
     /**
      * 仓库性质 0:自发 1:直发
      */
-    @ExcelProperty(value = "仓库代码",index = 3,converter = CangkuTypeConverter.class)
+    @ExcelProperty(value = "仓库性质",index = 2,converter = CangkuTypeConverter.class)
     @NotNull(message = "仓库性质不能为空")
     @TableField("ckxz")
     private Integer ckxz;
@@ -70,21 +70,21 @@ public class Cangku {
     /**
      * 联系人电话
      */
-    @ExcelProperty(value = "仓库代码",index = 4)
+    @ExcelProperty(value = "联系人电话",index = 3)
     @TableField("tel")
     private String tel;
 
     /**
      * 联系人
      */
-    @ExcelProperty(value = "仓库代码",index = 5)
+    @ExcelProperty(value = "联系人",index = 4)
     @TableField("contact")
     private String contact;
 
     /**
      * 发货地址
      */
-    @ExcelProperty(value = "仓库代码",index = 6)
+    @ExcelProperty(value = "发货地址",index = 5)
     @TableField("address")
     private String address;
 

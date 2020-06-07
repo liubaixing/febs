@@ -95,5 +95,12 @@ public class BasicLllyServiceImpl extends ServiceImpl<BasicLllyMapper, BasicLlly
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicLlly.getLllymc())){
+            queryWrapper.eq(BasicLlly::getLllymc,basicLlly.getLllymc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 }

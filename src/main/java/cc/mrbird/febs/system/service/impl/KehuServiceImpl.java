@@ -1,10 +1,11 @@
 package cc.mrbird.febs.system.service.impl;
 
+import cc.mrbird.febs.basic.entity.BasicKhlb;
+import cc.mrbird.febs.basic.mapper.BasicKhlbMapper;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.utils.StringUtil;
 import cc.mrbird.febs.system.entity.Kehu;
-import cc.mrbird.febs.system.entity.KehuExample;
 import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.mapper.KehuMapper;
 import cc.mrbird.febs.system.service.IKehuService;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -41,6 +43,8 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private BasicKhlbMapper khlbMapper;
     @Override
     public IPage<KehuResp> findKehus(QueryRequest request, KehuResp kehu) {
         Page<Kehu> page = new Page<>(request.getPageNum(), request.getPageSize());
@@ -81,9 +85,21 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
         if(StringUtils.isNotBlank(kehuResp.getUserName())){
            User user = userService.findByName(kehuResp.getUserName());
            if(user == null){
-               throw new FebsException("所属用户用户数据异常");
+               throw new FebsException("所属用户数据异常");
            }
            kehuResp.setSsyh(user.getUserId());
+        }
+        if(StringUtils.isNotBlank(kehuResp.getKhlbmc())){
+            LambdaQueryWrapper<BasicKhlb> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(BasicKhlb::getKhlbmc,kehuResp.getKhlbmc());
+            List<BasicKhlb> khlb = khlbMapper.selectList(wrapper);
+            if(CollectionUtils.isEmpty(khlb)){
+                throw new FebsException("客户类型不存在");
+            }
+            if(khlb.size()>1){
+                throw new FebsException("有多个同名客户类型，请检查");
+            }
+            kehuResp.setKhlxId(khlb.get(0).getId());
         }
         Kehu kehu = new Kehu();
         BeanUtils.copyProperties(kehuResp,kehu);
@@ -105,6 +121,13 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
             Integer count = this.baseMapper.selectCount(queryWrapper);
             if (count>0) {
                 throw new FebsException("数据已存在，添加失败");
+            }
+        }
+        if(StringUtils.isNotBlank(kehu.getKhmc())){
+            queryWrapper.eq(Kehu::getKhmc,kehu.getKhmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("客户名称重复，添加失败");
             }
         }
     }

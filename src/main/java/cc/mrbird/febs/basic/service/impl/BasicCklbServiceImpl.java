@@ -96,6 +96,13 @@ public class BasicCklbServiceImpl extends ServiceImpl<BasicCklbMapper, BasicCklb
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicCklb.getCklbmc())){
+            queryWrapper.eq(BasicCklb::getCklbmc,basicCklb.getCklbmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 
 }

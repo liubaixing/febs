@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class KehuResp extends Kehu {
 
-    @ExcelProperty(value = "客户类型",index = 2)
+    @ExcelProperty(value = "客户类型",index = 1)
     private String khlbmc;
-    @ExcelProperty(value = "所属用户",index = 3)
+    @ExcelProperty(value = "所属用户",index = 2)
     private String userName;
 
 }

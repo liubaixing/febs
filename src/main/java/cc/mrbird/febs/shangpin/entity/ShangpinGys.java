@@ -39,21 +39,21 @@ public class ShangpinGys {
     /**
      * 商品代码
      */
-    @ExcelProperty(value = "商品代码",index = 0)
     @ApiModelProperty("商品代码")
+    @ExcelIgnore
     @TableField("spdm")
     private String spdm;
 
     /**
      * 商品名称
      */
-    @ExcelProperty(value = "商品名称",index = 1)
+    @ExcelProperty(value = "商品名称",index = 0)
     @ApiModelProperty("商品名称（必填）")
     @NotBlank(message = "{required}")
     @TableField("spmc")
     private String spmc;
 
-    @ExcelProperty(value = "唯一码",index = 8)
+    @ExcelProperty(value = "唯一码",index = 7)
     @ApiModelProperty("唯一码")
     private String memo;
 
@@ -62,29 +62,29 @@ public class ShangpinGys {
     /**
      * 销售价
      */
-    @ExcelProperty(value = "销售价",index = 11)
+    @ExcelProperty(value = "销售价",index = 10)
     @ApiModelProperty("销售价")
     @TableField("xsj")
     private BigDecimal xsj;
     /**
      * 吊牌价
      */
-    @ExcelProperty(value = "吊牌价",index = 9)
+    @ExcelProperty(value = "吊牌价",index = 8)
     @ApiModelProperty("吊牌价")
     @TableField("dpj")
     private BigDecimal dpj;
     /**
      * 预售价
      */
-    @ExcelProperty(value = "预售价",index = 12)
+    @ExcelProperty(value = "预售价",index = 11)
     @ApiModelProperty("预售价")
     @TableField("ysj")
     private BigDecimal ysj;
     /**
      * 采购价
      */
-    @ExcelProperty(value = "采购价",index = 10)
-    @ApiModelProperty("采购价")
+    @ExcelProperty(value = "采购价",index = 9)
+    @ApiModelProperty("采购价（必填）")
     @TableField("cgj")
     private BigDecimal cgj;
     /**
@@ -99,8 +99,8 @@ public class ShangpinGys {
     /**
      * 起订量
      */
-    @ExcelProperty(value = "起订量",index = 7)
-    @ApiModelProperty("起订量")
+    @ExcelProperty(value = "起订量",index = 6)
+    @ApiModelProperty("起订量（必填）")
     @TableField("qdl")
     private Integer qdl;
 
@@ -167,7 +167,7 @@ public class ShangpinGys {
     /**
      * 审核状态 0 初始状态 1 已提交 2 已审核 3 已打回
      */
-    @ExcelProperty(value = "审核状态",index = 15,converter = VerifyConverter.class)
+    @ExcelProperty(value = "审核状态",index = 14,converter = VerifyConverter.class)
     @ApiModelProperty("审核状态 0 初始状态 1 已提交 2 已审核 3 已打回 ")
     @TableField("lyxt")
     private Byte lyxt;
@@ -175,7 +175,7 @@ public class ShangpinGys {
     /**
      * 是否启用 0:启用 1:停用
      */
-    @ExcelProperty(value = "状态",index = 16,converter = StatusConverter.class)
+    @ExcelProperty(value = "状态",index = 15,converter = StatusConverter.class)
     @ApiModelProperty("是否启用 0:启用 1:停用")
     @TableField("status")
     private Integer status;

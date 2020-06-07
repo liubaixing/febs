@@ -94,5 +94,12 @@ public class BasicHsxmServiceImpl extends ServiceImpl<BasicHsxmMapper, BasicHsxm
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicHsxm.getHsxmmc())){
+            queryWrapper.eq(BasicHsxm::getHsxmmc,basicHsxm.getHsxmmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 }

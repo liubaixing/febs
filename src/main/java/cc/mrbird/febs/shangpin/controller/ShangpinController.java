@@ -4,6 +4,7 @@ import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.listener.ShangpinDataListener;
 import cc.mrbird.febs.common.utils.MapUtil;
 import cc.mrbird.febs.shangpin.entity.Shangpin;
 import cc.mrbird.febs.shangpin.service.IShangpinService;
@@ -110,38 +111,8 @@ public class ShangpinController extends BaseController {
     @ApiOperation("导入")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @PostMapping("import")
-    public ResponseEntity<?> excelImport(@RequestParam MultipartFile file) throws IOException{
-        long beginMillis = System.currentTimeMillis();
-
-        List<ShangpinResp> successList = Lists.newArrayList();
-        List<Map<String, Object>> errorList = Lists.newArrayList();
-
-        ExcelKit.$Import(ShangpinResp.class)
-                .readXlsx(file.getInputStream(), new ExcelReadHandler<ShangpinResp>() {
-                    @Override
-                    public void onSuccess(int sheetIndex, int rowIndex, ShangpinResp entity) {
-                        successList.add(entity); // 单行读取成功，加入入库队列。
-                    }
-                    @Override
-                    public void onError(int sheetIndex, int rowIndex,
-                                        List<ExcelErrorField> errorFields) {
-                        // 读取数据失败，记录了当前行所有失败的数据
-                        errorList.add(MapUtil.newHashMap
-                                ("sheetIndex", sheetIndex,
-                                "rowIndex", rowIndex,
-                                "errorFields", errorFields
-                        ));
-                    }
-                });
-
-        // TODO: 执行successList的入库操作。
-        shangpinService.saveImport(successList);
-        return ResponseEntity.ok(MapUtil.newHashMap(
-                "data",successList
-                ,"haveError",CollectionUtils.isNotEmpty(errorList)
-                ,"error", errorList
-                ,"timeConsuming", (System.currentTimeMillis() - beginMillis) / 1000L
-        ));
+    public void excelImport(@RequestParam MultipartFile file) throws IOException{
+        EasyExcel.read(file.getInputStream(), ShangpinResp.class, new ShangpinDataListener(shangpinService)).sheet().doRead();
     }
 
 }

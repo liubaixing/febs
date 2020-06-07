@@ -41,6 +41,12 @@ public interface IShangpinService extends IService<Shangpin> {
     void createShangpin(Shangpin shangpin);
 
     /**
+     * excel导入新增
+     * @param shangpinResp
+     */
+    void excelInsert(ShangpinResp shangpinResp);
+
+    /**
      * 修改
      *
      * @param shangpin shangpin
@@ -52,5 +58,4 @@ public interface IShangpinService extends IService<Shangpin> {
      */
     void deleteShangpin(String[] ids);
 
-    void saveImport(List<ShangpinResp> data);
 }

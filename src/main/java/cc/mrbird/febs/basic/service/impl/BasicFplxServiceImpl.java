@@ -93,5 +93,12 @@ public class BasicFplxServiceImpl extends ServiceImpl<BasicFplxMapper, BasicFplx
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicFplx.getFplxmc())){
+            queryWrapper.eq(BasicFplx::getFplxmc,basicFplx.getFplxmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 }

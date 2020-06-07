@@ -33,14 +33,14 @@ public class Gongsi {
     /**
      * 公司代码
      */
-    @ExcelProperty(value = "公司代码",index = 0)
+    @ExcelIgnore
     @TableField("gsdm")
     private String gsdm;
 
     /**
      * 公司名称
      */
-    @ExcelProperty(value = "公司名称",index = 1)
+    @ExcelProperty(value = "公司名称",index = 0)
     @NotBlank(message = "{required}")
     @TableField("gsmc")
     private String gsmc;
@@ -48,21 +48,21 @@ public class Gongsi {
     /**
      * 负责人联系电话
      */
-    @ExcelProperty(value = "负责人电话",index = 2)
+    @ExcelProperty(value = "负责人电话",index = 1)
     @TableField("tel")
     private String tel;
 
     /**
      * 负责人
      */
-    @ExcelProperty(value = "负责人",index = 3)
+    @ExcelProperty(value = "负责人",index = 2)
     @TableField("contact")
     private String contact;
 
     /**
      * 发货地址
      */
-    @ExcelProperty(value = "发货地址",index = 4)
+    @ExcelProperty(value = "发货地址",index = 3)
     @TableField("address")
     private String address;
 
@@ -97,7 +97,7 @@ public class Gongsi {
     /**
      * 是否启用 0:启用 1:停用
      */
-    @ExcelProperty(value = "是否启用",index = 5,converter = StatusConverter.class)
+    @ExcelProperty(value = "是否启用",index = 4,converter = StatusConverter.class)
     @TableField("status")
     private Integer status;
 

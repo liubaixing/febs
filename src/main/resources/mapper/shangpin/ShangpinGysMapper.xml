@@ -531,6 +531,9 @@
             <if test="sp.ppId != null">
                 and sp.pp_id = #{sp.ppId}
             </if>
+            <if test="sp.lyxt != null">
+                and sp.lyxt = #{sp.lyxt}
+            </if>
         </where>
     </sql>
 

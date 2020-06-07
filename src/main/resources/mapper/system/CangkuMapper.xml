@@ -377,7 +377,7 @@
 
 
     <select id="selectPage" resultType="cc.mrbird.febs.system.entity.Cangku">
-        SELECT c.*,lb.cklbdm cklxmc
+        SELECT c.*,lb.cklbmc cklxmc
         FROM system_cangku c
         LEFT JOIN basic_cklb lb ON c.cklx_id = lb.id
         <where>

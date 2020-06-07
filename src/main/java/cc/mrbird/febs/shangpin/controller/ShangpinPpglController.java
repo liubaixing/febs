@@ -1,6 +1,8 @@
 package cc.mrbird.febs.shangpin.controller;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.listener.PpglDataListener;
+import cc.mrbird.febs.common.listener.ShangpinDataListener;
 import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.controller.BaseController;
@@ -10,6 +12,8 @@ import cc.mrbird.febs.common.utils.MapUtil;
 import cc.mrbird.febs.shangpin.entity.Shangpin;
 import cc.mrbird.febs.shangpin.entity.ShangpinPpgl;
 import cc.mrbird.febs.shangpin.service.IShangpinPpglService;
+import cc.mrbird.febs.shangpin.vo.resp.ShangpinResp;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.google.common.collect.Lists;
 import com.wuwenze.poi.ExcelKit;
@@ -30,6 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -96,45 +102,20 @@ public class ShangpinPpglController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("shangpinPpgl:export")
-    public void export(QueryRequest queryRequest, ShangpinPpgl shangpinPpgl, HttpServletResponse response) {
+    public void export(QueryRequest queryRequest, ShangpinPpgl shangpinPpgl, HttpServletResponse response) throws IOException {
         List<ShangpinPpgl> shangpinPpgls = this.shangpinPpglService.findShangpinPpgls(queryRequest, shangpinPpgl).getRecords();
-        ExcelKit.$Export(ShangpinPpgl.class, response).downXlsx(shangpinPpgls, false);
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode("商品", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), ShangpinPpgl.class).sheet("sheet1").doWrite(shangpinPpgls);
+
     }
 
     @ApiOperation("导入")
     @ControllerEndpoint(exceptionMessage = "导入Excel失败")
     @GetMapping("import")
-    public ResponseEntity<?> excelImport(@RequestParam MultipartFile file) throws IOException {
-        long beginMillis = System.currentTimeMillis();
-
-        List<ShangpinPpgl> successList = Lists.newArrayList();
-        List<Map<String, Object>> errorList = Lists.newArrayList();
-
-        ExcelKit.$Import(ShangpinPpgl.class)
-                .readXlsx(file.getInputStream(), new ExcelReadHandler<ShangpinPpgl>() {
-                    @Override
-                    public void onSuccess(int sheetIndex, int rowIndex, ShangpinPpgl entity) {
-                        successList.add(entity); // 单行读取成功，加入入库队列。
-                    }
-                    @Override
-                    public void onError(int sheetIndex, int rowIndex,
-                                        List<ExcelErrorField> errorFields) {
-                        // 读取数据失败，记录了当前行所有失败的数据
-                        errorList.add(MapUtil.newHashMap
-                                ("sheetIndex", sheetIndex,
-                                        "rowIndex", rowIndex,
-                                        "errorFields", errorFields
-                                ));
-                    }
-                });
-
-        // TODO: 执行successList的入库操作。
-        shangpinPpglService.saveImport(successList);
-        return ResponseEntity.ok(MapUtil.newHashMap(
-                "data",successList
-                ,"haveError", CollectionUtils.isNotEmpty(errorList)
-                ,"error", errorList
-                ,"timeConsuming", (System.currentTimeMillis() - beginMillis) / 1000L
-        ));
+    public void excelImport(@RequestParam MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), ShangpinPpgl.class, new PpglDataListener(shangpinPpglService)).sheet().doRead();
     }
 }

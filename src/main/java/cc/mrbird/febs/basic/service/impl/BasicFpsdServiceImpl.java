@@ -95,5 +95,12 @@ public class BasicFpsdServiceImpl extends ServiceImpl<BasicFpsdMapper, BasicFpsd
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicFpsd.getFpsdmc())){
+            queryWrapper.eq(BasicFpsd::getFpsdmc,basicFpsd.getFpsdmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 }

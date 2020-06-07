@@ -59,7 +59,7 @@ public class CangkuController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增仓库", exceptionMessage = "新增仓库失败")
+    @ControllerEndpoint( exceptionMessage = "新增仓库失败")
     @PostMapping("")
     @RequiresPermissions("cangku:add")
     public FebsResponse addCangku(@Valid Cangku cangku) {
@@ -86,7 +86,7 @@ public class CangkuController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-//    @RequiresPermissions("cangku:export")
+    @RequiresPermissions("cangku:export")
     public void export(QueryRequest queryRequest, Cangku cangku, HttpServletResponse response) throws IOException {
         List<Cangku> cangkus = this.cangkuService.findCangkus(queryRequest, cangku).getRecords();
         response.setContentType("application/vnd.ms-excel");
@@ -98,8 +98,7 @@ public class CangkuController extends BaseController {
 
     @PostMapping("upload")
     @ResponseBody
-    public String upload(@RequestParam MultipartFile file) throws IOException {
+    public void upload(@RequestParam MultipartFile file) throws IOException {
         EasyExcel.read(file.getInputStream(), Cangku.class, new CangkuDataListener(cangkuService)).sheet().doRead();
-        return "success";
     }
 }

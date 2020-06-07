@@ -124,7 +124,14 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
             queryWrapper.eq(Cangku::getCkdm,cangku.getCkdm());
             Integer count = this.baseMapper.selectCount(queryWrapper);
             if (count>0) {
-                throw new FebsException("数据已存在，添加失败");
+                throw new FebsException("仓库代码重复，添加失败");
+            }
+        }
+        if(StringUtils.isNotBlank(cangku.getCkmc())){
+            queryWrapper.eq(Cangku::getCkmc,cangku.getCkmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("仓库名称重复，添加失败");
             }
         }
     }

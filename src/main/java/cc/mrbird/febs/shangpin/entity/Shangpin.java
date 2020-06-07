@@ -7,8 +7,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.wuwenze.poi.annotation.Excel;
-import com.wuwenze.poi.annotation.ExcelField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -37,49 +35,49 @@ public class Shangpin {
     /**
      * 商品代码
      */
-    @ExcelProperty(value = "商品代码",index = 0)
     @ApiModelProperty("商品代码")
+    @ExcelIgnore
     @TableField("spdm")
     private String spdm;
 
     /**
      * 商品名称
      */
-    @ExcelProperty(value = "商品名称",index = 1)
+    @ExcelProperty(value = "商品名称",index = 0)
     @ApiModelProperty("商品名称（必填）")
     @NotBlank(message = "商品名称不能为空")
     @TableField("spmc")
     private String spmc;
 
-    @ExcelProperty(value = "唯一码",index = 8)
+    @ExcelProperty(value = "唯一码",index = 7)
     @ApiModelProperty("唯一码")
     private String memo;
 
     /**
      * 销售价
      */
-    @ExcelProperty(value = "销售价",index = 9)
+    @ExcelProperty(value = "销售价",index = 8)
     @ApiModelProperty("销售价")
     @TableField("xsj")
     private BigDecimal xsj;
     /**
      * 吊牌价
      */
-    @ExcelProperty(value = "吊牌价",index = 10)
+    @ExcelProperty(value = "吊牌价",index = 9)
     @ApiModelProperty("吊牌价")
     @TableField("dpj")
     private BigDecimal dpj;
     /**
      * 预售价
      */
-    @ExcelProperty(value = "预售价",index = 11)
+    @ExcelProperty(value = "预售价",index = 10)
     @ApiModelProperty("预售价")
     @TableField("ysj")
     private BigDecimal ysj;
     /**
      * 采购价
      */
-    @ExcelProperty(value = "采购价",index = 12)
+    @ExcelProperty(value = "采购价",index = 11)
     @ApiModelProperty("采购价（必填）")
     @TableField("cgj")
     private BigDecimal cgj;
@@ -96,9 +94,9 @@ public class Shangpin {
     /**
      * 起订量
      */
-    @ExcelProperty(value = "起订量",index = 7)
+    @ExcelProperty(value = "起订量",index = 6)
     @ApiModelProperty("起订量（必填）")
-    @NotBlank(message = "起订量不能为空")
+    @NotNull(message = "起订量不能为空")
     @TableField("qdl")
     private Integer qdl;
 
@@ -169,7 +167,7 @@ public class Shangpin {
     /**
      * 是否启用 0:启用 1:停用
      */
-    @ExcelProperty(value = "状态",index = 15,converter = StatusConverter.class)
+    @ExcelProperty(value = "状态",index = 14,converter = StatusConverter.class)
     @ApiModelProperty("是否启用 0:启用 1:停用")
     @TableField("status")
     private Integer status;

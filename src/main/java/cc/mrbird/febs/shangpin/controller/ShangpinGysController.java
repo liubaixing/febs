@@ -1,6 +1,8 @@
 package cc.mrbird.febs.shangpin.controller;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.listener.ShangpinDataListener;
+import cc.mrbird.febs.common.listener.ShangpinGysDataListener;
 import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.controller.BaseController;
@@ -99,10 +101,10 @@ public class ShangpinGysController extends BaseController {
 
     @ApiOperation("审核商品")
     @ControllerEndpoint(operation = "审核商品", exceptionMessage = "审核商品失败")
-    @PostMapping("/checkGoods")
+    @GetMapping("/checkGoods/{id}")
 //    @RequiresPermissions("shangpinGys:checkGoods")
-    public FebsResponse checkGoods(ShangpinGys shangpinGys){
-        this.shangpinGysService.checkGoods(shangpinGys);
+    public FebsResponse checkGoods(@PathVariable Integer id){
+        this.shangpinGysService.checkGoods(id);
         return new FebsResponse().success();
     }
 
@@ -123,38 +125,8 @@ public class ShangpinGysController extends BaseController {
     @ApiOperation("导入")
     @ControllerEndpoint(exceptionMessage = "导入Excel失败")
     @PostMapping("import")
-    public ResponseEntity<?> excelImport(@RequestParam MultipartFile file) throws IOException {
-        long beginMillis = System.currentTimeMillis();
-
-        List<ShangpinGysResp> successList = Lists.newArrayList();
-        List<Map<String, Object>> errorList = Lists.newArrayList();
-
-        ExcelKit.$Import(ShangpinGysResp.class)
-                .readXlsx(file.getInputStream(), new ExcelReadHandler<ShangpinGysResp>() {
-                    @Override
-                    public void onSuccess(int sheetIndex, int rowIndex, ShangpinGysResp entity) {
-                        successList.add(entity); // 单行读取成功，加入入库队列。
-                    }
-                    @Override
-                    public void onError(int sheetIndex, int rowIndex,
-                                        List<ExcelErrorField> errorFields) {
-                        // 读取数据失败，记录了当前行所有失败的数据
-                        errorList.add(MapUtil.newHashMap
-                                ("sheetIndex", sheetIndex,
-                                        "rowIndex", rowIndex,
-                                        "errorFields", errorFields
-                                ));
-                    }
-                });
-
-        // TODO: 执行successList的入库操作。
-        shangpinGysService.saveImport(successList);
-        return ResponseEntity.ok(MapUtil.newHashMap(
-                "data",successList
-                ,"haveError", CollectionUtils.isNotEmpty(errorList)
-                ,"error", errorList
-                ,"timeConsuming", (System.currentTimeMillis() - beginMillis) / 1000L
-        ));
+    public void excelImport(@RequestParam MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), ShangpinGysResp.class, new ShangpinGysDataListener(shangpinGysService)).sheet().doRead();
     }
 
 }

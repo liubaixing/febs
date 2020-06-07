@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -88,6 +89,63 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
 
     @Override
     @Transactional
+    public void excelInsert(ShangpinResp sp){
+        if(StringUtils.isNotBlank(sp.getPpglmc())){
+            LambdaQueryWrapper<ShangpinPpgl> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(ShangpinPpgl::getPpglmc,sp.getPpglmc());
+            ShangpinPpgl ppgl = ppglMapper.selectOne(queryWrapper);
+            if(ppgl == null) throw new FebsException("Excel品牌名称数据异常，导入失败！");
+            sp.setPpId(ppgl.getId());
+        }
+        if(StringUtils.isNotBlank(sp.getZlmc())){
+            LambdaQueryWrapper<ShangpinZl> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(ShangpinZl::getZlmc,sp.getZlmc());
+            ShangpinZl zl = zlMapper.selectOne(queryWrapper);
+            if(zl == null) throw new FebsException("Excel总类数据异常，导入失败！");
+            sp.setZlId(zl.getId());
+        }
+        if(StringUtils.isNotBlank(sp.getDlmc())){
+            LambdaQueryWrapper<ShangpinDl> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(ShangpinDl::getDlmc,sp.getDlmc());
+            ShangpinDl dl = dlMapper.selectOne(queryWrapper);
+            if(dl == null) throw new FebsException("Excel大类数据异常，导入失败！");
+            sp.setDlId(dl.getId());
+        }
+        if(StringUtils.isNotBlank(sp.getXlmc())){
+            LambdaQueryWrapper<ShangpinXl> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(ShangpinXl::getXlmc,sp.getXlmc());
+            ShangpinXl xl = xlMapper.selectOne(queryWrapper);
+            if(xl == null) throw new FebsException("Excel小类数据异常，导入失败！");
+            sp.setXlId(xl.getId());
+        }
+        if(StringUtils.isNotBlank(sp.getQtlbmc())){
+            LambdaQueryWrapper<ShangpinQtlb> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(ShangpinQtlb::getQtlbmc,sp.getQtlbmc());
+            ShangpinQtlb qtlb = qtlbMapper.selectOne(queryWrapper);
+            if(qtlb == null) throw new FebsException("Excel其它类别数据异常，导入失败！");
+            sp.setQtlbId(qtlb.getId());
+        }
+        if(StringUtils.isNotBlank(sp.getGysmc())){
+            LambdaQueryWrapper<Gys> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Gys::getGysmc,sp.getGysmc());
+            Gys gys = gysMapper.selectOne(queryWrapper);
+            if(gys == null) throw new FebsException("Excel供应商数据异常，导入失败！");
+            sp.setGysId(gys.getId());
+        }
+        if(StringUtils.isNotBlank(sp.getJldwmc())){
+            LambdaQueryWrapper<BasicJldw> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(BasicJldw::getJldwmc,sp.getJldwmc());
+            BasicJldw jldw = jldwMapper.selectOne(queryWrapper);
+            if(jldw == null) throw new FebsException("Excel计量单位数据异常，导入失败！");
+            sp.setJldwId(jldw.getId());
+        }
+        Shangpin shangpin = new Shangpin();
+        BeanUtils.copyProperties(sp,shangpin);
+        createShangpin(shangpin);
+    }
+
+    @Override
+    @Transactional
     public void updateShangpin(Shangpin shangpin) {
         if(shangpin.getId()==null){
             throw new FebsException("id不能为空，添加失败");
@@ -101,65 +159,6 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
-    @Override
-    @Transactional
-    public void saveImport(List<ShangpinResp> data){
-        for(ShangpinResp sp:data){
-            if(StringUtils.isNotBlank(sp.getPpglmc())){
-                LambdaQueryWrapper<ShangpinPpgl> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(ShangpinPpgl::getPpglmc,sp.getPpglmc());
-                ShangpinPpgl ppgl = ppglMapper.selectOne(queryWrapper);
-                if(ppgl == null) throw new FebsException("Excel品牌名称数据异常，导入失败！");
-                sp.setPpId(ppgl.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getZlmc())){
-                LambdaQueryWrapper<ShangpinZl> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(ShangpinZl::getZlmc,sp.getZlmc());
-                ShangpinZl zl = zlMapper.selectOne(queryWrapper);
-                if(zl == null) throw new FebsException("Excel总类数据异常，导入失败！");
-                sp.setZlId(zl.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getDlmc())){
-                LambdaQueryWrapper<ShangpinDl> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(ShangpinDl::getDlmc,sp.getDlmc());
-                ShangpinDl dl = dlMapper.selectOne(queryWrapper);
-                if(dl == null) throw new FebsException("Excel大类数据异常，导入失败！");
-                sp.setDlId(dl.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getXlmc())){
-                LambdaQueryWrapper<ShangpinXl> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(ShangpinXl::getXlmc,sp.getXlmc());
-                ShangpinXl xl = xlMapper.selectOne(queryWrapper);
-                if(xl == null) throw new FebsException("Excel小类数据异常，导入失败！");
-                sp.setXlId(xl.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getQtlbmc())){
-                LambdaQueryWrapper<ShangpinQtlb> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(ShangpinQtlb::getQtlbmc,sp.getQtlbmc());
-                ShangpinQtlb qtlb = qtlbMapper.selectOne(queryWrapper);
-                if(qtlb == null) throw new FebsException("Excel其它类别数据异常，导入失败！");
-                sp.setQtlbId(qtlb.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getGysmc())){
-                LambdaQueryWrapper<Gys> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(Gys::getGysmc,sp.getGysmc());
-                Gys gys = gysMapper.selectOne(queryWrapper);
-                if(gys == null) throw new FebsException("Excel供应商数据异常，导入失败！");
-                sp.setGysId(gys.getId());
-            }
-            if(StringUtils.isNotBlank(sp.getJldwmc())){
-                LambdaQueryWrapper<BasicJldw> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(BasicJldw::getJldwmc,sp.getJldwmc());
-                BasicJldw jldw = jldwMapper.selectOne(queryWrapper);
-                if(jldw == null) throw new FebsException("Excel计量单位数据异常，导入失败！");
-                sp.setJldwId(jldw.getId());
-            }
-            Integer dm = commonService.incr(IncrEnum.SHANGPIN.getCode());
-            sp.setSpdm(String.format("%07d", dm));
-            sp.setCreateTime(new Date());
-            this.shangpinMapper.insertSelective(sp);
-        }
-    }
 
 
 	private void check(Shangpin shangpin) throws FebsException{

@@ -95,5 +95,12 @@ public class BasicKhqyServiceImpl extends ServiceImpl<BasicKhqyMapper, BasicKhqy
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicKhqy.getKhqymc())){
+            queryWrapper.eq(BasicKhqy::getKhqymc,basicKhqy.getKhqymc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 }

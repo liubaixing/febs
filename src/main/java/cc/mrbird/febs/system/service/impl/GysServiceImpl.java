@@ -1,5 +1,9 @@
 package cc.mrbird.febs.system.service.impl;
 
+import cc.mrbird.febs.basic.entity.BasicFplx;
+import cc.mrbird.febs.basic.entity.BasicFpsd;
+import cc.mrbird.febs.basic.mapper.BasicFplxMapper;
+import cc.mrbird.febs.basic.mapper.BasicFpsdMapper;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.utils.StringUtil;
@@ -12,6 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +42,11 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private BasicFplxMapper fplxMapper;
+    @Autowired
+    private BasicFpsdMapper fpsdMapper;
 
     @Override
     public IPage<Gys> findGyss(QueryRequest request, Gys gys) {
@@ -68,7 +78,7 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
         if(gys.getId()==null){
             throw new FebsException("id不能为空，添加失败");
         }
-        this.saveOrUpdate(gys);
+        this.gysMapper.updateByPrimaryKeySelective(gys);
     }
 
     @Override
@@ -88,6 +98,30 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
             }
             gys.setXdfzr(user.getUserId());
         }
+        if(StringUtils.isNotBlank(gys.getFplxmc())){
+            LambdaQueryWrapper<BasicFplx> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(BasicFplx::getFplxmc,gys.getFplxmc());
+            List<BasicFplx> list = fplxMapper.selectList(wrapper);
+            if(CollectionUtils.isEmpty(list)){
+                throw  new FebsException("发票类型不存在，请检查！");
+            }
+            if(list.size()>1){
+                throw new FebsException("发票类型存在重复数据，请检查");
+            }
+            gys.setFplxId(list.get(0).getId());
+        }
+        if(StringUtils.isNotBlank(gys.getFpsdmc())){
+            LambdaQueryWrapper<BasicFpsd> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(BasicFpsd::getFpsdmc,gys.getFpsdmc());
+            List<BasicFpsd> list = fpsdMapper.selectList(wrapper);
+            if(CollectionUtils.isEmpty(list)){
+                throw  new FebsException("发票税点不存在，请检查！");
+            }
+            if(list.size()>1){
+                throw new FebsException("发票税点存在重复数据，请检查");
+            }
+            gys.setFpsdId(list.get(0).getId());
+        }
         createGys(gys);
     }
 
@@ -105,6 +139,13 @@ public class GysServiceImpl extends ServiceImpl<GysMapper, Gys> implements IGysS
             Integer count = this.baseMapper.selectCount(queryWrapper);
             if (count>0) {
                 throw new FebsException("数据已存在，添加失败");
+            }
+        }
+        if(StringUtils.isNotBlank(gys.getGysmc())){
+            queryWrapper.eq(Gys::getGysmc,gys.getGysmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("供应商名称，添加失败");
             }
         }
     }

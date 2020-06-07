@@ -95,6 +95,13 @@ public class BasicDjlxServiceImpl extends ServiceImpl<BasicDjlxMapper, BasicDjlx
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicDjlx.getDjlxmc())){
+            queryWrapper.eq(BasicDjlx::getDjlxmc,basicDjlx.getDjlxmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 
 }

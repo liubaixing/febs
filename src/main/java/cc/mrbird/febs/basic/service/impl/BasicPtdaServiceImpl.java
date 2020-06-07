@@ -95,5 +95,12 @@ public class BasicPtdaServiceImpl extends ServiceImpl<BasicPtdaMapper, BasicPtda
                 throw new FebsException("代码重复，添加失败");
             }
         }
+        if(StringUtils.isNotBlank(basicPtda.getPtdamc())){
+            queryWrapper.eq(BasicPtda::getPtdamc,basicPtda.getPtdamc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("名称重复，添加失败");
+            }
+        }
     }
 }

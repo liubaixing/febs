@@ -41,6 +41,8 @@ public interface IShangpinGysService extends IService<ShangpinGys> {
      */
     void createShangpinGys(ShangpinGys shangpinGys);
 
+    void excelInsert(ShangpinGysResp shangpinGysResp);
+
     /**
      * 修改
      *
@@ -53,7 +55,6 @@ public interface IShangpinGysService extends IService<ShangpinGys> {
      */
     void deleteShangpinGys(String[] ids);
 
-    void checkGoods(ShangpinGys shangpinGys);
+    void checkGoods(Integer goodsId);
 
-    void saveImport(List<ShangpinGysResp> data);
 }
