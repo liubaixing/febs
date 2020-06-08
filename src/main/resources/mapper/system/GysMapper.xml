@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.mrbird.febs.system.mapper.GysMapper">
+<mapper namespace="com.febs.system.mapper.GysMapper">
 
-    <resultMap id="BaseResultMap" type="cc.mrbird.febs.system.entity.Gys">
+    <resultMap id="BaseResultMap" type="com.febs.system.entity.Gys">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="gysdm" jdbcType="VARCHAR" property="gysdm" />
         <result column="gysmc" jdbcType="VARCHAR" property="gysmc" />
@@ -87,7 +87,7 @@
     id, gysdm, gysmc, lsr, lsrdh, wx, qq, hy, cgfzr, xdfzr, fplx_id, fpsd_id, sfyj, memo, 
     ex1, ex2, ex3, `status`, create_time, update_time, deleted
   </sql>
-    <select id="selectByExample" parameterType="cc.mrbird.febs.system.entity.GysExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.febs.system.entity.GysExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -111,13 +111,13 @@
     delete from system_gys
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="cc.mrbird.febs.system.entity.GysExample">
+    <delete id="deleteByExample" parameterType="com.febs.system.entity.GysExample">
         delete from system_gys
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gys" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Gys" useGeneratedKeys="true">
     insert into system_gys (gysdm, gysmc, lsr, 
       lsrdh, wx, qq, hy, 
       cgfzr, xdfzr, fplx_id, 
@@ -133,7 +133,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
       )
   </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gys" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Gys" useGeneratedKeys="true">
         insert into system_gys
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="gysdm != null">
@@ -260,7 +260,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="cc.mrbird.febs.system.entity.GysExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.febs.system.entity.GysExample" resultType="java.lang.Long">
         select count(*) from system_gys
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
@@ -364,7 +364,7 @@
             <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.system.entity.Gys">
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.system.entity.Gys">
         update system_gys
         <set>
             <if test="gysdm != null">
@@ -430,7 +430,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.system.entity.Gys">
+    <update id="updateByPrimaryKey" parameterType="com.febs.system.entity.Gys">
     update system_gys
     set gysdm = #{gysdm,jdbcType=VARCHAR},
       gysmc = #{gysmc,jdbcType=VARCHAR},
@@ -512,11 +512,11 @@
     </sql>
 
 
-    <select id="selectDetailPage" resultType="cc.mrbird.febs.system.entity.Gys">
+    <select id="selectDetailPage" resultType="com.febs.system.entity.Gys">
         <include refid="findGysDetailSql" />
     </select>
 
-    <select id="selectDetail" resultType="cc.mrbird.febs.system.entity.Gys">
+    <select id="selectDetail" resultType="com.febs.system.entity.Gys">
         <include refid="findGysDetailSql" />
     </select>
 

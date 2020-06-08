@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.mrbird.febs.system.mapper.GongsiMapper">
-    <resultMap id="BaseResultMap" type="cc.mrbird.febs.system.entity.Gongsi">
+<mapper namespace="com.febs.system.mapper.GongsiMapper">
+    <resultMap id="BaseResultMap" type="com.febs.system.entity.Gongsi">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="gsdm" jdbcType="VARCHAR" property="gsdm" />
         <result column="gsmc" jdbcType="VARCHAR" property="gsmc" />
@@ -79,7 +79,7 @@
     id, gsdm, gsmc, tel, contact, address, memo, ex1, ex2, ex3, `status`, create_time, 
     update_time, deleted
   </sql>
-    <select id="selectByExample" parameterType="cc.mrbird.febs.system.entity.GongsiExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.febs.system.entity.GongsiExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -103,13 +103,13 @@
     delete from system_gongsi
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="cc.mrbird.febs.system.entity.GongsiExample">
+    <delete id="deleteByExample" parameterType="com.febs.system.entity.GongsiExample">
         delete from system_gongsi
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gongsi" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Gongsi" useGeneratedKeys="true">
     insert into system_gongsi (gsdm, gsmc, tel, 
       contact, address, memo, 
       ex1, ex2, ex3, `status`, 
@@ -121,7 +121,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
       )
   </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Gongsi" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Gongsi" useGeneratedKeys="true">
         insert into system_gongsi
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="gsdm != null">
@@ -206,7 +206,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="cc.mrbird.febs.system.entity.GongsiExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.febs.system.entity.GongsiExample" resultType="java.lang.Long">
         select count(*) from system_gongsi
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
@@ -282,7 +282,7 @@
             <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.system.entity.Gongsi">
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.system.entity.Gongsi">
         update system_gongsi
         <set>
             <if test="gsdm != null">
@@ -327,7 +327,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.system.entity.Gongsi">
+    <update id="updateByPrimaryKey" parameterType="com.febs.system.entity.Gongsi">
     update system_gongsi
     set gsdm = #{gsdm,jdbcType=VARCHAR},
       gsmc = #{gsmc,jdbcType=VARCHAR},

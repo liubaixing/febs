@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.mrbird.febs.receipt.mapper.OrderXsMapper">
-    <resultMap id="BaseResultMap" type="cc.mrbird.febs.receipt.entity.OrderXs">
+<mapper namespace="com.febs.receipt.mapper.OrderXsMapper">
+    <resultMap id="BaseResultMap" type="com.febs.receipt.entity.OrderXs">
         <id column="Id" jdbcType="BIGINT" property="id" />
         <result column="djbh" jdbcType="VARCHAR" property="djbh" />
         <result column="xdrq" jdbcType="INTEGER" property="xdrq" />
@@ -127,7 +127,7 @@
     bhfhrq, yflr, yflrr, yflrrq, sctk, sctkr, sctkrq, zs, zsr, zsrq, zf, zfr, zfrq, ex1, 
     ex2, ex3, create_time, update_time, deleted
   </sql>
-    <select id="selectByExample" parameterType="cc.mrbird.febs.receipt.entity.OrderXsExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -151,13 +151,13 @@
     delete from order_xs
     where Id = #{id,jdbcType=BIGINT}
   </delete>
-    <delete id="deleteByExample" parameterType="cc.mrbird.febs.receipt.entity.OrderXsExample">
+    <delete id="deleteByExample" parameterType="com.febs.receipt.entity.OrderXsExample">
         delete from order_xs
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="cc.mrbird.febs.receipt.entity.OrderXs" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXs" useGeneratedKeys="true">
     insert into order_xs (djbh, xdrq, ydjh, 
       org_id, user_id, kehu_id, 
       cangku_id, khly_id, djlx_id, 
@@ -195,7 +195,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
       )
   </insert>
-    <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="cc.mrbird.febs.receipt.entity.OrderXs" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXs" useGeneratedKeys="true">
         insert into order_xs
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="djbh != null">
@@ -550,7 +550,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="cc.mrbird.febs.receipt.entity.OrderXsExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.febs.receipt.entity.OrderXsExample" resultType="java.lang.Long">
         select count(*) from order_xs
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
@@ -806,7 +806,7 @@
             <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.receipt.entity.OrderXs">
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.receipt.entity.OrderXs">
         update order_xs
         <set>
             <if test="djbh != null">
@@ -986,7 +986,7 @@
         </set>
         where Id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.receipt.entity.OrderXs">
+    <update id="updateByPrimaryKey" parameterType="com.febs.receipt.entity.OrderXs">
     update order_xs
     set djbh = #{djbh,jdbcType=VARCHAR},
       xdrq = #{xdrq,jdbcType=INTEGER},

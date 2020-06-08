@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.mrbird.febs.system.mapper.CangkuMapper">
-    <resultMap id="BaseResultMap" type="cc.mrbird.febs.system.entity.Cangku">
+<mapper namespace="com.febs.system.mapper.CangkuMapper">
+    <resultMap id="BaseResultMap" type="com.febs.system.entity.Cangku">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="ckdm" jdbcType="VARCHAR" property="ckdm" />
         <result column="ckmc" jdbcType="VARCHAR" property="ckmc" />
@@ -81,7 +81,7 @@
     id, ckdm, ckmc, cklx_id, ckxz, tel, contact, address, memo, ex1, ex2, ex3, `status`, 
     create_time, update_time, deleted
   </sql>
-    <select id="selectByExample" parameterType="cc.mrbird.febs.system.entity.CangkuExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.febs.system.entity.CangkuExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -105,13 +105,13 @@
     delete from system_cangku
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="cc.mrbird.febs.system.entity.CangkuExample">
+    <delete id="deleteByExample" parameterType="com.febs.system.entity.CangkuExample">
         delete from system_cangku
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Cangku" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Cangku" useGeneratedKeys="true">
     insert into system_cangku (ckdm, ckmc, cklx_id, 
       ckxz, tel, contact, 
       address, memo, ex1, 
@@ -123,7 +123,7 @@
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Cangku" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Cangku" useGeneratedKeys="true">
         insert into system_cangku
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="ckdm != null">
@@ -220,7 +220,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="cc.mrbird.febs.system.entity.CangkuExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.febs.system.entity.CangkuExample" resultType="java.lang.Long">
         select count(*) from system_cangku
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
@@ -304,7 +304,7 @@
             <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.system.entity.Cangku">
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.system.entity.Cangku">
         update system_cangku
         <set>
             <if test="ckdm != null">
@@ -355,7 +355,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.system.entity.Cangku">
+    <update id="updateByPrimaryKey" parameterType="com.febs.system.entity.Cangku">
     update system_cangku
     set ckdm = #{ckdm,jdbcType=VARCHAR},
       ckmc = #{ckmc,jdbcType=VARCHAR},
@@ -376,7 +376,7 @@
   </update>
 
 
-    <select id="selectPage" resultType="cc.mrbird.febs.system.entity.Cangku">
+    <select id="selectPage" resultType="com.febs.system.entity.Cangku">
         SELECT c.*,lb.cklbmc cklxmc
         FROM system_cangku c
         LEFT JOIN basic_cklb lb ON c.cklx_id = lb.id

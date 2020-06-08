@@ -1,7 +1,7 @@
 package ${basePackage}.${serviceImplPackage};
 
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.exception.FebsException;
+import QueryRequest;
+import FebsException;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${mapperPackage}.${className}Mapper;
 import ${basePackage}.${servicePackage}.I${className}Service;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.mrbird.febs.system.mapper.KehuMapper">
+<mapper namespace="com.febs.system.mapper.KehuMapper">
 
-    <resultMap id="BaseResultMap" type="cc.mrbird.febs.system.entity.Kehu">
+    <resultMap id="BaseResultMap" type="com.febs.system.entity.Kehu">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="khdm" jdbcType="VARCHAR" property="khdm" />
         <result column="khmc" jdbcType="VARCHAR" property="khmc" />
@@ -82,7 +82,7 @@
     id, khdm, khmc, khlx_id, ssyh, tel, contact, address, memo, ex1, ex2, ex3, `status`, 
     create_time, update_time, deleted
   </sql>
-    <select id="selectByExample" parameterType="cc.mrbird.febs.system.entity.KehuExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.febs.system.entity.KehuExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -106,13 +106,13 @@
     delete from system_kehu
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="cc.mrbird.febs.system.entity.KehuExample">
+    <delete id="deleteByExample" parameterType="com.febs.system.entity.KehuExample">
         delete from system_kehu
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Kehu" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Kehu" useGeneratedKeys="true">
     insert into system_kehu (khdm, khmc, khlx_id, 
       ssyh, tel, contact, 
       address, memo, ex1, 
@@ -124,7 +124,7 @@
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.system.entity.Kehu" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.febs.system.entity.Kehu" useGeneratedKeys="true">
         insert into system_kehu
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="khdm != null">
@@ -239,7 +239,7 @@
         )
         </foreach>
     </insert>
-    <select id="countByExample" parameterType="cc.mrbird.febs.system.entity.KehuExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.febs.system.entity.KehuExample" resultType="java.lang.Long">
         select count(*) from system_kehu
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
@@ -323,7 +323,7 @@
             <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.system.entity.Kehu">
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.system.entity.Kehu">
         update system_kehu
         <set>
             <if test="khdm != null">
@@ -374,7 +374,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.system.entity.Kehu">
+    <update id="updateByPrimaryKey" parameterType="com.febs.system.entity.Kehu">
     update system_kehu
     set khdm = #{khdm,jdbcType=VARCHAR},
       khmc = #{khmc,jdbcType=VARCHAR},
@@ -429,10 +429,10 @@
         </where>
     </sql>
 
-    <select id="selectDetailPage" resultType="cc.mrbird.febs.system.vo.resp.KehuResp">
+    <select id="selectDetailPage" resultType="com.febs.system.vo.resp.KehuResp">
         <include refid="findKehuDetailSql" />
     </select>
-    <select id="selectDetail" resultType="cc.mrbird.febs.system.vo.resp.KehuResp">
+    <select id="selectDetail" resultType="com.febs.system.vo.resp.KehuResp">
         <include refid="findKehuDetailSql" />
     </select>
 </mapper>

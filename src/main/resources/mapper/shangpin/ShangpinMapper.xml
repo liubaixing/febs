@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.mrbird.febs.shangpin.mapper.ShangpinMapper">
+<mapper namespace="com.febs.shangpin.mapper.ShangpinMapper">
 
-    <resultMap id="BaseResultMap" type="cc.mrbird.febs.shangpin.entity.Shangpin">
+    <resultMap id="BaseResultMap" type="com.febs.shangpin.entity.Shangpin">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="spdm" jdbcType="VARCHAR" property="spdm" />
         <result column="spmc" jdbcType="VARCHAR" property="spmc" />
@@ -88,7 +88,7 @@
     id, spdm, spmc, xsj, dpj, ysj, cgj, gys_id, qdl, jldw_id, mrtp, zl_id,
     dl_id, xl_id, qtlb_id, `status`, pp_id, create_time, update_time, deleted
   </sql>
-    <select id="selectByExample" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.febs.shangpin.entity.ShangpinExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -112,13 +112,13 @@
     delete from shangpin
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinExample">
+    <delete id="deleteByExample" parameterType="com.febs.shangpin.entity.ShangpinExample">
         delete from shangpin
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.shangpin.entity.Shangpin" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.febs.shangpin.entity.Shangpin" useGeneratedKeys="true">
     insert into shangpin (spdm, spmc,
       xsj, dpj, ysj, cgj, 
       gys_id, qdl, jldw_id, 
@@ -134,7 +134,7 @@
       #{ppId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{deleted,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cc.mrbird.febs.shangpin.entity.Shangpin" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.febs.shangpin.entity.Shangpin" useGeneratedKeys="true">
         insert into shangpin
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="spdm != null">
@@ -261,7 +261,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="cc.mrbird.febs.shangpin.entity.ShangpinExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.febs.shangpin.entity.ShangpinExample" resultType="java.lang.Long">
         select count(*) from shangpin
         <if test="_parameter != null">
             <include refid="Example_Where_Clause" />
@@ -361,7 +361,7 @@
             <include refid="Update_By_Example_Where_Clause" />
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.febs.shangpin.entity.Shangpin">
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.shangpin.entity.Shangpin">
         update shangpin
         <set>
             <if test="spdm != null">
@@ -427,7 +427,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="cc.mrbird.febs.shangpin.entity.Shangpin">
+    <update id="updateByPrimaryKey" parameterType="com.febs.shangpin.entity.Shangpin">
     update shangpin
     set spdm = #{spdm,jdbcType=VARCHAR},
       spmc = #{spmc,jdbcType=VARCHAR},
@@ -517,11 +517,11 @@
         </where>
     </sql>
 
-    <select id="selectDetailPage" resultType="cc.mrbird.febs.shangpin.vo.resp.ShangpinResp">
+    <select id="selectDetailPage" resultType="com.febs.shangpin.vo.resp.ShangpinResp">
         <include refid="findShangPinDetailSql" />
     </select>
 
-    <select id="selectDetail" resultType="cc.mrbird.febs.shangpin.vo.resp.ShangpinResp">
+    <select id="selectDetail" resultType="com.febs.shangpin.vo.resp.ShangpinResp">
         <include refid="findShangPinDetailSql" />
     </select>
 </mapper>
