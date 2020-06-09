@@ -171,8 +171,7 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
         queryWrapper.eq(ShangpinGys::getId,goodsId);
         ShangpinGys temp = this.baseMapper.selectOne(queryWrapper);
         if(temp==null){
-//           throw new FebsException("商品不存在");
-            throw new ApiException(GoodsExecptionEnum.GOODS_NOT_EXIST.getCode(),GoodsExecptionEnum.GOODS_NOT_EXIST.getMessage());
+           throw new FebsException("商品不存在");
         }
         ShangpinExample example = new ShangpinExample();
         example.createCriteria().andSpmcEqualTo(temp.getSpmc());
@@ -184,7 +183,10 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
 
         Shangpin shangpin = new Shangpin();
         BeanUtils.copyProperties(temp,shangpin);
-        if(temp.getShangpinId()==null){
+        if(count>0){
+            shangpin.setUpdateTime(new Date());
+            shangpinMapper.updateByExampleSelective(shangpin,example);
+        }else{
             shangpin.setCreateTime(new Date());
             shangpinMapper.insertSelective(shangpin);
 
@@ -193,9 +195,6 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
             shangpinGys.setShangpinId(shangpin.getId());
             shangpinGys.setLyxt((byte) 2);
             this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
-        }else{
-            shangpin.setUpdateTime(new Date());
-            shangpinMapper.updateByPrimaryKeySelective(shangpin);
         }
         return true;
     }
