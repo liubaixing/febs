@@ -6,7 +6,8 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.GongsiDataListener;
+import com.febs.common.listener.system.GongsiDataListener;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.system.entity.Gongsi;
 import com.febs.system.service.IGongsiService;
 import lombok.extern.slf4j.Slf4j;
@@ -82,11 +83,7 @@ public class GongsiController extends BaseController {
     @RequiresPermissions("gongsi:export")
     public void export(QueryRequest queryRequest, Gongsi gongsi, HttpServletResponse response) throws IOException {
         List<Gongsi> gongsis = this.gongsiService.findGongsis(queryRequest, gongsi).getRecords();
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("公司管理", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), Gongsi.class).sheet("sheet1").doWrite(gongsis);
+        ExcelUtil.export(gongsis,Gongsi.class,"公司管理",response);
     }
 
     @ControllerEndpoint(operation = "导入", exceptionMessage = "导入失败")

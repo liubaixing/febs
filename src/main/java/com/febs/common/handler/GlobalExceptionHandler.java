@@ -1,6 +1,7 @@
 package com.febs.common.handler;
 
 import com.febs.common.entity.FebsResponse;
+import com.febs.common.exception.ApiException;
 import com.febs.common.exception.FebsException;
 import com.febs.common.exception.FileDownloadException;
 import com.febs.common.exception.LimitAccessException;
@@ -44,6 +45,12 @@ public class GlobalExceptionHandler {
     public FebsResponse handleFebsException(FebsException e) {
         log.error("系统错误", e);
         return new FebsResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message(e.getMessage());
+    }
+
+    @ExceptionHandler(value = ApiException.class)
+    public FebsResponse handleApiException(ApiException e){
+//        log.error("系统错误", e);
+        return new FebsResponse().put(e.getCode(),e.getMessage());
     }
 
     /**

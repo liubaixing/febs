@@ -53,6 +53,6 @@ public interface IShangpinGysService extends IService<ShangpinGys> {
      */
     void deleteShangpinGys(String[] ids);
 
-    void checkGoods(Integer goodsId);
+    boolean checkGoods(Integer goodsId,boolean ckeck);
 
 }

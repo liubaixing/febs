@@ -6,7 +6,8 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.ShangpinGysDataListener;
+import com.febs.common.listener.goods.ShangpinGysDataListener;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.shangpin.entity.ShangpinGys;
 import com.febs.shangpin.service.IShangpinGysService;
 import com.febs.shangpin.vo.resp.ShangpinGysResp;
@@ -23,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -90,9 +90,8 @@ public class ShangpinGysController extends BaseController {
     @ControllerEndpoint(operation = "审核商品", exceptionMessage = "审核商品失败")
     @GetMapping("/checkGoods/{id}")
 //    @RequiresPermissions("shangpinGys:checkGoods")
-    public FebsResponse checkGoods(@PathVariable Integer id){
-        this.shangpinGysService.checkGoods(id);
-        return new FebsResponse().success();
+    public FebsResponse checkGoods(@PathVariable Integer id,boolean ckeck){
+        return new FebsResponse().data(this.shangpinGysService.checkGoods(id,ckeck));
     }
 
     @ApiOperation("打回商品，权限 shangpinGys:returnGoods")
@@ -113,12 +112,7 @@ public class ShangpinGysController extends BaseController {
 //    @RequiresPermissions("shangpinGys:export")
     public void export(QueryRequest queryRequest, ShangpinGysResp shangpinGys, HttpServletResponse response) throws IOException {
         List<ShangpinGysResp> shangpinGyss = this.shangpinGysService.findShangpinGyss(queryRequest, shangpinGys).getRecords();
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("供应商商品", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), ShangpinGysResp.class).sheet("sheet1").doWrite(shangpinGyss);
-
+        ExcelUtil.export(shangpinGyss, ShangpinGysResp.class,"供应商商品",response);
     }
 
     @ApiOperation("导入")

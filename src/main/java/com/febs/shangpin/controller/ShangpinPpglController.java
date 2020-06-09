@@ -6,7 +6,8 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.PpglDataListener;
+import com.febs.common.listener.goods.PpglDataListener;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.shangpin.entity.ShangpinPpgl;
 import com.febs.shangpin.service.IShangpinPpglService;
 import io.swagger.annotations.Api;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -91,12 +91,7 @@ public class ShangpinPpglController extends BaseController {
     @RequiresPermissions("shangpinPpgl:export")
     public void export(QueryRequest queryRequest, ShangpinPpgl shangpinPpgl, HttpServletResponse response) throws IOException {
         List<ShangpinPpgl> shangpinPpgls = this.shangpinPpglService.findShangpinPpgls(queryRequest, shangpinPpgl).getRecords();
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("商品", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), ShangpinPpgl.class).sheet("sheet1").doWrite(shangpinPpgls);
-
+        ExcelUtil.export(shangpinPpgls,ShangpinPpgl.class,"品牌",response);
     }
 
     @ApiOperation("导入")

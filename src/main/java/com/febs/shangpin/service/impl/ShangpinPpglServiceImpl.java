@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
-import com.febs.common.service.CommonService;
 import com.febs.common.utils.StringUtil;
 import com.febs.shangpin.entity.ShangpinPpgl;
 import com.febs.shangpin.mapper.ShangpinPpglMapper;
@@ -32,9 +31,6 @@ public class ShangpinPpglServiceImpl extends ServiceImpl<ShangpinPpglMapper, Sha
 
     @Autowired
     private ShangpinPpglMapper shangpinPpglMapper;
-
-    @Autowired
-    private CommonService commonService;
 
     @Override
     public IPage<ShangpinPpgl> findShangpinPpgls(QueryRequest request, ShangpinPpgl shangpinPpgl) {

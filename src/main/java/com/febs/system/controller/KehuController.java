@@ -6,7 +6,8 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.KehuDataListener;
+import com.febs.common.listener.system.KehuDataListener;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.system.entity.Kehu;
 import com.febs.system.service.IKehuService;
 import com.febs.system.vo.resp.KehuResp;
@@ -80,14 +81,10 @@ public class KehuController extends BaseController {
 
     @ControllerEndpoint(operation = "导出Excel", exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("kehu:export")
+//    @RequiresPermissions("kehu:export")
     public void export(QueryRequest queryRequest, KehuResp kehu, HttpServletResponse response)  throws IOException {
         List<KehuResp> kehus = this.kehuService.findKehus(queryRequest, kehu).getRecords();
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("客户管理", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), KehuResp.class).sheet("sheet1").doWrite(kehus);
+        ExcelUtil.export(kehus,KehuResp.class,"客户管理",response);
     }
 
     @ApiOperation("导入")

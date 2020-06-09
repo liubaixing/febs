@@ -47,6 +47,10 @@ public class ShangpinPpgl {
     @TableField("ppglmc")
     private String ppglmc;
 
+    @ExcelIgnore
+    @TableField("logo")
+    private String logo;
+
     /**
      * 备注
      */

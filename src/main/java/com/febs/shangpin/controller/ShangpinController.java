@@ -6,7 +6,8 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.ShangpinDataListener;
+import com.febs.common.listener.goods.ShangpinDataListener;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.shangpin.entity.Shangpin;
 import com.febs.shangpin.service.IShangpinService;
 import com.febs.shangpin.vo.resp.ShangpinResp;
@@ -23,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -92,11 +92,7 @@ public class ShangpinController extends BaseController {
     @RequiresPermissions("shangpin:export")
     public void export(QueryRequest queryRequest, ShangpinResp shangpin, HttpServletResponse response) throws IOException {
         List<ShangpinResp> shangpins = this.shangpinService.findShangpins(queryRequest, shangpin).getRecords();
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("商品", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), ShangpinResp.class).sheet("sheet1").doWrite(shangpins);
+        ExcelUtil.export(shangpins, ShangpinResp.class,"商品",response);
     }
 
     @ApiOperation("导入")

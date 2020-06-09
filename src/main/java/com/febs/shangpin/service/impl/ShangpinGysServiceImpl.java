@@ -8,13 +8,15 @@ import com.febs.basic.entity.BasicJldw;
 import com.febs.basic.mapper.BasicJldwMapper;
 import com.febs.common.constant.GoodsConstant;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.enums.exception.GoodsExecptionEnum;
+import com.febs.common.exception.ApiException;
 import com.febs.common.exception.FebsException;
-import com.febs.common.service.CommonService;
 import com.febs.common.utils.StringUtil;
 import com.febs.shangpin.entity.*;
 import com.febs.shangpin.mapper.*;
 import com.febs.shangpin.service.IShangpinGysService;
 import com.febs.shangpin.vo.resp.ShangpinGysResp;
+import com.febs.shangpin.vo.resp.ShangpinResp;
 import com.febs.system.entity.Gys;
 import com.febs.system.mapper.CangkuMapper;
 import com.febs.system.mapper.GysMapper;
@@ -63,9 +65,6 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
 
     @Autowired
     private ShangpinMapper shangpinMapper;
-
-    @Autowired
-    private CommonService commonService;
 
     @Override
     public IPage<ShangpinGysResp> findShangpinGyss(QueryRequest request, ShangpinGysResp shangpinGys) {
@@ -167,23 +166,38 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
 
 	@Override
     @Transactional
-    public void checkGoods(Integer goodsId){
+    public boolean checkGoods(Integer goodsId,boolean ckeck){
         LambdaQueryWrapper<ShangpinGys> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ShangpinGys::getId,goodsId);
         ShangpinGys temp = this.baseMapper.selectOne(queryWrapper);
         if(temp==null){
-            new FebsException("商品不存在");
+//           throw new FebsException("商品不存在");
+            throw new ApiException(GoodsExecptionEnum.GOODS_NOT_EXIST.getCode(),GoodsExecptionEnum.GOODS_NOT_EXIST.getMessage());
         }
+        ShangpinExample example = new ShangpinExample();
+        example.createCriteria().andSpmcEqualTo(temp.getSpmc());
+        long count = shangpinMapper.countByExample(example);
+        if(count>0 && !ckeck==true){
+            //商品表中存在该商品，询问是否更新
+            return false;
+        }
+
         Shangpin shangpin = new Shangpin();
         BeanUtils.copyProperties(temp,shangpin);
-        shangpin.setCreateTime(new Date());
-        shangpinMapper.insertSelective(shangpin);
+        if(temp.getShangpinId()==null){
+            shangpin.setCreateTime(new Date());
+            shangpinMapper.insertSelective(shangpin);
 
-        ShangpinGys shangpinGys = new ShangpinGys();
-        shangpinGys.setId(goodsId);
-        shangpinGys.setShangpinId(shangpin.getId());
-        shangpinGys.setLyxt((byte) 2);
-        this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
+            ShangpinGys shangpinGys = new ShangpinGys();
+            shangpinGys.setId(goodsId);
+            shangpinGys.setShangpinId(shangpin.getId());
+            shangpinGys.setLyxt((byte) 2);
+            this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
+        }else{
+            shangpin.setUpdateTime(new Date());
+            shangpinMapper.updateByPrimaryKeySelective(shangpin);
+        }
+        return true;
     }
 
 

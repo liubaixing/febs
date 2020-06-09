@@ -6,7 +6,8 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.GysDataListener;
+import com.febs.common.listener.system.GysDataListener;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.system.entity.Gys;
 import com.febs.system.service.IGysService;
 import lombok.extern.slf4j.Slf4j;
@@ -83,12 +84,7 @@ public class GysController extends BaseController {
     @RequiresPermissions("gys:export")
     public void export(QueryRequest queryRequest, Gys gys, HttpServletResponse response) throws IOException {
         List<Gys> gyss = this.gysService.findGyss(queryRequest, gys).getRecords();
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("供应商管理", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), Gys.class).sheet("sheet1").doWrite(gyss);
-
+        ExcelUtil.export(gyss,Gys.class,"供应商管理",response);
     }
 
     @PostMapping("upload")

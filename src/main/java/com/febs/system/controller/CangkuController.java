@@ -6,7 +6,8 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.CangkuDataListener;
+import com.febs.common.listener.system.CangkuDataListener;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.system.entity.Cangku;
 import com.febs.system.service.ICangkuService;
 import lombok.extern.slf4j.Slf4j;
@@ -83,11 +84,7 @@ public class CangkuController extends BaseController {
     @RequiresPermissions("cangku:export")
     public void export(QueryRequest queryRequest, Cangku cangku, HttpServletResponse response) throws IOException {
         List<Cangku> cangkus = this.cangkuService.findCangkus(queryRequest, cangku).getRecords();
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        String fileName = URLEncoder.encode("仓库管理", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), Cangku.class).sheet("sheet1").doWrite(cangkus);
+        ExcelUtil.export(cangkus,Cangku.class,"仓库管理",response);
     }
 
     @PostMapping("upload")

@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.StringUtil;
 import com.febs.shangpin.entity.ShangpinXl;
 import com.febs.shangpin.mapper.ShangpinXlMapper;
 import com.febs.shangpin.service.IShangpinXlService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,6 +36,12 @@ public class ShangpinXlServiceImpl extends ServiceImpl<ShangpinXlMapper, Shangpi
     public IPage<ShangpinXl> findShangpinXls(QueryRequest request, ShangpinXl shangpinXl) {
         LambdaQueryWrapper<ShangpinXl> queryWrapper = new LambdaQueryWrapper<>();
         // TODO 设置查询条件
+        if(StringUtils.isNotBlank(shangpinXl.getXldm())){
+            queryWrapper.like(ShangpinXl::getXldm,shangpinXl.getXldm());
+        }
+        if (StringUtils.isNotBlank(shangpinXl.getXlmc())){
+            queryWrapper.like(ShangpinXl::getXlmc,shangpinXl.getXlmc());
+        }
         Page<ShangpinXl> page = new Page<>(request.getPageNum(), request.getPageSize());
         return this.page(page, queryWrapper);
     }
@@ -50,6 +58,11 @@ public class ShangpinXlServiceImpl extends ServiceImpl<ShangpinXlMapper, Shangpi
     public void createShangpinXl(ShangpinXl shangpinXl) {
         check(shangpinXl);
         this.save(shangpinXl);
+        if(StringUtils.isBlank(shangpinXl.getXldm())){
+            String dm = StringUtil.padStart(shangpinXl.getId());
+            shangpinXl.setXldm(dm);
+            this.updateById(shangpinXl);
+        }
     }
 
     @Override
@@ -58,7 +71,7 @@ public class ShangpinXlServiceImpl extends ServiceImpl<ShangpinXlMapper, Shangpi
         if(shangpinXl.getId()==null){
             throw new FebsException("id不能为null");
         }
-        this.saveOrUpdate(shangpinXl);
+        this.updateById(shangpinXl);
     }
 
     @Override
@@ -71,10 +84,19 @@ public class ShangpinXlServiceImpl extends ServiceImpl<ShangpinXlMapper, Shangpi
 
 	private void check(ShangpinXl shangpinXl) throws FebsException{
         LambdaQueryWrapper<ShangpinXl> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ShangpinXl::getXldm,shangpinXl.getXldm());
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("代码已存在，添加失败");
+        if(StringUtils.isNotBlank(shangpinXl.getXldm())){
+            queryWrapper.eq(ShangpinXl::getXldm,shangpinXl.getXldm());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("小类代码已存在");
+            }
+        }
+        if (StringUtils.isNotBlank(shangpinXl.getXlmc())){
+            queryWrapper.eq(ShangpinXl::getXlmc,shangpinXl.getXlmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("小类名称已存在");
+            }
         }
     }
 }

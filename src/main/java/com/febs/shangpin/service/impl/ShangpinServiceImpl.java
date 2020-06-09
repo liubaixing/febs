@@ -9,7 +9,6 @@ import com.febs.basic.mapper.BasicJldwMapper;
 import com.febs.common.constant.GoodsConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
-import com.febs.common.service.CommonService;
 import com.febs.common.utils.StringUtil;
 import com.febs.shangpin.entity.*;
 import com.febs.shangpin.mapper.*;
@@ -56,9 +55,6 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     private GysMapper gysMapper;
     @Autowired
     private BasicJldwMapper jldwMapper;
-
-    @Autowired
-    private CommonService commonService;
 
     @Override
     public IPage<ShangpinResp> findShangpins(QueryRequest request, ShangpinResp shangpin) {
@@ -164,10 +160,16 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
             queryWrapper.eq(Shangpin::getSpdm,shangpin.getSpdm());
             Integer count = this.baseMapper.selectCount(queryWrapper);
             if (count>0) {
-                throw new FebsException("唯一码重复，添加失败");
+                throw new FebsException("商品代码重复");
             }
         }
-
+        if(StringUtils.isNotBlank(shangpin.getSpmc())){
+            queryWrapper.eq(Shangpin::getSpmc,shangpin.getSpmc());
+            Integer count = this.baseMapper.selectCount(queryWrapper);
+            if (count>0) {
+                throw new FebsException("商品名称重复");
+            }
+        }
     }
 
 }
