@@ -166,7 +166,7 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
 
 	@Override
     @Transactional
-    public boolean checkGoods(Integer goodsId,boolean ckeck){
+    public boolean checkGoods(Integer goodsId,boolean check){
         LambdaQueryWrapper<ShangpinGys> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ShangpinGys::getId,goodsId);
         ShangpinGys temp = this.baseMapper.selectOne(queryWrapper);
@@ -176,8 +176,8 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
         ShangpinExample example = new ShangpinExample();
         example.createCriteria().andSpmcEqualTo(temp.getSpmc());
         long count = shangpinMapper.countByExample(example);
-        if(count>0 && !ckeck==true){
-            //商品表中存在该商品，询问是否更新
+        if(count>0 && !check==true){
+            //商品表中存在该商品，并没有二次确认，询问是否更新
             return false;
         }
 

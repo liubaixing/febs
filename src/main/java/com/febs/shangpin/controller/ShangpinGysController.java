@@ -90,8 +90,8 @@ public class ShangpinGysController extends BaseController {
     @ControllerEndpoint(operation = "审核商品", exceptionMessage = "审核商品失败")
     @GetMapping("/checkGoods/{id}")
 //    @RequiresPermissions("shangpinGys:checkGoods")
-    public FebsResponse checkGoods(@PathVariable Integer id,boolean ckeck){
-        return new FebsResponse().data(this.shangpinGysService.checkGoods(id,ckeck));
+    public FebsResponse checkGoods(@PathVariable Integer id,@RequestParam boolean check){
+        return new FebsResponse().data(this.shangpinGysService.checkGoods(id,check));
     }
 
     @ApiOperation("打回商品，权限 shangpinGys:returnGoods")

@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author MrBird
  */
 @Configuration
-@EnableSwagger2
+//@EnableSwagger2
 @RequiredArgsConstructor
 public class FebsConfigure {
 
@@ -64,7 +64,7 @@ public class FebsConfigure {
         return filterRegistrationBean;
     }
 
-    @Bean
+    /*@Bean
     public Docket swaggerApi() {
         SwaggerProperties swagger = properties.getSwagger();
         return new Docket(DocumentationType.SWAGGER_2)
@@ -83,6 +83,6 @@ public class FebsConfigure {
                 null,
                 new Contact(swagger.getAuthor(), swagger.getUrl(), swagger.getEmail()),
                 swagger.getLicense(), swagger.getLicenseUrl(), Collections.emptyList());
-    }
+    }*/
 
 }
