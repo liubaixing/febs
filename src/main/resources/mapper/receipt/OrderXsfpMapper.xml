@@ -2,4 +2,455 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.febs.receipt.mapper.OrderXsfpMapper">
 
+    <resultMap id="BaseResultMap" type="com.febs.receipt.entity.OrderXsfp">
+        <id column="Id" jdbcType="BIGINT" property="id" />
+        <result column="djbh" jdbcType="VARCHAR" property="djbh" />
+        <result column="djrq" jdbcType="TIMESTAMP" property="djrq" />
+        <result column="ghdw_id" jdbcType="INTEGER" property="ghdwId" />
+        <result column="je" jdbcType="DECIMAL" property="je" />
+        <result column="bz" jdbcType="VARCHAR" property="bz" />
+        <result column="fj" jdbcType="VARCHAR" property="fj" />
+        <result column="zdr" jdbcType="VARCHAR" property="zdr" />
+        <result column="zdrq" jdbcType="TIMESTAMP" property="zdrq" />
+        <result column="sh" jdbcType="TINYINT" property="sh" />
+        <result column="shr" jdbcType="VARCHAR" property="shr" />
+        <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
+        <result column="zf" jdbcType="TINYINT" property="zf" />
+        <result column="zfr" jdbcType="VARCHAR" property="zfr" />
+        <result column="zfrq" jdbcType="TIMESTAMP" property="zfrq" />
+        <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+        <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+        <result column="ex3" jdbcType="VARCHAR" property="ex3" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    Id, djbh, djrq, ghdw_id, je, bz, fj, zdr, zdrq, sh, shr, shrq, zf, zfr, zfrq, ex1, 
+    ex2, ex3, create_time, update_time, deleted
+  </sql>
+    <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsfpExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from order_xsfp
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_xsfp
+        where Id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_xsfp
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.febs.receipt.entity.OrderXsfpExample">
+        delete from order_xsfp
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXsfp" useGeneratedKeys="true">
+    insert into order_xsfp (djbh, djrq, ghdw_id, 
+      je, bz, fj, zdr, 
+      zdrq, sh, shr, shrq, 
+      zf, zfr, zfrq, ex1, 
+      ex2, ex3, create_time, 
+      update_time, deleted)
+    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{ghdwId,jdbcType=INTEGER}, 
+      #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, 
+      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP}, 
+      #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, 
+      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXsfp" useGeneratedKeys="true">
+        insert into order_xsfp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="djbh != null">
+                djbh,
+            </if>
+            <if test="djrq != null">
+                djrq,
+            </if>
+            <if test="ghdwId != null">
+                ghdw_id,
+            </if>
+            <if test="je != null">
+                je,
+            </if>
+            <if test="bz != null">
+                bz,
+            </if>
+            <if test="fj != null">
+                fj,
+            </if>
+            <if test="zdr != null">
+                zdr,
+            </if>
+            <if test="zdrq != null">
+                zdrq,
+            </if>
+            <if test="sh != null">
+                sh,
+            </if>
+            <if test="shr != null">
+                shr,
+            </if>
+            <if test="shrq != null">
+                shrq,
+            </if>
+            <if test="zf != null">
+                zf,
+            </if>
+            <if test="zfr != null">
+                zfr,
+            </if>
+            <if test="zfrq != null">
+                zfrq,
+            </if>
+            <if test="ex1 != null">
+                ex1,
+            </if>
+            <if test="ex2 != null">
+                ex2,
+            </if>
+            <if test="ex3 != null">
+                ex3,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="djbh != null">
+                #{djbh,jdbcType=VARCHAR},
+            </if>
+            <if test="djrq != null">
+                #{djrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ghdwId != null">
+                #{ghdwId,jdbcType=INTEGER},
+            </if>
+            <if test="je != null">
+                #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="bz != null">
+                #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="fj != null">
+                #{fj,jdbcType=VARCHAR},
+            </if>
+            <if test="zdr != null">
+                #{zdr,jdbcType=VARCHAR},
+            </if>
+            <if test="zdrq != null">
+                #{zdrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sh != null">
+                #{sh,jdbcType=TINYINT},
+            </if>
+            <if test="shr != null">
+                #{shr,jdbcType=VARCHAR},
+            </if>
+            <if test="shrq != null">
+                #{shrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zf != null">
+                #{zf,jdbcType=TINYINT},
+            </if>
+            <if test="zfr != null">
+                #{zfr,jdbcType=VARCHAR},
+            </if>
+            <if test="zfrq != null">
+                #{zfrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ex1 != null">
+                #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.febs.receipt.entity.OrderXsfpExample" resultType="java.lang.Long">
+        select count(*) from order_xsfp
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update order_xsfp
+        <set>
+            <if test="record.id != null">
+                Id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.djbh != null">
+                djbh = #{record.djbh,jdbcType=VARCHAR},
+            </if>
+            <if test="record.djrq != null">
+                djrq = #{record.djrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ghdwId != null">
+                ghdw_id = #{record.ghdwId,jdbcType=INTEGER},
+            </if>
+            <if test="record.je != null">
+                je = #{record.je,jdbcType=DECIMAL},
+            </if>
+            <if test="record.bz != null">
+                bz = #{record.bz,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fj != null">
+                fj = #{record.fj,jdbcType=VARCHAR},
+            </if>
+            <if test="record.zdr != null">
+                zdr = #{record.zdr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.zdrq != null">
+                zdrq = #{record.zdrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.sh != null">
+                sh = #{record.sh,jdbcType=TINYINT},
+            </if>
+            <if test="record.shr != null">
+                shr = #{record.shr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.shrq != null">
+                shrq = #{record.shrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.zf != null">
+                zf = #{record.zf,jdbcType=TINYINT},
+            </if>
+            <if test="record.zfr != null">
+                zfr = #{record.zfr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.zfrq != null">
+                zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ex1 != null">
+                ex1 = #{record.ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex2 != null">
+                ex2 = #{record.ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex3 != null">
+                ex3 = #{record.ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.deleted != null">
+                deleted = #{record.deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update order_xsfp
+        set Id = #{record.id,jdbcType=BIGINT},
+        djbh = #{record.djbh,jdbcType=VARCHAR},
+        djrq = #{record.djrq,jdbcType=TIMESTAMP},
+        ghdw_id = #{record.ghdwId,jdbcType=INTEGER},
+        je = #{record.je,jdbcType=DECIMAL},
+        bz = #{record.bz,jdbcType=VARCHAR},
+        fj = #{record.fj,jdbcType=VARCHAR},
+        zdr = #{record.zdr,jdbcType=VARCHAR},
+        zdrq = #{record.zdrq,jdbcType=TIMESTAMP},
+        sh = #{record.sh,jdbcType=TINYINT},
+        shr = #{record.shr,jdbcType=VARCHAR},
+        shrq = #{record.shrq,jdbcType=TIMESTAMP},
+        zf = #{record.zf,jdbcType=TINYINT},
+        zfr = #{record.zfr,jdbcType=VARCHAR},
+        zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
+        ex1 = #{record.ex1,jdbcType=VARCHAR},
+        ex2 = #{record.ex2,jdbcType=VARCHAR},
+        ex3 = #{record.ex3,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        deleted = #{record.deleted,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.receipt.entity.OrderXsfp">
+        update order_xsfp
+        <set>
+            <if test="djbh != null">
+                djbh = #{djbh,jdbcType=VARCHAR},
+            </if>
+            <if test="djrq != null">
+                djrq = #{djrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ghdwId != null">
+                ghdw_id = #{ghdwId,jdbcType=INTEGER},
+            </if>
+            <if test="je != null">
+                je = #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="bz != null">
+                bz = #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="fj != null">
+                fj = #{fj,jdbcType=VARCHAR},
+            </if>
+            <if test="zdr != null">
+                zdr = #{zdr,jdbcType=VARCHAR},
+            </if>
+            <if test="zdrq != null">
+                zdrq = #{zdrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sh != null">
+                sh = #{sh,jdbcType=TINYINT},
+            </if>
+            <if test="shr != null">
+                shr = #{shr,jdbcType=VARCHAR},
+            </if>
+            <if test="shrq != null">
+                shrq = #{shrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zf != null">
+                zf = #{zf,jdbcType=TINYINT},
+            </if>
+            <if test="zfr != null">
+                zfr = #{zfr,jdbcType=VARCHAR},
+            </if>
+            <if test="zfrq != null">
+                zfrq = #{zfrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ex1 != null">
+                ex1 = #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                ex2 = #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                ex3 = #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.febs.receipt.entity.OrderXsfp">
+    update order_xsfp
+    set djbh = #{djbh,jdbcType=VARCHAR},
+      djrq = #{djrq,jdbcType=TIMESTAMP},
+      ghdw_id = #{ghdwId,jdbcType=INTEGER},
+      je = #{je,jdbcType=DECIMAL},
+      bz = #{bz,jdbcType=VARCHAR},
+      fj = #{fj,jdbcType=VARCHAR},
+      zdr = #{zdr,jdbcType=VARCHAR},
+      zdrq = #{zdrq,jdbcType=TIMESTAMP},
+      sh = #{sh,jdbcType=TINYINT},
+      shr = #{shr,jdbcType=VARCHAR},
+      shrq = #{shrq,jdbcType=TIMESTAMP},
+      zf = #{zf,jdbcType=TINYINT},
+      zfr = #{zfr,jdbcType=VARCHAR},
+      zfrq = #{zfrq,jdbcType=TIMESTAMP},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR},
+      ex3 = #{ex3,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+    
 </mapper>

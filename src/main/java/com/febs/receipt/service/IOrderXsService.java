@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderXs;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.receipt.entity.OrderXsExample;
 
 import java.util.List;
 

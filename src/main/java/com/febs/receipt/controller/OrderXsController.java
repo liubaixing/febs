@@ -5,7 +5,9 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.enums.DeletedEnum;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.receipt.biz.OrderXsBiz;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.service.IOrderXsService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,9 @@ public class OrderXsController extends BaseController {
     @Autowired
     private IOrderXsService orderXsService;
 
+    @Autowired
+    private OrderXsBiz orderXsBiz;
+
 
     @GetMapping("")
     @RequiresPermissions("orderXs:list")
@@ -46,7 +51,7 @@ public class OrderXsController extends BaseController {
     @GetMapping("/list")
     @RequiresPermissions("orderXs:list")
     public FebsResponse orderXsList(QueryRequest request, OrderXs orderXs) {
-        Map<String, Object> dataTable = getDataTable(this.orderXsService.findOrderXss(request, orderXs));
+        Map<String, Object> dataTable = getDataTable(this.orderXsBiz.findByPage(request, orderXs));
         return new FebsResponse().success().data(dataTable);
     }
 
@@ -54,7 +59,7 @@ public class OrderXsController extends BaseController {
     @PostMapping("")
     @RequiresPermissions("orderXs:add")
     public FebsResponse addOrderXs(@Valid OrderXs orderXs) {
-        this.orderXsService.createOrderXs(orderXs);
+        this.orderXsBiz.create(orderXs);
         return new FebsResponse().success();
     }
 
@@ -63,7 +68,7 @@ public class OrderXsController extends BaseController {
     @RequiresPermissions("orderXs:delete")
     public FebsResponse deleteOrderXs(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
-        this.orderXsService.deleteOrderXs(id);
+        this.orderXsBiz.delete(id);
         return new FebsResponse().success();
     }
 
@@ -71,7 +76,7 @@ public class OrderXsController extends BaseController {
     @PostMapping("/update")
     @RequiresPermissions("orderXs:update")
     public FebsResponse updateOrderXs(OrderXs orderXs) {
-        this.orderXsService.updateOrderXs(orderXs);
+        this.orderXsBiz.update(orderXs);
         return new FebsResponse().success();
     }
 
@@ -79,7 +84,10 @@ public class OrderXsController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("orderXs:export")
     public void export(QueryRequest queryRequest, OrderXs orderXs, HttpServletResponse response) throws IOException {
-        List<OrderXs> orderXss = this.orderXsService.findOrderXss(queryRequest, orderXs).getRecords();
+        List<OrderXs> orderXss = this.orderXsBiz.findByPage(queryRequest, orderXs).getRecords();
         ExcelUtil.export(orderXss, OrderXs.class,"销售单",response);
     }
+
+
+
 }

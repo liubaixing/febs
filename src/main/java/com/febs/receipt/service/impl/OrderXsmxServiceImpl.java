@@ -1,15 +1,16 @@
 package com.febs.receipt.service.impl;
 
-import com.febs.common.entity.QueryRequest;
-import com.febs.common.exception.FebsException;
-import com.febs.receipt.entity.OrderXsmx;
-import com.febs.receipt.mapper.OrderXsmxMapper;
-import com.febs.receipt.service.IOrderXsmxService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
+import com.febs.common.entity.QueryRequest;
+import com.febs.common.enums.DeletedEnum;
+import com.febs.common.exception.FebsException;
+import com.febs.receipt.entity.OrderXsmx;
+import com.febs.receipt.entity.OrderXsmxExample;
+import com.febs.receipt.mapper.OrderXsmxMapper;
+import com.febs.receipt.service.IOrderXsmxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,17 +34,15 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
 
     @Override
     public IPage<OrderXsmx> findOrderXsmxs(QueryRequest request, OrderXsmx orderXsmx) {
-        LambdaQueryWrapper<OrderXsmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
         Page<OrderXsmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        OrderXsmxExample example = buildQueryExample(orderXsmx);
+        return this.orderXsmxMapper.selectPageByExample(page,example);
     }
 
     @Override
     public List<OrderXsmx> findOrderXsmxs(OrderXsmx orderXsmx) {
-	    LambdaQueryWrapper<OrderXsmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+        OrderXsmxExample example = buildQueryExample(orderXsmx);
+		return this.orderXsmxMapper.selectByExample(example);
     }
 
     @Override
@@ -51,10 +50,7 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     public void createOrderXsmx(OrderXsmx orderXsmx) {
         LambdaQueryWrapper<OrderXsmx> queryWrapper = new LambdaQueryWrapper<>();
         Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderXsmx);
+        this.orderXsmxMapper.insertSelective(orderXsmx);
     }
 
     @Override
@@ -62,10 +58,7 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     public void updateOrderXsmx(OrderXsmx orderXsmx) {
         LambdaQueryWrapper<OrderXsmx> queryWrapper = new LambdaQueryWrapper<>();
         Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(orderXsmx);
+        this.orderXsmxMapper.updateByPrimaryKeySelective(orderXsmx);
     }
 
     @Override
@@ -74,4 +67,12 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    private OrderXsmxExample buildQueryExample(OrderXsmx query) {
+        OrderXsmxExample example = new OrderXsmxExample();
+        OrderXsmxExample.Criteria criteria = example.createCriteria();
+        criteria.andDeletedEqualTo(DeletedEnum.NORMAL.getCode());
+        return example;
+    }
+
 }

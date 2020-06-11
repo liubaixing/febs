@@ -3,6 +3,7 @@ package com.febs.receipt.entity;
 import java.util.Date;
 import java.math.BigDecimal;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -22,6 +23,7 @@ public class OrderXs {
     /**
      * 
      */
+    @ExcelIgnore
     @TableId(value = "Id", type = IdType.AUTO)
     private Long id;
 
@@ -259,7 +261,7 @@ public class OrderXs {
     private Byte gb;
 
     /**
-     * 关闭
+     * 关闭人
      */
     @TableField("gbr")
     private String gbr;
@@ -291,36 +293,42 @@ public class OrderXs {
     /**
      * 备用1
      */
+    @ExcelIgnore
     @TableField("ex1")
     private String ex1;
 
     /**
      * 备用2
      */
+    @ExcelIgnore
     @TableField("ex2")
     private String ex2;
 
     /**
      * 备用3
      */
+    @ExcelIgnore
     @TableField("ex3")
     private String ex3;
 
     /**
      * 创建时间
      */
+    @ExcelIgnore
     @TableField("create_time")
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @ExcelIgnore
     @TableField("update_time")
     private Date updateTime;
 
     /**
      * 0:正常,1:删除(默认0)
      */
+    @ExcelIgnore
     @TableField("deleted")
     private Integer deleted;
 

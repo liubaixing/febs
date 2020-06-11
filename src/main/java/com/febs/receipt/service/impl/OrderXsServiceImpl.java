@@ -1,8 +1,10 @@
 package com.febs.receipt.service.impl;
 
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.enums.DeletedEnum;
 import com.febs.common.exception.FebsException;
 import com.febs.receipt.entity.OrderXs;
+import com.febs.receipt.entity.OrderXsExample;
 import com.febs.receipt.mapper.OrderXsMapper;
 import com.febs.receipt.service.IOrderXsService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -32,17 +34,15 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
 
     @Override
     public IPage<OrderXs> findOrderXss(QueryRequest request, OrderXs orderXs) {
-        LambdaQueryWrapper<OrderXs> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
         Page<OrderXs> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        OrderXsExample example = buildQueryExample(orderXs);
+        return orderXsMapper.selectPageByExample(page,example);
     }
 
     @Override
     public List<OrderXs> findOrderXss(OrderXs orderXs) {
-	    LambdaQueryWrapper<OrderXs> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+        OrderXsExample example = buildQueryExample(orderXs);
+		return this.orderXsMapper.selectByExample(example);
     }
 
     @Override
@@ -50,10 +50,8 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     public void createOrderXs(OrderXs orderXs) {
         LambdaQueryWrapper<OrderXs> queryWrapper = new LambdaQueryWrapper<>();
         Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderXs);
+
+        this.orderXsMapper.insertSelective(orderXs);
     }
 
     @Override
@@ -64,7 +62,7 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         if (count>0) {
             throw new FebsException("数据已存在，添加失败");
         }
-        this.saveOrUpdate(orderXs);
+        this.orderXsMapper.updateByPrimaryKeySelective(orderXs);
     }
 
     @Override
@@ -73,4 +71,12 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    private OrderXsExample buildQueryExample(OrderXs query) {
+        OrderXsExample example = new OrderXsExample();
+        OrderXsExample.Criteria criteria = example.createCriteria();
+        criteria.andDeletedEqualTo(DeletedEnum.NORMAL.getCode());
+        return example;
+    }
+
 }
