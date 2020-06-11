@@ -6,6 +6,8 @@ import com.febs.receipt.entity.OrderXs;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.febs.receipt.entity.OrderXsExample;
+import com.febs.receipt.vo.req.OrderXsReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public interface IOrderXsService extends IService<OrderXs> {
      * @param orderXs orderXs
      * @return IPage<OrderXs>
      */
-    IPage<OrderXs> findOrderXss(QueryRequest request, OrderXs orderXs);
+    IPage<OrderXs> findOrderXss(QueryRequest request, OrderXsReq orderXs);
 
     /**
      * 查询（所有）
@@ -31,7 +33,7 @@ public interface IOrderXsService extends IService<OrderXs> {
      * @param orderXs orderXs
      * @return List<OrderXs>
      */
-    List<OrderXs> findOrderXss(OrderXs orderXs);
+    List<OrderXs> findOrderXss(OrderXsReq orderXs);
 
     /**
      * 新增

@@ -11,6 +11,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.receipt.vo.req.OrderXsReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,14 +36,13 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     private OrderXsMapper orderXsMapper;
 
     @Override
-    public IPage<OrderXs> findOrderXss(QueryRequest request, OrderXs orderXs) {
+    public IPage<OrderXs> findOrderXss(QueryRequest request, OrderXsReq orderXs) {
         Page<OrderXs> page = new Page<>(request.getPageNum(), request.getPageSize());
-        OrderXsExample example = buildQueryExample(orderXs);
-        return orderXsMapper.selectPageByExample(page,example);
+        return orderXsMapper.selectPageByExample(page,orderXs);
     }
 
     @Override
-    public List<OrderXs> findOrderXss(OrderXs orderXs) {
+    public List<OrderXs> findOrderXss(OrderXsReq orderXs) {
         OrderXsExample example = buildQueryExample(orderXs);
 		return this.orderXsMapper.selectByExample(example);
     }
@@ -48,9 +50,6 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     @Override
     @Transactional
     public void createOrderXs(OrderXs orderXs) {
-        LambdaQueryWrapper<OrderXs> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-
         this.orderXsMapper.insertSelective(orderXs);
     }
 
@@ -72,10 +71,34 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         this.removeByIds(list);
 	}
 
-    private OrderXsExample buildQueryExample(OrderXs query) {
+    private OrderXsExample buildQueryExample(OrderXsReq query) {
         OrderXsExample example = new OrderXsExample();
         OrderXsExample.Criteria criteria = example.createCriteria();
         criteria.andDeletedEqualTo(DeletedEnum.NORMAL.getCode());
+        if (StringUtils.isNotBlank(query.getDjbh())){
+            criteria.andDjbhLike(query.getDjbh());
+        }
+        if(query.getStartTime()!=null && query.getEndTime()!=null){
+            criteria.andXdrqBetween(query.getStartTime(),query.getEndTime());
+        }
+        if(query.getSctk()!=null){
+            criteria.andSctkEqualTo(query.getSctk());
+        }
+        if(query.getOrgId()!=null){
+            criteria.andOrgIdEqualTo(query.getOrgId());
+        }
+        if(query.getSfjj()!=null){
+            criteria.andSfjjEqualTo(query.getSfjj());
+        }
+        if(query.getQr()!=null){
+            criteria.andQrEqualTo(query.getQr());
+        }
+        if (query.getZx()!=null){
+            criteria.andZxEqualTo(query.getZx());
+        }
+        if (query.getZf()!=null){
+            criteria.andZfEqualTo(query.getZf());
+        }
         return example;
     }
 

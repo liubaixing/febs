@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsExample;
+import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.shangpin.entity.Shangpin;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,7 +30,8 @@ public interface OrderXsMapper extends BaseMapper<OrderXs> {
     int insertSelective(OrderXs record);
 
     List<OrderXs> selectByExample(OrderXsExample example);
-    IPage<OrderXs> selectPageByExample(Page<OrderXs> page, OrderXsExample example);
+
+    IPage<OrderXs> selectPageByExample(Page<OrderXs> page, OrderXsReq req);
 
     OrderXs selectByPrimaryKey(Long id);
 

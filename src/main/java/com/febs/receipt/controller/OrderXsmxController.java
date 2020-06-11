@@ -6,6 +6,7 @@ import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.receipt.biz.OrderXsmxBiz;
 import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.service.IOrderXsmxService;
 
@@ -37,6 +38,8 @@ public class OrderXsmxController extends BaseController {
     @Autowired
     private IOrderXsmxService orderXsmxService;
 
+    @Autowired
+    private OrderXsmxBiz xsmxBiz;
 
     @GetMapping("")
     @RequiresPermissions("orderXsmx:list")
@@ -47,7 +50,7 @@ public class OrderXsmxController extends BaseController {
     @GetMapping("/list")
     @RequiresPermissions("orderXsmx:list")
     public FebsResponse orderXsmxList(QueryRequest request, OrderXsmx orderXsmx) {
-        Map<String, Object> dataTable = getDataTable(this.orderXsmxService.findOrderXsmxs(request, orderXsmx));
+        Map<String, Object> dataTable = getDataTable(this.xsmxBiz.findPage(request, orderXsmx));
         return new FebsResponse().success().data(dataTable);
     }
 
@@ -55,7 +58,7 @@ public class OrderXsmxController extends BaseController {
     @PostMapping("")
     @RequiresPermissions("orderXsmx:add")
     public FebsResponse addOrderXsmx(@Valid OrderXsmx orderXsmx) {
-        this.orderXsmxService.createOrderXsmx(orderXsmx);
+        this.xsmxBiz.create(orderXsmx);
         return new FebsResponse().success();
     }
 
@@ -64,7 +67,7 @@ public class OrderXsmxController extends BaseController {
     @RequiresPermissions("orderXsmx:delete")
     public FebsResponse deleteOrderXsmx(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
-        this.orderXsmxService.deleteOrderXsmx(id);
+        this.xsmxBiz.delete(id);
         return new FebsResponse().success();
     }
 
@@ -72,7 +75,7 @@ public class OrderXsmxController extends BaseController {
     @PostMapping("/update")
     @RequiresPermissions("orderXsmx:update")
     public FebsResponse updateOrderXsmx(OrderXsmx orderXsmx) {
-        this.orderXsmxService.updateOrderXsmx(orderXsmx);
+        this.xsmxBiz.update(orderXsmx);
         return new FebsResponse().success();
     }
 

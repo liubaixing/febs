@@ -10,6 +10,9 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXsBiz;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.service.IOrderXsService;
+import com.febs.receipt.vo.req.OrderXsReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
+import com.febs.system.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +47,13 @@ public class OrderXsController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("orderXs:list")
-    public FebsResponse getAllOrderXss(OrderXs orderXs) {
+    public FebsResponse getAllOrderXss(OrderXsReq orderXs) {
         return new FebsResponse().success().data(orderXsService.findOrderXss(orderXs));
     }
 
     @GetMapping("/list")
     @RequiresPermissions("orderXs:list")
-    public FebsResponse orderXsList(QueryRequest request, OrderXs orderXs) {
+    public FebsResponse orderXsList(QueryRequest request, OrderXsReq orderXs) {
         Map<String, Object> dataTable = getDataTable(this.orderXsBiz.findByPage(request, orderXs));
         return new FebsResponse().success().data(dataTable);
     }
@@ -59,6 +62,8 @@ public class OrderXsController extends BaseController {
     @PostMapping("")
     @RequiresPermissions("orderXs:add")
     public FebsResponse addOrderXs(@Valid OrderXs orderXs) {
+        User user = getCurrentUser();
+        orderXs.setUserId(user.getUserId());
         this.orderXsBiz.create(orderXs);
         return new FebsResponse().success();
     }
@@ -83,7 +88,7 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderXs:export")
-    public void export(QueryRequest queryRequest, OrderXs orderXs, HttpServletResponse response) throws IOException {
+    public void export(QueryRequest queryRequest, OrderXsReq orderXs, HttpServletResponse response) throws IOException {
         List<OrderXs> orderXss = this.orderXsBiz.findByPage(queryRequest, orderXs).getRecords();
         ExcelUtil.export(orderXss, OrderXs.class,"销售单",response);
     }

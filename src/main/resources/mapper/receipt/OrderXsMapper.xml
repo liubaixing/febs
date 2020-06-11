@@ -134,19 +134,59 @@
             order by ${orderByClause}
         </if>
     </select>
+
+    <sql id="Page_Column_List">
+    xs.Id, xs.djbh, xs.xdrq, xs.ydbh, xs.ydjh, xs.sfjj, xs.sfdz, xs.org_id,
+    xs.user_id, xs.bumeng_id, xs.kehu_id, xs.cangku_id, xs.khly_id, xs.llly_id,
+    xs.yqdhrq, xs.djlx_id, xs.khqy_id, xs.wldh, xs.bz,xs.fj, xs.sl, xs.je,
+    xs.address, xs.tel, xs.contact, xs.zdr, xs.zdrq, xs.qr, xs.qrr, xs.qrrq,
+    xs.sh, xs.shr, xs.shrq, xs.zx, xs.zxr, xs.zxrq, xs.sctk, xs.sctkr, xs.sctkrq,
+    xs.gb, xs.gbr, xs.gbrq, xs.zf, xs.zfr, xs.zfrq, xs.ex1, xs.ex2, xs.ex3,
+    xs.create_time, xs.update_time, xs.deleted
+  </sql>
     <select id="selectPageByExample" parameterType="com.febs.receipt.entity.OrderXsExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List" />
-        from order_xs
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause" />
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
+        <include refid="Page_Column_List" />
+        ,kehu.khmc
+        from order_xs xs
+        left join system_kehu kehu
+
+        <where>
+            <if test="deleted != null">
+                xs.deleted = #{deleted}
+            </if>
+            <if test="djbh != null and djbh != ''">
+                xs.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                xs.xdrq between #{startTime} and #{endTime}
+            </if>
+            <if test="sctk != null">
+                xs.sctk = #{sctk}
+            </if>
+            <if test="orgId != null">
+                xs.org_id = #{orgId}
+            </if>
+            <if test="sfjj != null">
+                xs.sfjj = #{sfjj}
+            </if>
+            <if test="qr != null">
+                xs.qr = #{qr}
+            </if>
+            <if test="zx != null">
+                xs.zx = #{zx}
+            </if>
+            <if test="zf != null">
+                xs.zf = #{zf}
+            </if>
+            <if test="qr != null">
+                xs.qr = #{qr}
+            </if>
+        </where>
+
     </select>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select

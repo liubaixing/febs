@@ -5,6 +5,8 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.service.IOrderXsService;
+import com.febs.receipt.vo.req.OrderXsReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class OrderXsBiz {
      * @param orderXs
      * @return
      */
-    public IPage<OrderXs> findByPage(QueryRequest request, OrderXs orderXs){
+    public IPage<OrderXs> findByPage(QueryRequest request, OrderXsReq orderXs){
         return xsService.findOrderXss(request,orderXs);
     }
 
