@@ -1,41 +1,92 @@
 package com.febs.receipt.entity;
 
+import java.util.Date;
+import java.math.BigDecimal;
+
+import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 销退单明细 Entity
  *
  * @author liubaixing
- * @date 2020-06-02 13:38:50
+ * @date 2020-06-11 14:01:04
  */
 @Data
 @TableName("order_xtmx")
 public class OrderXtmx {
 
     /**
-     * 创建时间
+     * 
      */
-    @TableField("create_time")
-    private Date createTime;
+    @TableId(value = "Id", type = IdType.AUTO)
+    private Long id;
 
     /**
-     * 0:正常,1:删除(默认0)
+     * order_xt id
      */
-    @TableField("deleted")
-    private Integer deleted;
+    @TableField("pid")
+    private Long pid;
+
+    /**
+     * 商品ID
+     */
+    @TableField("sp_id")
+    private Integer spId;
+
+    /**
+     * 颜色ID
+     */
+    @TableField("gg1_id")
+    private Integer gg1Id;
+
+    /**
+     * 尺码ID
+     */
+    @TableField("gg2_id")
+    private Integer gg2Id;
+
+    /**
+     * 计划数
+     */
+    @TableField("jhsl")
+    private Integer jhsl;
+
+    /**
+     * 通知数
+     */
+    @TableField("tzsl")
+    private Integer tzsl;
+
+    /**
+     * 出库数
+     */
+    @TableField("cksl")
+    private Integer cksl;
 
     /**
      * 单价
      */
     @TableField("dj")
     private BigDecimal dj;
+    /**
+     * 金额
+     */
+    @TableField("je")
+    private BigDecimal je;
+    /**
+     * 平台折扣
+     */
+    @TableField("zk")
+    private BigDecimal zk;
+    /**
+     * 销售净额
+     */
+    @TableField("xsje")
+    private BigDecimal xsje;
     /**
      * 备用1
      */
@@ -55,49 +106,15 @@ public class OrderXtmx {
     private String ex3;
 
     /**
-     * 返利金额
-     */
-    @TableField("flje")
-    private BigDecimal flje;
-    /**
-     * 颜色ID
-     */
-    @TableField("gg1_id")
-    private Integer gg1Id;
-
-    /**
-     * 尺码ID
-     */
-    @TableField("gg2_id")
-    private Integer gg2Id;
-
-    /**
-     * 
-     */
-    @TableId(value = "Id", type = IdType.AUTO)
-    private Long id;
-
-    /**
-     * 金额
-     */
-    @TableField("je")
-    private BigDecimal je;
-    /**
-     * 计税金额
-     */
-    @TableField("jishuije")
-    private BigDecimal jishuije;
-    /**
      * 计税价格
      */
     @TableField("jsjg")
     private BigDecimal jsjg;
     /**
-     * order_xt id
+     * 计税金额
      */
-    @TableField("pid")
-    private Long pid;
-
+    @TableField("jishuije")
+    private BigDecimal jishuije;
     /**
      * SKU
      */
@@ -105,16 +122,10 @@ public class OrderXtmx {
     private String sku;
 
     /**
-     * 数量
+     * 创建时间
      */
-    @TableField("sl")
-    private Integer sl;
-
-    /**
-     * 商品ID
-     */
-    @TableField("sp_id")
-    private Integer spId;
+    @TableField("create_time")
+    private Date createTime;
 
     /**
      * 修改时间
@@ -123,13 +134,14 @@ public class OrderXtmx {
     private Date updateTime;
 
     /**
-     * 销售净额
+     * 0:正常,1:删除(默认0)
      */
-    @TableField("xsje")
-    private BigDecimal xsje;
+    @TableField("deleted")
+    private Integer deleted;
+
     /**
-     * 平台折扣
+     * 成本金额
      */
-    @TableField("zk")
-    private BigDecimal zk;
+    @TableField("cbje")
+    private BigDecimal cbje;
 }

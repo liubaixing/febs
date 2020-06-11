@@ -1,41 +1,29 @@
 package com.febs.receipt.entity;
 
+import java.util.Date;
+import java.math.BigDecimal;
+
+import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 销售发票 Entity
  *
  * @author liubaixing
- * @date 2020-06-02 13:37:20
+ * @date 2020-06-11 14:01:16
  */
 @Data
 @TableName("order_xsfp")
 public class OrderXsfp {
 
     /**
-     * 摘要
+     * 
      */
-    @TableField("bz")
-    private String bz;
-
-    /**
-     * 创建时间
-     */
-    @TableField("create_time")
-    private Date createTime;
-
-    /**
-     * 0:正常,1:删除(默认0)
-     */
-    @TableField("deleted")
-    private Integer deleted;
+    @TableId(value = "Id", type = IdType.AUTO)
+    private Long id;
 
     /**
      * 发票编号
@@ -47,7 +35,78 @@ public class OrderXsfp {
      * 单据日期
      */
     @TableField("djrq")
-    private Integer djrq;
+    private Date djrq;
+
+    /**
+     * 购货单位ID 购货单位
+     */
+    @TableField("ghdw_id")
+    private Integer ghdwId;
+
+    /**
+     * 开票金额
+     */
+    @TableField("je")
+    private BigDecimal je;
+    /**
+     * 摘要
+     */
+    @TableField("bz")
+    private String bz;
+
+    /**
+     * 附件
+     */
+    @TableField("fj")
+    private String fj;
+
+    /**
+     * 制单人
+     */
+    @TableField("zdr")
+    private String zdr;
+
+    /**
+     * 制单日期
+     */
+    @TableField("zdrq")
+    private Date zdrq;
+
+    /**
+     * 0-未审核 1-已审核
+     */
+    @TableField("sh")
+    private Byte sh;
+
+    /**
+     * 审核人
+     */
+    @TableField("shr")
+    private String shr;
+
+    /**
+     * 审核日期
+     */
+    @TableField("shrq")
+    private Date shrq;
+
+    /**
+     * 0-未作废 1-已作废
+     */
+    @TableField("zf")
+    private Byte zf;
+
+    /**
+     * 作废
+     */
+    @TableField("zfr")
+    private String zfr;
+
+    /**
+     * 作废日期
+     */
+    @TableField("zfrq")
+    private Date zfrq;
 
     /**
      * 备用1
@@ -68,45 +127,10 @@ public class OrderXsfp {
     private String ex3;
 
     /**
-     * 附件
+     * 创建时间
      */
-    @TableField("fj")
-    private String fj;
-
-    /**
-     * 购货单位ID 购货单位
-     */
-    @TableField("ghdw_id")
-    private Integer ghdwId;
-
-    /**
-     * 
-     */
-    @TableId(value = "Id", type = IdType.AUTO)
-    private Long id;
-
-    /**
-     * 开票金额
-     */
-    @TableField("je")
-    private BigDecimal je;
-    /**
-     * 0-未审核 1-已审核
-     */
-    @TableField("sh")
-    private Byte sh;
-
-    /**
-     * 审核人
-     */
-    @TableField("shr")
-    private String shr;
-
-    /**
-     * 审核日期
-     */
-    @TableField("shrq")
-    private Integer shrq;
+    @TableField("create_time")
+    private Date createTime;
 
     /**
      * 修改时间
@@ -115,33 +139,9 @@ public class OrderXsfp {
     private Date updateTime;
 
     /**
-     * 制单人
+     * 0:正常,1:删除(默认0)
      */
-    @TableField("zdr")
-    private String zdr;
-
-    /**
-     * 制单日期
-     */
-    @TableField("zdrq")
-    private Integer zdrq;
-
-    /**
-     * 0-未作废 1-已作废
-     */
-    @TableField("zf")
-    private Byte zf;
-
-    /**
-     * 作废
-     */
-    @TableField("zfr")
-    private String zfr;
-
-    /**
-     * 作废日期
-     */
-    @TableField("zfrq")
-    private Integer zfrq;
+    @TableField("deleted")
+    private Integer deleted;
 
 }

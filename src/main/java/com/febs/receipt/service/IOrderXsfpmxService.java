@@ -1,9 +1,10 @@
 package com.febs.receipt.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.febs.common.entity.QueryRequest;
 import com.febs.receipt.entity.OrderXsfpmx;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * 销售发票明细 Service接口
  *
  * @author liubaixing
- * @date 2020-06-02 13:37:25
+ * @date 2020-06-11 14:01:07
  */
 public interface IOrderXsfpmxService extends IService<OrderXsfpmx> {
     /**

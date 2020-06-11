@@ -1,36 +1,65 @@
 package com.febs.receipt.entity;
 
+import java.util.Date;
+import java.math.BigDecimal;
+
+import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 销售退款明细 Entity
  *
  * @author liubaixing
- * @date 2020-06-02 13:38:37
+ * @date 2020-06-11 14:01:13
  */
 @Data
 @TableName("order_xstkmx")
 public class OrderXstkmx {
 
     /**
-     * 创建时间
+     * 
      */
-    @TableField("create_time")
-    private Date createTime;
+    @TableId(value = "Id", type = IdType.AUTO)
+    private Long id;
 
     /**
-     * 0:正常,1:删除(默认0)
+     * order_xstk id
      */
-    @TableField("deleted")
-    private Integer deleted;
+    @TableField("pid")
+    private Long pid;
 
+    /**
+     * 原单号
+     */
+    @TableField("ydjh")
+    private String ydjh;
+
+    /**
+     * 商品ID
+     */
+    @TableField("sp_id")
+    private Integer spId;
+
+    /**
+     * 颜色ID
+     */
+    @TableField("gg1_id")
+    private Integer gg1Id;
+
+    /**
+     * 尺码ID
+     */
+    @TableField("gg2_id")
+    private Integer gg2Id;
+
+    /**
+     * 金额
+     */
+    @TableField("je")
+    private BigDecimal je;
     /**
      * 备用1
      */
@@ -50,21 +79,10 @@ public class OrderXstkmx {
     private String ex3;
 
     /**
-     * 
+     * 创建时间
      */
-    @TableId(value = "Id", type = IdType.AUTO)
-    private Long id;
-
-    /**
-     * 金额
-     */
-    @TableField("je")
-    private BigDecimal je;
-    /**
-     * order_xstk id
-     */
-    @TableField("pid")
-    private Long pid;
+    @TableField("create_time")
+    private Date createTime;
 
     /**
      * 修改时间
@@ -73,9 +91,9 @@ public class OrderXstkmx {
     private Date updateTime;
 
     /**
-     * 原单号
+     * 0:正常,1:删除(默认0)
      */
-    @TableField("ydjh")
-    private String ydjh;
+    @TableField("deleted")
+    private Integer deleted;
 
 }

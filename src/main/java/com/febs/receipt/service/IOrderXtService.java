@@ -1,9 +1,10 @@
 package com.febs.receipt.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.febs.common.entity.QueryRequest;
 import com.febs.receipt.entity.OrderXt;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * 销退单 Service接口
  *
  * @author liubaixing
- * @date 2020-06-02 13:38:45
+ * @date 2020-06-11 11:46:11
  */
 public interface IOrderXtService extends IService<OrderXt> {
     /**

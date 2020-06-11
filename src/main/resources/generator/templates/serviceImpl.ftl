@@ -1,7 +1,7 @@
 package ${basePackage}.${serviceImplPackage};
 
-import QueryRequest;
-import FebsException;
+import com.febs.common.entity.QueryRequest;
+import com.febs.common.exception.FebsException;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${mapperPackage}.${className}Mapper;
 import ${basePackage}.${servicePackage}.I${className}Service;
@@ -63,7 +63,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
         LambdaQueryWrapper<${className}> queryWrapper = new LambdaQueryWrapper<>();
         Integer count = this.baseMapper.selectCount(queryWrapper);
         if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
+            throw new FebsException("数据已存在，添加失败");
         }
         this.saveOrUpdate(${className?uncap_first});
     }

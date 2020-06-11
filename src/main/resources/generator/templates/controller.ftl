@@ -1,23 +1,24 @@
 package com.febs.system.controller;
 
-import ControllerEndpoint;
-import FebsUtil;
-import FebsConstant;
-import BaseController;
-import FebsResponse;
-import QueryRequest;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.febs.common.annotation.ControllerEndpoint;
+import com.febs.common.controller.BaseController;
+import com.febs.common.entity.FebsResponse;
+import com.febs.common.entity.QueryRequest;
+import com.febs.common.utils.ExcelUtil;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${servicePackage}.I${className}Service;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.wuwenze.poi.ExcelKit;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -78,8 +79,8 @@ public class ${className}Controller extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("${className?uncap_first}:export")
-    public void export(QueryRequest queryRequest, ${className} ${className?uncap_first}, HttpServletResponse response) {
+    public void export(QueryRequest queryRequest, ${className} ${className?uncap_first}, HttpServletResponse response) throws IOException {
         List<${className}> ${className?uncap_first}s = this.${className?uncap_first}Service.find${className}s(queryRequest, ${className?uncap_first}).getRecords();
-        ExcelKit.$Export(${className}.class, response).downXlsx(${className?uncap_first}s, false);
+        ExcelUtil.export(${className?uncap_first}s, ${className}.class,"${tableComment}",response);
     }
 }

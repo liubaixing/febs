@@ -36,6 +36,7 @@
         COLUMN_COMMENT remark
         FROM information_schema.COLUMNS
         WHERE TABLE_SCHEMA = #{schemaName} AND TABLE_NAME = #{tableName}
+        ORDER BY ordinal_position
     </select>
 
 </mapper>

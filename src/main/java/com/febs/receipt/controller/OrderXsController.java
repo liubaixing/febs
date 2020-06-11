@@ -5,9 +5,9 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.service.IOrderXsService;
-import com.wuwenze.poi.ExcelKit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ import java.util.Map;
  * 销售单 Controller
  *
  * @author liubaixing
- * @date 2020-06-02 11:27:56
+ * @date 2020-06-11 11:36:56
  */
 @Slf4j
 @Validated
@@ -49,7 +50,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增OrderXs", exceptionMessage = "新增OrderXs失败")
+    @ControllerEndpoint(operation = "新增销售单", exceptionMessage = "新增销售单失败")
     @PostMapping("")
     @RequiresPermissions("orderXs:add")
     public FebsResponse addOrderXs(@Valid OrderXs orderXs) {
@@ -57,7 +58,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除OrderXs", exceptionMessage = "删除OrderXs失败")
+    @ControllerEndpoint(operation = "删除销售单", exceptionMessage = "删除销售单失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("orderXs:delete")
     public FebsResponse deleteOrderXs(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -66,7 +67,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改OrderXs", exceptionMessage = "修改OrderXs失败")
+    @ControllerEndpoint(operation = "修改销售单", exceptionMessage = "修改销售单失败")
     @PostMapping("/update")
     @RequiresPermissions("orderXs:update")
     public FebsResponse updateOrderXs(OrderXs orderXs) {
@@ -77,8 +78,8 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderXs:export")
-    public void export(QueryRequest queryRequest, OrderXs orderXs, HttpServletResponse response) {
+    public void export(QueryRequest queryRequest, OrderXs orderXs, HttpServletResponse response) throws IOException {
         List<OrderXs> orderXss = this.orderXsService.findOrderXss(queryRequest, orderXs).getRecords();
-        ExcelKit.$Export(OrderXs.class, response).downXlsx(orderXss, false);
+        ExcelUtil.export(orderXss, OrderXs.class,"销售单",response);
     }
 }
