@@ -9,7 +9,7 @@
         <result column="ydbh" jdbcType="VARCHAR" property="ydbh" />
         <result column="ydjh" jdbcType="VARCHAR" property="ydjh" />
         <result column="org_id" jdbcType="INTEGER" property="orgId" />
-        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
         <result column="kehu_id" jdbcType="INTEGER" property="kehuId" />
         <result column="cangku_id" jdbcType="INTEGER" property="cangkuId" />
         <result column="khly_id" jdbcType="INTEGER" property="khlyId" />
@@ -167,7 +167,7 @@
       create_time, update_time, deleted
       )
     values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=INTEGER}, #{ydbh,jdbcType=VARCHAR}, 
-      #{ydjh,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{ydjh,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT},
       #{kehuId,jdbcType=INTEGER}, #{cangkuId,jdbcType=INTEGER}, #{khlyId,jdbcType=INTEGER}, 
       #{djlxId,jdbcType=INTEGER}, #{khqyId,jdbcType=INTEGER}, #{bz,jdbcType=VARCHAR}, 
       #{sl,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, #{fj,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
@@ -201,7 +201,7 @@
             <if test="orgId != null">
                 org_id,
             </if>
-            <if test="userId != null">
+            <if test=" != null">
                 user_id,
             </if>
             <if test="kehuId != null">
@@ -353,8 +353,8 @@
             <if test="orgId != null">
                 #{orgId,jdbcType=INTEGER},
             </if>
-            <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
+            <if test=" != null">
+                #{,jdbcType=BIGINT},
             </if>
             <if test="kehuId != null">
                 #{kehuId,jdbcType=INTEGER},
@@ -517,8 +517,8 @@
             <if test="record.orgId != null">
                 org_id = #{record.orgId,jdbcType=INTEGER},
             </if>
-            <if test="record.userId != null">
-                user_id = #{record.userId,jdbcType=INTEGER},
+            <if test="record. != null">
+                user_id = #{record.,jdbcType=BIGINT},
             </if>
             <if test="record.kehuId != null">
                 kehu_id = #{record.kehuId,jdbcType=INTEGER},
@@ -665,7 +665,7 @@
         ydbh = #{record.ydbh,jdbcType=VARCHAR},
         ydjh = #{record.ydjh,jdbcType=VARCHAR},
         org_id = #{record.orgId,jdbcType=INTEGER},
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.,jdbcType=BIGINT},
         kehu_id = #{record.kehuId,jdbcType=INTEGER},
         cangku_id = #{record.cangkuId,jdbcType=INTEGER},
         khly_id = #{record.khlyId,jdbcType=INTEGER},
@@ -732,8 +732,8 @@
             <if test="orgId != null">
                 org_id = #{orgId,jdbcType=INTEGER},
             </if>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
+            <if test=" != null">
+                user_id = #{,jdbcType=BIGINT},
             </if>
             <if test="kehuId != null">
                 kehu_id = #{kehuId,jdbcType=INTEGER},
@@ -877,7 +877,7 @@
       ydbh = #{ydbh,jdbcType=VARCHAR},
       ydjh = #{ydjh,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
       kehu_id = #{kehuId,jdbcType=INTEGER},
       cangku_id = #{cangkuId,jdbcType=INTEGER},
       khly_id = #{khlyId,jdbcType=INTEGER},

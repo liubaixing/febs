@@ -4,6 +4,8 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -30,114 +32,151 @@ public class OrderXs {
     /**
      * 销售单号
      */
+    @ApiModelProperty("销售单号")
+    @ExcelProperty(value = "销售单号",index = 0)
     @TableField("djbh")
     private String djbh;
 
     /**
      * 下单日期
      */
+    @ApiModelProperty("下单日期")
+    @ExcelProperty(value = "下单日期",index = 0)
     @TableField("xdrq")
     private Date xdrq;
 
     /**
      * 原单号
      */
+    @ApiModelProperty("原单号")
+    @ExcelIgnore
     @TableField("ydbh")
     private String ydbh;
 
     /**
      * 客户订单编号
      */
+    @ApiModelProperty("客户订单编号")
+    @ExcelProperty(value = "客户订单编号",index = 0)
     @TableField("ydjh")
     private String ydjh;
 
     /**
      * 加急 0-否 1-是
      */
+    @ApiModelProperty("是否加急（0-否 1-是）")
+    @ExcelProperty(value = "加急",index = 0)
     @TableField("sfjj")
     private Byte sfjj;
 
     /**
      * 定制 0-否 1-是
      */
+    @ApiModelProperty("是否定制（0-否 1-是）")
+    @ExcelProperty(value = "定制",index = 0)
     @TableField("sfdz")
     private Byte sfdz;
 
     /**
      * 购货单位ID 购货单位
      */
+    @ApiModelProperty("购货单位ID")
+    @ExcelIgnore
     @TableField("org_id")
     private Integer orgId;
 
     /**
      * 用户ID 业务员
      */
+    @ApiModelProperty("用户ID（登录用户）")
+    @ExcelIgnore
     @TableField("user_id")
-    private Integer userId;
+    private Long userId;
 
     /**
      * 部门ID 部门名称
      */
+    @ApiModelProperty("部门ID")
+    @ExcelIgnore
     @TableField("bumeng_id")
     private Integer bumengId;
 
     /**
      * 客户ID 客户名称
      */
+    @ApiModelProperty("客户ID")
     @TableField("kehu_id")
     private Integer kehuId;
 
     /**
      * 仓库ID 仓库名称
      */
+    @ApiModelProperty("仓库ID")
+    @ExcelIgnore
     @TableField("cangku_id")
     private Integer cangkuId;
 
     /**
      * 客户来源ID 客户来源名称
      */
+    @ApiModelProperty("客户来源ID")
+    @ExcelIgnore
     @TableField("khly_id")
     private Integer khlyId;
 
     /**
      * 流量来源ID 流量来源名称
      */
+    @ApiModelProperty("流量来源ID")
+    @ExcelIgnore
     @TableField("llly_id")
     private Integer lllyId;
 
     /**
      * 要求到货时间
      */
+    @ApiModelProperty("要求到货时间")
+    @ExcelProperty(value = "要求到货时间",index = 0)
     @TableField("yqdhrq")
     private Date yqdhrq;
 
     /**
      * 单据类型ID 单据类型名称 导入是填入字母用于单据编号编码
      */
+    @ApiModelProperty("单据类型ID")
+    @ExcelIgnore
     @TableField("djlx_id")
     private Integer djlxId;
 
     /**
      * 客户区域ID 客户区域名称
      */
+    @ApiModelProperty("客户区域ID")
+    @ExcelIgnore
     @TableField("khqy_id")
     private Integer khqyId;
 
     /**
      * 物流单号
      */
+    @ApiModelProperty("物流单号")
+    @ExcelProperty(value = "物流单号",index = 0)
     @TableField("wldh")
     private String wldh;
 
     /**
      * 摘要
      */
+    @ApiModelProperty("摘要")
+    @ExcelProperty(value = "摘要",index = 0)
     @TableField("bz")
     private String bz;
 
     /**
      * 附件
      */
+    @ApiModelProperty("附件")
+    @ExcelIgnore
     @TableField("fj")
     private String fj;
 

@@ -11,7 +11,7 @@
         <result column="sfjj" jdbcType="TINYINT" property="sfjj" />
         <result column="sfdz" jdbcType="TINYINT" property="sfdz" />
         <result column="org_id" jdbcType="INTEGER" property="orgId" />
-        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
         <result column="bumeng_id" jdbcType="INTEGER" property="bumengId" />
         <result column="kehu_id" jdbcType="INTEGER" property="kehuId" />
         <result column="cangku_id" jdbcType="INTEGER" property="cangkuId" />
@@ -144,16 +144,27 @@
     xs.gb, xs.gbr, xs.gbrq, xs.zf, xs.zfr, xs.zfrq, xs.ex1, xs.ex2, xs.ex3,
     xs.create_time, xs.update_time, xs.deleted
   </sql>
-    <select id="selectPageByExample" parameterType="com.febs.receipt.entity.OrderXsExample" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Page_Column_List" />
-        ,kehu.khmc
-        from order_xs xs
-        left join system_kehu kehu
-
+    <select id="selectPageByExample" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
+        SELECT
+            <if test="distinct">
+                distinct
+            </if>
+            <include refid="Page_Column_List" />
+            pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
+            kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
+            xsmx.id mxid , xsmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        FROM order_xs xs
+        LEFT JOIN basic_ptda pt on xs.org_id = pt.id
+        LEFT JOIN t_user u on xs.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on xs.bumeng_id = bm.id
+        LEFT JOIN system_kehu kehu on xs.kehu_id = kehu.id
+        LEFT JOIN system_cangku ck on xs.cangku_id = ck.id
+        LEFT JOIN basic_khly kly on xs.khly_id = kly.id
+        LEFT JOIN basic_llly lly on xs.llly_id = lly.id
+        LEFT JOIN basic_djlx dlx on xs.djlx_id = dlx.id
+        LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
+        LEFT JOIN order_xsmx xsmx on xs.id = xsmx.pid
+        LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
         <where>
             <if test="deleted != null">
                 xs.deleted = #{deleted}
@@ -222,7 +233,7 @@
       )
     values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=TIMESTAMP}, #{ydbh,jdbcType=VARCHAR}, 
       #{ydjh,jdbcType=VARCHAR}, #{sfjj,jdbcType=TINYINT}, #{sfdz,jdbcType=TINYINT}, #{orgId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{bumengId,jdbcType=INTEGER}, #{kehuId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=BIGINT}, #{bumengId,jdbcType=INTEGER}, #{kehuId,jdbcType=INTEGER},
       #{cangkuId,jdbcType=INTEGER}, #{khlyId,jdbcType=INTEGER}, #{lllyId,jdbcType=INTEGER}, 
       #{yqdhrq,jdbcType=TIMESTAMP}, #{djlxId,jdbcType=INTEGER}, #{khqyId,jdbcType=INTEGER}, 
       #{wldh,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{sl,jdbcType=INTEGER}, 
@@ -413,7 +424,7 @@
                 #{orgId,jdbcType=INTEGER},
             </if>
             <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
+                #{userId,jdbcType=BIGINT},
             </if>
             <if test="bumengId != null">
                 #{bumengId,jdbcType=INTEGER},
@@ -577,7 +588,7 @@
                 org_id = #{record.orgId,jdbcType=INTEGER},
             </if>
             <if test="record.userId != null">
-                user_id = #{record.userId,jdbcType=INTEGER},
+                user_id = #{record.userId,jdbcType=BIGINT},
             </if>
             <if test="record.bumengId != null">
                 bumeng_id = #{record.bumengId,jdbcType=INTEGER},
@@ -720,7 +731,7 @@
         sfjj = #{record.sfjj,jdbcType=TINYINT},
         sfdz = #{record.sfdz,jdbcType=TINYINT},
         org_id = #{record.orgId,jdbcType=INTEGER},
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=BIGINT},
         bumeng_id = #{record.bumengId,jdbcType=INTEGER},
         kehu_id = #{record.kehuId,jdbcType=INTEGER},
         cangku_id = #{record.cangkuId,jdbcType=INTEGER},
@@ -792,7 +803,7 @@
                 org_id = #{orgId,jdbcType=INTEGER},
             </if>
             <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
+                user_id = #{userId,jdbcType=BIGINT},
             </if>
             <if test="bumengId != null">
                 bumeng_id = #{bumengId,jdbcType=INTEGER},
@@ -932,7 +943,7 @@
       sfjj = #{sfjj,jdbcType=TINYINT},
       sfdz = #{sfdz,jdbcType=TINYINT},
       org_id = #{orgId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
       bumeng_id = #{bumengId,jdbcType=INTEGER},
       kehu_id = #{kehuId,jdbcType=INTEGER},
       cangku_id = #{cangkuId,jdbcType=INTEGER},

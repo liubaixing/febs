@@ -71,7 +71,7 @@ public class OrderXt {
      * 用户ID 业务员
      */
     @TableField("user_id")
-    private Integer userId;
+    private Long userId;
 
     /**
      * 部门ID 部门名称
