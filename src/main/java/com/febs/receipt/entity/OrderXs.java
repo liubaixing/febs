@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.febs.common.converter.WhetherConverter;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -41,7 +42,7 @@ public class OrderXs {
      * 下单日期
      */
     @ApiModelProperty("下单日期")
-    @ExcelProperty(value = "下单日期",index = 0)
+    @ExcelProperty(value = "下单日期",index = 1)
     @TableField("xdrq")
     private Date xdrq;
 
@@ -57,7 +58,7 @@ public class OrderXs {
      * 客户订单编号
      */
     @ApiModelProperty("客户订单编号")
-    @ExcelProperty(value = "客户订单编号",index = 0)
+    @ExcelProperty(value = "客户订单编号",index = 4)
     @TableField("ydjh")
     private String ydjh;
 
@@ -65,15 +66,15 @@ public class OrderXs {
      * 加急 0-否 1-是
      */
     @ApiModelProperty("是否加急（0-否 1-是）")
-    @ExcelProperty(value = "加急",index = 0)
+    @ExcelProperty(value = "加急", index = 2, converter = WhetherConverter.class)
     @TableField("sfjj")
-    private Byte sfjj;
+    protected Byte sfjj;
 
     /**
      * 定制 0-否 1-是
      */
     @ApiModelProperty("是否定制（0-否 1-是）")
-    @ExcelProperty(value = "定制",index = 0)
+    @ExcelProperty(value = "定制",index = 3, converter = WhetherConverter.class)
     @TableField("sfdz")
     private Byte sfdz;
 
@@ -105,6 +106,7 @@ public class OrderXs {
      * 客户ID 客户名称
      */
     @ApiModelProperty("客户ID")
+    @ExcelIgnore
     @TableField("kehu_id")
     private Integer kehuId;
 
@@ -136,7 +138,7 @@ public class OrderXs {
      * 要求到货时间
      */
     @ApiModelProperty("要求到货时间")
-    @ExcelProperty(value = "要求到货时间",index = 0)
+    @ExcelProperty(value = "要求到货时间",index = 11)
     @TableField("yqdhrq")
     private Date yqdhrq;
 
@@ -160,7 +162,7 @@ public class OrderXs {
      * 物流单号
      */
     @ApiModelProperty("物流单号")
-    @ExcelProperty(value = "物流单号",index = 0)
+    @ExcelProperty(value = "物流单号",index = 15)
     @TableField("wldh")
     private String wldh;
 
@@ -168,7 +170,7 @@ public class OrderXs {
      * 摘要
      */
     @ApiModelProperty("摘要")
-    @ExcelProperty(value = "摘要",index = 0)
+    @ExcelProperty(value = "摘要",index = 16)
     @TableField("bz")
     private String bz;
 
@@ -176,156 +178,203 @@ public class OrderXs {
      * 附件
      */
     @ApiModelProperty("附件")
-    @ExcelIgnore
+    @ExcelProperty(value = "附件",index = 17)
     @TableField("fj")
     private String fj;
 
     /**
      * 数量
      */
+    @ApiModelProperty("数量")
+    @ExcelIgnore
     @TableField("sl")
     private Integer sl;
 
     /**
      * 整单金额
      */
+    @ApiModelProperty("整单金额")
+    @ExcelIgnore
     @TableField("je")
     private BigDecimal je;
     /**
      * 收货地址
      */
+    @ExcelProperty(value = "收货地址",index = 29)
     @TableField("address")
     private String address;
 
     /**
      * 收货人人电话
      */
+    @ExcelProperty(value = "联系电话",index = 31)
     @TableField("tel")
     private String tel;
 
     /**
      * 收货人
      */
+    @ExcelProperty(value = "收货人",index = 30)
     @TableField("contact")
     private String contact;
 
     /**
      * 制单人
      */
+    @ApiModelProperty("制单人")
+    @ExcelIgnore
     @TableField("zdr")
     private String zdr;
 
     /**
      * 制单日期
      */
+    @ApiModelProperty("制单日期")
+    @ExcelIgnore
     @TableField("zdrq")
     private Date zdrq;
 
     /**
      * 0-未确认 1-已确认
      */
+    @ApiModelProperty("是否确认")
+    @ExcelIgnore
     @TableField("qr")
     private Byte qr;
 
     /**
      * 确认人
      */
+    @ApiModelProperty("确认人")
+    @ExcelIgnore
     @TableField("qrr")
     private String qrr;
 
     /**
      * 确认日期
      */
+    @ApiModelProperty("确认日期")
+    @ExcelIgnore
     @TableField("qrrq")
     private Date qrrq;
 
     /**
      * 0-未审核 1-已审核
      */
+    @ApiModelProperty("是否审核")
+    @ExcelIgnore
     @TableField("sh")
     private Byte sh;
 
     /**
      * 审核人
      */
+    @ApiModelProperty("审核人")
+    @ExcelIgnore
     @TableField("shr")
     private String shr;
 
     /**
      * 审核日期
      */
+    @ApiModelProperty("审核日期")
+    @ExcelIgnore
     @TableField("shrq")
     private Date shrq;
 
     /**
      * 0-未执行 1-已执行
      */
+    @ApiModelProperty("是否执行")
+    @ExcelIgnore
     @TableField("zx")
     private Byte zx;
 
     /**
      * 执行人
      */
+    @ApiModelProperty("执行人")
+    @ExcelIgnore
     @TableField("zxr")
     private String zxr;
 
     /**
      * 执行日期
      */
+    @ApiModelProperty("执行日期")
+    @ExcelIgnore
     @TableField("zxrq")
     private Date zxrq;
 
     /**
      * 0-未生成退款 1-已生成退款
      */
+    @ApiModelProperty("是否生成退款")
+    @ExcelIgnore
     @TableField("sctk")
     private Byte sctk;
 
     /**
-     * 生成退款
+     * 生成退款人
      */
+    @ApiModelProperty("生成退款人")
+    @ExcelIgnore
     @TableField("sctkr")
     private String sctkr;
 
     /**
      * 生成退款日期
      */
+    @ApiModelProperty("生成退款日期")
+    @ExcelIgnore
     @TableField("sctkrq")
     private Date sctkrq;
 
     /**
      * 0-未关闭 1-已关闭
      */
+    @ApiModelProperty("是否关闭")
+    @ExcelIgnore
     @TableField("gb")
     private Byte gb;
 
     /**
      * 关闭人
      */
+    @ApiModelProperty("关闭人")
+    @ExcelIgnore
     @TableField("gbr")
     private String gbr;
 
     /**
      * 关闭日期
      */
+    @ApiModelProperty("关闭日期")
+    @ExcelIgnore
     @TableField("gbrq")
     private Date gbrq;
 
     /**
      * 0-未作废 1-已作废
      */
+    @ApiModelProperty("是否作废")
+    @ExcelIgnore
     @TableField("zf")
     private Byte zf;
 
     /**
-     * 作废
+     * 作废人
      */
+    @ApiModelProperty("作废人")
+    @ExcelIgnore
     @TableField("zfr")
     private String zfr;
 
     /**
      * 作废日期
      */
+    @ApiModelProperty("作废日期")
+    @ExcelIgnore
     @TableField("zfrq")
     private Date zfrq;
 

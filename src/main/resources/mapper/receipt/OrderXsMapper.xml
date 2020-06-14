@@ -144,15 +144,16 @@
     xs.gb, xs.gbr, xs.gbrq, xs.zf, xs.zfr, xs.zfrq, xs.ex1, xs.ex2, xs.ex3,
     xs.create_time, xs.update_time, xs.deleted
   </sql>
-    <select id="selectPageByExample" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
         SELECT
             <if test="distinct">
                 distinct
             </if>
             <include refid="Page_Column_List" />
-            pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
+            ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
             kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
             xsmx.id mxid , xsmx.sp_id , sp.spdm , sp.spmc , sp.memo
+            ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje,dw.jldwmc
         FROM order_xs xs
         LEFT JOIN basic_ptda pt on xs.org_id = pt.id
         LEFT JOIN t_user u on xs.user_id = u.USER_ID
@@ -165,6 +166,141 @@
         LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
         LEFT JOIN order_xsmx xsmx on xs.id = xsmx.pid
         LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="deleted != null">
+                and xs.deleted = #{deleted}
+            </if>
+            <if test="djbh != null and djbh != ''">
+                and xs.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and xs.xdrq between #{startTime} and #{endTime}
+            </if>
+            <if test="sctk != null">
+                and xs.sctk = #{sctk}
+            </if>
+            <if test="orgId != null">
+                and xs.org_id = #{orgId}
+            </if>
+            <if test="ptdamc != null and ptdamc != ''">
+                and pt.ptdamc like CONCAT('%',#{ptdamc},'%')
+            </if>
+            <if test="sfjj != null">
+                and xs.sfjj = #{sfjj}
+            </if>
+            <if test="sfdz != null">
+                and xs.sfdz = #{sfdz}
+            </if>
+            <if test="qr != null">
+                and xs.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and xs.qrr like CONCAT('%',#{qrr},'%')
+            </if>
+            <if test="zx != null">
+                and xs.zx = #{zx}
+            </if>
+            <if test="zxr != null and zxr != ''">
+                and xs.zxr like CONCAT('%',#{zxr},'%')
+            </if>
+            <if test="">
+                <!-- 开始发货？？ -->
+            </if>
+            <if test="zf != null">
+                and xs.zf = #{zf}
+            </if>
+            <if test="khmc != null and khmc != ''">
+                and kehu.khmc like CONCAT('%',#{khmc},'%')
+            </if>
+            <if test="">
+                <!-- 收款？？ -->
+            </if>
+            <if test="">
+                <!-- 开始配货？？ -->
+            </if>
+            <if test="">
+                <!-- 备货发货？？ -->
+            </if>
+            <if test="">
+                <!-- 运费入录？？ -->
+            </if>
+
+            <if test="lllymc != null and lllymc != ''">
+                and lly.lllymc like CONCAT('%',#{lllymc},'%')
+            </if>
+            <if test="khlymc != null and khlymc != ''">
+                and kly.khlymc like CONCAT('%',#{khlymc},'%')
+            </if>
+            <if test="">
+                <!-- 终审？？ -->
+            </if>
+            <if test="">
+                <!-- 开票？？ -->
+            </if>
+            <if test="djlxmc != null and djlxmc != ''">
+                and dlx.djlxmc like CONCAT('%',#{djlxmc},'%')
+            </if>
+            <if test="khqymc != null and khqymc != ''">
+                and qy.khqymc like CONCAT('%',#{khqymc},'%')
+            </if>
+            <if test="userName != null and userName != ''">
+                and u.USERNAME like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="wldh != null and wldh != ''">
+                and xs.wldh like CONCAT('%',#{wldh},'%')
+            </if>
+            <if test="sh != null and sh != ''">
+                and xs.sh = #{sh}
+            </if>
+            <if test="shr != null and shr != ''">
+                and xs.shr like CONCAT('%',#{shr},'%')
+            </if>
+            <if test="zdr != null and zdr != ''">
+                and xs.zdr like CONCAT('%',#{zdr},'%')
+            </if>
+            <if test="">
+                <!-- 发货人？？ -->
+            </if>
+            <if test="">
+                <!-- 销退人？？ -->
+            </if>
+            <if test="bmmc != null and bmmc != ''">
+                and xs.bmmc like CONCAT('%',#{bmmc},'%')
+            </if>
+            <if test="ckmc != null and ckmc != ''">
+                and xs.ckmc like CONCAT('%',#{ckmc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and xs.spmc like CONCAT('%',#{spmc},'%')
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectOneByQuery" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
+        SELECT
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Page_Column_List" />
+        ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
+        kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
+        xsmx.id mxid , xsmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje,dw.jldwmc
+        FROM order_xs xs
+        LEFT JOIN basic_ptda pt on xs.org_id = pt.id
+        LEFT JOIN t_user u on xs.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on xs.bumeng_id = bm.id
+        LEFT JOIN system_kehu kehu on xs.kehu_id = kehu.id
+        LEFT JOIN system_cangku ck on xs.cangku_id = ck.id
+        LEFT JOIN basic_khly kly on xs.khly_id = kly.id
+        LEFT JOIN basic_llly lly on xs.llly_id = lly.id
+        LEFT JOIN basic_djlx dlx on xs.djlx_id = dlx.id
+        LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
+        LEFT JOIN order_xsmx xsmx on xs.id = xsmx.pid
+        LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
             <if test="deleted != null">
                 xs.deleted = #{deleted}
@@ -197,8 +333,9 @@
                 xs.qr = #{qr}
             </if>
         </where>
-
+         limit 1
     </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

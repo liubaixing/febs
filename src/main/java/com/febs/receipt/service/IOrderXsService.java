@@ -25,7 +25,7 @@ public interface IOrderXsService extends IService<OrderXs> {
      * @param orderXs orderXs
      * @return IPage<OrderXs>
      */
-    IPage<OrderXs> findOrderXss(QueryRequest request, OrderXsReq orderXs);
+    IPage<OrderXsResp> findOrderXss(QueryRequest request, OrderXsReq orderXs);
 
     /**
      * 查询（所有）
@@ -47,7 +47,7 @@ public interface IOrderXsService extends IService<OrderXs> {
      *
      * @param orderXs orderXs
      */
-    void updateOrderXs(OrderXs orderXs);
+    OrderXsResp updateOrderXs(OrderXs orderXs);
 
     /**
      * 删除

@@ -1,23 +1,30 @@
 package com.febs.receipt.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
+import com.febs.common.exception.FebsException;
+import com.febs.common.listener.goods.ShangpinDataListener;
+import com.febs.common.listener.receipt.OrderXslistener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXsBiz;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
+import com.febs.shangpin.vo.resp.ShangpinResp;
 import com.febs.system.entity.User;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -85,14 +92,58 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ControllerEndpoint(operation = "确认销售单", exceptionMessage = "确认销售单失败")
+    @PostMapping("/confirm/{id}/{type}/{status}")
+    @RequiresPermissions("orderXs:confirm")
+    public FebsResponse orderXsConfirm(
+            @PathVariable Long id,
+            @PathVariable String type,
+            @PathVariable boolean status
+    ){
+        User user = getCurrentUser();
+        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        return new FebsResponse().success();
+    }
+
+    @ControllerEndpoint(operation = "审核销售单", exceptionMessage = "审核销售单失败")
+    @PostMapping("/confirm/{id}/{type}/{status}")
+    @RequiresPermissions("orderXs:check")
+    public FebsResponse orderXsCheck(
+            @PathVariable Long id,
+            @PathVariable String type,
+            @PathVariable boolean status
+    ){
+        User user = getCurrentUser();
+        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        return new FebsResponse().success();
+    }
+
+    @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
+    @PostMapping("/confirm/{id}/{type}/{status}")
+    @RequiresPermissions("orderXs:execute")
+    public FebsResponse orderXsExecute(
+            @PathVariable Long id,
+            @PathVariable String type,
+            @PathVariable boolean status
+    ){
+        User user = getCurrentUser();
+        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        return new FebsResponse().success();
+    }
+
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderXs:export")
     public void export(QueryRequest queryRequest, OrderXsReq orderXs, HttpServletResponse response) throws IOException {
-        List<OrderXs> orderXss = this.orderXsBiz.findByPage(queryRequest, orderXs).getRecords();
-        ExcelUtil.export(orderXss, OrderXs.class,"销售单",response);
+        List<OrderXsResp> orderXss = this.orderXsBiz.findByPage(queryRequest, orderXs).getRecords();
+        ExcelUtil.export(orderXss, OrderXsResp.class,"销售单",response);
     }
 
-
+    @ApiOperation("导入")
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    @PostMapping("import")
+    public void excelImport(@RequestParam MultipartFile file) throws IOException{
+        EasyExcel.read(file.getInputStream(), OrderXsResp.class, new OrderXslistener(orderXsBiz)).sheet().doRead();
+    }
 
 }

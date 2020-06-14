@@ -1,6 +1,7 @@
 package com.febs.common.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.febs.common.exception.FebsException;
 import com.febs.system.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -20,7 +21,11 @@ public class BaseController {
     }
 
     protected User getCurrentUser() {
-        return (User) getSubject().getPrincipal();
+        User user = (User) getSubject().getPrincipal();
+        if(user == null || user.getUserId() == null){
+            throw new FebsException("用户信息异常");
+        }
+        return user;
     }
 
     protected Session getSession() {

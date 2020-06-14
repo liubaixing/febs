@@ -36,9 +36,9 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     private OrderXsMapper orderXsMapper;
 
     @Override
-    public IPage<OrderXs> findOrderXss(QueryRequest request, OrderXsReq orderXs) {
+    public IPage<OrderXsResp> findOrderXss(QueryRequest request, OrderXsReq orderXs) {
         Page<OrderXs> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return orderXsMapper.selectPageByExample(page,orderXs);
+        return orderXsMapper.selectPageByQuery(page,orderXs);
     }
 
     @Override
@@ -55,13 +55,18 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
 
     @Override
     @Transactional
-    public void updateOrderXs(OrderXs orderXs) {
-        LambdaQueryWrapper<OrderXs> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
+    public OrderXsResp updateOrderXs(OrderXs orderXs) {
+        OrderXsReq req = new OrderXsReq();
+        OrderXsResp resp = this.orderXsMapper.selectOneByQuery(req);
+        if(resp == null){
+            throw new FebsException("订单不存在");
+        }
+        if(resp.getQr() == 1 || resp.getSh() == 1){
+            throw new FebsException("订单已确定或已审核");
         }
         this.orderXsMapper.updateByPrimaryKeySelective(orderXs);
+
+        return this.orderXsMapper.selectOneByQuery(req);
     }
 
     @Override
