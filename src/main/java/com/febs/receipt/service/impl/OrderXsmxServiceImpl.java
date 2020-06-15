@@ -11,6 +11,7 @@ import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.entity.OrderXsmxExample;
 import com.febs.receipt.mapper.OrderXsmxMapper;
 import com.febs.receipt.service.IOrderXsmxService;
+import com.febs.receipt.vo.req.OrderXsmxReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,10 +34,9 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     private OrderXsmxMapper orderXsmxMapper;
 
     @Override
-    public IPage<OrderXsmx> findOrderXsmxs(QueryRequest request, OrderXsmx orderXsmx) {
+    public IPage<OrderXsmx> findOrderXsmxs(QueryRequest request, OrderXsmxReq orderXsmx) {
         Page<OrderXsmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        OrderXsmxExample example = buildQueryExample(orderXsmx);
-        return this.orderXsmxMapper.selectPageByExample(page,example);
+        return this.orderXsmxMapper.selectPageByQuery(page,orderXsmx);
     }
 
     @Override
@@ -48,8 +48,6 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     @Override
     @Transactional
     public void createOrderXsmx(OrderXsmx orderXsmx) {
-        LambdaQueryWrapper<OrderXsmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
         this.orderXsmxMapper.insertSelective(orderXsmx);
     }
 

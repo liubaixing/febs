@@ -7,6 +7,7 @@ import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
+import com.febs.common.enums.order.OrderStatusEnum;
 import com.febs.common.exception.FebsException;
 import com.febs.common.listener.goods.ShangpinDataListener;
 import com.febs.common.listener.receipt.OrderXslistener;
@@ -93,40 +94,40 @@ public class OrderXsController extends BaseController {
     }
 
     @ControllerEndpoint(operation = "确认销售单", exceptionMessage = "确认销售单失败")
-    @PostMapping("/confirm/{id}/{type}/{status}")
+    @PostMapping("/confirm/{id}/{status}")
     @RequiresPermissions("orderXs:confirm")
     public FebsResponse orderXsConfirm(
             @PathVariable Long id,
-            @PathVariable String type,
             @PathVariable boolean status
     ){
         User user = getCurrentUser();
+        String type = OrderStatusEnum.CONFIRM.getStatus();
         this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
         return new FebsResponse().success();
     }
 
     @ControllerEndpoint(operation = "审核销售单", exceptionMessage = "审核销售单失败")
-    @PostMapping("/confirm/{id}/{type}/{status}")
+    @PostMapping("/check/{id}/{status}")
     @RequiresPermissions("orderXs:check")
     public FebsResponse orderXsCheck(
             @PathVariable Long id,
-            @PathVariable String type,
             @PathVariable boolean status
     ){
         User user = getCurrentUser();
+        String type = OrderStatusEnum.CHECK.getStatus();
         this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
         return new FebsResponse().success();
     }
 
     @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
-    @PostMapping("/confirm/{id}/{type}/{status}")
+    @PostMapping("/execute/{id}/{status}")
     @RequiresPermissions("orderXs:execute")
     public FebsResponse orderXsExecute(
             @PathVariable Long id,
-            @PathVariable String type,
             @PathVariable boolean status
     ){
         User user = getCurrentUser();
+        String type = OrderStatusEnum.EXECUTION.getStatus();
         this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
         return new FebsResponse().success();
     }

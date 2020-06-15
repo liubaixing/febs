@@ -146,9 +146,6 @@
   </sql>
     <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
         SELECT
-            <if test="distinct">
-                distinct
-            </if>
             <include refid="Page_Column_List" />
             ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
             kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
@@ -280,9 +277,6 @@
 
     <select id="selectOneByQuery" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
         SELECT
-        <if test="distinct">
-            distinct
-        </if>
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,

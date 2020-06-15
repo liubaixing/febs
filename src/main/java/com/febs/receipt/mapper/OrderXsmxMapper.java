@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.febs.receipt.entity.OrderXsmx;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.receipt.entity.OrderXsmxExample;
+import com.febs.receipt.vo.req.OrderXsmxReq;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,7 +29,8 @@ public interface OrderXsmxMapper extends BaseMapper<OrderXsmx> {
 
     List<OrderXsmx> selectByExample(OrderXsmxExample example);
 
-    IPage<OrderXsmx> selectPageByExample(IPage<OrderXsmx> page,OrderXsmxExample example);
+
+    IPage<OrderXsmx> selectPageByQuery(IPage<OrderXsmx> page, OrderXsmxReq orderXsmx);
 
     OrderXsmx selectByPrimaryKey(Long id);
 

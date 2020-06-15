@@ -103,19 +103,29 @@
         </if>
     </select>
 
-    <select id="selectPageByExample" parameterType="com.febs.receipt.entity.OrderXsmxExample" resultMap="BaseResultMap">
+    <sql id="Page_Column_List">
+    mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.jhsl, mx.tzsl, mx.cksl, mx.dj, mx.je, mx.zk,
+     mx.xsje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsmxReq" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
         select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List" />
-        from order_xsmx
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause" />
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
+        <include refid="Page_Column_List" />
+        ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        from order_xsmx mx
+        LEFT JOIN shangpin sp on mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="deleted">
+                and deleted = #{deleted}
+            </if>
+            <if test="pid != null and pid != ''">
+                pid = #{pid}
+            </if>
+            <if test="spId != null">
+                sp_id = #{sp_id}
+            </if>
+        </where>
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderXsmx;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.receipt.vo.req.OrderXsmxReq;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface IOrderXsmxService extends IService<OrderXsmx> {
      * @param orderXsmx orderXsmx
      * @return IPage<OrderXsmx>
      */
-    IPage<OrderXsmx> findOrderXsmxs(QueryRequest request, OrderXsmx orderXsmx);
+    IPage<OrderXsmx> findOrderXsmxs(QueryRequest request, OrderXsmxReq orderXsmx);
 
     /**
      * 查询（所有）
