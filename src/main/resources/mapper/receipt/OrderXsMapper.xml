@@ -25,6 +25,12 @@
         <result column="fj" jdbcType="VARCHAR" property="fj" />
         <result column="sl" jdbcType="INTEGER" property="sl" />
         <result column="je" jdbcType="DECIMAL" property="je" />
+        <result column="kpsl" jdbcType="INTEGER" property="kpsl" />
+        <result column="sksl" jdbcType="INTEGER" property="sksl" />
+        <result column="tksl" jdbcType="INTEGER" property="tksl" />
+        <result column="kpje" jdbcType="DECIMAL" property="kpje" />
+        <result column="skje" jdbcType="DECIMAL" property="skje" />
+        <result column="tkje" jdbcType="DECIMAL" property="tkje" />
         <result column="address" jdbcType="VARCHAR" property="address" />
         <result column="tel" jdbcType="VARCHAR" property="tel" />
         <result column="contact" jdbcType="VARCHAR" property="contact" />
@@ -116,9 +122,10 @@
     </sql>
     <sql id="Base_Column_List">
     Id, djbh, xdrq, ydbh, ydjh, sfjj, sfdz, org_id, user_id, bumeng_id, kehu_id, cangku_id, 
-    khly_id, llly_id, yqdhrq, djlx_id, khqy_id, wldh, bz, fj, sl, je, address, tel, contact, 
-    zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq, zx, zxr, zxrq, sctk, sctkr, sctkrq, gb, 
-    gbr, gbrq, zf, zfr, zfrq, ex1, ex2, ex3, create_time, update_time, deleted
+    khly_id, llly_id, yqdhrq, djlx_id, khqy_id, wldh, bz, fj, sl, je, kpsl, sksl, tksl,
+    kpje, skje, tkje, address, tel, contact, zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq,
+    kssh, ksshr, ksshrq, shqr, shqrr, shqrrq, yflr, yflrr, yflrrq, zs, zsr, zsrq, zf,
+    zfr, zfrq, ex1, ex2, ex3, create_time, update_time, deleted
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsExample" resultMap="BaseResultMap">
         select
@@ -139,6 +146,7 @@
     xs.Id, xs.djbh, xs.xdrq, xs.ydbh, xs.ydjh, xs.sfjj, xs.sfdz, xs.org_id,
     xs.user_id, xs.bumeng_id, xs.kehu_id, xs.cangku_id, xs.khly_id, xs.llly_id,
     xs.yqdhrq, xs.djlx_id, xs.khqy_id, xs.wldh, xs.bz,xs.fj, xs.sl, xs.je,
+    xs.kpsl, xs.sksl, xs.tksl, xs.kpje, xs.skje, xs.tkje,
     xs.address, xs.tel, xs.contact, xs.zdr, xs.zdrq, xs.qr, xs.qrr, xs.qrrq,
     xs.sh, xs.shr, xs.shrq, xs.zx, xs.zxr, xs.zxrq, xs.sctk, xs.sctkr, xs.sctkrq,
     xs.gb, xs.gbr, xs.gbrq, xs.zf, xs.zfr, xs.zfrq, xs.ex1, xs.ex2, xs.ex3,
@@ -353,25 +361,29 @@
       cangku_id, khly_id, llly_id, 
       yqdhrq, djlx_id, khqy_id, 
       wldh, bz, fj, sl, 
-      je, address, tel, contact, 
-      zdr, zdrq, qr, qrr, 
-      qrrq, sh, shr, shrq, 
-      zx, zxr, zxrq, sctk, 
-      sctkr, sctkrq, gb, 
-      gbr, gbrq, zf, zfr, 
-      zfrq, ex1, ex2, ex3, 
+      je, kpsl, sksl, tksl,
+      kpje, skje, tkje, address,
+      tel, contact, zdr,
+      zdrq, qr, qrr, qrrq,
+      sh, shr, shrq, zx,
+      zxr, zxrq, sctk,
+      sctkr, sctkrq, gb,
+      gbr, gbrq, zf, zfr,
+      zfrq, ex1, ex2, ex3,
       create_time, update_time, deleted
       )
-    values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=TIMESTAMP}, #{ydbh,jdbcType=VARCHAR}, 
-      #{ydjh,jdbcType=VARCHAR}, #{sfjj,jdbcType=TINYINT}, #{sfdz,jdbcType=TINYINT}, #{orgId,jdbcType=INTEGER}, 
+    values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=TIMESTAMP}, #{ydbh,jdbcType=VARCHAR},
+      #{ydjh,jdbcType=VARCHAR}, #{sfjj,jdbcType=TINYINT}, #{sfdz,jdbcType=TINYINT}, #{orgId,jdbcType=INTEGER},
       #{userId,jdbcType=BIGINT}, #{bumengId,jdbcType=INTEGER}, #{kehuId,jdbcType=INTEGER},
-      #{cangkuId,jdbcType=INTEGER}, #{khlyId,jdbcType=INTEGER}, #{lllyId,jdbcType=INTEGER}, 
-      #{yqdhrq,jdbcType=TIMESTAMP}, #{djlxId,jdbcType=INTEGER}, #{khqyId,jdbcType=INTEGER}, 
-      #{wldh,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{sl,jdbcType=INTEGER}, 
-      #{je,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
-      #{zdr,jdbcType=VARCHAR}, #{zdrq,jdbcType=TIMESTAMP}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR}, 
-      #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP}, 
-      #{zx,jdbcType=TINYINT}, #{zxr,jdbcType=VARCHAR}, #{zxrq,jdbcType=TIMESTAMP}, #{sctk,jdbcType=TINYINT}, 
+      #{cangkuId,jdbcType=INTEGER}, #{khlyId,jdbcType=INTEGER}, #{lllyId,jdbcType=INTEGER},
+      #{yqdhrq,jdbcType=TIMESTAMP}, #{djlxId,jdbcType=INTEGER}, #{khqyId,jdbcType=INTEGER},
+      #{wldh,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{sl,jdbcType=INTEGER},
+      #{je,jdbcType=DECIMAL}, #{kpsl,jdbcType=INTEGER}, #{sksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER},
+      #{kpje,jdbcType=DECIMAL}, #{skje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR},
+      #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR},
+      #{zdrq,jdbcType=TIMESTAMP}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=TIMESTAMP},
+      #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP}, #{zx,jdbcType=TINYINT},
+      #{zxr,jdbcType=VARCHAR}, #{zxrq,jdbcType=TIMESTAMP}, #{sctk,jdbcType=TINYINT},
       #{sctkr,jdbcType=VARCHAR}, #{sctkrq,jdbcType=TIMESTAMP}, #{gb,jdbcType=TINYINT}, 
       #{gbr,jdbcType=VARCHAR}, #{gbrq,jdbcType=TIMESTAMP}, #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, 
       #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, 
@@ -443,6 +455,24 @@
             </if>
             <if test="je != null">
                 je,
+            </if>
+            <if test="kpsl != null">
+                kpsl,
+            </if>
+            <if test="sksl != null">
+                sksl,
+            </if>
+            <if test="tksl != null">
+                tksl,
+            </if>
+            <if test="kpje != null">
+                kpje,
+            </if>
+            <if test="skje != null">
+                skje,
+            </if>
+            <if test="tkje != null">
+                tkje,
             </if>
             <if test="address != null">
                 address,
@@ -595,6 +625,24 @@
             </if>
             <if test="je != null">
                 #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="kpsl != null">
+                #{kpsl,jdbcType=INTEGER},
+            </if>
+            <if test="sksl != null">
+                #{sksl,jdbcType=INTEGER},
+            </if>
+            <if test="tksl != null">
+                #{tksl,jdbcType=INTEGER},
+            </if>
+            <if test="kpje != null">
+                #{kpje,jdbcType=DECIMAL},
+            </if>
+            <if test="skje != null">
+                #{skje,jdbcType=DECIMAL},
+            </if>
+            <if test="tkje != null">
+                #{tkje,jdbcType=DECIMAL},
             </if>
             <if test="address != null">
                 #{address,jdbcType=VARCHAR},
@@ -760,6 +808,24 @@
             <if test="record.je != null">
                 je = #{record.je,jdbcType=DECIMAL},
             </if>
+            <if test="record.kpsl != null">
+                kpsl = #{record.kpsl,jdbcType=INTEGER},
+            </if>
+            <if test="record.sksl != null">
+                sksl = #{record.sksl,jdbcType=INTEGER},
+            </if>
+            <if test="record.tksl != null">
+                tksl = #{record.tksl,jdbcType=INTEGER},
+            </if>
+            <if test="record.kpje != null">
+                kpje = #{record.kpje,jdbcType=DECIMAL},
+            </if>
+            <if test="record.skje != null">
+                skje = #{record.skje,jdbcType=DECIMAL},
+            </if>
+            <if test="record.tkje != null">
+                tkje = #{record.tkje,jdbcType=DECIMAL},
+            </if>
             <if test="record.address != null">
                 address = #{record.address,jdbcType=VARCHAR},
             </if>
@@ -876,6 +942,12 @@
         fj = #{record.fj,jdbcType=VARCHAR},
         sl = #{record.sl,jdbcType=INTEGER},
         je = #{record.je,jdbcType=DECIMAL},
+        kpsl = #{record.kpsl,jdbcType=INTEGER},
+        sksl = #{record.sksl,jdbcType=INTEGER},
+        tksl = #{record.tksl,jdbcType=INTEGER},
+        kpje = #{record.kpje,jdbcType=DECIMAL},
+        skje = #{record.skje,jdbcType=DECIMAL},
+        tkje = #{record.tkje,jdbcType=DECIMAL},
         address = #{record.address,jdbcType=VARCHAR},
         tel = #{record.tel,jdbcType=VARCHAR},
         contact = #{record.contact,jdbcType=VARCHAR},
@@ -974,6 +1046,24 @@
             </if>
             <if test="je != null">
                 je = #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="kpsl != null">
+                kpsl = #{kpsl,jdbcType=INTEGER},
+            </if>
+            <if test="sksl != null">
+                sksl = #{sksl,jdbcType=INTEGER},
+            </if>
+            <if test="tksl != null">
+                tksl = #{tksl,jdbcType=INTEGER},
+            </if>
+            <if test="kpje != null">
+                kpje = #{kpje,jdbcType=DECIMAL},
+            </if>
+            <if test="skje != null">
+                skje = #{skje,jdbcType=DECIMAL},
+            </if>
+            <if test="tkje != null">
+                tkje = #{tkje,jdbcType=DECIMAL},
             </if>
             <if test="address != null">
                 address = #{address,jdbcType=VARCHAR},
@@ -1088,6 +1178,12 @@
       fj = #{fj,jdbcType=VARCHAR},
       sl = #{sl,jdbcType=INTEGER},
       je = #{je,jdbcType=DECIMAL},
+      kpsl = #{kpsl,jdbcType=INTEGER},
+      sksl = #{sksl,jdbcType=INTEGER},
+      tksl = #{tksl,jdbcType=INTEGER},
+      kpje = #{kpje,jdbcType=DECIMAL},
+      skje = #{skje,jdbcType=DECIMAL},
+      tkje = #{tkje,jdbcType=DECIMAL},
       address = #{address,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
       contact = #{contact,jdbcType=VARCHAR},

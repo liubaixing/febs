@@ -77,6 +77,37 @@ public class OrderXtmx {
      */
     @TableField("je")
     private BigDecimal je;
+
+    /**
+     * 开票数量
+     */
+    private Integer kpsl;
+
+    /**
+     * 付款数量
+     */
+    private Integer sksl;
+
+    /**
+     * 退款数量
+     */
+    private Integer tksl;
+
+    /**
+     * 开票金额
+     */
+    private BigDecimal kpje;
+
+    /**
+     * 付款金额
+     */
+    private BigDecimal skje;
+
+    /**
+     * 退款金额
+     */
+    private BigDecimal tkje;
+
     /**
      * 平台折扣
      */

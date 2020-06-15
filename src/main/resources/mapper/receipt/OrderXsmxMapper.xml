@@ -15,6 +15,13 @@
         <result column="je" jdbcType="DECIMAL" property="je" />
         <result column="zk" jdbcType="DECIMAL" property="zk" />
         <result column="xsje" jdbcType="DECIMAL" property="xsje" />
+        <result column="xsje" jdbcType="DECIMAL" property="xsje" />
+        <result column="kpsl" jdbcType="INTEGER" property="kpsl" />
+        <result column="sksl" jdbcType="INTEGER" property="sksl" />
+        <result column="tksl" jdbcType="INTEGER" property="tksl" />
+        <result column="kpje" jdbcType="DECIMAL" property="kpje" />
+        <result column="skje" jdbcType="DECIMAL" property="skje" />
+        <result column="tkje" jdbcType="DECIMAL" property="tkje" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
         <result column="ex2" jdbcType="VARCHAR" property="ex2" />
         <result column="ex3" jdbcType="VARCHAR" property="ex3" />
@@ -85,8 +92,9 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, pid, sp_id, gg1_id, gg2_id, jhsl, tzsl, cksl, dj, je, zk, xsje, ex1, ex2, ex3, 
-    jsjg, jishuije, sku, create_time, update_time, deleted, cbje
+    Id, pid, sp_id, gg1_id, gg2_id, jhsl, tzsl, cksl, dj, je, zk, xsje, kpsl, sksl, tksl,
+    kpje, skje, tkje, ex1, ex2, ex3, jsjg, jishuije, sku, create_time, update_time, deleted,
+    cbje
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsmxExample" resultMap="BaseResultMap">
         select
@@ -105,7 +113,7 @@
 
     <sql id="Page_Column_List">
     mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.jhsl, mx.tzsl, mx.cksl, mx.dj, mx.je, mx.zk,
-     mx.xsje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
+     mx.xsje,mx.kpsl, mx.sksl, mx.tksl, mx.kpje, mx.skje, mx.tkje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
     </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsmxReq" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
@@ -148,17 +156,19 @@
     insert into order_xsmx (pid, sp_id, gg1_id, 
       gg2_id, jhsl, tzsl, 
       cksl, dj, je, zk, 
-      xsje, ex1, ex2, ex3, 
-      jsjg, jishuije, sku, 
-      create_time, update_time, deleted, 
-      cbje)
-    values (#{pid,jdbcType=BIGINT}, #{spId,jdbcType=INTEGER}, #{gg1Id,jdbcType=INTEGER}, 
-      #{gg2Id,jdbcType=INTEGER}, #{jhsl,jdbcType=INTEGER}, #{tzsl,jdbcType=INTEGER}, 
-      #{cksl,jdbcType=INTEGER}, #{dj,jdbcType=DECIMAL}, #{je,jdbcType=DECIMAL}, #{zk,jdbcType=DECIMAL}, 
-      #{xsje,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, 
-      #{jsjg,jdbcType=DECIMAL}, #{jishuije,jdbcType=DECIMAL}, #{sku,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, 
-      #{cbje,jdbcType=DECIMAL})
+      xsje, kpsl, sksl, tksl,
+      kpje, skje, tkje, ex1,
+      ex2, ex3, jsjg, jishuije,
+      sku, create_time, update_time,
+      deleted, cbje)
+    values (#{pid,jdbcType=BIGINT}, #{spId,jdbcType=INTEGER}, #{gg1Id,jdbcType=INTEGER},
+      #{gg2Id,jdbcType=INTEGER}, #{jhsl,jdbcType=INTEGER}, #{tzsl,jdbcType=INTEGER},
+      #{cksl,jdbcType=INTEGER}, #{dj,jdbcType=DECIMAL}, #{je,jdbcType=DECIMAL}, #{zk,jdbcType=DECIMAL},
+      #{xsje,jdbcType=DECIMAL}, #{kpsl,jdbcType=INTEGER}, #{sksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER},
+      #{kpje,jdbcType=DECIMAL}, #{skje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR},
+      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{jsjg,jdbcType=DECIMAL}, #{jishuije,jdbcType=DECIMAL},
+      #{sku,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{deleted,jdbcType=INTEGER}, #{cbje,jdbcType=DECIMAL})
   </insert>
     <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXsmx" useGeneratedKeys="true">
         insert into order_xsmx
@@ -195,6 +205,24 @@
             </if>
             <if test="xsje != null">
                 xsje,
+            </if>
+            <if test="kpsl != null">
+                kpsl,
+            </if>
+            <if test="sksl != null">
+                sksl,
+            </if>
+            <if test="tksl != null">
+                tksl,
+            </if>
+            <if test="kpje != null">
+                kpje,
+            </if>
+            <if test="skje != null">
+                skje,
+            </if>
+            <if test="tkje != null">
+                tkje,
             </if>
             <if test="ex1 != null">
                 ex1,
@@ -260,6 +288,24 @@
             </if>
             <if test="xsje != null">
                 #{xsje,jdbcType=DECIMAL},
+            </if>
+            <if test="kpsl != null">
+                #{kpsl,jdbcType=INTEGER},
+            </if>
+            <if test="sksl != null">
+                #{sksl,jdbcType=INTEGER},
+            </if>
+            <if test="tksl != null">
+                #{tksl,jdbcType=INTEGER},
+            </if>
+            <if test="kpje != null">
+                #{kpje,jdbcType=DECIMAL},
+            </if>
+            <if test="skje != null">
+                #{skje,jdbcType=DECIMAL},
+            </if>
+            <if test="tkje != null">
+                #{tkje,jdbcType=DECIMAL},
             </if>
             <if test="ex1 != null">
                 #{ex1,jdbcType=VARCHAR},
@@ -338,6 +384,24 @@
             <if test="record.xsje != null">
                 xsje = #{record.xsje,jdbcType=DECIMAL},
             </if>
+            <if test="record.kpsl != null">
+                kpsl = #{record.kpsl,jdbcType=INTEGER},
+            </if>
+            <if test="record.sksl != null">
+                sksl = #{record.sksl,jdbcType=INTEGER},
+            </if>
+            <if test="record.tksl != null">
+                tksl = #{record.tksl,jdbcType=INTEGER},
+            </if>
+            <if test="record.kpje != null">
+                kpje = #{record.kpje,jdbcType=DECIMAL},
+            </if>
+            <if test="record.skje != null">
+                skje = #{record.skje,jdbcType=DECIMAL},
+            </if>
+            <if test="record.tkje != null">
+                tkje = #{record.tkje,jdbcType=DECIMAL},
+            </if>
             <if test="record.ex1 != null">
                 ex1 = #{record.ex1,jdbcType=VARCHAR},
             </if>
@@ -387,6 +451,12 @@
         je = #{record.je,jdbcType=DECIMAL},
         zk = #{record.zk,jdbcType=DECIMAL},
         xsje = #{record.xsje,jdbcType=DECIMAL},
+        kpsl = #{record.kpsl,jdbcType=INTEGER},
+        sksl = #{record.sksl,jdbcType=INTEGER},
+        tksl = #{record.tksl,jdbcType=INTEGER},
+        kpje = #{record.kpje,jdbcType=DECIMAL},
+        skje = #{record.skje,jdbcType=DECIMAL},
+        tkje = #{record.tkje,jdbcType=DECIMAL},
         ex1 = #{record.ex1,jdbcType=VARCHAR},
         ex2 = #{record.ex2,jdbcType=VARCHAR},
         ex3 = #{record.ex3,jdbcType=VARCHAR},
@@ -437,6 +507,24 @@
             <if test="xsje != null">
                 xsje = #{xsje,jdbcType=DECIMAL},
             </if>
+            <if test="kpsl != null">
+                kpsl = #{kpsl,jdbcType=INTEGER},
+            </if>
+            <if test="sksl != null">
+                sksl = #{sksl,jdbcType=INTEGER},
+            </if>
+            <if test="tksl != null">
+                tksl = #{tksl,jdbcType=INTEGER},
+            </if>
+            <if test="kpje != null">
+                kpje = #{kpje,jdbcType=DECIMAL},
+            </if>
+            <if test="skje != null">
+                skje = #{skje,jdbcType=DECIMAL},
+            </if>
+            <if test="tkje != null">
+                tkje = #{tkje,jdbcType=DECIMAL},
+            </if>
             <if test="ex1 != null">
                 ex1 = #{ex1,jdbcType=VARCHAR},
             </if>
@@ -483,6 +571,12 @@
       je = #{je,jdbcType=DECIMAL},
       zk = #{zk,jdbcType=DECIMAL},
       xsje = #{xsje,jdbcType=DECIMAL},
+      kpsl = #{kpsl,jdbcType=INTEGER},
+      sksl = #{sksl,jdbcType=INTEGER},
+      tksl = #{tksl,jdbcType=INTEGER},
+      kpje = #{kpje,jdbcType=DECIMAL},
+      skje = #{skje,jdbcType=DECIMAL},
+      tkje = #{tkje,jdbcType=DECIMAL},
       ex1 = #{ex1,jdbcType=VARCHAR},
       ex2 = #{ex2,jdbcType=VARCHAR},
       ex3 = #{ex3,jdbcType=VARCHAR},
