@@ -21,3 +21,14 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn clean package
+      
+    # Deploy
+    - name: Deploy
+      uses: actions/checkout@master
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+        ARGS: "-avz --delete"
+        SOURCE: "public/"
+        REMOTE_HOST: 101.201.252.232
+        REMOTE_USER: root
+        TARGET: /home/febs
