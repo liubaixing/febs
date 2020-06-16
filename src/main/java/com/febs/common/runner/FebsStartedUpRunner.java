@@ -1,5 +1,6 @@
 package com.febs.common.runner;
 
+import com.febs.common.entity.FebsConstant;
 import com.febs.common.properties.FebsProperties;
 import com.febs.common.service.RedisService;
 import lombok.RequiredArgsConstructor;
@@ -65,14 +66,14 @@ public class FebsStartedUpRunner implements ApplicationRunner {
             log.info("FEBS 权限系统启动完毕");
 
             boolean auto = febsProperties.isAutoOpenBrowser();
-            /*if (auto && StringUtils.equalsIgnoreCase(active, FebsConstant.DEVELOP)) {
+            if (auto && StringUtils.equalsIgnoreCase(active, FebsConstant.DEVELOP)) {
                 String os = System.getProperty("os.name");
                 // 默认为 windows时才自动打开页面
                 if (StringUtils.containsIgnoreCase(os, FebsConstant.SYSTEM_WINDOWS)) {
                     //使用默认浏览器打开系统登录页
                     Runtime.getRuntime().exec("cmd  /c  start " + url);
                 }
-            }*/
+            }
         }
     }
 }
