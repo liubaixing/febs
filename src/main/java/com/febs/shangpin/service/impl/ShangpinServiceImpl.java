@@ -16,6 +16,7 @@ import com.febs.shangpin.service.IShangpinService;
 import com.febs.shangpin.vo.resp.ShangpinResp;
 import com.febs.system.entity.Gys;
 import com.febs.system.mapper.GysMapper;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,20 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     @Override
     public List<ShangpinResp> findShangpins(ShangpinResp shangpin) {
 		return this.shangpinMapper.selectDetail(shangpin);
+    }
+
+    @Override
+    public Shangpin findOneByQuery(Shangpin shangpin){
+        ShangpinExample example = new ShangpinExample();
+        ShangpinExample.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotBlank(shangpin.getSpdm())) {
+            criteria.andSpdmEqualTo(shangpin.getSpdm());
+        }
+        if (StringUtils.isNotBlank(shangpin.getSpmc())) {
+            criteria.andSpmcEqualTo(shangpin.getSpmc());
+        }
+        List<Shangpin> list = this.shangpinMapper.selectByExample(example);
+        return CollectionUtils.isNotEmpty(list)?list.get(0):null;
     }
 
     @Override

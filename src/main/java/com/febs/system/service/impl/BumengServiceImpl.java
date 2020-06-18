@@ -4,6 +4,7 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.StringUtil;
 import com.febs.system.entity.Bumeng;
+import com.febs.system.entity.BumengExample;
 import com.febs.system.entity.Gongsi;
 import com.febs.system.mapper.BumengMapper;
 import com.febs.system.mapper.GongsiMapper;
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,16 @@ public class BumengServiceImpl extends ServiceImpl<BumengMapper, Bumeng> impleme
 	    LambdaQueryWrapper<Bumeng> queryWrapper = new LambdaQueryWrapper<>();
 		// TODO 设置查询条件
 		return this.baseMapper.selectList(queryWrapper);
+    }
+
+    public Bumeng findOneByQuery(Bumeng bumeng){
+        BumengExample example = new BumengExample();
+        BumengExample.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotBlank(bumeng.getBmmc())) {
+            criteria.andBmmcEqualTo(bumeng.getBmmc());
+        }
+        List<Bumeng> list = bumengMapper.selectByExample(example);
+        return CollectionUtils.isNotEmpty(list)?list.get(0):null;
     }
 
     @Override

@@ -32,6 +32,8 @@ public interface IShangpinService extends IService<Shangpin> {
      */
     List<ShangpinResp> findShangpins(ShangpinResp shangpin);
 
+    Shangpin findOneByQuery(Shangpin shangpin);
+
     /**
      * 新增
      *

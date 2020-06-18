@@ -38,6 +38,8 @@ public interface ICangkuService extends IService<Cangku> {
      */
     void createCangku(Cangku cangku);
 
+    Cangku findOneByQuery(Cangku cangku);
+
     /**
      * 修改
      *

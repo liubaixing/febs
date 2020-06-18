@@ -32,6 +32,8 @@ public interface IBumengService extends IService<Bumeng> {
      */
     List<Bumeng> findBumengs(Bumeng bumeng);
 
+    Bumeng findOneByQuery(Bumeng bumeng);
+
     /**
      * 新增
      *

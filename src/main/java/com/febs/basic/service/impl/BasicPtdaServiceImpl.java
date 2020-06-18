@@ -56,6 +56,17 @@ public class BasicPtdaServiceImpl extends ServiceImpl<BasicPtdaMapper, BasicPtda
 		return this.baseMapper.selectList(queryWrapper);
     }
 
+    public BasicPtda findOneByQuery(BasicPtda ptda){
+        LambdaQueryWrapper<BasicPtda> queryWrapper = new LambdaQueryWrapper<>();
+        if(StringUtils.isNotBlank(ptda.getPtdadm())){
+            queryWrapper.eq(BasicPtda::getPtdadm,ptda.getPtdadm());
+        }
+        if (StringUtils.isNotBlank(ptda.getPtdamc())) {
+            queryWrapper.eq(BasicPtda::getPtdamc,ptda.getPtdamc());
+        }
+        return this.baseMapper.selectOne(queryWrapper);
+    }
+
     @Override
     @Transactional
     public void createBasicPtda(BasicPtda basicPtda) {

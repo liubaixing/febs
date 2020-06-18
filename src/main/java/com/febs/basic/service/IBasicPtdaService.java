@@ -31,6 +31,8 @@ public interface IBasicPtdaService extends IService<BasicPtda> {
      */
     List<BasicPtda> findBasicPtdas(BasicPtda basicPtda);
 
+    BasicPtda findOneByQuery(BasicPtda ptda);
+
     /**
      * 新增
      *

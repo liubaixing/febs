@@ -32,6 +32,8 @@ public interface IKehuService extends IService<Kehu> {
      */
     List<KehuResp> findKehus(KehuResp kehu);
 
+    Kehu findOneByQuery(Kehu kehu);
+
     /**
      * 新增
      *

@@ -10,8 +10,10 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.StringUtil;
 import com.febs.system.entity.Cangku;
+import com.febs.system.entity.CangkuExample;
 import com.febs.system.mapper.CangkuMapper;
 import com.febs.system.service.ICangkuService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +89,17 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
             cangku.setCkdm(dm);
             this.cangkuMapper.updateByPrimaryKeySelective(cangku);
         }
+    }
+
+    @Override
+    public Cangku findOneByQuery(Cangku cangku){
+        CangkuExample example = new CangkuExample();
+        CangkuExample.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotBlank(cangku.getCkmc())){
+            criteria.andCkmcEqualTo(cangku.getCkmc());
+        }
+        List<Cangku> list = cangkuMapper.selectByExample(example);
+        return CollectionUtils.isNotEmpty(list)?list.get(0):null;
     }
 
     @Override

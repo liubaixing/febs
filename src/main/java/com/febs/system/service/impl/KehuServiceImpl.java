@@ -10,6 +10,7 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.StringUtil;
 import com.febs.system.entity.Kehu;
+import com.febs.system.entity.KehuExample;
 import com.febs.system.entity.User;
 import com.febs.system.mapper.KehuMapper;
 import com.febs.system.service.IKehuService;
@@ -54,6 +55,16 @@ public class KehuServiceImpl extends ServiceImpl<KehuMapper, Kehu> implements IK
     @Override
     public List<KehuResp> findKehus(KehuResp kehu) {
         return this.kehuMapper.selectDetail(kehu);
+    }
+
+    public Kehu findOneByQuery(Kehu kehu){
+        KehuExample example = new KehuExample();
+        KehuExample.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotBlank(kehu.getKhmc())) {
+            criteria.andKhmcEqualTo(kehu.getKhmc());
+        }
+        List<Kehu> list = kehuMapper.selectByExample(example);
+        return CollectionUtils.isEmpty(list)?null:list.get(0);
     }
 
     @Override
