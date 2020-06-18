@@ -19,6 +19,7 @@ import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.shangpin.vo.resp.ShangpinResp;
 import com.febs.system.entity.User;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -42,6 +43,7 @@ import java.util.Map;
  */
 @Slf4j
 @Validated
+@Api(tags = "销售单管理")
 @RestController
 @RequestMapping("orderXs")
 public class OrderXsController extends BaseController {
@@ -59,6 +61,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success().data(orderXsService.findOrderXss(orderXs));
     }
 
+    @ApiOperation("查询销售单")
     @GetMapping("/list")
     @RequiresPermissions("orderXs:list")
     public FebsResponse orderXsList(QueryRequest request, OrderXsReq orderXs) {
@@ -66,6 +69,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
+    @ApiOperation("新增销售单")
     @ControllerEndpoint(operation = "新增销售单", exceptionMessage = "新增销售单失败")
     @PostMapping("")
     @RequiresPermissions("orderXs:add")
@@ -76,6 +80,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("删除销售单")
     @ControllerEndpoint(operation = "删除销售单", exceptionMessage = "删除销售单失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("orderXs:delete")
@@ -85,6 +90,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("修改销售单")
     @ControllerEndpoint(operation = "修改销售单", exceptionMessage = "修改销售单失败")
     @PostMapping("/update")
     @RequiresPermissions("orderXs:update")
@@ -93,6 +99,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售单", exceptionMessage = "确认销售单失败")
     @PostMapping("/confirm/{id}/{status}")
     @RequiresPermissions("orderXs:confirm")
@@ -106,6 +113,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销售单", exceptionMessage = "审核销售单失败")
     @PostMapping("/check/{id}/{status}")
     @RequiresPermissions("orderXs:check")
@@ -119,6 +127,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("执行")
     @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
     @PostMapping("/execute/{id}/{status}")
     @RequiresPermissions("orderXs:execute")
@@ -129,6 +138,20 @@ public class OrderXsController extends BaseController {
         User user = getCurrentUser();
         String type = OrderStatusEnum.EXECUTION.getStatus();
         this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("作废")
+    @ControllerEndpoint(operation = "作废销售单", exceptionMessage = "作废销售单失败")
+    @PostMapping("/invalid/{id}/{status}")
+    @RequiresPermissions("orderXs:invalid")
+    public FebsResponse orderXsInvalid(
+            @PathVariable Long id,
+            @PathVariable boolean status
+    ){
+//        User user = getCurrentUser();
+//        String type = OrderStatusEnum.EXECUTION.getStatus();
+//        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
         return new FebsResponse().success();
     }
 
