@@ -1,10 +1,12 @@
 package com.febs.receipt.vo.req;
 
 import com.febs.receipt.entity.OrderXs;
+import com.febs.receipt.entity.OrderXsmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class OrderXsReq extends OrderXs {
@@ -50,5 +52,7 @@ public class OrderXsReq extends OrderXs {
 
     @ApiModelProperty("商品条码")
     private String memo;
+
+    List<OrderXsmx> orderXsmxList;
 
 }

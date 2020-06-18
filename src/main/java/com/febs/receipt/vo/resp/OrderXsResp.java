@@ -22,20 +22,20 @@ public class OrderXsResp extends OrderXs {
     @ExcelProperty(value = "发货仓库",index = 8)
     private String ckmc;
 
-    @ExcelProperty(value = "客户来源",index = 9)
+    @ExcelProperty(value = "客户来源名称",index = 9)
     @TableField("khlymc")
     private String khlymc;
 
-    @ExcelProperty(value = "流量来源",index = 10)
+    @ExcelProperty(value = "流量来源名称",index = 10)
     private String lllymc;
 
-    @ExcelProperty(value = "购货单位",index = 12)
+    @ExcelProperty(value = "购货单位名称",index = 12)
     private String ptdamc;
 
     @ExcelProperty(value = "单据类型",index = 13)
     private String djlxmc;
 
-    @ExcelProperty(value = "客户区域",index = 14)
+    @ExcelProperty(value = "客户区域名称",index = 14)
     private String khqymc;
 
     @ExcelProperty(value = "商品代码",index = 18)

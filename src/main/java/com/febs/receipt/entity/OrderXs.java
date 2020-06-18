@@ -74,7 +74,7 @@ public class OrderXs {
      * 定制 0-否 1-是
      */
     @ApiModelProperty("是否定制（0-否 1-是）")
-    @ExcelProperty(value = "定制",index = 3, converter = WhetherConverter.class)
+    @ExcelProperty(value = "是否定制",index = 3, converter = WhetherConverter.class)
     @TableField("sfdz")
     private Byte sfdz;
 
@@ -414,6 +414,55 @@ public class OrderXs {
     @ExcelIgnore
     @TableField("zfrq")
     private Date zfrq;
+
+    /**
+     * 0-未收款 1-部分收款 2-已收款
+     */
+    @ApiModelProperty("收款 （0-未收款 1-部分收款 2-已收款）")
+    @ExcelIgnore
+    @TableField("sk")
+    private Byte sk;
+
+    /**
+     * 作废人
+     */
+    @ApiModelProperty("收款人")
+    @ExcelIgnore
+    @TableField("skr")
+    private String skr;
+
+    /**
+     * 作废日期
+     */
+    @ApiModelProperty("收款日期")
+    @ExcelIgnore
+    @TableField("skrq")
+    private Date skrq;
+
+    /**
+     * 0-未收款 1-部分收款 2-已收款
+     */
+    @ApiModelProperty("开票 （0-未开票 1-部分开票 2-已开票）")
+    @ExcelIgnore
+    @TableField("kp")
+    private Byte kp;
+
+    /**
+     * 作废人
+     */
+    @ApiModelProperty("开票人")
+    @ExcelIgnore
+    @TableField("kpr")
+    private String kpr;
+
+    /**
+     * 作废日期
+     */
+    @ApiModelProperty("开票日期")
+    @ExcelIgnore
+    @TableField("kprq")
+    private Date kprq;
+
 
     /**
      * 备用1

@@ -6,9 +6,12 @@ import com.febs.common.enums.DeletedEnum;
 import com.febs.common.enums.order.OrderStatusEnum;
 import com.febs.common.exception.FebsException;
 import com.febs.receipt.entity.OrderXs;
+import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.service.IOrderXsService;
+import com.febs.receipt.service.IOrderXsmxService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,8 @@ public class OrderXsBiz {
     @Autowired
     private IOrderXsService xsService;
 
+    @Autowired
+    private IOrderXsmxService xsmxService;
     /**
      * @param request
      * @param orderXs
@@ -29,8 +34,18 @@ public class OrderXsBiz {
         return xsService.findOrderXss(request, orderXs);
     }
 
-    public void create(OrderXs orderXs) {
-        xsService.createOrderXs(orderXs);
+    public void create(OrderXsReq orderXsReq) {
+        //保存商品明细
+        if(CollectionUtils.isEmpty(orderXsReq.getOrderXsmxList())){
+            throw new FebsException("商品明细不能为空");
+        }
+        orderXsReq.setXdrq(new Date());
+        Long orderXsId = xsService.createOrderXs(orderXsReq);
+        for(OrderXsmx mx : orderXsReq.getOrderXsmxList()){
+            mx.setPid(orderXsId);
+            xsmxService.createOrderXsmx(mx);
+        }
+
     }
 
     public void update(OrderXs orderXs) {
@@ -45,6 +60,12 @@ public class OrderXsBiz {
             xsService.updateOrderXs(orderXs);
         }
     }
+
+    public void excelInsert(OrderXsResp resp){
+
+
+    }
+
 
     public OrderXsResp orderXsStatusCheck(Long id, String type,boolean status,String user){
         byte sta = 0;//状态

@@ -63,7 +63,7 @@ public class FebsStartedUpRunner implements ApplicationRunner {
             log.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
             log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
             log.info("                                                      ");
-            log.info("FEBS 权限系统启动完毕");
+            log.info("已启动！！！！！！");
 
             boolean auto = febsProperties.isAutoOpenBrowser();
             if (auto && StringUtils.equalsIgnoreCase(active, FebsConstant.DEVELOP)) {

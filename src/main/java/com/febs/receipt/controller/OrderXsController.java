@@ -69,7 +69,7 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "新增销售单", exceptionMessage = "新增销售单失败")
     @PostMapping("")
     @RequiresPermissions("orderXs:add")
-    public FebsResponse addOrderXs(@Valid OrderXs orderXs) {
+    public FebsResponse addOrderXs(@Valid OrderXsReq orderXs) {
         User user = getCurrentUser();
         orderXs.setUserId(user.getUserId());
         this.orderXsBiz.create(orderXs);

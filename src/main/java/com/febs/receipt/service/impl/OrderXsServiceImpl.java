@@ -1,8 +1,11 @@
 package com.febs.receipt.service.impl;
 
+import com.febs.common.constant.OrderConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsExample;
 import com.febs.receipt.mapper.OrderXsMapper;
@@ -49,23 +52,26 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
 
     @Override
     @Transactional
-    public void createOrderXs(OrderXs orderXs) {
+    public Long createOrderXs(OrderXs orderXs) {
         this.orderXsMapper.insertSelective(orderXs);
+        String orderXsNo = OrderConstant.ORDER_XS_DM_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
+        orderXs.setDjbh(orderXsNo);
+        return orderXs.getId();
     }
 
     @Override
     @Transactional
     public OrderXsResp updateOrderXs(OrderXs orderXs) {
-        OrderXsReq req = new OrderXsReq();
-        OrderXsResp resp = this.orderXsMapper.selectOneByQuery(req);
-        if(resp == null){
+        OrderXs order = this.orderXsMapper.selectByPrimaryKey(orderXs.getId());
+        if(order == null){
             throw new FebsException("订单不存在");
         }
-        if(resp.getQr() == 1 || resp.getSh() == 1){
+        if(order.getQr() == 1 || order.getSh() == 1){
             throw new FebsException("订单已确定或已审核");
         }
         this.orderXsMapper.updateByPrimaryKeySelective(orderXs);
-
+        OrderXsReq req = new OrderXsReq();
+        req.setId(orderXs.getId());
         return this.orderXsMapper.selectOneByQuery(req);
     }
 

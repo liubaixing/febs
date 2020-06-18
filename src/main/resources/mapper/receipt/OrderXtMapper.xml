@@ -54,6 +54,15 @@
         <result column="zf" jdbcType="TINYINT" property="zf" />
         <result column="zfr" jdbcType="VARCHAR" property="zfr" />
         <result column="zfrq" jdbcType="INTEGER" property="zfrq" />
+        <result column="zf" jdbcType="TINYINT" property="tk" />
+        <result column="zfr" jdbcType="VARCHAR" property="tkr" />
+        <result column="zfrq" jdbcType="INTEGER" property="tkrq" />
+        <result column="zf" jdbcType="TINYINT" property="kp" />
+        <result column="zfr" jdbcType="VARCHAR" property="kpr" />
+        <result column="zfrq" jdbcType="INTEGER" property="kprq" />
+        <result column="zf" jdbcType="TINYINT" property="zx" />
+        <result column="zfr" jdbcType="VARCHAR" property="zxr" />
+        <result column="zfrq" jdbcType="INTEGER" property="zxrq" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
         <result column="ex2" jdbcType="VARCHAR" property="ex2" />
         <result column="ex3" jdbcType="VARCHAR" property="ex3" />
@@ -124,7 +133,7 @@
     khly_id, llly_id, yqdhrq, djlx_id, khqy_id, wldh, bz, fj, sl, je, kpsl, sksl, tksl,
     kpje, skje, tkje, address, tel, contact, zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq,
     kssh, ksshr, ksshrq, shqr, shqrr, shqrrq, yflr, yflrr, yflrrq, zs, zsr, zsrq, zf,
-    zfr, zfrq, ex1, ex2, ex3, create_time, update_time, deleted
+    zfr, zfrq, tk, tkr, tkrq, kp, kpr, kprq, zx, zxr, zxrq, ex1, ex2, ex3, create_time, update_time, deleted
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXtExample" resultMap="BaseResultMap">
         select
@@ -146,6 +155,225 @@
         from order_xt
         where Id = #{id,jdbcType=BIGINT}
     </select>
+
+    <sql id="Page_Column_List">
+    xt.Id, xt.djbh, xt.xdrq, xt.ydbh, xt.ydjh, xt.sfjj, xt.sfdz, xt.org_id, xt.user_id, xt.bumeng_id,
+    xt.kehu_id, xt.cangku_id,xt.khly_id, xt.llly_id, xt.yqdhrq, xt.djlx_id, xt.khqy_id, xt.wldh, xt.bz, xt.fj,
+    xt.sl, xt.je, xt.kpsl, xt.sksl, xt.tksl, xt.kpje, xt.skje, xt.tkje, xt.address, xt.tel, xt.contact,
+    xt.zdr, xt.zdrq, xt.qr, xt.qrr, xt.qrrq, xt.sh, xt.shr, xt.shrq, xt.kssh, xt.ksshr, xt.ksshrq, xt.shqr,
+    xt.shqrr, xt.shqrrq, xt.yflr, xt.yflrr, xt.yflrrq, xt.zs, xt.zsr, xt.zsrq, xt.zf, xt.zfr, xt.zfrq,
+    xt.ex1, xt.ex2, xt.ex3, xt.create_time, xt.update_time, xt.deleted
+  </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXtReq" resultType="com.febs.receipt.vo.resp.OrderXtResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
+        kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
+        xtmx.id mxid , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
+        FROM order_xs xt
+        LEFT JOIN basic_ptda pt on xs.org_id = pt.id
+        LEFT JOIN t_user u on xs.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on xs.bumeng_id = bm.id
+        LEFT JOIN system_kehu kehu on xs.kehu_id = kehu.id
+        LEFT JOIN system_cangku ck on xs.cangku_id = ck.id
+        LEFT JOIN basic_khly kly on xs.khly_id = kly.id
+        LEFT JOIN basic_llly lly on xs.llly_id = lly.id
+        LEFT JOIN basic_djlx dlx on xs.djlx_id = dlx.id
+        LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
+        LEFT JOIN order_xtmx xtmx on xs.id = xtmx.pid
+        LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="deleted != null">
+                and xt.deleted = #{deleted}
+            </if>
+            <if test="djbh != null and djbh != ''">
+                and xt.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and xt.xdrq between #{startTime} and #{endTime}
+            </if>
+            <if test="ptdamc != null and ptdamc != ''">
+                and pt.ptdamc like CONCAT('%',#{ptdamc},'%')
+            </if>
+            <if test="tk != null">
+                and xt.tk = #{tk}
+            </if>
+            <if test="kp != null">
+                and xs.kp = #{kp}
+            </if>
+            <if test="sh != null">
+                and xt.sh = #{sh}
+            </if>
+            <if test="shr != null">
+                and xt.shr like CONCAT('%',#{shr},'%')
+            </if>
+            <if test="zx != null">
+                and xt.zx = #{zx}
+            </if>
+            <if test="zxr != null">
+                and xt.zxr like CONCAT('%',#{zxr},'%')
+            </if>
+            <if test="qr != null">
+                and xt.qr = #{qr}
+            </if>
+            <if test="qrr != null">
+                and xt.qrr like CONCAT('%',#{qrr},'%')
+            </if>
+            <if test="zf != null">
+                and xt.zf = #{zf}
+            </if>
+            <if test="zs != null">
+                and xt.zs = #{zs}
+            </if>
+            <if test="zsr != null">
+                xt.zsr like CONCAT('%',#{zsr},'%')
+            </if>
+            <if test="userName != null and userName != ''">
+                and u.USERNAME like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="kssh != null">
+                and xt.kssh = #{kssh}
+            </if>
+            <if test="shqr != null">
+                and xt.shqr = #{shqr}
+            </if>
+            <if test="yflr != null">
+                and xt.yflr = #{yflr}
+            </if>
+            <if test="khmc != null and khmc != ''">
+                and kehu.khmc like CONCAT('%',#{khmc},'%')
+            </if>
+            <if test="khlymc != null and khlymc != ''">
+                and kly.khlymc like CONCAT('%',#{khlymc},'%')
+            </if>
+            <if test="djlxmc != null and djlxmc != ''">
+                and dlx.djlxmc like CONCAT('%',#{djlxmc},'%')
+            </if>
+            <if test="khqymc != null and khqymc != ''">
+                and qy.khqymc like CONCAT('%',#{khqymc},'%')
+            </if>
+            <if test="bmmc != null and bmmc != ''">
+                and bm.bmmc like CONCAT('%',#{bmmc},'%')
+            </if>
+            <if test="ckmc != null and ckmc != ''">
+                and ck.ckmc like CONCAT('%',#{ckmc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and sp.spmc like CONCAT('%',#{spmc},'%')
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectOneByQuery" parameterType="com.febs.receipt.vo.req.OrderXtReq" resultType="com.febs.receipt.vo.resp.OrderXtResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
+        kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
+        xtmx.id mxid , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
+        FROM order_xs xt
+        LEFT JOIN basic_ptda pt on xs.org_id = pt.id
+        LEFT JOIN t_user u on xs.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on xs.bumeng_id = bm.id
+        LEFT JOIN system_kehu kehu on xs.kehu_id = kehu.id
+        LEFT JOIN system_cangku ck on xs.cangku_id = ck.id
+        LEFT JOIN basic_khly kly on xs.khly_id = kly.id
+        LEFT JOIN basic_llly lly on xs.llly_id = lly.id
+        LEFT JOIN basic_djlx dlx on xs.djlx_id = dlx.id
+        LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
+        LEFT JOIN order_xtmx xtmx on xs.id = xtmx.pid
+        LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="deleted != null">
+                and xt.deleted = #{deleted}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="djbh != null and djbh != ''">
+                and xt.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and xt.xdrq between #{startTime} and #{endTime}
+            </if>
+            <if test="ptdamc != null and ptdamc != ''">
+                and pt.ptdamc like CONCAT('%',#{ptdamc},'%')
+            </if>
+            <if test="tk != null">
+                and xt.tk = #{tk}
+            </if>
+            <if test="kp != null">
+                and xs.kp = #{kp}
+            </if>
+            <if test="sh != null">
+                and xt.sh = #{sh}
+            </if>
+            <if test="shr != null">
+                and xt.shr like CONCAT('%',#{shr},'%')
+            </if>
+            <if test="zx != null">
+                and xt.zx = #{zx}
+            </if>
+            <if test="zxr != null">
+                and xt.zxr like CONCAT('%',#{zxr},'%')
+            </if>
+            <if test="qr != null">
+                and xt.qr = #{qr}
+            </if>
+            <if test="qrr != null">
+                and xt.qrr like CONCAT('%',#{qrr},'%')
+            </if>
+            <if test="zf != null">
+                and xt.zf = #{zf}
+            </if>
+            <if test="zs != null">
+                and xt.zs = #{zs}
+            </if>
+            <if test="zsr != null">
+                xt.zsr like CONCAT('%',#{zsr},'%')
+            </if>
+            <if test="userName != null and userName != ''">
+                and u.USERNAME like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="kssh != null">
+                and xt.kssh = #{kssh}
+            </if>
+            <if test="shqr != null">
+                and xt.shqr = #{shqr}
+            </if>
+            <if test="yflr != null">
+                and xt.yflr = #{yflr}
+            </if>
+            <if test="khmc != null and khmc != ''">
+                and kehu.khmc like CONCAT('%',#{khmc},'%')
+            </if>
+            <if test="khlymc != null and khlymc != ''">
+                and kly.khlymc like CONCAT('%',#{khlymc},'%')
+            </if>
+            <if test="djlxmc != null and djlxmc != ''">
+                and dlx.djlxmc like CONCAT('%',#{djlxmc},'%')
+            </if>
+            <if test="khqymc != null and khqymc != ''">
+                and qy.khqymc like CONCAT('%',#{khqymc},'%')
+            </if>
+            <if test="bmmc != null and bmmc != ''">
+                and bm.bmmc like CONCAT('%',#{bmmc},'%')
+            </if>
+            <if test="ckmc != null and ckmc != ''">
+                and ck.ckmc like CONCAT('%',#{ckmc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and sp.spmc like CONCAT('%',#{spmc},'%')
+            </if>
+        </where>
+
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from order_xt
     where Id = #{id,jdbcType=BIGINT}
@@ -172,6 +400,7 @@
       shqrr, shqrrq, yflr,
       yflrr, yflrrq, zs,
       zsr, zsrq, zf, zfr,
+       tk, tkr, tkrq, kp, kpr, kprq, zx, zxr, zxrq,
       zfrq, ex1, ex2, ex3,
       create_time, update_time, deleted
       )
@@ -190,7 +419,10 @@
       #{shqrr,jdbcType=VARCHAR}, #{shqrrq,jdbcType=TIMESTAMP}, #{yflr,jdbcType=TINYINT},
       #{yflrr,jdbcType=VARCHAR}, #{yflrrq,jdbcType=TIMESTAMP}, #{zs,jdbcType=TINYINT},
       #{zsr,jdbcType=VARCHAR}, #{zsrq,jdbcType=TIMESTAMP}, #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR},
-      #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR},
+      #{zfrq,jdbcType=TIMESTAMP},#{tk,jdbcType=TINYINT}, #{tkr,jdbcType=VARCHAR},
+      #{tkrq,jdbcType=TIMESTAMP},#{kp,jdbcType=TINYINT}, #{kpr,jdbcType=VARCHAR},
+      #{kprq,jdbcType=TIMESTAMP},#{zx,jdbcType=TINYINT}, #{zxr,jdbcType=VARCHAR},
+      #{zxrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
       )
   </insert>
@@ -355,6 +587,33 @@
             </if>
             <if test="zfrq != null">
                 zfrq,
+            </if>
+            <if test="tk != null">
+                tk,
+            </if>
+            <if test="tkr != null">
+                tkr,
+            </if>
+            <if test="tkrq != null">
+                tkrq,
+            </if>
+            <if test="kp != null">
+                kp,
+            </if>
+            <if test="kpr != null">
+                kpr,
+            </if>
+            <if test="kprq != null">
+                kprq,
+            </if>
+            <if test="zx != null">
+                zx,
+            </if>
+            <if test="zxr != null">
+                zxr,
+            </if>
+            <if test="zxrq != null">
+                zxrq,
             </if>
             <if test="ex1 != null">
                 ex1,
@@ -534,6 +793,33 @@
             </if>
             <if test="zfrq != null">
                 #{zfrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tk != null">
+                #{tk,jdbcType=TINYINT},
+            </if>
+            <if test="tkr != null">
+                #{tkr,jdbcType=VARCHAR},
+            </if>
+            <if test="tkrq != null">
+                #{tkrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="kp != null">
+                #{kp,jdbcType=TINYINT},
+            </if>
+            <if test="kpr != null">
+                #{kpr,jdbcType=VARCHAR},
+            </if>
+            <if test="kprq != null">
+                #{kprq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zx != null">
+                #{zx,jdbcType=TINYINT},
+            </if>
+            <if test="zxr != null">
+                #{zxr,jdbcType=VARCHAR},
+            </if>
+            <if test="zxrq != null">
+                #{zxrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ex1 != null">
                 #{ex1,jdbcType=VARCHAR},
@@ -726,6 +1012,33 @@
             <if test="record.zfrq != null">
                 zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
             </if>
+            <if test="record.tk != null">
+                tk = #{record.tk,jdbcType=TINYINT},
+            </if>
+            <if test="record.tkr != null">
+                tkr = #{record.tkr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.tkrq != null">
+                tkrq = #{record.tkrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.kp != null">
+                kp = #{record.kp,jdbcType=TINYINT},
+            </if>
+            <if test="record.kpr != null">
+                kpr = #{record.kpr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.kprq != null">
+                kprq = #{record.kprq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.zx != null">
+                zx = #{record.zx,jdbcType=TINYINT},
+            </if>
+            <if test="record.zxr != null">
+                zxr = #{record.zxr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.zxrq != null">
+                zxrq = #{record.zxrq,jdbcType=TIMESTAMP},
+            </if>
             <if test="record.ex1 != null">
                 ex1 = #{record.ex1,jdbcType=VARCHAR},
             </if>
@@ -805,6 +1118,15 @@
         zf = #{record.zf,jdbcType=TINYINT},
         zfr = #{record.zfr,jdbcType=VARCHAR},
         zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
+        tk = #{record.tk,jdbcType=TINYINT},
+        tkr = #{record.tkr,jdbcType=VARCHAR},
+        tkrq = #{record.tkrq,jdbcType=TIMESTAMP},
+        kp = #{record.kp,jdbcType=TINYINT},
+        kpr = #{record.kpr,jdbcType=VARCHAR},
+        kprq = #{record.kprq,jdbcType=TIMESTAMP},
+        zx = #{record.zx,jdbcType=TINYINT},
+        zxr = #{record.zxr,jdbcType=VARCHAR},
+        zxrq = #{record.zxrq,jdbcType=TIMESTAMP},
         ex1 = #{record.ex1,jdbcType=VARCHAR},
         ex2 = #{record.ex2,jdbcType=VARCHAR},
         ex3 = #{record.ex3,jdbcType=VARCHAR},
@@ -977,6 +1299,33 @@
             <if test="zfrq != null">
                 zfrq = #{zfrq,jdbcType=TIMESTAMP},
             </if>
+            <if test="tk != null">
+                tk = #{tk,jdbcType=TINYINT},
+            </if>
+            <if test="tkr != null">
+                tkr = #{tkr,jdbcType=VARCHAR},
+            </if>
+            <if test="tkrq != null">
+                tkrq = #{tkrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="kp != null">
+                kp = #{kp,jdbcType=TINYINT},
+            </if>
+            <if test="kpr != null">
+                kpr = #{kpr,jdbcType=VARCHAR},
+            </if>
+            <if test="kprq != null">
+                kprq = #{kprq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zx != null">
+                zx = #{zx,jdbcType=TINYINT},
+            </if>
+            <if test="zxr != null">
+                zxr = #{zxr,jdbcType=VARCHAR},
+            </if>
+            <if test="zxrq != null">
+                zxrq = #{zxrq,jdbcType=TIMESTAMP},
+            </if>
             <if test="ex1 != null">
                 ex1 = #{ex1,jdbcType=VARCHAR},
             </if>
@@ -1053,6 +1402,15 @@
       zf = #{zf,jdbcType=TINYINT},
       zfr = #{zfr,jdbcType=VARCHAR},
       zfrq = #{zfrq,jdbcType=TIMESTAMP},
+      tk = #{tk,jdbcType=TINYINT},
+      tkr = #{tkr,jdbcType=VARCHAR},
+      tkrq = #{tkrq,jdbcType=TIMESTAMP},
+      kp = #{kp,jdbcType=TINYINT},
+      kpr = #{kpr,jdbcType=VARCHAR},
+      kprq = #{kprq,jdbcType=TIMESTAMP},
+      zx = #{zx,jdbcType=TINYINT},
+      zxr = #{zxr,jdbcType=VARCHAR},
+      zxrq = #{zxrq,jdbcType=TIMESTAMP},
       ex1 = #{ex1,jdbcType=VARCHAR},
       ex2 = #{ex2,jdbcType=VARCHAR},
       ex3 = #{ex3,jdbcType=VARCHAR},

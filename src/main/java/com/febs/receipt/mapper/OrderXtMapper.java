@@ -1,8 +1,15 @@
 package com.febs.receipt.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXt;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.receipt.entity.OrderXtExample;
+import com.febs.receipt.vo.req.OrderXsReq;
+import com.febs.receipt.vo.req.OrderXtReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
+import com.febs.receipt.vo.resp.OrderXtResp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,6 +35,10 @@ public interface OrderXtMapper extends BaseMapper<OrderXt> {
     List<OrderXt> selectByExample(OrderXtExample example);
 
     OrderXt selectByPrimaryKey(Long id);
+
+    IPage<OrderXtResp> selectPageByQuery(Page<OrderXt> page, OrderXtReq req);
+
+    OrderXtResp selectOneByQuery(OrderXtReq req);
 
     int updateByExampleSelective(@Param("record") OrderXt record, @Param("example") OrderXtExample example);
 

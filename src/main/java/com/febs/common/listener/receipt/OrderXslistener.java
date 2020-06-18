@@ -16,7 +16,7 @@ public class OrderXslistener extends AnalysisEventListener<OrderXsResp> {
 
     @Override
     public void invoke(OrderXsResp orderXsResp, AnalysisContext analysisContext) {
-        xsBiz.create(orderXsResp);
+        xsBiz.excelInsert(orderXsResp);
     }
 
     @Override

@@ -54,8 +54,6 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     @Override
     @Transactional
     public void updateOrderXsmx(OrderXsmx orderXsmx) {
-        LambdaQueryWrapper<OrderXsmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
         this.orderXsmxMapper.updateByPrimaryKeySelective(orderXsmx);
     }
 

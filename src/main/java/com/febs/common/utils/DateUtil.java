@@ -3,6 +3,7 @@ package com.febs.common.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -45,5 +46,15 @@ public class DateUtil {
     public static String formatInstant(Instant instant, String format) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         return localDateTime.format(DateTimeFormatter.ofPattern(format));
+    }
+
+    public static Integer getYear(){
+        LocalDate ld = LocalDate.now();
+        return ld.getYear();
+    }
+
+    public static Integer getMonth(){
+        LocalDate ld = LocalDate.now();
+        return ld.getMonthValue();
     }
 }

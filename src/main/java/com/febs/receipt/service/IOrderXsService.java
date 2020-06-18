@@ -40,7 +40,7 @@ public interface IOrderXsService extends IService<OrderXs> {
      *
      * @param orderXs orderXs
      */
-    void createOrderXs(OrderXs orderXs);
+    Long createOrderXs(OrderXs orderXs);
 
     /**
      * 修改

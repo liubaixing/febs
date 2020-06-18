@@ -15,7 +15,6 @@
         <result column="je" jdbcType="DECIMAL" property="je" />
         <result column="zk" jdbcType="DECIMAL" property="zk" />
         <result column="xsje" jdbcType="DECIMAL" property="xsje" />
-        <result column="xsje" jdbcType="DECIMAL" property="xsje" />
         <result column="kpsl" jdbcType="INTEGER" property="kpsl" />
         <result column="sksl" jdbcType="INTEGER" property="sksl" />
         <result column="tksl" jdbcType="INTEGER" property="tksl" />

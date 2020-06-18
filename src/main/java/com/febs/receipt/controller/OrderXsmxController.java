@@ -6,16 +6,12 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
-import com.febs.common.listener.TempDataListener;
-import com.febs.common.listener.receipt.OrderXslistener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXsmxBiz;
 import com.febs.receipt.entity.OrderXsmx;
-import com.febs.receipt.entity.Temp;
 import com.febs.receipt.service.IOrderXsmxService;
 
 import com.febs.receipt.vo.req.OrderXsmxReq;
-import com.febs.receipt.vo.resp.OrderXsResp;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -93,13 +89,6 @@ public class OrderXsmxController extends BaseController {
     public void export(QueryRequest queryRequest, OrderXsmxReq orderXsmx, HttpServletResponse response) throws IOException {
         List<OrderXsmx> orderXsmxs = this.orderXsmxService.findOrderXsmxs(queryRequest, orderXsmx).getRecords();
         ExcelUtil.export(orderXsmxs, OrderXsmx.class,"销售单明细",response);
-    }
-
-    @ApiOperation("导入")
-    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
-    @PostMapping("import")
-    public void excelImport(@RequestParam MultipartFile file) throws IOException{
-        EasyExcel.read(file.getInputStream(), Temp.class, new TempDataListener()).sheet().doRead();
     }
 
 }
