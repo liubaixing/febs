@@ -44,10 +44,8 @@ public class ValidateCodeService {
 
     
     public void check(String key, String value) throws FebsException {
-        System.out.println("#### 2 : "+ key);
         Object codeInRedis = redisService.get(FebsConstant.CODE_PREFIX + key);
-        System.out.println("#### 3 : "+ FebsConstant.CODE_PREFIX + key);
-        /*if (StringUtils.isBlank(value)) {
+        if (StringUtils.isBlank(value)) {
             throw new FebsException("请输入验证码");
         }
         if (codeInRedis == null) {
@@ -55,7 +53,7 @@ public class ValidateCodeService {
         }
         if (!StringUtils.equalsIgnoreCase(value, String.valueOf(codeInRedis))) {
             throw new FebsException("验证码不正确");
-        }*/
+        }
     }
 
     private Captcha createCaptcha(ValidateCodeProperties code) {

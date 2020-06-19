@@ -47,7 +47,6 @@ public class LoginController extends BaseController {
             @NotBlank(message = "{required}") String verifyCode,
             boolean rememberMe, HttpServletRequest request) throws FebsException {
         HttpSession session = request.getSession();
-        System.out.println("### 1 : "+ session);
         validateCodeService.check(session.getId(), verifyCode);
         password = Md5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
