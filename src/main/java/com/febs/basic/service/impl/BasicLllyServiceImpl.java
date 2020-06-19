@@ -57,6 +57,15 @@ public class BasicLllyServiceImpl extends ServiceImpl<BasicLllyMapper, BasicLlly
     }
 
     @Override
+    public BasicLlly findOneByQuery(BasicLlly llly){
+        LambdaQueryWrapper<BasicLlly> queryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotBlank(llly.getLllymc())) {
+            queryWrapper.eq(BasicLlly::getLllymc,llly.getLllymc());
+        }
+        return this.basicLllyMapper.selectOne(queryWrapper);
+    }
+
+    @Override
     @Transactional
     public void createBasicLlly(BasicLlly basicLlly) {
         check(basicLlly);

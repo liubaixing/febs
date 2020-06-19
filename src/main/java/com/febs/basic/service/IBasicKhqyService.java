@@ -31,6 +31,8 @@ public interface IBasicKhqyService extends IService<BasicKhqy> {
      */
     List<BasicKhqy> findBasicKhqys(BasicKhqy basicKhqy);
 
+    BasicKhqy findOneByQuery(BasicKhqy khqy);
+
     /**
      * 新增
      *

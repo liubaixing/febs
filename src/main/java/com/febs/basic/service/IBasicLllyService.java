@@ -31,6 +31,8 @@ public interface IBasicLllyService extends IService<BasicLlly> {
      */
     List<BasicLlly> findBasicLllys(BasicLlly basicLlly);
 
+    BasicLlly findOneByQuery(BasicLlly llly);
+
     /**
      * 新增
      *

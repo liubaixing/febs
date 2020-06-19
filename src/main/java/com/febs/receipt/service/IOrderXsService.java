@@ -35,6 +35,10 @@ public interface IOrderXsService extends IService<OrderXs> {
      */
     List<OrderXs> findOrderXss(OrderXsReq orderXs);
 
+    OrderXsResp findOrderXsDetail(OrderXsReq orderXs);
+
+    OrderXs findById(Long id);
+
     /**
      * 新增
      *

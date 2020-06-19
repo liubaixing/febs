@@ -1,10 +1,8 @@
 package com.febs.receipt.biz;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.febs.basic.entity.BasicKhly;
-import com.febs.basic.entity.BasicPtda;
-import com.febs.basic.service.IBasicKhlyService;
-import com.febs.basic.service.IBasicPtdaService;
+import com.febs.basic.entity.*;
+import com.febs.basic.service.*;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.enums.order.OrderStatusEnum;
@@ -15,6 +13,7 @@ import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.service.IOrderXsmxService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
+import com.febs.shangpin.entity.Shangpin;
 import com.febs.shangpin.service.IShangpinService;
 import com.febs.system.entity.Bumeng;
 import com.febs.system.entity.Cangku;
@@ -30,6 +29,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Service
@@ -57,6 +57,14 @@ public class OrderXsBiz {
     private ICangkuService cangkuService;
     @Autowired
     private IBasicKhlyService khlyService;
+    @Autowired
+    private IBasicDjlxService djlxService;
+    @Autowired
+    private IBasicKhqyService khqyService;
+    @Autowired
+    private IBasicLllyService lllyService;
+
+
     /**
      * @param request
      * @param orderXs
@@ -94,6 +102,7 @@ public class OrderXsBiz {
     }
 
     public void excelInsert(OrderXsResp resp){
+        excelCheck(resp);
         OrderXs orderXs = new OrderXs();
         BeanUtils.copyProperties(resp,orderXs);
         if (StringUtils.isNotBlank(resp.getPtdamc())) {
@@ -140,7 +149,7 @@ public class OrderXsBiz {
             cangku.setCkmc(resp.getCkmc());
             cangku = cangkuService.findOneByQuery(cangku);
             if (cangku == null) {
-                throw new FebsException("");
+                throw new FebsException("发货仓库不存在");
             }
             orderXs.setCangkuId(cangku.getId());
         }
@@ -149,53 +158,160 @@ public class OrderXsBiz {
             khly.setKhlymc(resp.getKhlymc());
             khly = khlyService.findOneByQuery(khly);
             if (khly == null){
-                throw new FebsException("");
+                throw new FebsException("客户来源不存在");
             }
             orderXs.setKhlyId(khly.getId());
         }
-
-
-
-
-        Long XsId = xsService.createOrderXs(orderXs);
-        if (StringUtils.isNotBlank(resp.getSpmc())) {
-
+        if (StringUtils.isNotBlank(resp.getDjlxmc())) {
+            BasicDjlx djlx = new BasicDjlx();
+            djlx.setDjlxdm(resp.getDjlxmc());
+            djlx = djlxService.findOneByQuery(djlx);
+            if (djlx == null) {
+                throw new FebsException("单据类型不存在");
+            }
+            orderXs.setDjlxId(djlx.getId());
+        }else {
+            throw new FebsException("单据类型不能为空");
         }
+        if (StringUtils.isNotBlank(resp.getKhqymc())) {
+            BasicKhqy khqy = new BasicKhqy();
+            khqy.setKhqymc(resp.getKhqymc());
+            khqy = khqyService .findOneByQuery(khqy);
+            if (khqy == null) {
+                throw new FebsException("客户区域名称不存在");
+            }
+            orderXs.setKhqyId(khqy.getId());
+        }
+        if (StringUtils.isNotBlank(resp.getLllymc())){
+            BasicLlly llly = new BasicLlly();
+            llly.setLllymc(resp.getLllymc());
+            llly = lllyService.findOneByQuery(llly);
+            if (llly == null){
+                throw new FebsException("流量来源名称不能为空");
+            }
+            orderXs.setLllyId(llly.getId());
+        }
+        OrderXsmx orderXsmx = new OrderXsmx();
+        BeanUtils.copyProperties(resp,orderXsmx);
+        if (StringUtils.isNotBlank(resp.getSpmc())) {
+            Shangpin sp = new Shangpin();
+            sp.setSpmc(resp.getSpmc());
+            sp = shangpinService.findOneByQuery(sp);
+            if (sp == null) {
+                throw new FebsException("商品不存在");
+            }
+            orderXsmx.setSpId(sp.getId());
+        }else {
+            throw new FebsException("商品名称不能为空");
+        }
+        Long xsId = xsService.createOrderXs(orderXs);
 
+        orderXsmx.setPid(xsId);
+        orderXsmx.setDj(resp.getJe().multiply(new BigDecimal(resp.getSl())));
+        orderXsmx.setXsje(resp.getJe().subtract(resp.getZk()));
+        xsmxService.createOrderXsmx(orderXsmx);
+    }
 
-
+    public void confirmOrderXs(OrderXs req,boolean status){
+        OrderXs orderXs = xsService.findById(req.getId());
+        if (orderXs == null) {
+            throw new FebsException("销售单不存在");
+        }
+        orderXs.setQr(req.getQr());
+        orderXs.setQrr(req.getQrr());
+        orderXs.setQrrq(new Date());
+        xsService.updateOrderXs(orderXs);
     }
 
 
-    public OrderXsResp orderXsStatusCheck(Long id, String type,boolean status,String user){
-        byte sta = 0;//状态
-        if (status)
-            sta =1;
-        OrderXs orderXs = new OrderXs();
-        orderXs.setId(id);
-        switch (type){
-            case "CONFIRM" :
-                //确认
-                orderXs.setQr(sta);
-                orderXs.setQrr(user);
-                orderXs.setQrrq(new Date());
-                break;
-            case "CHECK" :
-                //审核
-                orderXs.setSh(sta);
-                orderXs.setShr(user);
-                orderXs.setShrq(new Date());
-                break;
-            case "EXECUTE" :
-                //执行
-                orderXs.setZx(sta);
-                orderXs.setZxr(user);
-                orderXs.setZxrq(new Date());
-                break;
-            default:
-                throw new FebsException("接口状态不存在");
+    public void checkOrderXs(OrderXs req,boolean status){
+        OrderXs orderXs = xsService.findById(req.getId());
+        if (orderXs == null) {
+            throw new FebsException("销售单不存在");
         }
-       return xsService.updateOrderXs(orderXs);
+        orderXs.setSh(req.getSh());
+        orderXs.setShr(req.getShr());
+        orderXs.setShrq(new Date());
+        xsService.updateOrderXs(orderXs);
+    }
+
+    public void executeOrderXs(OrderXs req,boolean status){
+        OrderXs orderXs = xsService.findById(req.getId());
+        if (orderXs == null) {
+            throw new FebsException("销售单不存在");
+        }
+        if (orderXs.getKpsl() == orderXs.getSl()) {
+            throw new FebsException("订单已执行完毕");
+        }
+        //开票数量+已开票数量 > 销售单数量
+        if ((req.getKpsl() + orderXs.getKpsl()) - orderXs.getSl() > 0) {
+            throw new FebsException("执行数量超出销售单数量");
+        }
+
+        orderXs.setKpsl(orderXs.getKpsl()+req.getKpsl());
+        orderXs.setZx(req.getZx());
+        orderXs.setZxr(req.getZxr());
+        orderXs.setZxrq(new Date());
+        xsService.updateOrderXs(orderXs);
+
+    }
+
+    public void closeOrderXs(OrderXs req,boolean status){
+        OrderXs orderXs = xsService.findById(req.getId());
+        if (orderXs == null) {
+            throw new FebsException("销售单不存在");
+        }
+
+        orderXs.setGb(req.getGb());
+        orderXs.setGbr(req.getGbr());
+        orderXs.setGbrq(new Date());
+        xsService.updateOrderXs(orderXs);
+
+    }
+
+    private void excelCheck(OrderXsResp resp){
+        if (resp.getXdrq() == null) {
+            throw new FebsException("下单日期不能为空");
+        }
+        if (resp.getSfjj() == null){
+            throw new FebsException("加急不能为空");
+        }
+        if (StringUtils.isBlank(resp.getYdjh())) {
+            throw new FebsException("客户订单编号不能为空");
+        }
+        if (StringUtils.isBlank(resp.getKhmc())) {
+            throw new FebsException("客户名称不能为空");
+        }
+        if (StringUtils.isBlank(resp.getPtdamc())) {
+            throw new FebsException("购货单位不能为空");
+        }
+        if (StringUtils.isBlank(resp.getDjlxmc())) {
+            throw new FebsException("单据类型不能为空");
+        }
+        if (StringUtils.isBlank(resp.getKhqymc())) {
+            throw new FebsException("客户区域不能为空");
+        }
+        if (StringUtils.isBlank(resp.getAddress())) {
+            throw new FebsException("收货地址不能为空");
+        }
+        if (StringUtils.isBlank(resp.getContact())) {
+            throw new FebsException("收货人不能为空");
+        }
+        if (StringUtils.isBlank(resp.getTel())) {
+            throw new FebsException("联系电话不能为空");
+        }
+        if (StringUtils.isBlank(resp.getSpmc())) {
+            throw new FebsException("商品名称不能为空");
+        }
+        if (resp.getSl() == null) {
+            throw new FebsException("数量不能为空");
+        }
+        if (resp.getJe() == null) {
+            throw new FebsException("金额不能为空");
+        }
+        if (resp.getZk() == null) {
+            throw new FebsException("平台折扣不能为空");
+        }
     }
 
 }

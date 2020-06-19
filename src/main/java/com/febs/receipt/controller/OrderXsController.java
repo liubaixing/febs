@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +70,15 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
+    @ApiOperation("查询销售单详情")
+    @GetMapping("/{id}")
+    @RequiresPermissions("orderXs:list")
+    public FebsResponse orderXsDetail(@PathVariable Long id) {
+        OrderXsReq req = new OrderXsReq();
+        req.setId(id);
+        return new FebsResponse().success().data(orderXsService.findOrderXsDetail(req));
+    }
+
     @ApiOperation("新增销售单")
     @ControllerEndpoint(operation = "新增销售单", exceptionMessage = "新增销售单失败")
     @PostMapping("")
@@ -101,43 +111,83 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售单", exceptionMessage = "确认销售单失败")
-    @PostMapping("/confirm/{id}/{status}")
+    @PostMapping("/confirm/{id}")
     @RequiresPermissions("orderXs:confirm")
-    public FebsResponse orderXsConfirm(
-            @PathVariable Long id,
-            @PathVariable boolean status
-    ){
+    public FebsResponse orderXsConfirm(@PathVariable Long id){
         User user = getCurrentUser();
-        String type = OrderStatusEnum.CONFIRM.getStatus();
-        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setQr((byte)1);
+        req.setQrr(user.getUsername());
+        this.orderXsBiz.confirmOrderXs(req,true);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("反确认")
+    @ControllerEndpoint(operation = "反确认销售单", exceptionMessage = "反确认销售单失败")
+    @PostMapping("/unConfirm/{id}")
+    @RequiresPermissions("orderXs:unConfirm")
+    public FebsResponse orderXsUnConfirm(@PathVariable Long id){
+        User user = getCurrentUser();
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setQr((byte)1);
+        req.setQrr(user.getUsername());
+        this.orderXsBiz.confirmOrderXs(req,false);
         return new FebsResponse().success();
     }
 
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销售单", exceptionMessage = "审核销售单失败")
-    @PostMapping("/check/{id}/{status}")
+    @PostMapping("/check/{id}")
     @RequiresPermissions("orderXs:check")
-    public FebsResponse orderXsCheck(
-            @PathVariable Long id,
-            @PathVariable boolean status
-    ){
+    public FebsResponse orderXsCheck(@PathVariable Long id ){
         User user = getCurrentUser();
-        String type = OrderStatusEnum.CHECK.getStatus();
-        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setSh((byte)1);
+        req.setShr(user.getUsername());
+        this.orderXsBiz.checkOrderXs(req,true);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("反审核")
+    @ControllerEndpoint(operation = "反审核销售单", exceptionMessage = "反审核销售单失败")
+    @PostMapping("/unCheck/{id}")
+    @RequiresPermissions("orderXs:unCheck")
+    public FebsResponse orderXsUnCheck(@PathVariable Long id ){
+        User user = getCurrentUser();
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setSh((byte)1);
+        req.setShr(user.getUsername());
+        this.orderXsBiz.checkOrderXs(req,false);
         return new FebsResponse().success();
     }
 
     @ApiOperation("执行")
     @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
-    @PostMapping("/execute/{id}/{status}")
+    @PostMapping("/execute/{id}")
     @RequiresPermissions("orderXs:execute")
-    public FebsResponse orderXsExecute(
-            @PathVariable Long id,
-            @PathVariable boolean status
-    ){
+    public FebsResponse orderXsExecute(@PathVariable Long id,OrderXs req){
         User user = getCurrentUser();
-        String type = OrderStatusEnum.EXECUTION.getStatus();
-        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        req.setId(id);
+        req.setZx((byte)1);
+        req.setZxr(user.getUsername());
+        this.orderXsBiz.executeOrderXs(req,true);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("反执行")
+    @ControllerEndpoint(operation = "反执行销售单", exceptionMessage = "反执行销售单失败")
+    @PostMapping("/unExecute/{id}")
+    @RequiresPermissions("orderXs:unExecute")
+    public FebsResponse orderXsUnExecute(@PathVariable Long id,OrderXs req){
+        User user = getCurrentUser();
+        req.setId(id);
+        req.setZx((byte)1);
+        req.setZxr(user.getUsername());
+        this.orderXsBiz.executeOrderXs(req,false);
         return new FebsResponse().success();
     }
 
@@ -149,9 +199,38 @@ public class OrderXsController extends BaseController {
             @PathVariable Long id,
             @PathVariable boolean status
     ){
-//        User user = getCurrentUser();
-//        String type = OrderStatusEnum.EXECUTION.getStatus();
-//        this.orderXsBiz.orderXsStatusCheck(id,type,status,user.getUsername());
+        User user = getCurrentUser();
+        OrderXs orderXs = new OrderXs();
+        orderXs.setZf((byte)1);
+        orderXs.setZfr(user.getUsername());
+        orderXs.setZfrq(new Date());
+        orderXsBiz.update(orderXs);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("关闭")
+    @ControllerEndpoint(operation = "关闭销售单", exceptionMessage = "关闭销售单失败")
+    @PostMapping("/close/{id}")
+    @RequiresPermissions("orderXs:close")
+    public FebsResponse orderXsClose(@PathVariable Long id,OrderXs req){
+        User user = getCurrentUser();
+        req.setId(id);
+        req.setGb((byte)1);
+        req.setGbr(user.getUsername());
+        this.orderXsBiz.executeOrderXs(req,true);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("反关闭")
+    @ControllerEndpoint(operation = "反关闭销售单", exceptionMessage = "反关闭销售单失败")
+    @PostMapping("/unClose/{id}")
+    @RequiresPermissions("orderXs:unClose")
+    public FebsResponse orderXsUnClose(@PathVariable Long id,OrderXs req){
+        User user = getCurrentUser();
+        req.setId(id);
+        req.setGb((byte)1);
+        req.setGbr(user.getUsername());
+        this.orderXsBiz.executeOrderXs(req,false);
         return new FebsResponse().success();
     }
 

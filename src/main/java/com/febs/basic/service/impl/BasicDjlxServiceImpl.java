@@ -49,6 +49,17 @@ public class BasicDjlxServiceImpl extends ServiceImpl<BasicDjlxMapper, BasicDjlx
         return this.page(page, queryWrapper);
     }
 
+    public BasicDjlx findOneByQuery(BasicDjlx djlx){
+        LambdaQueryWrapper<BasicDjlx> queryWrapper = new LambdaQueryWrapper();
+        if (StringUtils.isNotBlank(djlx.getDjlxdm())) {
+            queryWrapper.eq(BasicDjlx::getDjlxdm,djlx.getDjlxdm());
+        }
+        if (StringUtils.isNotBlank(djlx.getDjlxmc())) {
+            queryWrapper.eq(BasicDjlx::getDjlxmc,djlx.getDjlxmc());
+        }
+        return this.basicDjlxMapper.selectOne(queryWrapper);
+    }
+
     @Override
     public List<BasicDjlx> findBasicDjlxs(BasicDjlx basicDjlx) {
 	    LambdaQueryWrapper<BasicDjlx> queryWrapper = new LambdaQueryWrapper<>();

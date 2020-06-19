@@ -51,6 +51,16 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     }
 
     @Override
+    public OrderXsResp findOrderXsDetail(OrderXsReq req) {
+        return this.orderXsMapper.selectOneByQuery(req);
+    }
+
+    @Override
+    public OrderXs findById(Long id){
+        return this.orderXsMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     @Transactional
     public Long createOrderXs(OrderXs orderXs) {
         this.orderXsMapper.insertSelective(orderXs);

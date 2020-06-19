@@ -57,6 +57,15 @@ public class BasicKhqyServiceImpl extends ServiceImpl<BasicKhqyMapper, BasicKhqy
     }
 
     @Override
+    public BasicKhqy findOneByQuery(BasicKhqy khqy){
+        LambdaQueryWrapper<BasicKhqy> queryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotBlank(khqy.getKhqymc())) {
+            queryWrapper.eq(BasicKhqy::getKhqymc,khqy.getKhqymc());
+        }
+        return this.basicKhqyMapper.selectOne(queryWrapper);
+    }
+
+    @Override
     @Transactional
     public void createBasicKhqy(BasicKhqy basicKhqy) {
         check(basicKhqy);

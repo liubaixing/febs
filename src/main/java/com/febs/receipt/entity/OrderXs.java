@@ -193,7 +193,7 @@ public class OrderXs {
     /**
      * 整单金额
      */
-    @ApiModelProperty("整单金额")
+    @ApiModelProperty("金额")
     @ExcelIgnore
     @TableField("je")
     private BigDecimal je;

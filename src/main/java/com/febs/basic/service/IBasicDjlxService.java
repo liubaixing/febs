@@ -31,6 +31,8 @@ public interface IBasicDjlxService extends IService<BasicDjlx> {
      */
     List<BasicDjlx> findBasicDjlxs(BasicDjlx basicDjlx);
 
+    BasicDjlx findOneByQuery(BasicDjlx djlx);
+
     /**
      * 新增
      *
