@@ -217,6 +217,9 @@ public class OrderXsBiz {
         if (orderXs == null) {
             throw new FebsException("销售单不存在");
         }
+        if (status == true && orderXs.getQr() == 1) throw new FebsException("销售单已确认");
+        if (status == false && orderXs.getQr() == 0) throw new FebsException("销售单未确认");
+
         orderXs.setQr(req.getQr());
         orderXs.setQrr(req.getQrr());
         orderXs.setQrrq(new Date());
@@ -229,6 +232,8 @@ public class OrderXsBiz {
         if (orderXs == null) {
             throw new FebsException("销售单不存在");
         }
+        if (status == true && orderXs.getSh() == 1) throw new FebsException("销售单已审核");
+        if (status == false && orderXs.getSh() == 0) throw new FebsException("销售单未审核");
         orderXs.setSh(req.getSh());
         orderXs.setShr(req.getShr());
         orderXs.setShrq(new Date());
@@ -254,6 +259,18 @@ public class OrderXsBiz {
         orderXs.setZxrq(new Date());
         xsService.updateOrderXs(orderXs);
 
+        Cangku ck = cangkuService.findById(orderXs.getCangkuId());
+
+        if (ck == null) throw new FebsException("销售单仓库不存在");
+
+        if (0 == ck.getCkxz()){
+            //自发，生成出库单
+        }else{
+            //直发，生成采购单
+
+
+        }
+
     }
 
     public void closeOrderXs(OrderXs req,boolean status){
@@ -266,6 +283,18 @@ public class OrderXsBiz {
         orderXs.setGbr(req.getGbr());
         orderXs.setGbrq(new Date());
         xsService.updateOrderXs(orderXs);
+
+    }
+
+    public void returnOrderXs(Long id , OrderXsReq req){
+        OrderXsmx mx = xsmxService.findById(id);
+        if (mx == null) {
+            throw new FebsException("销售单不存在");
+        }
+
+        if((req.getTksl() + mx.getTksl()) > mx.getJhsl()) throw new FebsException("退款数量大于销售单数量");
+//        if (req.getTkje().add(mx.getTkje()).compareTo(mx.get))
+
 
     }
 

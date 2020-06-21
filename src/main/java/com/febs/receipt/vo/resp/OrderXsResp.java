@@ -60,7 +60,7 @@ public class OrderXsResp extends OrderXs {
     private BigDecimal dj;
 
     @ExcelProperty(value = "金额",index = 25)
-    private BigDecimal je;
+    private BigDecimal mxje;
 
     @ExcelProperty(value = "平台折扣",index = 26)
     private BigDecimal zk;

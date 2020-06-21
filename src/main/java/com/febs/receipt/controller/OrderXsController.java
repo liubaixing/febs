@@ -217,7 +217,7 @@ public class OrderXsController extends BaseController {
         req.setId(id);
         req.setGb((byte)1);
         req.setGbr(user.getUsername());
-        this.orderXsBiz.executeOrderXs(req,true);
+        this.orderXsBiz.closeOrderXs(req,true);
         return new FebsResponse().success();
     }
 
@@ -230,7 +230,16 @@ public class OrderXsController extends BaseController {
         req.setId(id);
         req.setGb((byte)1);
         req.setGbr(user.getUsername());
-        this.orderXsBiz.executeOrderXs(req,false);
+        this.orderXsBiz.closeOrderXs(req,false);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("生成销退单")
+    @ControllerEndpoint(operation = "生成销退单", exceptionMessage = "生成销退单失败")
+    @PostMapping("/return/{id}")
+    @RequiresPermissions("orderXs:return")
+    public FebsResponse orderXsReturn(@PathVariable Long id,OrderXsReq req){
+
         return new FebsResponse().success();
     }
 

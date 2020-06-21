@@ -103,6 +103,11 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
     }
 
     @Override
+    public Cangku findById(Integer id){
+        return cangkuMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     @Transactional
     public void updateCangku(Cangku cangku) {
         if(cangku.getId()==null){

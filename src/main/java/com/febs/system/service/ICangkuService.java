@@ -40,6 +40,8 @@ public interface ICangkuService extends IService<Cangku> {
 
     Cangku findOneByQuery(Cangku cangku);
 
+    Cangku findById(Integer id);
+
     /**
      * 修改
      *

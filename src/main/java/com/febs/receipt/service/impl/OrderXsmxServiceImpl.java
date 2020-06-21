@@ -46,6 +46,11 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     }
 
     @Override
+    public OrderXsmx findById(Long id){
+        return this.orderXsmxMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     @Transactional
     public void createOrderXsmx(OrderXsmx orderXsmx) {
         this.orderXsmxMapper.insertSelective(orderXsmx);

@@ -201,36 +201,42 @@ public class OrderXs {
     /**
      * 开票数量
      */
+    @ApiModelProperty("开票数量")
     @ExcelIgnore
     private Integer kpsl;
 
     /**
      * 收款数量
      */
+    @ApiModelProperty("收款数量")
     @ExcelIgnore
     private Integer sksl;
 
     /**
      * 退款数量
      */
+    @ApiModelProperty("退款数量")
     @ExcelIgnore
     private Integer tksl;
 
     /**
      * 开票金额
      */
+    @ApiModelProperty("开票金额")
     @ExcelIgnore
     private BigDecimal kpje;
 
     /**
      * 收款金额
      */
+    @ApiModelProperty("收款金额")
     @ExcelIgnore
     private BigDecimal skje;
 
     /**
      * 退款金额
      */
+    @ApiModelProperty("退款金额")
     @ExcelIgnore
     private BigDecimal tkje;
 
