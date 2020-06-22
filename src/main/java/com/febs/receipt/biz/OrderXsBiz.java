@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderXsBiz {
@@ -79,8 +80,21 @@ public class OrderXsBiz {
         if(CollectionUtils.isEmpty(orderXsReq.getOrderXsmxList())){
             throw new FebsException("商品明细不能为空");
         }
+        Integer total = 0;
+        BigDecimal totalAmount = new BigDecimal(0);
+        List<OrderXsmx> mxList = orderXsReq.getOrderXsmxList();
+
+        for (OrderXsmx mx : mxList){
+            total += mx.getJhsl();
+            totalAmount = totalAmount.add(mx.getJe());
+            mx.setXsje(mx.getJe().multiply(mx.getZk()));
+        }
+
+        orderXsReq.setSl(total);
+        orderXsReq.setJe(totalAmount);
         orderXsReq.setXdrq(new Date());
         Long orderXsId = xsService.createOrderXs(orderXsReq);
+
         for(OrderXsmx mx : orderXsReq.getOrderXsmxList()){
             mx.setPid(orderXsId);
             xsmxService.createOrderXsmx(mx);
