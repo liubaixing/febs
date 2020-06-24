@@ -47,7 +47,7 @@ public interface IOrderXsmxService extends IService<OrderXsmx> {
      *
      * @param orderXsmx orderXsmx
      */
-    void updateOrderXsmx(OrderXsmx orderXsmx);
+    OrderXsmx updateOrderXsmx(OrderXsmx orderXsmx);
 
     /**
      * 删除

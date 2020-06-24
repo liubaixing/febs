@@ -34,6 +34,8 @@ public interface IOrderXtService extends IService<OrderXt> {
      */
     List<OrderXt> findOrderXts(OrderXtReq orderXt);
 
+    OrderXt findById(Long id);
+
     /**
      * 新增
      *

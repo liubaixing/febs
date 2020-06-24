@@ -32,6 +32,8 @@ public interface IOrderXtmxService extends IService<OrderXtmx> {
      */
     List<OrderXtmx> findOrderXtmxs(OrderXtmx orderXtmx);
 
+    OrderXtmx findById(Long id);
+
     /**
      * 新增
      *

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.exception.FebsException;
+import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.entity.OrderXt;
 import com.febs.receipt.entity.OrderXtmx;
@@ -12,6 +13,7 @@ import com.febs.receipt.service.IOrderXtmxService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXtReq;
 import com.febs.receipt.vo.resp.OrderXtResp;
+import com.febs.system.entity.Cangku;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,35 +62,54 @@ public class OrderXtBiz {
     }
 
 
-    public OrderXtResp orderXtStatusCheck(Long id, String type, boolean status, String user){
-        byte sta = 0;//状态
-        if (status)
-            sta =1;
-        OrderXt orderXt = new OrderXt();
-        orderXt.setId(id);
-        switch (type){
-            case "CONFIRM" :
-                //确认
-                orderXt.setQr(sta);
-                orderXt.setQrr(user);
-                orderXt.setQrrq(new Date());
-                break;
-            case "CHECK" :
-                //审核
-                orderXt.setSh(sta);
-                orderXt.setShr(user);
-                orderXt.setShrq(new Date());
-                break;
-            case "EXECUTE" :
-                //执行
-                orderXt.setZx(sta);
-                orderXt.setZxr(user);
-                orderXt.setZxrq(new Date());
-                break;
-            default:
-                throw new FebsException("接口状态不存在");
+    public void confirmOrderXs(OrderXs req, boolean status){
+        OrderXt orderXt = xtService.findById(req.getId());
+        if (orderXt == null) {
+            throw new FebsException("销退单不存在");
         }
-        return xtService.updateOrderXt(orderXt);
+        if (status == true && orderXt.getQr() == 1) throw new FebsException("销退单已确认");
+        if (status == false && orderXt.getQr() == 0) throw new FebsException("销退单未确认");
+
+        orderXt.setQr(req.getQr());
+        orderXt.setQrr(req.getQrr());
+        orderXt.setQrrq(new Date());
+        xtService.updateOrderXt(orderXt);
     }
+
+
+    public void checkOrderXs(OrderXs req,boolean status){
+        OrderXt orderXt = xtService.findById(req.getId());
+        if (orderXt == null) {
+            throw new FebsException("销退单不存在");
+        }
+        if (status == true && orderXt.getSh() == 1) throw new FebsException("销退单已审核");
+        if (status == false && orderXt.getSh() == 0) throw new FebsException("销退单未审核");
+        orderXt.setSh(req.getSh());
+        orderXt.setShr(req.getShr());
+        orderXt.setShrq(new Date());
+        xtService.updateOrderXt(orderXt);
+    }
+
+    public void executeOrderXs(OrderXsReq req,boolean status){
+        OrderXtmx xtmx = xtmxService.findById(req.getMxId());
+        if (xtmx == null) {
+            throw new FebsException("销售单不存在");
+        }
+        if (xtmx.getJhsl() == (xtmx.getTzsl()+xtmx.getCksl())) {
+            throw new FebsException("订单已执行完毕");
+        }
+
+
+    }
+
+    public void closeOrderXs(OrderXs req,boolean status){
+        OrderXt orderXt = xtService.findById(req.getId());
+        if (orderXt == null) {
+            throw new FebsException("销售单不存在");
+        }
+
+    }
+
+
 
 }

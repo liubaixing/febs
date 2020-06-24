@@ -73,6 +73,42 @@ public class OrderXsfp {
     private Date zdrq;
 
     /**
+     * 0-未确认 1-已确认
+     */
+    @TableField("qr")
+    private Byte qr;
+
+    /**
+     * 确认人
+     */
+    @TableField("qrr")
+    private String qrr;
+
+    /**
+     * 确认日期
+     */
+    @TableField("qrrq")
+    private Date qrrq;
+
+    /**
+     * 0-未开票 1-已开票
+     */
+    @TableField("kp")
+    private Byte kp;
+
+    /**
+     * 开票人
+     */
+    @TableField("kpr")
+    private String kpr;
+
+    /**
+     * 开票日期
+     */
+    @TableField("kprq")
+    private Date kprq;
+
+    /**
      * 0-未审核 1-已审核
      */
     @TableField("sh")

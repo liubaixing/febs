@@ -49,6 +49,11 @@ public class OrderXtServiceImpl extends ServiceImpl<OrderXtMapper, OrderXt> impl
     }
 
     @Override
+    public OrderXt findById(Long id){
+        return this.orderXtMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     @Transactional
     public Long createOrderXt(OrderXt orderXt) {
         this.orderXtMapper.insertSelective(orderXt);

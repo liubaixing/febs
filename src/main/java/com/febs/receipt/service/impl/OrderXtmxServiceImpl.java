@@ -47,6 +47,11 @@ public class OrderXtmxServiceImpl extends ServiceImpl<OrderXtmxMapper, OrderXtmx
     }
 
     @Override
+    public OrderXtmx findById(Long id){
+        return orderXtmxMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     @Transactional
     public void createOrderXtmx(OrderXtmx orderXtmx) {
         LambdaQueryWrapper<OrderXtmx> queryWrapper = new LambdaQueryWrapper<>();

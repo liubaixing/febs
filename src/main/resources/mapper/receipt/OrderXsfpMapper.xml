@@ -452,5 +452,61 @@
       deleted = #{deleted,jdbcType=INTEGER}
     where Id = #{id,jdbcType=BIGINT}
   </update>
-    
+
+
+    <sql id="Page_Column_List">
+        fp.Id, fp.djbh, fp.djrq, fp.ghdw_id, fp.je, fp.bz, fp.fj, fp.zdr, fp.zdrq, fp.sh, fp.shr, fp.shrq, fp.zf, fp.zfr, fp.zfrq, fp.ex1,
+        fp.ex2, fp.ex3, fp.create_time, fp.update_time, fp.deleted
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsfpReq" resultType="com.febs.receipt.vo.resp.OrderXsfpResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,mx.id mxId,mx.ydjh,mx.sp_id,mx.sl,mx.je,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
+        FROM order_xsfp fp
+        LEFT JOIN order_xsfpmx mx on mx.pid = fp.id
+        LEFT JOIN basic_ptda da on fp.ghdw_id = da.id
+        LEFT JOIN shangpin sp on mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="deleted != null">
+                and fp.deleted = #{deleted}
+            </if>
+            <if test="startTime != null and endTime != null">
+                and fp.djrq between #{startTime} and #{endTime}
+            </if>
+            <if test="djbh != null and djbh != ''">
+                fp.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="qr != null">
+                and fp.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and fp.qrr = #{qrr}
+            </if>
+            <if test="sh != null">
+                and fp.sh = #{sh}
+            </if>
+            <if test="shr != null and shr != ''">
+                and fp.shr = #{shr}
+            </if>
+            <if test="kp != null">
+                and fp.kp = #{kp}
+            </if>
+            <if test="kpr != null and kpr != ''">
+                and fp.kpr = #{kpr}
+            </if>
+            <if test="zdr != null and zdr != ''">
+                and fp.zdr = #{zdr}
+            </if>
+            <if test="ptdamc != null and ptdamc != ''">
+                and da.ptdamc like CONCAT('%',#{ptdamc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and sp.spmc like CONCAT('%',#{spmc},'%')
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

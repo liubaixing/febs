@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.receipt.vo.req.OrderXsfpReq;
+import com.febs.receipt.vo.resp.OrderXsfpResp;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +34,9 @@ public class OrderXsfpServiceImpl extends ServiceImpl<OrderXsfpMapper, OrderXsfp
     private OrderXsfpMapper orderXsfpMapper;
 
     @Override
-    public IPage<OrderXsfp> findOrderXsfps(QueryRequest request, OrderXsfp orderXsfp) {
-        LambdaQueryWrapper<OrderXsfp> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<OrderXsfpResp> findOrderXsfps(QueryRequest request, OrderXsfpReq orderXsfp) {
         Page<OrderXsfp> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return orderXsfpMapper.selectPageByQuery(page,orderXsfp);
     }
 
     @Override

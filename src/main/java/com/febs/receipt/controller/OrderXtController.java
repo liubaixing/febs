@@ -7,11 +7,15 @@ import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXtBiz;
+import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXt;
 import com.febs.receipt.service.IOrderXtService;
 
+import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXtReq;
 import com.febs.receipt.vo.resp.OrderXtResp;
+import com.febs.system.entity.User;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +86,106 @@ public class OrderXtController extends BaseController {
         this.xtBiz.update(orderXt);
         return new FebsResponse().success();
     }
+
+    @ApiOperation("确认")
+    @ControllerEndpoint(operation = "确认销退单", exceptionMessage = "确认销退单失败")
+    @PostMapping("/confirm/{id}")
+    @RequiresPermissions("orderXs:confirm")
+    public FebsResponse orderXsConfirm(@PathVariable Long id){
+        User user = getCurrentUser();
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setQr((byte)1);
+        req.setQrr(user.getUsername());
+        this.xtBiz.confirmOrderXs(req,true);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("反确认")
+    @ControllerEndpoint(operation = "反确销退单单", exceptionMessage = "反确认销退单失败")
+    @PostMapping("/unConfirm/{id}")
+    @RequiresPermissions("orderXs:unConfirm")
+    public FebsResponse orderXsUnConfirm(@PathVariable Long id){
+        User user = getCurrentUser();
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setQr((byte)1);
+        req.setQrr(user.getUsername());
+        this.xtBiz.confirmOrderXs(req,false);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("审核")
+    @ControllerEndpoint(operation = "审核销退单", exceptionMessage = "审核销退单失败")
+    @PostMapping("/check/{id}")
+    @RequiresPermissions("orderXs:check")
+    public FebsResponse orderXsCheck(@PathVariable Long id ){
+        User user = getCurrentUser();
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setSh((byte)1);
+        req.setShr(user.getUsername());
+        this.xtBiz.checkOrderXs(req,true);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("反审核")
+    @ControllerEndpoint(operation = "反审销退单单", exceptionMessage = "反审核销退单失败")
+    @PostMapping("/unCheck/{id}")
+    @RequiresPermissions("orderXs:unCheck")
+    public FebsResponse orderXsUnCheck(@PathVariable Long id ){
+        User user = getCurrentUser();
+        OrderXs req = new OrderXs();
+        req.setId(id);
+        req.setSh((byte)1);
+        req.setShr(user.getUsername());
+        this.xtBiz.checkOrderXs(req,false);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("执行")
+    @ControllerEndpoint(operation = "执行销退单", exceptionMessage = "执行销退单失败")
+    @PostMapping("/execute/{id}")
+    @RequiresPermissions("orderXs:execute")
+    public FebsResponse orderXsExecute(@PathVariable Long id, OrderXsReq req){
+        User user = getCurrentUser();
+        req.setMxId(id);
+        req.setZx((byte)1);
+        req.setZxr(user.getUsername());
+        this.xtBiz.executeOrderXs(req,true);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("反执行")
+    @ControllerEndpoint(operation = "反执行销退单", exceptionMessage = "反执行销退单失败")
+    @PostMapping("/unExecute/{id}")
+    @RequiresPermissions("orderXs:unExecute")
+    public FebsResponse orderXsUnExecute(@PathVariable Long id,OrderXsReq req){
+        User user = getCurrentUser();
+        req.setMxId(id);
+        req.setZx((byte)1);
+        req.setZxr(user.getUsername());
+        this.xtBiz.executeOrderXs(req,false);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("作废")
+    @ControllerEndpoint(operation = "作废销退单", exceptionMessage = "作废销退单失败")
+    @PostMapping("/invalid/{id}/{status}")
+    @RequiresPermissions("orderXs:invalid")
+    public FebsResponse orderXsInvalid(
+            @PathVariable Long id,
+            @PathVariable boolean status
+    ){
+        User user = getCurrentUser();
+        OrderXt orderXt = new OrderXt();
+        orderXt.setZf((byte)1);
+        orderXt.setZfr(user.getUsername());
+        orderXt.setZfrq(new Date());
+        xtBiz.update(orderXt);
+        return new FebsResponse().success();
+    }
+
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")

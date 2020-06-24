@@ -9,6 +9,8 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.entity.OrderXsfp;
 import com.febs.receipt.service.IOrderXsfpService;
 
+import com.febs.receipt.vo.req.OrderXsfpReq;
+import com.febs.receipt.vo.resp.OrderXsfpResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class OrderXsfpController extends BaseController {
 
     @GetMapping("/list")
     @RequiresPermissions("orderXsfp:list")
-    public FebsResponse orderXsfpList(QueryRequest request, OrderXsfp orderXsfp) {
+    public FebsResponse orderXsfpList(QueryRequest request, OrderXsfpReq orderXsfp) {
         Map<String, Object> dataTable = getDataTable(this.orderXsfpService.findOrderXsfps(request, orderXsfp));
         return new FebsResponse().success().data(dataTable);
     }
@@ -79,8 +81,8 @@ public class OrderXsfpController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderXsfp:export")
-    public void export(QueryRequest queryRequest, OrderXsfp orderXsfp, HttpServletResponse response) throws IOException {
-        List<OrderXsfp> orderXsfps = this.orderXsfpService.findOrderXsfps(queryRequest, orderXsfp).getRecords();
-        ExcelUtil.export(orderXsfps, OrderXsfp.class,"销售发票",response);
+    public void export(QueryRequest queryRequest, OrderXsfpReq orderXsfp, HttpServletResponse response) throws IOException {
+        List<OrderXsfpResp> orderXsfps = this.orderXsfpService.findOrderXsfps(queryRequest, orderXsfp).getRecords();
+        ExcelUtil.export(orderXsfps, OrderXsfpResp.class,"销售发票",response);
     }
 }

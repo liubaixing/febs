@@ -169,9 +169,9 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
     @PostMapping("/execute/{id}")
     @RequiresPermissions("orderXs:execute")
-    public FebsResponse orderXsExecute(@PathVariable Long id,OrderXs req){
+    public FebsResponse orderXsExecute(@PathVariable Long id,OrderXsReq req){
         User user = getCurrentUser();
-        req.setId(id);
+        req.setMxId(id);
         req.setZx((byte)1);
         req.setZxr(user.getUsername());
         this.orderXsBiz.executeOrderXs(req,true);
@@ -182,9 +182,9 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "反执行销售单", exceptionMessage = "反执行销售单失败")
     @PostMapping("/unExecute/{id}")
     @RequiresPermissions("orderXs:unExecute")
-    public FebsResponse orderXsUnExecute(@PathVariable Long id,OrderXs req){
+    public FebsResponse orderXsUnExecute(@PathVariable Long id,OrderXsReq req){
         User user = getCurrentUser();
-        req.setId(id);
+        req.setMxId(id);
         req.setZx((byte)1);
         req.setZxr(user.getUsername());
         this.orderXsBiz.executeOrderXs(req,false);
@@ -239,7 +239,9 @@ public class OrderXsController extends BaseController {
     @PostMapping("/return/{id}")
     @RequiresPermissions("orderXs:return")
     public FebsResponse orderXsReturn(@PathVariable Long id,OrderXsReq req){
-
+        User user = getCurrentUser();
+        req.setUserName(user.getUsername());
+        orderXsBiz.returnOrderXs(id,req);
         return new FebsResponse().success();
     }
 

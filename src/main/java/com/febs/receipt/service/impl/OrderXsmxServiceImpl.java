@@ -58,8 +58,9 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
 
     @Override
     @Transactional
-    public void updateOrderXsmx(OrderXsmx orderXsmx) {
+    public OrderXsmx updateOrderXsmx(OrderXsmx orderXsmx) {
         this.orderXsmxMapper.updateByPrimaryKeySelective(orderXsmx);
+        return this.orderXsmxMapper.selectByPrimaryKey(orderXsmx.getId());
     }
 
     @Override

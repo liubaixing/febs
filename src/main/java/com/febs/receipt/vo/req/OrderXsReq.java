@@ -44,6 +44,9 @@ public class OrderXsReq extends OrderXs {
     @ApiModelProperty("客户区域")
     private String khqymc;
 
+    @ApiModelProperty("商品id")
+    private Integer spId;
+
     @ApiModelProperty("商品代码")
     private String spdm;
 
@@ -52,6 +55,8 @@ public class OrderXsReq extends OrderXs {
 
     @ApiModelProperty("商品条码")
     private String memo;
+
+    private Long mxId;
 
     List<OrderXsmx> orderXsmxList;
 
