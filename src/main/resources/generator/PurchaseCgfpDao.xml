@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.PurchaseCgfpDao">
+  <resultMap id="BaseResultMap" type="generate.PurchaseCgfp">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="djbh" jdbcType="VARCHAR" property="djbh" />
+    <result column="djrq" jdbcType="INTEGER" property="djrq" />
+    <result column="gys_id" jdbcType="INTEGER" property="gysId" />
+    <result column="khyh_id" jdbcType="INTEGER" property="khyhId" />
+    <result column="je" jdbcType="DECIMAL" property="je" />
+    <result column="bz" jdbcType="VARCHAR" property="bz" />
+    <result column="fj" jdbcType="VARCHAR" property="fj" />
+    <result column="zdr" jdbcType="VARCHAR" property="zdr" />
+    <result column="zdrq" jdbcType="INTEGER" property="zdrq" />
+    <result column="qr" jdbcType="TINYINT" property="qr" />
+    <result column="qrr" jdbcType="VARCHAR" property="qrr" />
+    <result column="qrrq" jdbcType="INTEGER" property="qrrq" />
+    <result column="sh" jdbcType="TINYINT" property="sh" />
+    <result column="shr" jdbcType="VARCHAR" property="shr" />
+    <result column="shrq" jdbcType="INTEGER" property="shrq" />
+    <result column="kp" jdbcType="TINYINT" property="kp" />
+    <result column="kpr" jdbcType="VARCHAR" property="kpr" />
+    <result column="kprq" jdbcType="INTEGER" property="kprq" />
+    <result column="zf" jdbcType="TINYINT" property="zf" />
+    <result column="zfr" jdbcType="VARCHAR" property="zfr" />
+    <result column="zfrq" jdbcType="INTEGER" property="zfrq" />
+    <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+    <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+    <result column="ex3" jdbcType="VARCHAR" property="ex3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, djbh, djrq, gys_id, khyh_id, je, bz, fj, zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq, 
+    kp, kpr, kprq, zf, zfr, zfrq, ex1, ex2, ex3
+  </sql>
+  <select id="selectByExample" parameterType="generate.PurchaseCgfpExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purchase_cgfp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_cgfp
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from purchase_cgfp
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="generate.PurchaseCgfpExample">
+    delete from purchase_cgfp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="generate.PurchaseCgfp" useGeneratedKeys="true">
+    insert into purchase_cgfp (djbh, djrq, gys_id, 
+      khyh_id, je, bz, fj, 
+      zdr, zdrq, qr, qrr, 
+      qrrq, sh, shr, shrq, 
+      kp, kpr, kprq, zf, 
+      zfr, zfrq, ex1, ex2, 
+      ex3)
+    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=INTEGER}, #{gysId,jdbcType=INTEGER}, 
+      #{khyhId,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, 
+      #{zdr,jdbcType=VARCHAR}, #{zdrq,jdbcType=INTEGER}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR}, 
+      #{qrrq,jdbcType=INTEGER}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=INTEGER}, 
+      #{kp,jdbcType=TINYINT}, #{kpr,jdbcType=VARCHAR}, #{kprq,jdbcType=INTEGER}, #{zf,jdbcType=TINYINT}, 
+      #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, 
+      #{ex3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="generate.PurchaseCgfp" useGeneratedKeys="true">
+    insert into purchase_cgfp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="djbh != null">
+        djbh,
+      </if>
+      <if test="djrq != null">
+        djrq,
+      </if>
+      <if test="gysId != null">
+        gys_id,
+      </if>
+      <if test="khyhId != null">
+        khyh_id,
+      </if>
+      <if test="je != null">
+        je,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="fj != null">
+        fj,
+      </if>
+      <if test="zdr != null">
+        zdr,
+      </if>
+      <if test="zdrq != null">
+        zdrq,
+      </if>
+      <if test="qr != null">
+        qr,
+      </if>
+      <if test="qrr != null">
+        qrr,
+      </if>
+      <if test="qrrq != null">
+        qrrq,
+      </if>
+      <if test="sh != null">
+        sh,
+      </if>
+      <if test="shr != null">
+        shr,
+      </if>
+      <if test="shrq != null">
+        shrq,
+      </if>
+      <if test="kp != null">
+        kp,
+      </if>
+      <if test="kpr != null">
+        kpr,
+      </if>
+      <if test="kprq != null">
+        kprq,
+      </if>
+      <if test="zf != null">
+        zf,
+      </if>
+      <if test="zfr != null">
+        zfr,
+      </if>
+      <if test="zfrq != null">
+        zfrq,
+      </if>
+      <if test="ex1 != null">
+        ex1,
+      </if>
+      <if test="ex2 != null">
+        ex2,
+      </if>
+      <if test="ex3 != null">
+        ex3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="djbh != null">
+        #{djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="djrq != null">
+        #{djrq,jdbcType=INTEGER},
+      </if>
+      <if test="gysId != null">
+        #{gysId,jdbcType=INTEGER},
+      </if>
+      <if test="khyhId != null">
+        #{khyhId,jdbcType=INTEGER},
+      </if>
+      <if test="je != null">
+        #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="fj != null">
+        #{fj,jdbcType=VARCHAR},
+      </if>
+      <if test="zdr != null">
+        #{zdr,jdbcType=VARCHAR},
+      </if>
+      <if test="zdrq != null">
+        #{zdrq,jdbcType=INTEGER},
+      </if>
+      <if test="qr != null">
+        #{qr,jdbcType=TINYINT},
+      </if>
+      <if test="qrr != null">
+        #{qrr,jdbcType=VARCHAR},
+      </if>
+      <if test="qrrq != null">
+        #{qrrq,jdbcType=INTEGER},
+      </if>
+      <if test="sh != null">
+        #{sh,jdbcType=TINYINT},
+      </if>
+      <if test="shr != null">
+        #{shr,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null">
+        #{shrq,jdbcType=INTEGER},
+      </if>
+      <if test="kp != null">
+        #{kp,jdbcType=TINYINT},
+      </if>
+      <if test="kpr != null">
+        #{kpr,jdbcType=VARCHAR},
+      </if>
+      <if test="kprq != null">
+        #{kprq,jdbcType=INTEGER},
+      </if>
+      <if test="zf != null">
+        #{zf,jdbcType=TINYINT},
+      </if>
+      <if test="zfr != null">
+        #{zfr,jdbcType=VARCHAR},
+      </if>
+      <if test="zfrq != null">
+        #{zfrq,jdbcType=INTEGER},
+      </if>
+      <if test="ex1 != null">
+        #{ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="ex2 != null">
+        #{ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="ex3 != null">
+        #{ex3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="generate.PurchaseCgfpExample" resultType="java.lang.Long">
+    select count(*) from purchase_cgfp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update purchase_cgfp
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.djbh != null">
+        djbh = #{record.djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.djrq != null">
+        djrq = #{record.djrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.gysId != null">
+        gys_id = #{record.gysId,jdbcType=INTEGER},
+      </if>
+      <if test="record.khyhId != null">
+        khyh_id = #{record.khyhId,jdbcType=INTEGER},
+      </if>
+      <if test="record.je != null">
+        je = #{record.je,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bz != null">
+        bz = #{record.bz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fj != null">
+        fj = #{record.fj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zdr != null">
+        zdr = #{record.zdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zdrq != null">
+        zdrq = #{record.zdrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.qr != null">
+        qr = #{record.qr,jdbcType=TINYINT},
+      </if>
+      <if test="record.qrr != null">
+        qrr = #{record.qrr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrrq != null">
+        qrrq = #{record.qrrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.sh != null">
+        sh = #{record.sh,jdbcType=TINYINT},
+      </if>
+      <if test="record.shr != null">
+        shr = #{record.shr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shrq != null">
+        shrq = #{record.shrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.kp != null">
+        kp = #{record.kp,jdbcType=TINYINT},
+      </if>
+      <if test="record.kpr != null">
+        kpr = #{record.kpr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kprq != null">
+        kprq = #{record.kprq,jdbcType=INTEGER},
+      </if>
+      <if test="record.zf != null">
+        zf = #{record.zf,jdbcType=TINYINT},
+      </if>
+      <if test="record.zfr != null">
+        zfr = #{record.zfr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zfrq != null">
+        zfrq = #{record.zfrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.ex1 != null">
+        ex1 = #{record.ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ex2 != null">
+        ex2 = #{record.ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ex3 != null">
+        ex3 = #{record.ex3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update purchase_cgfp
+    set Id = #{record.id,jdbcType=BIGINT},
+      djbh = #{record.djbh,jdbcType=VARCHAR},
+      djrq = #{record.djrq,jdbcType=INTEGER},
+      gys_id = #{record.gysId,jdbcType=INTEGER},
+      khyh_id = #{record.khyhId,jdbcType=INTEGER},
+      je = #{record.je,jdbcType=DECIMAL},
+      bz = #{record.bz,jdbcType=VARCHAR},
+      fj = #{record.fj,jdbcType=VARCHAR},
+      zdr = #{record.zdr,jdbcType=VARCHAR},
+      zdrq = #{record.zdrq,jdbcType=INTEGER},
+      qr = #{record.qr,jdbcType=TINYINT},
+      qrr = #{record.qrr,jdbcType=VARCHAR},
+      qrrq = #{record.qrrq,jdbcType=INTEGER},
+      sh = #{record.sh,jdbcType=TINYINT},
+      shr = #{record.shr,jdbcType=VARCHAR},
+      shrq = #{record.shrq,jdbcType=INTEGER},
+      kp = #{record.kp,jdbcType=TINYINT},
+      kpr = #{record.kpr,jdbcType=VARCHAR},
+      kprq = #{record.kprq,jdbcType=INTEGER},
+      zf = #{record.zf,jdbcType=TINYINT},
+      zfr = #{record.zfr,jdbcType=VARCHAR},
+      zfrq = #{record.zfrq,jdbcType=INTEGER},
+      ex1 = #{record.ex1,jdbcType=VARCHAR},
+      ex2 = #{record.ex2,jdbcType=VARCHAR},
+      ex3 = #{record.ex3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.PurchaseCgfp">
+    update purchase_cgfp
+    <set>
+      <if test="djbh != null">
+        djbh = #{djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="djrq != null">
+        djrq = #{djrq,jdbcType=INTEGER},
+      </if>
+      <if test="gysId != null">
+        gys_id = #{gysId,jdbcType=INTEGER},
+      </if>
+      <if test="khyhId != null">
+        khyh_id = #{khyhId,jdbcType=INTEGER},
+      </if>
+      <if test="je != null">
+        je = #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="bz != null">
+        bz = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="fj != null">
+        fj = #{fj,jdbcType=VARCHAR},
+      </if>
+      <if test="zdr != null">
+        zdr = #{zdr,jdbcType=VARCHAR},
+      </if>
+      <if test="zdrq != null">
+        zdrq = #{zdrq,jdbcType=INTEGER},
+      </if>
+      <if test="qr != null">
+        qr = #{qr,jdbcType=TINYINT},
+      </if>
+      <if test="qrr != null">
+        qrr = #{qrr,jdbcType=VARCHAR},
+      </if>
+      <if test="qrrq != null">
+        qrrq = #{qrrq,jdbcType=INTEGER},
+      </if>
+      <if test="sh != null">
+        sh = #{sh,jdbcType=TINYINT},
+      </if>
+      <if test="shr != null">
+        shr = #{shr,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null">
+        shrq = #{shrq,jdbcType=INTEGER},
+      </if>
+      <if test="kp != null">
+        kp = #{kp,jdbcType=TINYINT},
+      </if>
+      <if test="kpr != null">
+        kpr = #{kpr,jdbcType=VARCHAR},
+      </if>
+      <if test="kprq != null">
+        kprq = #{kprq,jdbcType=INTEGER},
+      </if>
+      <if test="zf != null">
+        zf = #{zf,jdbcType=TINYINT},
+      </if>
+      <if test="zfr != null">
+        zfr = #{zfr,jdbcType=VARCHAR},
+      </if>
+      <if test="zfrq != null">
+        zfrq = #{zfrq,jdbcType=INTEGER},
+      </if>
+      <if test="ex1 != null">
+        ex1 = #{ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="ex2 != null">
+        ex2 = #{ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="ex3 != null">
+        ex3 = #{ex3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.PurchaseCgfp">
+    update purchase_cgfp
+    set djbh = #{djbh,jdbcType=VARCHAR},
+      djrq = #{djrq,jdbcType=INTEGER},
+      gys_id = #{gysId,jdbcType=INTEGER},
+      khyh_id = #{khyhId,jdbcType=INTEGER},
+      je = #{je,jdbcType=DECIMAL},
+      bz = #{bz,jdbcType=VARCHAR},
+      fj = #{fj,jdbcType=VARCHAR},
+      zdr = #{zdr,jdbcType=VARCHAR},
+      zdrq = #{zdrq,jdbcType=INTEGER},
+      qr = #{qr,jdbcType=TINYINT},
+      qrr = #{qrr,jdbcType=VARCHAR},
+      qrrq = #{qrrq,jdbcType=INTEGER},
+      sh = #{sh,jdbcType=TINYINT},
+      shr = #{shr,jdbcType=VARCHAR},
+      shrq = #{shrq,jdbcType=INTEGER},
+      kp = #{kp,jdbcType=TINYINT},
+      kpr = #{kpr,jdbcType=VARCHAR},
+      kprq = #{kprq,jdbcType=INTEGER},
+      zf = #{zf,jdbcType=TINYINT},
+      zfr = #{zfr,jdbcType=VARCHAR},
+      zfrq = #{zfrq,jdbcType=INTEGER},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR},
+      ex3 = #{ex3,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
