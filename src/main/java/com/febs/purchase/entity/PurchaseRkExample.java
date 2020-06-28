@@ -1,4 +1,4 @@
-package generate;
+package com.febs.purchase.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

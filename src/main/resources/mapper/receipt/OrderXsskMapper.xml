@@ -24,6 +24,12 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
         <result column="deleted" jdbcType="INTEGER" property="deleted" />
+        <result column="qr" jdbcType="TINYINT" property="qr" />
+        <result column="qrr" jdbcType="VARCHAR" property="qrr" />
+        <result column="qrrq" jdbcType="INTEGER" property="qrrq" />
+        <result column="sk" jdbcType="TINYINT" property="sk" />
+        <result column="skr" jdbcType="VARCHAR" property="skr" />
+        <result column="skrq" jdbcType="INTEGER" property="skrq" />
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -84,8 +90,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, djbh, djrq, ghdw_id, je, bz, fj, zdr, zdrq, sh, shr, shrq, zf, zfr, zfrq, ex1, 
-    ex2, ex3, create_time, update_time, deleted
+    Id, djbh, djrq, ghdw_id, je, bz, fj, zdr, zdrq, sh, shr, shrq, zf, zfr, zfrq, ex1,
+    ex2, ex3, create_time, update_time, deleted, qr, qrr, qrrq, sk, skr, skrq
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsskExample" resultMap="BaseResultMap">
         select
@@ -118,18 +124,22 @@
         </if>
     </delete>
     <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXssk" useGeneratedKeys="true">
-    insert into order_xssk (djbh, djrq, ghdw_id, 
-      je, bz, fj, zdr, 
-      zdrq, sh, shr, shrq, 
-      zf, zfr, zfrq, ex1, 
-      ex2, ex3, create_time, 
-      update_time, deleted)
-    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{ghdwId,jdbcType=INTEGER}, 
-      #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, 
-      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP}, 
-      #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, 
-      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
+    insert into order_xssk (djbh, djrq, ghdw_id,
+      je, bz, fj, zdr,
+      zdrq, sh, shr, shrq,
+      zf, zfr, zfrq, ex1,
+      ex2, ex3, create_time,
+      update_time, deleted, qr,
+      qrr, qrrq, sk, skr,
+      skrq)
+    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{ghdwId,jdbcType=INTEGER},
+      #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR},
+      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
+      #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR},
+      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, #{qr,jdbcType=TINYINT},
+      #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=INTEGER}, #{sk,jdbcType=TINYINT}, #{skr,jdbcType=VARCHAR},
+      #{skrq,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXssk" useGeneratedKeys="true">
         insert into order_xssk
@@ -194,6 +204,24 @@
             <if test="deleted != null">
                 deleted,
             </if>
+            <if test="qr != null">
+                qr,
+            </if>
+            <if test="qrr != null">
+                qrr,
+            </if>
+            <if test="qrrq != null">
+                qrrq,
+            </if>
+            <if test="sk != null">
+                sk,
+            </if>
+            <if test="skr != null">
+                skr,
+            </if>
+            <if test="skrq != null">
+                skrq,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="djbh != null">
@@ -255,6 +283,24 @@
             </if>
             <if test="deleted != null">
                 #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="qr != null">
+                #{qr,jdbcType=TINYINT},
+            </if>
+            <if test="qrr != null">
+                #{qrr,jdbcType=VARCHAR},
+            </if>
+            <if test="qrrq != null">
+                #{qrrq,jdbcType=INTEGER},
+            </if>
+            <if test="sk != null">
+                #{sk,jdbcType=TINYINT},
+            </if>
+            <if test="skr != null">
+                #{skr,jdbcType=VARCHAR},
+            </if>
+            <if test="skrq != null">
+                #{skrq,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -330,6 +376,24 @@
             <if test="record.deleted != null">
                 deleted = #{record.deleted,jdbcType=INTEGER},
             </if>
+            <if test="record.qr != null">
+                qr = #{record.qr,jdbcType=TINYINT},
+            </if>
+            <if test="record.qrr != null">
+                qrr = #{record.qrr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.qrrq != null">
+                qrrq = #{record.qrrq,jdbcType=INTEGER},
+            </if>
+            <if test="record.sk != null">
+                sk = #{record.sk,jdbcType=TINYINT},
+            </if>
+            <if test="record.skr != null">
+                skr = #{record.skr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.skrq != null">
+                skrq = #{record.skrq,jdbcType=INTEGER},
+            </if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause" />
@@ -357,7 +421,13 @@
         ex3 = #{record.ex3,jdbcType=VARCHAR},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-        deleted = #{record.deleted,jdbcType=INTEGER}
+        deleted = #{record.deleted,jdbcType=INTEGER},
+        qr = #{record.qr,jdbcType=TINYINT},
+        qrr = #{record.qrr,jdbcType=VARCHAR},
+        qrrq = #{record.qrrq,jdbcType=INTEGER},
+        sk = #{record.sk,jdbcType=TINYINT},
+        skr = #{record.skr,jdbcType=VARCHAR},
+        skrq = #{record.skrq,jdbcType=INTEGER}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause" />
         </if>
@@ -425,6 +495,24 @@
             <if test="deleted != null">
                 deleted = #{deleted,jdbcType=INTEGER},
             </if>
+            <if test="qr != null">
+                qr = #{qr,jdbcType=TINYINT},
+            </if>
+            <if test="qrr != null">
+                qrr = #{qrr,jdbcType=VARCHAR},
+            </if>
+            <if test="qrrq != null">
+                qrrq = #{qrrq,jdbcType=INTEGER},
+            </if>
+            <if test="sk != null">
+                sk = #{sk,jdbcType=TINYINT},
+            </if>
+            <if test="skr != null">
+                skr = #{skr,jdbcType=VARCHAR},
+            </if>
+            <if test="skrq != null">
+                skrq = #{skrq,jdbcType=INTEGER},
+            </if>
         </set>
         where Id = #{id,jdbcType=BIGINT}
     </update>
@@ -449,8 +537,13 @@
       ex3 = #{ex3,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      deleted = #{deleted,jdbcType=INTEGER}
+      deleted = #{deleted,jdbcType=INTEGER},
+      qr = #{qr,jdbcType=TINYINT},
+      qrr = #{qrr,jdbcType=VARCHAR},
+      qrrq = #{qrrq,jdbcType=INTEGER},
+      sk = #{sk,jdbcType=TINYINT},
+      skr = #{skr,jdbcType=VARCHAR},
+      skrq = #{skrq,jdbcType=INTEGER}
     where Id = #{id,jdbcType=BIGINT}
   </update>
-    
 </mapper>

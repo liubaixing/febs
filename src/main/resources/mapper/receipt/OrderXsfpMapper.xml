@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.febs.receipt.mapper.OrderXsfpMapper">
-
     <resultMap id="BaseResultMap" type="com.febs.receipt.entity.OrderXsfp">
         <id column="Id" jdbcType="BIGINT" property="id" />
         <result column="djbh" jdbcType="VARCHAR" property="djbh" />
@@ -24,6 +23,12 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
         <result column="deleted" jdbcType="INTEGER" property="deleted" />
+        <result column="qr" jdbcType="TINYINT" property="qr" />
+        <result column="qrr" jdbcType="VARCHAR" property="qrr" />
+        <result column="qrrq" jdbcType="INTEGER" property="qrrq" />
+        <result column="kp" jdbcType="TINYINT" property="kp" />
+        <result column="kpr" jdbcType="VARCHAR" property="kpr" />
+        <result column="kprq" jdbcType="INTEGER" property="kprq" />
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -84,8 +89,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, djbh, djrq, ghdw_id, je, bz, fj, zdr, zdrq, sh, shr, shrq, zf, zfr, zfrq, ex1, 
-    ex2, ex3, create_time, update_time, deleted
+    Id, djbh, djrq, ghdw_id, je, bz, fj, zdr, zdrq, sh, shr, shrq, zf, zfr, zfrq, ex1,
+    ex2, ex3, create_time, update_time, deleted, qr, qrr, qrrq, kp, kpr, kprq
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsfpExample" resultMap="BaseResultMap">
         select
@@ -118,18 +123,22 @@
         </if>
     </delete>
     <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXsfp" useGeneratedKeys="true">
-    insert into order_xsfp (djbh, djrq, ghdw_id, 
-      je, bz, fj, zdr, 
-      zdrq, sh, shr, shrq, 
-      zf, zfr, zfrq, ex1, 
-      ex2, ex3, create_time, 
-      update_time, deleted)
-    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{ghdwId,jdbcType=INTEGER}, 
-      #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, 
-      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP}, 
-      #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, 
-      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
+    insert into order_xsfp (djbh, djrq, ghdw_id,
+      je, bz, fj, zdr,
+      zdrq, sh, shr, shrq,
+      zf, zfr, zfrq, ex1,
+      ex2, ex3, create_time,
+      update_time, deleted, qr,
+      qrr, qrrq, kp, kpr,
+      kprq)
+    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{ghdwId,jdbcType=INTEGER},
+      #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR},
+      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
+      #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR},
+      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, #{qr,jdbcType=TINYINT},
+      #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=INTEGER}, #{kp,jdbcType=TINYINT}, #{kpr,jdbcType=VARCHAR},
+      #{kprq,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXsfp" useGeneratedKeys="true">
         insert into order_xsfp
@@ -194,6 +203,24 @@
             <if test="deleted != null">
                 deleted,
             </if>
+            <if test="qr != null">
+                qr,
+            </if>
+            <if test="qrr != null">
+                qrr,
+            </if>
+            <if test="qrrq != null">
+                qrrq,
+            </if>
+            <if test="kp != null">
+                kp,
+            </if>
+            <if test="kpr != null">
+                kpr,
+            </if>
+            <if test="kprq != null">
+                kprq,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="djbh != null">
@@ -255,6 +282,24 @@
             </if>
             <if test="deleted != null">
                 #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="qr != null">
+                #{qr,jdbcType=TINYINT},
+            </if>
+            <if test="qrr != null">
+                #{qrr,jdbcType=VARCHAR},
+            </if>
+            <if test="qrrq != null">
+                #{qrrq,jdbcType=INTEGER},
+            </if>
+            <if test="kp != null">
+                #{kp,jdbcType=TINYINT},
+            </if>
+            <if test="kpr != null">
+                #{kpr,jdbcType=VARCHAR},
+            </if>
+            <if test="kprq != null">
+                #{kprq,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -330,6 +375,24 @@
             <if test="record.deleted != null">
                 deleted = #{record.deleted,jdbcType=INTEGER},
             </if>
+            <if test="record.qr != null">
+                qr = #{record.qr,jdbcType=TINYINT},
+            </if>
+            <if test="record.qrr != null">
+                qrr = #{record.qrr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.qrrq != null">
+                qrrq = #{record.qrrq,jdbcType=INTEGER},
+            </if>
+            <if test="record.kp != null">
+                kp = #{record.kp,jdbcType=TINYINT},
+            </if>
+            <if test="record.kpr != null">
+                kpr = #{record.kpr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.kprq != null">
+                kprq = #{record.kprq,jdbcType=INTEGER},
+            </if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause" />
@@ -357,7 +420,13 @@
         ex3 = #{record.ex3,jdbcType=VARCHAR},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-        deleted = #{record.deleted,jdbcType=INTEGER}
+        deleted = #{record.deleted,jdbcType=INTEGER},
+        qr = #{record.qr,jdbcType=TINYINT},
+        qrr = #{record.qrr,jdbcType=VARCHAR},
+        qrrq = #{record.qrrq,jdbcType=INTEGER},
+        kp = #{record.kp,jdbcType=TINYINT},
+        kpr = #{record.kpr,jdbcType=VARCHAR},
+        kprq = #{record.kprq,jdbcType=INTEGER}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause" />
         </if>
@@ -425,6 +494,24 @@
             <if test="deleted != null">
                 deleted = #{deleted,jdbcType=INTEGER},
             </if>
+            <if test="qr != null">
+                qr = #{qr,jdbcType=TINYINT},
+            </if>
+            <if test="qrr != null">
+                qrr = #{qrr,jdbcType=VARCHAR},
+            </if>
+            <if test="qrrq != null">
+                qrrq = #{qrrq,jdbcType=INTEGER},
+            </if>
+            <if test="kp != null">
+                kp = #{kp,jdbcType=TINYINT},
+            </if>
+            <if test="kpr != null">
+                kpr = #{kpr,jdbcType=VARCHAR},
+            </if>
+            <if test="kprq != null">
+                kprq = #{kprq,jdbcType=INTEGER},
+            </if>
         </set>
         where Id = #{id,jdbcType=BIGINT}
     </update>
@@ -449,10 +536,15 @@
       ex3 = #{ex3,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      deleted = #{deleted,jdbcType=INTEGER}
+      deleted = #{deleted,jdbcType=INTEGER},
+      qr = #{qr,jdbcType=TINYINT},
+      qrr = #{qrr,jdbcType=VARCHAR},
+      qrrq = #{qrrq,jdbcType=INTEGER},
+      kp = #{kp,jdbcType=TINYINT},
+      kpr = #{kpr,jdbcType=VARCHAR},
+      kprq = #{kprq,jdbcType=INTEGER}
     where Id = #{id,jdbcType=BIGINT}
   </update>
-
 
     <sql id="Page_Column_List">
         fp.Id, fp.djbh, fp.djrq, fp.ghdw_id, fp.je, fp.bz, fp.fj, fp.zdr, fp.zdrq, fp.sh, fp.shr, fp.shrq, fp.zf, fp.zfr, fp.zfrq, fp.ex1,

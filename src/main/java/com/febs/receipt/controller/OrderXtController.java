@@ -109,7 +109,7 @@ public class OrderXtController extends BaseController {
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
         req.setId(id);
-        req.setQr((byte)1);
+        req.setQr((byte)0);
         req.setQrr(user.getUsername());
         this.xtBiz.confirmOrderXs(req,false);
         return new FebsResponse().success();
@@ -137,7 +137,7 @@ public class OrderXtController extends BaseController {
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
         req.setId(id);
-        req.setSh((byte)1);
+        req.setSh((byte)0);
         req.setShr(user.getUsername());
         this.xtBiz.checkOrderXs(req,false);
         return new FebsResponse().success();

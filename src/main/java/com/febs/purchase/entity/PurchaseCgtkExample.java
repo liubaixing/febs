@@ -1,17 +1,17 @@
-package generate;
+package com.febs.purchase.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurchaseCgfpExample {
+public class PurchaseCgtkExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public PurchaseCgfpExample() {
+    public PurchaseCgtkExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -355,6 +355,66 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
+        public Criteria andJeIsNull() {
+            addCriterion("je is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeIsNotNull() {
+            addCriterion("je is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeEqualTo(BigDecimal value) {
+            addCriterion("je =", value, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeNotEqualTo(BigDecimal value) {
+            addCriterion("je <>", value, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeGreaterThan(BigDecimal value) {
+            addCriterion("je >", value, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("je >=", value, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeLessThan(BigDecimal value) {
+            addCriterion("je <", value, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("je <=", value, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeIn(List<BigDecimal> values) {
+            addCriterion("je in", values, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeNotIn(List<BigDecimal> values) {
+            addCriterion("je not in", values, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("je between", value1, value2, "je");
+            return (Criteria) this;
+        }
+
+        public Criteria andJeNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("je not between", value1, value2, "je");
+            return (Criteria) this;
+        }
+
         public Criteria andKhyhIdIsNull() {
             addCriterion("khyh_id is null");
             return (Criteria) this;
@@ -415,63 +475,73 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andJeIsNull() {
-            addCriterion("je is null");
+        public Criteria andYhzhIsNull() {
+            addCriterion("yhzh is null");
             return (Criteria) this;
         }
 
-        public Criteria andJeIsNotNull() {
-            addCriterion("je is not null");
+        public Criteria andYhzhIsNotNull() {
+            addCriterion("yhzh is not null");
             return (Criteria) this;
         }
 
-        public Criteria andJeEqualTo(BigDecimal value) {
-            addCriterion("je =", value, "je");
+        public Criteria andYhzhEqualTo(String value) {
+            addCriterion("yhzh =", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeNotEqualTo(BigDecimal value) {
-            addCriterion("je <>", value, "je");
+        public Criteria andYhzhNotEqualTo(String value) {
+            addCriterion("yhzh <>", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeGreaterThan(BigDecimal value) {
-            addCriterion("je >", value, "je");
+        public Criteria andYhzhGreaterThan(String value) {
+            addCriterion("yhzh >", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("je >=", value, "je");
+        public Criteria andYhzhGreaterThanOrEqualTo(String value) {
+            addCriterion("yhzh >=", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeLessThan(BigDecimal value) {
-            addCriterion("je <", value, "je");
+        public Criteria andYhzhLessThan(String value) {
+            addCriterion("yhzh <", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("je <=", value, "je");
+        public Criteria andYhzhLessThanOrEqualTo(String value) {
+            addCriterion("yhzh <=", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeIn(List<BigDecimal> values) {
-            addCriterion("je in", values, "je");
+        public Criteria andYhzhLike(String value) {
+            addCriterion("yhzh like", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeNotIn(List<BigDecimal> values) {
-            addCriterion("je not in", values, "je");
+        public Criteria andYhzhNotLike(String value) {
+            addCriterion("yhzh not like", value, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("je between", value1, value2, "je");
+        public Criteria andYhzhIn(List<String> values) {
+            addCriterion("yhzh in", values, "yhzh");
             return (Criteria) this;
         }
 
-        public Criteria andJeNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("je not between", value1, value2, "je");
+        public Criteria andYhzhNotIn(List<String> values) {
+            addCriterion("yhzh not in", values, "yhzh");
+            return (Criteria) this;
+        }
+
+        public Criteria andYhzhBetween(String value1, String value2) {
+            addCriterion("yhzh between", value1, value2, "yhzh");
+            return (Criteria) this;
+        }
+
+        public Criteria andYhzhNotBetween(String value1, String value2) {
+            addCriterion("yhzh not between", value1, value2, "yhzh");
             return (Criteria) this;
         }
 
@@ -1125,193 +1195,193 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andKpIsNull() {
-            addCriterion("kp is null");
+        public Criteria andTkIsNull() {
+            addCriterion("tk is null");
             return (Criteria) this;
         }
 
-        public Criteria andKpIsNotNull() {
-            addCriterion("kp is not null");
+        public Criteria andTkIsNotNull() {
+            addCriterion("tk is not null");
             return (Criteria) this;
         }
 
-        public Criteria andKpEqualTo(Byte value) {
-            addCriterion("kp =", value, "kp");
+        public Criteria andTkEqualTo(Byte value) {
+            addCriterion("tk =", value, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpNotEqualTo(Byte value) {
-            addCriterion("kp <>", value, "kp");
+        public Criteria andTkNotEqualTo(Byte value) {
+            addCriterion("tk <>", value, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpGreaterThan(Byte value) {
-            addCriterion("kp >", value, "kp");
+        public Criteria andTkGreaterThan(Byte value) {
+            addCriterion("tk >", value, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpGreaterThanOrEqualTo(Byte value) {
-            addCriterion("kp >=", value, "kp");
+        public Criteria andTkGreaterThanOrEqualTo(Byte value) {
+            addCriterion("tk >=", value, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpLessThan(Byte value) {
-            addCriterion("kp <", value, "kp");
+        public Criteria andTkLessThan(Byte value) {
+            addCriterion("tk <", value, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpLessThanOrEqualTo(Byte value) {
-            addCriterion("kp <=", value, "kp");
+        public Criteria andTkLessThanOrEqualTo(Byte value) {
+            addCriterion("tk <=", value, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpIn(List<Byte> values) {
-            addCriterion("kp in", values, "kp");
+        public Criteria andTkIn(List<Byte> values) {
+            addCriterion("tk in", values, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpNotIn(List<Byte> values) {
-            addCriterion("kp not in", values, "kp");
+        public Criteria andTkNotIn(List<Byte> values) {
+            addCriterion("tk not in", values, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpBetween(Byte value1, Byte value2) {
-            addCriterion("kp between", value1, value2, "kp");
+        public Criteria andTkBetween(Byte value1, Byte value2) {
+            addCriterion("tk between", value1, value2, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKpNotBetween(Byte value1, Byte value2) {
-            addCriterion("kp not between", value1, value2, "kp");
+        public Criteria andTkNotBetween(Byte value1, Byte value2) {
+            addCriterion("tk not between", value1, value2, "tk");
             return (Criteria) this;
         }
 
-        public Criteria andKprIsNull() {
-            addCriterion("kpr is null");
+        public Criteria andTkrIsNull() {
+            addCriterion("tkr is null");
             return (Criteria) this;
         }
 
-        public Criteria andKprIsNotNull() {
-            addCriterion("kpr is not null");
+        public Criteria andTkrIsNotNull() {
+            addCriterion("tkr is not null");
             return (Criteria) this;
         }
 
-        public Criteria andKprEqualTo(String value) {
-            addCriterion("kpr =", value, "kpr");
+        public Criteria andTkrEqualTo(String value) {
+            addCriterion("tkr =", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprNotEqualTo(String value) {
-            addCriterion("kpr <>", value, "kpr");
+        public Criteria andTkrNotEqualTo(String value) {
+            addCriterion("tkr <>", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprGreaterThan(String value) {
-            addCriterion("kpr >", value, "kpr");
+        public Criteria andTkrGreaterThan(String value) {
+            addCriterion("tkr >", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprGreaterThanOrEqualTo(String value) {
-            addCriterion("kpr >=", value, "kpr");
+        public Criteria andTkrGreaterThanOrEqualTo(String value) {
+            addCriterion("tkr >=", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprLessThan(String value) {
-            addCriterion("kpr <", value, "kpr");
+        public Criteria andTkrLessThan(String value) {
+            addCriterion("tkr <", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprLessThanOrEqualTo(String value) {
-            addCriterion("kpr <=", value, "kpr");
+        public Criteria andTkrLessThanOrEqualTo(String value) {
+            addCriterion("tkr <=", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprLike(String value) {
-            addCriterion("kpr like", value, "kpr");
+        public Criteria andTkrLike(String value) {
+            addCriterion("tkr like", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprNotLike(String value) {
-            addCriterion("kpr not like", value, "kpr");
+        public Criteria andTkrNotLike(String value) {
+            addCriterion("tkr not like", value, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprIn(List<String> values) {
-            addCriterion("kpr in", values, "kpr");
+        public Criteria andTkrIn(List<String> values) {
+            addCriterion("tkr in", values, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprNotIn(List<String> values) {
-            addCriterion("kpr not in", values, "kpr");
+        public Criteria andTkrNotIn(List<String> values) {
+            addCriterion("tkr not in", values, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprBetween(String value1, String value2) {
-            addCriterion("kpr between", value1, value2, "kpr");
+        public Criteria andTkrBetween(String value1, String value2) {
+            addCriterion("tkr between", value1, value2, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprNotBetween(String value1, String value2) {
-            addCriterion("kpr not between", value1, value2, "kpr");
+        public Criteria andTkrNotBetween(String value1, String value2) {
+            addCriterion("tkr not between", value1, value2, "tkr");
             return (Criteria) this;
         }
 
-        public Criteria andKprqIsNull() {
-            addCriterion("kprq is null");
+        public Criteria andTkrqIsNull() {
+            addCriterion("tkrq is null");
             return (Criteria) this;
         }
 
-        public Criteria andKprqIsNotNull() {
-            addCriterion("kprq is not null");
+        public Criteria andTkrqIsNotNull() {
+            addCriterion("tkrq is not null");
             return (Criteria) this;
         }
 
-        public Criteria andKprqEqualTo(Integer value) {
-            addCriterion("kprq =", value, "kprq");
+        public Criteria andTkrqEqualTo(Integer value) {
+            addCriterion("tkrq =", value, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqNotEqualTo(Integer value) {
-            addCriterion("kprq <>", value, "kprq");
+        public Criteria andTkrqNotEqualTo(Integer value) {
+            addCriterion("tkrq <>", value, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqGreaterThan(Integer value) {
-            addCriterion("kprq >", value, "kprq");
+        public Criteria andTkrqGreaterThan(Integer value) {
+            addCriterion("tkrq >", value, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqGreaterThanOrEqualTo(Integer value) {
-            addCriterion("kprq >=", value, "kprq");
+        public Criteria andTkrqGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tkrq >=", value, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqLessThan(Integer value) {
-            addCriterion("kprq <", value, "kprq");
+        public Criteria andTkrqLessThan(Integer value) {
+            addCriterion("tkrq <", value, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqLessThanOrEqualTo(Integer value) {
-            addCriterion("kprq <=", value, "kprq");
+        public Criteria andTkrqLessThanOrEqualTo(Integer value) {
+            addCriterion("tkrq <=", value, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqIn(List<Integer> values) {
-            addCriterion("kprq in", values, "kprq");
+        public Criteria andTkrqIn(List<Integer> values) {
+            addCriterion("tkrq in", values, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqNotIn(List<Integer> values) {
-            addCriterion("kprq not in", values, "kprq");
+        public Criteria andTkrqNotIn(List<Integer> values) {
+            addCriterion("tkrq not in", values, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqBetween(Integer value1, Integer value2) {
-            addCriterion("kprq between", value1, value2, "kprq");
+        public Criteria andTkrqBetween(Integer value1, Integer value2) {
+            addCriterion("tkrq between", value1, value2, "tkrq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqNotBetween(Integer value1, Integer value2) {
-            addCriterion("kprq not between", value1, value2, "kprq");
+        public Criteria andTkrqNotBetween(Integer value1, Integer value2) {
+            addCriterion("tkrq not between", value1, value2, "tkrq");
             return (Criteria) this;
         }
 

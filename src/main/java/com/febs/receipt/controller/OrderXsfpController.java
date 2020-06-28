@@ -6,11 +6,14 @@ import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsfp;
 import com.febs.receipt.service.IOrderXsfpService;
 
 import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
+import com.febs.system.entity.User;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +78,47 @@ public class OrderXsfpController extends BaseController {
     @RequiresPermissions("orderXsfp:update")
     public FebsResponse updateOrderXsfp(OrderXsfp orderXsfp) {
         this.orderXsfpService.updateOrderXsfp(orderXsfp);
+        return new FebsResponse().success();
+    }
+
+
+    @ApiOperation("确认")
+    @ControllerEndpoint(operation = "确认销售发票", exceptionMessage = "确认销售发票失败")
+    @PostMapping("/confirm/{id}")
+    @RequiresPermissions("orderXsfp:confirm")
+    public FebsResponse orderXsConfirm(@PathVariable Long id){
+        User user = getCurrentUser();
+
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("审核")
+    @ControllerEndpoint(operation = "审核销售发票", exceptionMessage = "审核销售发票失败")
+    @PostMapping("/check/{id}")
+    @RequiresPermissions("orderXsfp:check")
+    public FebsResponse orderXsCheck(@PathVariable Long id ){
+        User user = getCurrentUser();
+
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("生成")
+    @ControllerEndpoint(operation = "生成销售发票", exceptionMessage = "生成销售发票失败")
+    @PostMapping("/create/{id}")
+    @RequiresPermissions("orderXsfp:create")
+    public FebsResponse createOrderXsfp(@PathVariable Long id ){
+        User user = getCurrentUser();
+
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("开票")
+    @ControllerEndpoint(operation = "开票", exceptionMessage = "开票失败")
+    @PostMapping("/kp/{id}")
+    @RequiresPermissions("orderXsfp:kp")
+    public FebsResponse kp(@PathVariable Long id ){
+        User user = getCurrentUser();
+
         return new FebsResponse().success();
     }
 

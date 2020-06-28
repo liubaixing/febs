@@ -91,22 +91,22 @@ public class OrderXssk {
     private Date qrrq;
 
     /**
-     * 0-未开票 1-已开票
+     * 0-未收款 1-已收款
      */
-    @TableField("kp")
-    private Byte kp;
+    @TableField("sk")
+    private Byte sk;
 
     /**
-     * 开票人
+     * 收款人
      */
-    @TableField("kpr")
-    private String kpr;
+    @TableField("skr")
+    private String skr;
 
     /**
-     * 开票日期
+     * 收款日期
      */
-    @TableField("kprq")
-    private Date kprq;
+    @TableField("skrq")
+    private Date skrq;
 
 
     /**

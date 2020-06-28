@@ -1,17 +1,17 @@
-package generate;
+package com.febs.purchase.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurchaseTcmxExample {
+public class PurchaseCgmxExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public PurchaseTcmxExample() {
+    public PurchaseCgmxExample() {
         oredCriteria = new ArrayList<>();
     }
 

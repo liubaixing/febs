@@ -91,22 +91,22 @@ public class OrderXstk {
     private Date qrrq;
 
     /**
-     * 0-未开票 1-已开票
+     * 0-未退款 1-已退款
      */
-    @TableField("kp")
-    private Byte kp;
+    @TableField("tk")
+    private Byte tk;
 
     /**
-     * 开票人
+     * 退款人
      */
-    @TableField("kpr")
-    private String kpr;
+    @TableField("tkr")
+    private String tkr;
 
     /**
-     * 开票日期
+     * 退款日期
      */
-    @TableField("kprq")
-    private Date kprq;
+    @TableField("tkrq")
+    private Date tkrq;
 
 
     /**

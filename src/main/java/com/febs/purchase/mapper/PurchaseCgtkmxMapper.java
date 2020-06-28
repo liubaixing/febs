@@ -2,6 +2,10 @@ package com.febs.purchase.mapper;
 
 import com.febs.purchase.entity.PurchaseCgtkmx;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.febs.purchase.entity.PurchaseCgtkmxExample;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 采购退款明细 Mapper
@@ -10,5 +14,25 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @date 2020-06-27 19:54:49
  */
 public interface PurchaseCgtkmxMapper extends BaseMapper<PurchaseCgtkmx> {
+    long countByExample(PurchaseCgtkmxExample example);
 
+    int deleteByExample(PurchaseCgtkmxExample example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(PurchaseCgtkmx record);
+
+    int insertSelective(PurchaseCgtkmx record);
+
+    List<PurchaseCgtkmx> selectByExample(PurchaseCgtkmxExample example);
+
+    PurchaseCgtkmx selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") PurchaseCgtkmx record, @Param("example") PurchaseCgtkmxExample example);
+
+    int updateByExample(@Param("record") PurchaseCgtkmx record, @Param("example") PurchaseCgtkmxExample example);
+
+    int updateByPrimaryKeySelective(PurchaseCgtkmx record);
+
+    int updateByPrimaryKey(PurchaseCgtkmx record);
 }

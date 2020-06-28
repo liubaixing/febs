@@ -2,13 +2,10 @@ package com.febs.receipt.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsfp;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.receipt.entity.OrderXsfpExample;
-import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXsfpReq;
-import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
 import org.apache.ibatis.annotations.Param;
 
