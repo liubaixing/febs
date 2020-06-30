@@ -86,7 +86,7 @@ public class OrderXsfpController extends BaseController {
     @ControllerEndpoint(operation = "确认销售发票", exceptionMessage = "确认销售发票失败")
     @PostMapping("/confirm/{id}")
     @RequiresPermissions("orderXsfp:confirm")
-    public FebsResponse orderXsConfirm(@PathVariable Long id){
+    public FebsResponse orderXsfpConfirm(@PathVariable Long id){
         User user = getCurrentUser();
 
         return new FebsResponse().success();
@@ -96,7 +96,7 @@ public class OrderXsfpController extends BaseController {
     @ControllerEndpoint(operation = "审核销售发票", exceptionMessage = "审核销售发票失败")
     @PostMapping("/check/{id}")
     @RequiresPermissions("orderXsfp:check")
-    public FebsResponse orderXsCheck(@PathVariable Long id ){
+    public FebsResponse orderXsfpCheck(@PathVariable Long id ){
         User user = getCurrentUser();
 
         return new FebsResponse().success();

@@ -9,6 +9,8 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.entity.OrderXssk;
 import com.febs.receipt.service.IOrderXsskService;
 
+import com.febs.system.entity.User;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,47 @@ public class OrderXsskController extends BaseController {
         this.orderXsskService.updateOrderXssk(orderXssk);
         return new FebsResponse().success();
     }
+
+    @ApiOperation("确认")
+    @ControllerEndpoint(operation = "确认销售收款单", exceptionMessage = "确认销售收款单失败")
+    @PostMapping("/confirm/{id}")
+    @RequiresPermissions("orderXssk:confirm")
+    public FebsResponse OrderXsskConfirm(@PathVariable Long id){
+        User user = getCurrentUser();
+
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("审核")
+    @ControllerEndpoint(operation = "审核销售收款单", exceptionMessage = "审核销售收款单失败")
+    @PostMapping("/check/{id}")
+    @RequiresPermissions("orderXssk:check")
+    public FebsResponse orderXsskCheck(@PathVariable Long id ){
+        User user = getCurrentUser();
+
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("生成")
+    @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
+    @PostMapping("/create/{id}")
+    @RequiresPermissions("orderXssk:create")
+    public FebsResponse createorderXssk(@PathVariable Long id ){
+        User user = getCurrentUser();
+
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("收款")
+    @ControllerEndpoint(operation = "收款", exceptionMessage = "收款失败")
+    @PostMapping("/kp/{id}")
+    @RequiresPermissions("orderXssk:kp")
+    public FebsResponse sk(@PathVariable Long id ){
+        User user = getCurrentUser();
+
+        return new FebsResponse().success();
+    }
+
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
