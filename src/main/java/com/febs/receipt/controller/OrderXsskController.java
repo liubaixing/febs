@@ -120,7 +120,8 @@ public class OrderXsskController extends BaseController {
     @RequiresPermissions("orderXssk:create")
     public FebsResponse createorderXssk(@RequestBody OrderXsskReq req ){
         User user = getCurrentUser();
-        xsskBiz.createOrderXssk();
+        req.setZdr(user.getUsername());
+        xsskBiz.createOrderXssk(req);
         return new FebsResponse().success();
     }
 

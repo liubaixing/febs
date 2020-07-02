@@ -1,7 +1,10 @@
 package com.febs.receipt.service.impl;
 
+import com.febs.common.constant.OrderConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXstk;
 import com.febs.receipt.mapper.OrderXstkMapper;
 import com.febs.receipt.service.IOrderXstkService;
@@ -35,8 +38,6 @@ public class OrderXstkServiceImpl extends ServiceImpl<OrderXstkMapper, OrderXstk
 
     @Override
     public IPage<OrderXstkResp> findOrderXstks(QueryRequest request, OrderXstkReq orderXstk) {
-        LambdaQueryWrapper<OrderXstk> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
         Page<OrderXstk> page = new Page<>(request.getPageNum(), request.getPageSize());
         return orderXstkMapper.selectPageByQuery(page,orderXstk);
     }
@@ -50,24 +51,18 @@ public class OrderXstkServiceImpl extends ServiceImpl<OrderXstkMapper, OrderXstk
 
     @Override
     @Transactional
-    public void createOrderXstk(OrderXstk orderXstk) {
-        LambdaQueryWrapper<OrderXstk> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderXstk);
+    public Long createOrderXstk(OrderXstk orderXstk) {
+        this.orderXstkMapper.insertSelective(orderXstk);
+        String orderXsNo = OrderConstant.ORDER_TK_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXstk.getId());
+        orderXstk.setDjbh(orderXsNo);
+        orderXstkMapper.updateByPrimaryKeySelective(orderXstk);
+        return orderXstk.getId();
     }
 
     @Override
     @Transactional
     public void updateOrderXstk(OrderXstk orderXstk) {
-        LambdaQueryWrapper<OrderXstk> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(orderXstk);
+        this.orderXstkMapper.updateByPrimaryKeySelective(orderXstk);
     }
 
     @Override

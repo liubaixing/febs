@@ -52,7 +52,7 @@ public class OrderXsfpServiceImpl extends ServiceImpl<OrderXsfpMapper, OrderXsfp
     @Transactional
     public Long createOrderXsfp(OrderXsfp orderXsfp) {
         this.orderXsfpMapper.insertSelective(orderXsfp);
-        String orderXsNo = OrderConstant.ORDER_FP_DM_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXsfp.getId());
+        String orderXsNo = OrderConstant.ORDER_FP_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXsfp.getId());
         orderXsfp.setDjbh(orderXsNo);
         orderXsfpMapper.updateByPrimaryKeySelective(orderXsfp);
         return orderXsfp.getId();

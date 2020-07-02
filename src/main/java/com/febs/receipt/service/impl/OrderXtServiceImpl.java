@@ -57,7 +57,7 @@ public class OrderXtServiceImpl extends ServiceImpl<OrderXtMapper, OrderXt> impl
     @Transactional
     public Long createOrderXt(OrderXt orderXt) {
         this.orderXtMapper.insertSelective(orderXt);
-        String orderXtNo = OrderConstant.ORDER_XT_DM_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXt.getId());
+        String orderXtNo = OrderConstant.ORDER_XT_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXt.getId());
         orderXt.setDjbh(orderXtNo);
         this.orderXtMapper.updateByPrimaryKeySelective(orderXt);
         return orderXt.getId();

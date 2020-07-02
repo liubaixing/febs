@@ -54,7 +54,7 @@ public class OrderXsskServiceImpl extends ServiceImpl<OrderXsskMapper, OrderXssk
     @Transactional
     public Long createOrderXssk(OrderXssk orderXssk) {
         this.orderXsskMapper.insertSelective(orderXssk);
-        String orderXsNo = OrderConstant.ORDER_SK_DM_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXssk.getId());
+        String orderXsNo = OrderConstant.ORDER_SK_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXssk.getId());
         orderXssk.setDjbh(orderXsNo);
         orderXsskMapper.updateByPrimaryKeySelective(orderXssk);
         return orderXssk.getId();
