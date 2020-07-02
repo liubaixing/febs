@@ -1,7 +1,11 @@
 package com.febs.receipt.service.impl;
 
+import com.febs.common.constant.OrderConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
+import com.febs.receipt.entity.OrderXsfp;
 import com.febs.receipt.entity.OrderXssk;
 import com.febs.receipt.mapper.OrderXsskMapper;
 import com.febs.receipt.service.IOrderXsskService;
@@ -9,6 +13,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.receipt.vo.req.OrderXsskReq;
+import com.febs.receipt.vo.resp.OrderXsskResp;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +38,9 @@ public class OrderXsskServiceImpl extends ServiceImpl<OrderXsskMapper, OrderXssk
     private OrderXsskMapper orderXsskMapper;
 
     @Override
-    public IPage<OrderXssk> findOrderXssks(QueryRequest request, OrderXssk orderXssk) {
-        LambdaQueryWrapper<OrderXssk> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<OrderXsskResp> findOrderXssks(QueryRequest request, OrderXsskReq orderXssk) {
         Page<OrderXssk> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.orderXsskMapper.selectPageByQuery(page,orderXssk);
     }
 
     @Override
@@ -48,24 +52,18 @@ public class OrderXsskServiceImpl extends ServiceImpl<OrderXsskMapper, OrderXssk
 
     @Override
     @Transactional
-    public void createOrderXssk(OrderXssk orderXssk) {
-        LambdaQueryWrapper<OrderXssk> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderXssk);
+    public Long createOrderXssk(OrderXssk orderXssk) {
+        this.orderXsskMapper.insertSelective(orderXssk);
+        String orderXsNo = OrderConstant.ORDER_SK_DM_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXssk.getId());
+        orderXssk.setDjbh(orderXsNo);
+        orderXsskMapper.updateByPrimaryKeySelective(orderXssk);
+        return orderXssk.getId();
     }
 
     @Override
     @Transactional
     public void updateOrderXssk(OrderXssk orderXssk) {
-        LambdaQueryWrapper<OrderXssk> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(orderXssk);
+        this.orderXsskMapper.updateByPrimaryKeySelective(orderXssk);
     }
 
     @Override

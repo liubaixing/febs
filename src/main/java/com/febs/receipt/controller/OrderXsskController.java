@@ -6,9 +6,12 @@ import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.receipt.biz.OrderXsskBiz;
 import com.febs.receipt.entity.OrderXssk;
 import com.febs.receipt.service.IOrderXsskService;
 
+import com.febs.receipt.vo.req.OrderXsskReq;
+import com.febs.receipt.vo.resp.OrderXsskResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +43,8 @@ public class OrderXsskController extends BaseController {
     @Autowired
     private IOrderXsskService orderXsskService;
 
+    @Autowired
+    private OrderXsskBiz xsskBiz;
 
     @GetMapping("")
     @RequiresPermissions("orderXssk:list")
@@ -48,7 +54,7 @@ public class OrderXsskController extends BaseController {
 
     @GetMapping("/list")
     @RequiresPermissions("orderXssk:list")
-    public FebsResponse orderXsskList(QueryRequest request, OrderXssk orderXssk) {
+    public FebsResponse orderXsskList(QueryRequest request, OrderXsskReq orderXssk) {
         Map<String, Object> dataTable = getDataTable(this.orderXsskService.findOrderXssks(request, orderXssk));
         return new FebsResponse().success().data(dataTable);
     }
@@ -84,7 +90,12 @@ public class OrderXsskController extends BaseController {
     @RequiresPermissions("orderXssk:confirm")
     public FebsResponse OrderXsskConfirm(@PathVariable Long id){
         User user = getCurrentUser();
-
+        OrderXssk xssk = new OrderXssk();
+        xssk.setId(id);
+        xssk.setQr((byte)1);
+        xssk.setQrr(user.getUsername());
+        xssk.setQrrq(new Date());
+        xsskBiz.update(xssk);
         return new FebsResponse().success();
     }
 
@@ -94,7 +105,12 @@ public class OrderXsskController extends BaseController {
     @RequiresPermissions("orderXssk:check")
     public FebsResponse orderXsskCheck(@PathVariable Long id ){
         User user = getCurrentUser();
-
+        OrderXssk xssk = new OrderXssk();
+        xssk.setId(id);
+        xssk.setSh((byte)1);
+        xssk.setShr(user.getUsername());
+        xssk.setShrq(new Date());
+        xsskBiz.update(xssk);
         return new FebsResponse().success();
     }
 
@@ -102,9 +118,9 @@ public class OrderXsskController extends BaseController {
     @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
     @PostMapping("/create/{id}")
     @RequiresPermissions("orderXssk:create")
-    public FebsResponse createorderXssk(@PathVariable Long id ){
+    public FebsResponse createorderXssk(@RequestBody OrderXsskReq req ){
         User user = getCurrentUser();
-
+        xsskBiz.createOrderXssk();
         return new FebsResponse().success();
     }
 
@@ -122,8 +138,8 @@ public class OrderXsskController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderXssk:export")
-    public void export(QueryRequest queryRequest, OrderXssk orderXssk, HttpServletResponse response) throws IOException {
-        List<OrderXssk> orderXssks = this.orderXsskService.findOrderXssks(queryRequest, orderXssk).getRecords();
-        ExcelUtil.export(orderXssks, OrderXssk.class,"销售收款",response);
+    public void export(QueryRequest queryRequest, OrderXsskReq orderXssk, HttpServletResponse response) throws IOException {
+        List<OrderXsskResp> orderXssks = this.orderXsskService.findOrderXssks(queryRequest, orderXssk).getRecords();
+        ExcelUtil.export(orderXssks, OrderXsskResp.class,"销售收款",response);
     }
 }

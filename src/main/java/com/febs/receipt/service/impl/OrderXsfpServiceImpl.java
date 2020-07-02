@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.common.constant.OrderConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXsfp;
 import com.febs.receipt.mapper.OrderXsfpMapper;
 import com.febs.receipt.service.IOrderXsfpService;
@@ -47,24 +50,18 @@ public class OrderXsfpServiceImpl extends ServiceImpl<OrderXsfpMapper, OrderXsfp
 
     @Override
     @Transactional
-    public void createOrderXsfp(OrderXsfp orderXsfp) {
-        LambdaQueryWrapper<OrderXsfp> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderXsfp);
+    public Long createOrderXsfp(OrderXsfp orderXsfp) {
+        this.orderXsfpMapper.insertSelective(orderXsfp);
+        String orderXsNo = OrderConstant.ORDER_FP_DM_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXsfp.getId());
+        orderXsfp.setDjbh(orderXsNo);
+        orderXsfpMapper.updateByPrimaryKeySelective(orderXsfp);
+        return orderXsfp.getId();
     }
 
     @Override
     @Transactional
     public void updateOrderXsfp(OrderXsfp orderXsfp) {
-        LambdaQueryWrapper<OrderXsfp> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(orderXsfp);
+        this.orderXsfpMapper.updateByPrimaryKeySelective(orderXsfp);
     }
 
     @Override

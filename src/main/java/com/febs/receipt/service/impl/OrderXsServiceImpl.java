@@ -66,6 +66,7 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         this.orderXsMapper.insertSelective(orderXs);
         String orderXsNo = OrderConstant.ORDER_XS_DM_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
         orderXs.setDjbh(orderXsNo);
+        orderXsMapper.updateByPrimaryKeySelective(orderXs);
         return orderXs.getId();
     }
 

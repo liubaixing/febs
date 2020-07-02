@@ -39,7 +39,7 @@ public interface IOrderXsfpService extends IService<OrderXsfp> {
      *
      * @param orderXsfp orderXsfp
      */
-    void createOrderXsfp(OrderXsfp orderXsfp);
+    Long createOrderXsfp(OrderXsfp orderXsfp);
 
     /**
      * 修改

@@ -49,23 +49,13 @@ public class OrderXsfpmxServiceImpl extends ServiceImpl<OrderXsfpmxMapper, Order
     @Override
     @Transactional
     public void createOrderXsfpmx(OrderXsfpmx orderXsfpmx) {
-        LambdaQueryWrapper<OrderXsfpmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderXsfpmx);
+        orderXsfpmxMapper.insertSelective(orderXsfpmx);
     }
 
     @Override
     @Transactional
     public void updateOrderXsfpmx(OrderXsfpmx orderXsfpmx) {
-        LambdaQueryWrapper<OrderXsfpmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(orderXsfpmx);
+        orderXsfpmxMapper.updateByPrimaryKeySelective(orderXsfpmx);
     }
 
     @Override

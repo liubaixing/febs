@@ -1,8 +1,15 @@
 package com.febs.receipt.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.febs.receipt.entity.OrderXsfp;
 import com.febs.receipt.entity.OrderXssk;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.receipt.entity.OrderXsskExample;
+import com.febs.receipt.vo.req.OrderXsfpReq;
+import com.febs.receipt.vo.req.OrderXsskReq;
+import com.febs.receipt.vo.resp.OrderXsfpResp;
+import com.febs.receipt.vo.resp.OrderXsskResp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -35,4 +42,6 @@ public interface OrderXsskMapper extends BaseMapper<OrderXssk> {
     int updateByPrimaryKeySelective(OrderXssk record);
 
     int updateByPrimaryKey(OrderXssk record);
+
+    IPage<OrderXsskResp> selectPageByQuery(Page<OrderXssk> page, OrderXsskReq req);
 }

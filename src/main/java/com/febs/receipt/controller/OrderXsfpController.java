@@ -6,11 +6,14 @@ import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.receipt.biz.OrderXsfpBiz;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsfp;
+import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.service.IOrderXsfpService;
 
 import com.febs.receipt.vo.req.OrderXsfpReq;
+import com.febs.receipt.vo.req.OrderXsmxReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +46,8 @@ public class OrderXsfpController extends BaseController {
     @Autowired
     private IOrderXsfpService orderXsfpService;
 
+    @Autowired
+    private OrderXsfpBiz xsfpBiz;
 
     @GetMapping("")
     @RequiresPermissions("orderXsfp:list")
@@ -88,7 +94,12 @@ public class OrderXsfpController extends BaseController {
     @RequiresPermissions("orderXsfp:confirm")
     public FebsResponse orderXsfpConfirm(@PathVariable Long id){
         User user = getCurrentUser();
-
+        OrderXsfp xsfp = new OrderXsfp();
+        xsfp.setId(id);
+        xsfp.setQr((byte)1);
+        xsfp.setQrr(user.getUsername());
+        xsfp.setQrrq(new Date());
+        xsfpBiz.update(xsfp);
         return new FebsResponse().success();
     }
 
@@ -98,7 +109,12 @@ public class OrderXsfpController extends BaseController {
     @RequiresPermissions("orderXsfp:check")
     public FebsResponse orderXsfpCheck(@PathVariable Long id ){
         User user = getCurrentUser();
-
+        OrderXsfp xsfp = new OrderXsfp();
+        xsfp.setId(id);
+        xsfp.setSh((byte)1);
+        xsfp.setShr(user.getUsername());
+        xsfp.setShrq(new Date());
+        xsfpBiz.update(xsfp);
         return new FebsResponse().success();
     }
 
@@ -106,9 +122,10 @@ public class OrderXsfpController extends BaseController {
     @ControllerEndpoint(operation = "生成销售发票", exceptionMessage = "生成销售发票失败")
     @PostMapping("/create/{id}")
     @RequiresPermissions("orderXsfp:create")
-    public FebsResponse createOrderXsfp(@PathVariable Long id ){
+    public FebsResponse createOrderXsfp(@RequestBody OrderXsfpReq req){
         User user = getCurrentUser();
-
+        req.setZdr(user.getUsername());
+        xsfpBiz.createOrderXsfp(req);
         return new FebsResponse().success();
     }
 
@@ -129,4 +146,6 @@ public class OrderXsfpController extends BaseController {
         List<OrderXsfpResp> orderXsfps = this.orderXsfpService.findOrderXsfps(queryRequest, orderXsfp).getRecords();
         ExcelUtil.export(orderXsfps, OrderXsfpResp.class,"销售发票",response);
     }
+
+
 }

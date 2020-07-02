@@ -5,4 +5,7 @@ import lombok.Data;
 
 @Data
 public class OrderXsmxReq extends OrderXsmx {
+
+    private String pno;
+
 }

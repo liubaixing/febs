@@ -1,7 +1,6 @@
 package com.febs.receipt.vo.req;
 
-import com.febs.receipt.entity.OrderXsfp;
-import com.febs.receipt.entity.OrderXsmx;
+import com.febs.receipt.entity.OrderXssk;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class OrderXsfpReq extends OrderXsfp {
+public class OrderXsskReq extends OrderXssk {
 
     private Date startTime;
     private Date endTime;
