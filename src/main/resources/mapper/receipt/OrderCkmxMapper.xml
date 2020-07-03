@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.receipt.mapper.OrderCkmxMapper">
+
+    <resultMap id="BaseResultMap" type="com.febs.receipt.entity.OrderCkmx">
+        <id column="Id" jdbcType="BIGINT" property="id" />
+        <result column="pid" jdbcType="BIGINT" property="pid" />
+        <result column="sp_id" jdbcType="INTEGER" property="spId" />
+        <result column="gg1_id" jdbcType="INTEGER" property="gg1Id" />
+        <result column="gg2_id" jdbcType="INTEGER" property="gg2Id" />
+        <result column="dj" jdbcType="DECIMAL" property="dj" />
+        <result column="je" jdbcType="DECIMAL" property="je" />
+        <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+        <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+        <result column="ex3" jdbcType="VARCHAR" property="ex3" />
+        <result column="jsjg" jdbcType="DECIMAL" property="jsjg" />
+        <result column="jishuije" jdbcType="DECIMAL" property="jishuije" />
+        <result column="sku" jdbcType="VARCHAR" property="sku" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="deleted" jdbcType="INTEGER" property="deleted" />
+        <result column="cbje" jdbcType="DECIMAL" property="cbje" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    Id, pid, sp_id, gg1_id, gg2_id, dj, je, ex1, ex2, ex3, jsjg, jishuije, sku, create_time,
+    update_time, deleted, cbje
+  </sql>
+    <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderCkmxExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from order_ckmx
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_ckmx
+        where Id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_ckmx
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.febs.receipt.entity.OrderCkmxExample">
+        delete from order_ckmx
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderCkmx" useGeneratedKeys="true">
+    insert into order_ckmx (pid, sp_id, gg1_id,
+      gg2_id, dj, je, ex1,
+      ex2, ex3, jsjg, jishuije,
+      sku, create_time, update_time,
+      deleted, cbje)
+    values (#{pid,jdbcType=BIGINT}, #{spId,jdbcType=INTEGER}, #{gg1Id,jdbcType=INTEGER},
+      #{gg2Id,jdbcType=INTEGER}, #{dj,jdbcType=DECIMAL}, #{je,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR},
+      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{jsjg,jdbcType=DECIMAL}, #{jishuije,jdbcType=DECIMAL},
+      #{sku,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{deleted,jdbcType=INTEGER}, #{cbje,jdbcType=DECIMAL})
+  </insert>
+    <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderCkmx" useGeneratedKeys="true">
+        insert into order_ckmx
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="spId != null">
+                sp_id,
+            </if>
+            <if test="gg1Id != null">
+                gg1_id,
+            </if>
+            <if test="gg2Id != null">
+                gg2_id,
+            </if>
+            <if test="dj != null">
+                dj,
+            </if>
+            <if test="je != null">
+                je,
+            </if>
+            <if test="ex1 != null">
+                ex1,
+            </if>
+            <if test="ex2 != null">
+                ex2,
+            </if>
+            <if test="ex3 != null">
+                ex3,
+            </if>
+            <if test="jsjg != null">
+                jsjg,
+            </if>
+            <if test="jishuije != null">
+                jishuije,
+            </if>
+            <if test="sku != null">
+                sku,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="cbje != null">
+                cbje,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                #{pid,jdbcType=BIGINT},
+            </if>
+            <if test="spId != null">
+                #{spId,jdbcType=INTEGER},
+            </if>
+            <if test="gg1Id != null">
+                #{gg1Id,jdbcType=INTEGER},
+            </if>
+            <if test="gg2Id != null">
+                #{gg2Id,jdbcType=INTEGER},
+            </if>
+            <if test="dj != null">
+                #{dj,jdbcType=DECIMAL},
+            </if>
+            <if test="je != null">
+                #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="ex1 != null">
+                #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="jsjg != null">
+                #{jsjg,jdbcType=DECIMAL},
+            </if>
+            <if test="jishuije != null">
+                #{jishuije,jdbcType=DECIMAL},
+            </if>
+            <if test="sku != null">
+                #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="cbje != null">
+                #{cbje,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.febs.receipt.entity.OrderCkmxExample" resultType="java.lang.Long">
+        select count(*) from order_ckmx
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update order_ckmx
+        <set>
+            <if test="record.id != null">
+                Id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.pid != null">
+                pid = #{record.pid,jdbcType=BIGINT},
+            </if>
+            <if test="record.spId != null">
+                sp_id = #{record.spId,jdbcType=INTEGER},
+            </if>
+            <if test="record.gg1Id != null">
+                gg1_id = #{record.gg1Id,jdbcType=INTEGER},
+            </if>
+            <if test="record.gg2Id != null">
+                gg2_id = #{record.gg2Id,jdbcType=INTEGER},
+            </if>
+            <if test="record.dj != null">
+                dj = #{record.dj,jdbcType=DECIMAL},
+            </if>
+            <if test="record.je != null">
+                je = #{record.je,jdbcType=DECIMAL},
+            </if>
+            <if test="record.ex1 != null">
+                ex1 = #{record.ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex2 != null">
+                ex2 = #{record.ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ex3 != null">
+                ex3 = #{record.ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.jsjg != null">
+                jsjg = #{record.jsjg,jdbcType=DECIMAL},
+            </if>
+            <if test="record.jishuije != null">
+                jishuije = #{record.jishuije,jdbcType=DECIMAL},
+            </if>
+            <if test="record.sku != null">
+                sku = #{record.sku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.deleted != null">
+                deleted = #{record.deleted,jdbcType=INTEGER},
+            </if>
+            <if test="record.cbje != null">
+                cbje = #{record.cbje,jdbcType=DECIMAL},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update order_ckmx
+        set Id = #{record.id,jdbcType=BIGINT},
+        pid = #{record.pid,jdbcType=BIGINT},
+        sp_id = #{record.spId,jdbcType=INTEGER},
+        gg1_id = #{record.gg1Id,jdbcType=INTEGER},
+        gg2_id = #{record.gg2Id,jdbcType=INTEGER},
+        dj = #{record.dj,jdbcType=DECIMAL},
+        je = #{record.je,jdbcType=DECIMAL},
+        ex1 = #{record.ex1,jdbcType=VARCHAR},
+        ex2 = #{record.ex2,jdbcType=VARCHAR},
+        ex3 = #{record.ex3,jdbcType=VARCHAR},
+        jsjg = #{record.jsjg,jdbcType=DECIMAL},
+        jishuije = #{record.jishuije,jdbcType=DECIMAL},
+        sku = #{record.sku,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        deleted = #{record.deleted,jdbcType=INTEGER},
+        cbje = #{record.cbje,jdbcType=DECIMAL}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.febs.receipt.entity.OrderCkmx">
+        update order_ckmx
+        <set>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=BIGINT},
+            </if>
+            <if test="spId != null">
+                sp_id = #{spId,jdbcType=INTEGER},
+            </if>
+            <if test="gg1Id != null">
+                gg1_id = #{gg1Id,jdbcType=INTEGER},
+            </if>
+            <if test="gg2Id != null">
+                gg2_id = #{gg2Id,jdbcType=INTEGER},
+            </if>
+            <if test="dj != null">
+                dj = #{dj,jdbcType=DECIMAL},
+            </if>
+            <if test="je != null">
+                je = #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="ex1 != null">
+                ex1 = #{ex1,jdbcType=VARCHAR},
+            </if>
+            <if test="ex2 != null">
+                ex2 = #{ex2,jdbcType=VARCHAR},
+            </if>
+            <if test="ex3 != null">
+                ex3 = #{ex3,jdbcType=VARCHAR},
+            </if>
+            <if test="jsjg != null">
+                jsjg = #{jsjg,jdbcType=DECIMAL},
+            </if>
+            <if test="jishuije != null">
+                jishuije = #{jishuije,jdbcType=DECIMAL},
+            </if>
+            <if test="sku != null">
+                sku = #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="cbje != null">
+                cbje = #{cbje,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.febs.receipt.entity.OrderCkmx">
+    update order_ckmx
+    set pid = #{pid,jdbcType=BIGINT},
+      sp_id = #{spId,jdbcType=INTEGER},
+      gg1_id = #{gg1Id,jdbcType=INTEGER},
+      gg2_id = #{gg2Id,jdbcType=INTEGER},
+      dj = #{dj,jdbcType=DECIMAL},
+      je = #{je,jdbcType=DECIMAL},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR},
+      ex3 = #{ex3,jdbcType=VARCHAR},
+      jsjg = #{jsjg,jdbcType=DECIMAL},
+      jishuije = #{jishuije,jdbcType=DECIMAL},
+      sku = #{sku,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER},
+      cbje = #{cbje,jdbcType=DECIMAL}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>
