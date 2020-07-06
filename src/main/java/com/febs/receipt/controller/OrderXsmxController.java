@@ -12,6 +12,7 @@ import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.service.IOrderXsmxService;
 
 import com.febs.receipt.vo.req.OrderXsmxReq;
+import com.febs.receipt.vo.resp.OrderXsmxResp;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -47,7 +48,7 @@ public class OrderXsmxController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("orderXsmx:list")
-    public FebsResponse getAllOrderXsmxs(OrderXsmx orderXsmx) {
+    public FebsResponse getAllOrderXsmxs(OrderXsmxReq orderXsmx) {
         return new FebsResponse().success().data(orderXsmxService.findOrderXsmxs(orderXsmx));
     }
 
@@ -87,8 +88,8 @@ public class OrderXsmxController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("orderXsmx:export")
     public void export(QueryRequest queryRequest, OrderXsmxReq orderXsmx, HttpServletResponse response) throws IOException {
-        List<OrderXsmx> orderXsmxs = this.orderXsmxService.findOrderXsmxs(queryRequest, orderXsmx).getRecords();
-        ExcelUtil.export(orderXsmxs, OrderXsmx.class,"销售单明细",response);
+        List<OrderXsmxResp> orderXsmxs = this.orderXsmxService.findOrderXsmxs(queryRequest, orderXsmx).getRecords();
+        ExcelUtil.export(orderXsmxs, OrderXsmxResp.class,"销售单明细",response);
     }
 
 }

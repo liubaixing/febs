@@ -6,6 +6,7 @@ import com.febs.receipt.entity.OrderXs;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class OrderXsResp extends OrderXs {
@@ -70,4 +71,7 @@ public class OrderXsResp extends OrderXs {
 
     @ExcelProperty(value = "计量单位",index = 28)
     private String jldwmc;
+
+    List<OrderXsmxResp> mxList;
+
 }

@@ -1,5 +1,6 @@
 package com.febs.receipt.vo.req;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsmx;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,10 +12,10 @@ import java.util.List;
 @Data
 public class OrderXsReq extends OrderXs {
 
-    @ApiModelProperty("开始时间")
+    @ApiModelProperty("开始日期")
     private Date startTime;
 
-    @ApiModelProperty("结束时间")
+    @ApiModelProperty("结束日期")
     private Date endTime;
 
     @ApiModelProperty("业务员")
@@ -56,7 +57,11 @@ public class OrderXsReq extends OrderXs {
     @ApiModelProperty("商品条码")
     private String memo;
 
+    @ApiModelProperty("明细id")
     private Long mxId;
+
+    @ApiModelProperty("通知数")
+    private Integer tzsl;
 
     List<OrderXsmx> orderXsmxList;
 

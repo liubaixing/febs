@@ -50,6 +50,10 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
 		return this.orderXsMapper.selectByExample(example);
     }
 
+    public OrderXsResp selectOneByQuery(OrderXsReq req){
+        return this.orderXsMapper.selectOneByQuery(req);
+    }
+
     @Override
     public OrderXsResp findOrderXsDetail(OrderXsReq req) {
         return this.orderXsMapper.selectOneByQuery(req);

@@ -3,6 +3,7 @@ package com.febs.receipt.entity;
 import java.util.Date;
 import java.math.BigDecimal;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -52,39 +53,46 @@ public class OrderXsmx {
     /**
      * 计划数
      */
+    @ApiModelProperty("计划数")
     @TableField("jhsl")
     private Integer jhsl;
 
     /**
      * 通知数
      */
+    @ApiModelProperty("通知数")
     @TableField("tzsl")
     private Integer tzsl;
 
     /**
      * 出库数
      */
+    @ApiModelProperty("出库数")
     @TableField("cksl")
     private Integer cksl;
 
     /**
      * 单价
      */
+    @ApiModelProperty("单价")
     @TableField("dj")
     private BigDecimal dj;
     /**
      * 金额
      */
+    @ApiModelProperty("金额")
     @TableField("je")
     private BigDecimal je;
     /**
      * 平台折扣
      */
+    @ApiModelProperty("平台折扣")
     @TableField("zk")
     private BigDecimal zk;
     /**
      * 销售净额
      */
+    @ApiModelProperty("销售净额")
     @TableField("xsje")
     private BigDecimal xsje;
 

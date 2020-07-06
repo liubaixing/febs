@@ -39,7 +39,7 @@ public interface IOrderCkService extends IService<OrderCk> {
      *
      * @param orderCk orderCk
      */
-    void createOrderCk(OrderCk orderCk);
+    Long createOrderCk(OrderCk orderCk);
 
     /**
      * 修改

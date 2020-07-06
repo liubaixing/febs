@@ -12,6 +12,7 @@ import com.febs.receipt.entity.OrderXsmxExample;
 import com.febs.receipt.mapper.OrderXsmxMapper;
 import com.febs.receipt.service.IOrderXsmxService;
 import com.febs.receipt.vo.req.OrderXsmxReq;
+import com.febs.receipt.vo.resp.OrderXsmxResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,15 +35,14 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     private OrderXsmxMapper orderXsmxMapper;
 
     @Override
-    public IPage<OrderXsmx> findOrderXsmxs(QueryRequest request, OrderXsmxReq orderXsmx) {
+    public IPage<OrderXsmxResp> findOrderXsmxs(QueryRequest request, OrderXsmxReq orderXsmx) {
         Page<OrderXsmx> page = new Page<>(request.getPageNum(), request.getPageSize());
         return this.orderXsmxMapper.selectPageByQuery(page,orderXsmx);
     }
 
     @Override
-    public List<OrderXsmx> findOrderXsmxs(OrderXsmx orderXsmx) {
-        OrderXsmxExample example = buildQueryExample(orderXsmx);
-		return this.orderXsmxMapper.selectByExample(example);
+    public List<OrderXsmxResp> findOrderXsmxs(OrderXsmxReq orderXsmx) {
+		return this.orderXsmxMapper.selectByQuery(orderXsmx);
     }
 
     @Override

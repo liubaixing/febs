@@ -51,11 +51,12 @@ public class OrderCkServiceImpl extends ServiceImpl<OrderCkMapper, OrderCk> impl
 
     @Override
     @Transactional
-    public void createOrderCk(OrderCk orderCk) {
+    public Long createOrderCk(OrderCk orderCk) {
         this.orderCkMapper.insertSelective(orderCk);
         String orderXsNo = OrderConstant.ORDER_CK_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderCk.getId());
         orderCk.setDjbh(orderXsNo);
         this.orderCkMapper.updateByPrimaryKeySelective(orderCk);
+        return orderCk.getId();
     }
 
     @Override

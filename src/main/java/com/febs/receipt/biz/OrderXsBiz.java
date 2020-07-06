@@ -7,15 +7,10 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.enums.order.OrderStatusEnum;
 import com.febs.common.exception.FebsException;
-import com.febs.receipt.entity.OrderXs;
-import com.febs.receipt.entity.OrderXsmx;
-import com.febs.receipt.entity.OrderXt;
-import com.febs.receipt.entity.OrderXtmx;
-import com.febs.receipt.service.IOrderXsService;
-import com.febs.receipt.service.IOrderXsmxService;
-import com.febs.receipt.service.IOrderXtService;
-import com.febs.receipt.service.IOrderXtmxService;
+import com.febs.receipt.entity.*;
+import com.febs.receipt.service.*;
 import com.febs.receipt.vo.req.OrderXsReq;
+import com.febs.receipt.vo.req.OrderXsmxReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.shangpin.entity.Shangpin;
 import com.febs.shangpin.service.IShangpinService;
@@ -75,7 +70,10 @@ public class OrderXsBiz {
     @Autowired
     private IBasicLllyService lllyService;
 
-
+    @Autowired
+    private IOrderCkService ckService;
+    @Autowired
+    private IOrderCkmxService ckmxService;
     /**
      * @param request
      * @param orderXs
@@ -83,6 +81,16 @@ public class OrderXsBiz {
      */
     public IPage<OrderXsResp> findByPage(QueryRequest request, OrderXsReq orderXs) {
         return xsService.findOrderXss(request, orderXs);
+    }
+
+    public OrderXsResp findDetail(Long id){
+        OrderXsReq orderXs = new OrderXsReq();
+        orderXs.setId(id);
+        OrderXsResp resp =  xsService.selectOneByQuery(orderXs);
+        OrderXsmxReq orderXsmx = new OrderXsmxReq();
+        orderXsmx.setPid(id);
+        resp.setMxList(xsmxService.findOrderXsmxs(orderXsmx));
+        return resp;
     }
 
     public void create(OrderXsReq orderXsReq) {
@@ -272,8 +280,8 @@ public class OrderXsBiz {
         if (xsmx.getJhsl() == (xsmx.getTzsl()+xsmx.getCksl())) {
             throw new FebsException("订单已执行完毕");
         }
-        //开票数量+已开票数量 > 销售单数量
-        if (xsmx.getJhsl() - xsmx.getTzsl() -xsmx.getCksl() - req.getSl() < 0) {
+        //计划数为销售单总数量
+        if ((xsmx.getTzsl() +xsmx.getCksl() + req.getTzsl()) < xsmx.getJhsl() ) {
             throw new FebsException("执行数量超出销售单数量");
         }
 
@@ -292,8 +300,28 @@ public class OrderXsBiz {
 
         if (0 == ck.getCkxz()){
             //自发，生成出库单
+            OrderCk orderCk = new OrderCk();
+            orderCk.setYdbh(orderXs.getDjbh());
+            orderCk.setXdrq(new Date());
+            orderCk.setCangkuId(orderXs.getCangkuId());
+            orderCk.setKehuId(orderXs.getKehuId());
+            orderCk.setOrgId(orderXs.getOrgId());
+            orderCk.setDjlxId(orderXs.getDjlxId());
+            orderCk.setSl(req.getTzsl());
+            orderCk.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            orderCk.setZdr(req.getZxr());
+            orderCk.setZdrq(new Date());
+            Long orderCkId = ckService.createOrderCk(orderCk);
+            OrderCkmx orderCkmx = new OrderCkmx();
+            orderCkmx.setPid(orderCkId);
+            orderCkmx.setSpId(xsmx.getSpId());
+            orderCkmx.setDj(xsmx.getDj());
+            orderCkmx.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            ckmxService.createOrderCkmx(orderCkmx);
         }else{
             //直发，生成采购单
+
+
         }
 
     }

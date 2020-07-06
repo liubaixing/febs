@@ -274,9 +274,7 @@
         SELECT
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
-        kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
-        xsmx.id mxid , xsmx.sp_id , sp.spdm , sp.spmc , sp.memo
-        ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje,dw.jldwmc
+        kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc
         FROM order_xs xs
         LEFT JOIN basic_ptda pt on xs.org_id = pt.id
         LEFT JOIN t_user u on xs.user_id = u.USER_ID
@@ -287,9 +285,6 @@
         LEFT JOIN basic_llly lly on xs.llly_id = lly.id
         LEFT JOIN basic_djlx dlx on xs.djlx_id = dlx.id
         LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
-        LEFT JOIN order_xsmx xsmx on xs.id = xsmx.pid
-        LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
-        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
             <if test="deleted != null">
                 and xs.deleted = #{deleted}

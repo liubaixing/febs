@@ -6,6 +6,7 @@ import com.febs.common.enums.DeletedEnum;
 import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.service.IOrderXsmxService;
 import com.febs.receipt.vo.req.OrderXsmxReq;
+import com.febs.receipt.vo.resp.OrderXsmxResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class OrderXsmxBiz {
     @Autowired
     private IOrderXsmxService xsmxService;
 
-    public IPage<OrderXsmx> findPage(QueryRequest request, OrderXsmxReq orderXsmx){
+    public IPage<OrderXsmxResp> findPage(QueryRequest request, OrderXsmxReq orderXsmx){
         return this.xsmxService.findOrderXsmxs(request,orderXsmx);
     }
 

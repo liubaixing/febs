@@ -110,31 +110,6 @@
         </if>
     </select>
 
-    <sql id="Page_Column_List">
-    mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.jhsl, mx.tzsl, mx.cksl, mx.dj, mx.je, mx.zk,
-     mx.xsje,mx.kpsl, mx.sksl, mx.tksl, mx.kpje, mx.skje, mx.tkje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
-    </sql>
-
-    <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsmxReq" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
-        select
-        <include refid="Page_Column_List" />
-        ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
-        from order_xsmx mx
-        LEFT JOIN shangpin sp on mx.sp_id = sp.id
-        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
-        <where>
-            <if test="deleted">
-                and deleted = #{deleted}
-            </if>
-            <if test="pid != null and pid != ''">
-                pid = #{pid}
-            </if>
-            <if test="spId != null">
-                sp_id = #{sp_id}
-            </if>
-        </where>
-    </select>
-
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
@@ -588,5 +563,50 @@
       cbje = #{cbje,jdbcType=DECIMAL}
     where Id = #{id,jdbcType=BIGINT}
   </update>
-    
+
+    <sql id="Page_Column_List">
+    mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.jhsl, mx.tzsl, mx.cksl, mx.dj, mx.je, mx.zk,
+     mx.xsje,mx.kpsl, mx.sksl, mx.tksl, mx.kpje, mx.skje, mx.tkje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsmxReq" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
+        select
+        <include refid="Page_Column_List" />
+        ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        from order_xsmx mx
+        LEFT JOIN shangpin sp on mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="deleted">
+                and deleted = #{deleted}
+            </if>
+            <if test="pid != null and pid != ''">
+                pid = #{pid}
+            </if>
+            <if test="spId != null">
+                sp_id = #{sp_id}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXsmxReq" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
+        select
+        <include refid="Page_Column_List" />
+        ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        from order_xsmx mx
+        LEFT JOIN shangpin sp on mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="deleted">
+                and deleted = #{deleted}
+            </if>
+            <if test="pid != null and pid != ''">
+                pid = #{pid}
+            </if>
+            <if test="spId != null">
+                sp_id = #{sp_id}
+            </if>
+        </where>
+    </select>
 </mapper>

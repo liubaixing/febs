@@ -74,9 +74,7 @@ public class OrderXsController extends BaseController {
     @GetMapping("/{id}")
     @RequiresPermissions("orderXs:list")
     public FebsResponse orderXsDetail(@PathVariable Long id) {
-        OrderXsReq req = new OrderXsReq();
-        req.setId(id);
-        return new FebsResponse().success().data(orderXsService.findOrderXsDetail(req));
+        return new FebsResponse().success().data(orderXsBiz.findDetail(id));
     }
 
     @ApiOperation("新增销售单")
@@ -131,7 +129,7 @@ public class OrderXsController extends BaseController {
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
         req.setId(id);
-        req.setQr((byte)1);
+        req.setQr((byte)0);
         req.setQrr(user.getUsername());
         this.orderXsBiz.confirmOrderXs(req,false);
         return new FebsResponse().success();
@@ -159,13 +157,13 @@ public class OrderXsController extends BaseController {
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
         req.setId(id);
-        req.setSh((byte)1);
+        req.setSh((byte)0);
         req.setShr(user.getUsername());
         this.orderXsBiz.checkOrderXs(req,false);
         return new FebsResponse().success();
     }
 
-    @ApiOperation("执行")
+    @ApiOperation("执行（传入 mxId，通知数量）")
     @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
     @PostMapping("/execute/{id}")
     @RequiresPermissions("orderXs:execute")
@@ -185,7 +183,7 @@ public class OrderXsController extends BaseController {
     public FebsResponse orderXsUnExecute(@PathVariable Long id,OrderXsReq req){
         User user = getCurrentUser();
         req.setMxId(id);
-        req.setZx((byte)1);
+        req.setZx((byte)0);
         req.setZxr(user.getUsername());
         this.orderXsBiz.executeOrderXs(req,false);
         return new FebsResponse().success();
@@ -228,7 +226,7 @@ public class OrderXsController extends BaseController {
     public FebsResponse orderXsUnClose(@PathVariable Long id,OrderXs req){
         User user = getCurrentUser();
         req.setId(id);
-        req.setGb((byte)1);
+        req.setGb((byte)0);
         req.setGbr(user.getUsername());
         this.orderXsBiz.closeOrderXs(req,false);
         return new FebsResponse().success();
