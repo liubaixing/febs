@@ -1,6 +1,6 @@
 package com.febs.receipt.biz;
 
-import com.febs.common.utils.StringUtil;
+import com.febs.common.enums.DeletedEnum;
 import com.febs.receipt.entity.OrderXsfp;
 import com.febs.receipt.entity.OrderXsfpmx;
 import com.febs.receipt.service.IOrderXsfpService;
@@ -49,7 +49,15 @@ public class OrderXsfpBiz {
             orderXsfpmx.setCreateTime(new Date());
             xsfpmxService.createOrderXsfpmx(orderXsfpmx);
         }
+    }
 
+    public void delete(String[] ids) {
+        OrderXsfp xsfp = new OrderXsfp();
+        for (String id : ids) {
+            xsfp.setId(Long.valueOf(id));
+            xsfp.setDeleted(DeletedEnum.DELETED.getCode());
+            xsfpService.updateOrderXsfp(xsfp);
+        }
     }
 
 }

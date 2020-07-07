@@ -60,6 +60,12 @@ public class OrderXstkmx {
      */
     @TableField("je")
     private BigDecimal je;
+
+    /**
+     * 数量
+     */
+    @TableField("sl")
+    private Integer sl;
     /**
      * 备用1
      */

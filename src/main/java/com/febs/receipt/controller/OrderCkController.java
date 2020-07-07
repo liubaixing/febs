@@ -11,6 +11,7 @@ import com.febs.receipt.service.IOrderCkService;
 
 import com.febs.receipt.vo.req.OrderCkReq;
 import com.febs.receipt.vo.resp.OrderCkResp;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import java.util.Map;
  */
 @Slf4j
 @Validated
+@Api(tags = "出库单管理")
 @RestController
 @RequestMapping("orderCk")
 public class OrderCkController extends BaseController {

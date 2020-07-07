@@ -13,6 +13,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.purchase.vo.req.PurchaseCgReq;
+import com.febs.purchase.vo.resp.PurchaseCgResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -35,11 +37,9 @@ public class PurchaseCgServiceImpl extends ServiceImpl<PurchaseCgMapper, Purchas
     private PurchaseCgMapper purchaseCgMapper;
 
     @Override
-    public IPage<PurchaseCg> findPurchaseCgs(QueryRequest request, PurchaseCg purchaseCg) {
-        LambdaQueryWrapper<PurchaseCg> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseCgResp> findPurchaseCgs(QueryRequest request, PurchaseCgReq purchaseCg) {
         Page<PurchaseCg> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseCgMapper.selectPageByQuery(page,purchaseCg);
     }
 
     @Override

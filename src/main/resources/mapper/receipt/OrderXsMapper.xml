@@ -151,7 +151,7 @@
     <sql id="Page_Column_List">
     xs.Id, xs.djbh, xs.xdrq, xs.ydbh, xs.ydjh, xs.sfjj, xs.sfdz, xs.org_id,
     xs.user_id, xs.bumeng_id, xs.kehu_id, xs.cangku_id, xs.khly_id, xs.llly_id,
-    xs.yqdhrq, xs.djlx_id, xs.khqy_id, xs.wldh, xs.bz,xs.fj, xs.sl, xs.je,
+    xs.yqdhrq, xs.djlx_id, xs.khqy_id, xs.wldh, xs.bz,xs.fj, xs.sl,
     xs.kpsl, xs.sksl, xs.tksl, xs.kpje, xs.skje, xs.tkje,
     xs.address, xs.tel, xs.contact, xs.zdr, xs.zdrq, xs.qr, xs.qrr, xs.qrrq,
     xs.sh, xs.shr, xs.shrq, xs.zx, xs.zxr, xs.zxrq, xs.sctk, xs.sctkr, xs.sctkrq,

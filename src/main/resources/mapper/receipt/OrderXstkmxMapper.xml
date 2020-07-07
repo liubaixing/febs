@@ -10,6 +10,7 @@
         <result column="gg1_id" jdbcType="INTEGER" property="gg1Id" />
         <result column="gg2_id" jdbcType="INTEGER" property="gg2Id" />
         <result column="je" jdbcType="DECIMAL" property="je" />
+        <result column="sl" jdbcType="INTEGER" property="sl" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
         <result column="ex2" jdbcType="VARCHAR" property="ex2" />
         <result column="ex3" jdbcType="VARCHAR" property="ex3" />
@@ -111,11 +112,11 @@
     </delete>
     <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXstkmx" useGeneratedKeys="true">
     insert into order_xstkmx (pid, ydjh, sp_id, 
-      gg1_id, gg2_id, je, ex1, 
+      gg1_id, gg2_id, je, sl, ex1,
       ex2, ex3, create_time, 
       update_time, deleted)
     values (#{pid,jdbcType=BIGINT}, #{ydjh,jdbcType=VARCHAR}, #{spId,jdbcType=INTEGER}, 
-      #{gg1Id,jdbcType=INTEGER}, #{gg2Id,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR}, 
+      #{gg1Id,jdbcType=INTEGER}, #{gg2Id,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL},#{sl,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR},
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
   </insert>
@@ -139,6 +140,9 @@
             </if>
             <if test="je != null">
                 je,
+            </if>
+            <if test="sl != null">
+                sl,
             </if>
             <if test="ex1 != null">
                 ex1,
@@ -177,6 +181,9 @@
             </if>
             <if test="je != null">
                 #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="sl != null">
+                #{sl,jdbcType=INTEGER},
             </if>
             <if test="ex1 != null">
                 #{ex1,jdbcType=VARCHAR},
@@ -228,6 +235,9 @@
             <if test="record.je != null">
                 je = #{record.je,jdbcType=DECIMAL},
             </if>
+            <if test="record.sl != null">
+                sl = #{record.sl,jdbcType=INTEGER},
+            </if>
             <if test="record.ex1 != null">
                 ex1 = #{record.ex1,jdbcType=VARCHAR},
             </if>
@@ -260,6 +270,7 @@
         gg1_id = #{record.gg1Id,jdbcType=INTEGER},
         gg2_id = #{record.gg2Id,jdbcType=INTEGER},
         je = #{record.je,jdbcType=DECIMAL},
+        sl = #{record.sl,jdbcType=INTEGER},
         ex1 = #{record.ex1,jdbcType=VARCHAR},
         ex2 = #{record.ex2,jdbcType=VARCHAR},
         ex3 = #{record.ex3,jdbcType=VARCHAR},
@@ -291,6 +302,9 @@
             <if test="je != null">
                 je = #{je,jdbcType=DECIMAL},
             </if>
+            <if test="sl != null">
+                sl = #{sl,jdbcType=INTEGER},
+            </if>
             <if test="ex1 != null">
                 ex1 = #{ex1,jdbcType=VARCHAR},
             </if>
@@ -320,6 +334,7 @@
       gg1_id = #{gg1Id,jdbcType=INTEGER},
       gg2_id = #{gg2Id,jdbcType=INTEGER},
       je = #{je,jdbcType=DECIMAL},
+      sl = #{sl,jdbcType=INTEGER},
       ex1 = #{ex1,jdbcType=VARCHAR},
       ex2 = #{ex2,jdbcType=VARCHAR},
       ex3 = #{ex3,jdbcType=VARCHAR},

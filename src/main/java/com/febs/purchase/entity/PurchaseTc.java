@@ -1,6 +1,7 @@
 package com.febs.purchase.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -34,7 +35,7 @@ public class PurchaseTc {
      * 下单日期
      */
     @TableField("xdrq")
-    private Integer xdrq;
+    private Date xdrq;
 
     /**
      * 客户订单编号
@@ -130,7 +131,7 @@ public class PurchaseTc {
      * 要求到货时间
      */
     @TableField("yqdhrq")
-    private Integer yqdhrq;
+    private Date yqdhrq;
 
     /**
      * 整单数量
@@ -210,7 +211,7 @@ public class PurchaseTc {
      * 制单日期
      */
     @TableField("zdrq")
-    private Integer zdrq;
+    private Date zdrq;
 
     /**
      * 确认 0-未确认 1-已确认
@@ -228,7 +229,7 @@ public class PurchaseTc {
      * 确认日期
      */
     @TableField("qrrq")
-    private Integer qrrq;
+    private Date qrrq;
 
     /**
      * 审核 0-未审核 1-已审核
@@ -246,7 +247,7 @@ public class PurchaseTc {
      * 审核日期
      */
     @TableField("shrq")
-    private Integer shrq;
+    private Date shrq;
 
     /**
      * 开始收货 0-未开始收货 1-已开始收货
@@ -264,7 +265,7 @@ public class PurchaseTc {
      * 开始收货日期
      */
     @TableField("ksshrq")
-    private Integer ksshrq;
+    private Date ksshrq;
 
     /**
      * 收货确认 0-未收货确认 1-已收货确认
@@ -282,7 +283,7 @@ public class PurchaseTc {
      * 收货确认日期
      */
     @TableField("shqrrq")
-    private Integer shqrrq;
+    private Date shqrrq;
 
     /**
      * 开始退仓 0-未开始退仓 1-已开始退仓
@@ -300,7 +301,7 @@ public class PurchaseTc {
      * 开始退仓日期
      */
     @TableField("kstcrq")
-    private Integer kstcrq;
+    private Date kstcrq;
 
     /**
      * 退仓发货 0-未退仓发货 1-已退仓发货
@@ -318,7 +319,7 @@ public class PurchaseTc {
      * 退仓发货日期
      */
     @TableField("tcfhrq")
-    private Integer tcfhrq;
+    private Date tcfhrq;
 
     /**
      * 运费录入 0-未运费录入 1-已运费录入
@@ -336,7 +337,7 @@ public class PurchaseTc {
      * 运费录入日期
      */
     @TableField("yflrrq")
-    private Integer yflrrq;
+    private Date yflrrq;
 
     /**
      * 印刷费录入 0-未印刷费录入 1-已印刷费录入
@@ -354,7 +355,7 @@ public class PurchaseTc {
      * 印刷费录入日期
      */
     @TableField("ysflrrq")
-    private Integer ysflrrq;
+    private Date ysflrrq;
 
     /**
      * 关闭 0-未关闭 1-已关闭
@@ -372,7 +373,7 @@ public class PurchaseTc {
      * 关闭日期
      */
     @TableField("zsrq")
-    private Integer zsrq;
+    private Date zsrq;
 
     /**
      * 作废 0-未作废 1-已作废
@@ -390,7 +391,7 @@ public class PurchaseTc {
      * 作废日期
      */
     @TableField("zfrq")
-    private Integer zfrq;
+    private Date zfrq;
 
     /**
      * 备用1

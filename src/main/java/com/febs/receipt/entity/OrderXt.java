@@ -32,8 +32,8 @@ public class OrderXt {
     /**
      * 销退单号
      */
-    @ApiModelProperty("退单单号")
-    @ExcelProperty(value = "退单单号",index = 0)
+    @ApiModelProperty("销退单号")
+    @ExcelProperty(value = "销退单号",index = 0)
     @TableField("djbh")
     private String djbh;
 
@@ -47,7 +47,7 @@ public class OrderXt {
     /**
      * 原单号
      */
-    @ExcelProperty(value = "原单号编号",index = 2)
+    @ExcelProperty(value = "原单号",index = 2)
     @TableField("ydbh")
     private String ydbh;
 
@@ -216,21 +216,24 @@ public class OrderXt {
     /**
      * 收货地址
      */
-    @ExcelProperty(value = "收货地址",index = 26)
+    @ApiModelProperty("收货")
+    @ExcelProperty(value = "收货",index = 28)
     @TableField("address")
     private String address;
 
     /**
      * 收货人人电话
      */
-    @ExcelProperty(value = "联系电话",index = 28)
+    @ApiModelProperty("联系电话")
+    @ExcelProperty(value = "联系电话",index = 30)
     @TableField("tel")
     private String tel;
 
     /**
      * 收货人
      */
-    @ExcelProperty(value = "收货人",index = 27)
+    @ApiModelProperty("收货人")
+    @ExcelProperty(value = "收货人",index = 29)
     @TableField("contact")
     private String contact;
 
@@ -363,7 +366,7 @@ public class OrderXt {
     /**
      * 0-未终审 1-已终审
      */
-    @ApiModelProperty("终审 （0-未终审 1-已终审）")
+    @ApiModelProperty("关闭 （0-未终审 1-已终审）")
     @ExcelIgnore
     @TableField("zs")
     private Byte zs;
@@ -408,7 +411,7 @@ public class OrderXt {
     /**
      * 0-未退款 1-部分退款 2-已退款
      */
-    @ApiModelProperty("0-未退款 1-部分退款 2-已退款")
+    @ApiModelProperty("退款 0-未退款 1-部分退款 2-已退款")
     @ExcelIgnore
     @TableField("tk")
     private Byte tk;
@@ -432,7 +435,7 @@ public class OrderXt {
     /**
      * 0-未开票 1-部分开票 2-已开票
      */
-    @ApiModelProperty("0-未开票 1-部分开票 2-已开票")
+    @ApiModelProperty("开票 0-未开票 1-部分开票 2-已开票")
     @ExcelIgnore
     @TableField("kp")
     private Byte kp;
@@ -456,7 +459,7 @@ public class OrderXt {
     /**
      * 0-未执行 1-已执行
      */
-    @ApiModelProperty("是否执行")
+    @ApiModelProperty("是否执行 0-未执行 1-已执行")
     @ExcelIgnore
     @TableField("zx")
     private Byte zx;

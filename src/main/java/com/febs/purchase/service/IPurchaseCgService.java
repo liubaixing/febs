@@ -5,6 +5,8 @@ import com.febs.purchase.entity.PurchaseCg;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.vo.req.PurchaseCgReq;
+import com.febs.purchase.vo.resp.PurchaseCgResp;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public interface IPurchaseCgService extends IService<PurchaseCg> {
      * @param purchaseCg purchaseCg
      * @return IPage<PurchaseCg>
      */
-    IPage<PurchaseCg> findPurchaseCgs(QueryRequest request, PurchaseCg purchaseCg);
+    IPage<PurchaseCgResp> findPurchaseCgs(QueryRequest request, PurchaseCgReq purchaseCg);
 
     /**
      * 查询（所有）

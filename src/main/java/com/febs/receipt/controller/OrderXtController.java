@@ -15,6 +15,7 @@ import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXtReq;
 import com.febs.receipt.vo.resp.OrderXtResp;
 import com.febs.system.entity.User;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -38,6 +39,7 @@ import java.util.Map;
  */
 @Slf4j
 @Validated
+@Api(tags = "销退单管理")
 @RestController
 @RequestMapping("orderXt")
 public class OrderXtController extends BaseController {

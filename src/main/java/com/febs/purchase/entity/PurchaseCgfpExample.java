@@ -2,6 +2,7 @@ package com.febs.purchase.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PurchaseCgfpExample {
@@ -245,52 +246,52 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andDjrqEqualTo(Integer value) {
+        public Criteria andDjrqEqualTo(Date value) {
             addCriterion("djrq =", value, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqNotEqualTo(Integer value) {
+        public Criteria andDjrqNotEqualTo(Date value) {
             addCriterion("djrq <>", value, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqGreaterThan(Integer value) {
+        public Criteria andDjrqGreaterThan(Date value) {
             addCriterion("djrq >", value, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqGreaterThanOrEqualTo(Integer value) {
+        public Criteria andDjrqGreaterThanOrEqualTo(Date value) {
             addCriterion("djrq >=", value, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqLessThan(Integer value) {
+        public Criteria andDjrqLessThan(Date value) {
             addCriterion("djrq <", value, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqLessThanOrEqualTo(Integer value) {
+        public Criteria andDjrqLessThanOrEqualTo(Date value) {
             addCriterion("djrq <=", value, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqIn(List<Integer> values) {
+        public Criteria andDjrqIn(List<Date> values) {
             addCriterion("djrq in", values, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqNotIn(List<Integer> values) {
+        public Criteria andDjrqNotIn(List<Date> values) {
             addCriterion("djrq not in", values, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqBetween(Integer value1, Integer value2) {
+        public Criteria andDjrqBetween(Date value1, Date value2) {
             addCriterion("djrq between", value1, value2, "djrq");
             return (Criteria) this;
         }
 
-        public Criteria andDjrqNotBetween(Integer value1, Integer value2) {
+        public Criteria andDjrqNotBetween(Date value1, Date value2) {
             addCriterion("djrq not between", value1, value2, "djrq");
             return (Criteria) this;
         }
@@ -695,52 +696,52 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andZdrqEqualTo(Integer value) {
+        public Criteria andZdrqEqualTo(Date value) {
             addCriterion("zdrq =", value, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqNotEqualTo(Integer value) {
+        public Criteria andZdrqNotEqualTo(Date value) {
             addCriterion("zdrq <>", value, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqGreaterThan(Integer value) {
+        public Criteria andZdrqGreaterThan(Date value) {
             addCriterion("zdrq >", value, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqGreaterThanOrEqualTo(Integer value) {
+        public Criteria andZdrqGreaterThanOrEqualTo(Date value) {
             addCriterion("zdrq >=", value, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqLessThan(Integer value) {
+        public Criteria andZdrqLessThan(Date value) {
             addCriterion("zdrq <", value, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqLessThanOrEqualTo(Integer value) {
+        public Criteria andZdrqLessThanOrEqualTo(Date value) {
             addCriterion("zdrq <=", value, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqIn(List<Integer> values) {
+        public Criteria andZdrqIn(List<Date> values) {
             addCriterion("zdrq in", values, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqNotIn(List<Integer> values) {
+        public Criteria andZdrqNotIn(List<Date> values) {
             addCriterion("zdrq not in", values, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqBetween(Integer value1, Integer value2) {
+        public Criteria andZdrqBetween(Date value1, Date value2) {
             addCriterion("zdrq between", value1, value2, "zdrq");
             return (Criteria) this;
         }
 
-        public Criteria andZdrqNotBetween(Integer value1, Integer value2) {
+        public Criteria andZdrqNotBetween(Date value1, Date value2) {
             addCriterion("zdrq not between", value1, value2, "zdrq");
             return (Criteria) this;
         }
@@ -885,52 +886,52 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andQrrqEqualTo(Integer value) {
+        public Criteria andQrrqEqualTo(Date value) {
             addCriterion("qrrq =", value, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqNotEqualTo(Integer value) {
+        public Criteria andQrrqNotEqualTo(Date value) {
             addCriterion("qrrq <>", value, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqGreaterThan(Integer value) {
+        public Criteria andQrrqGreaterThan(Date value) {
             addCriterion("qrrq >", value, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqGreaterThanOrEqualTo(Integer value) {
+        public Criteria andQrrqGreaterThanOrEqualTo(Date value) {
             addCriterion("qrrq >=", value, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqLessThan(Integer value) {
+        public Criteria andQrrqLessThan(Date value) {
             addCriterion("qrrq <", value, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqLessThanOrEqualTo(Integer value) {
+        public Criteria andQrrqLessThanOrEqualTo(Date value) {
             addCriterion("qrrq <=", value, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqIn(List<Integer> values) {
+        public Criteria andQrrqIn(List<Date> values) {
             addCriterion("qrrq in", values, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqNotIn(List<Integer> values) {
+        public Criteria andQrrqNotIn(List<Date> values) {
             addCriterion("qrrq not in", values, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqBetween(Integer value1, Integer value2) {
+        public Criteria andQrrqBetween(Date value1, Date value2) {
             addCriterion("qrrq between", value1, value2, "qrrq");
             return (Criteria) this;
         }
 
-        public Criteria andQrrqNotBetween(Integer value1, Integer value2) {
+        public Criteria andQrrqNotBetween(Date value1, Date value2) {
             addCriterion("qrrq not between", value1, value2, "qrrq");
             return (Criteria) this;
         }
@@ -1075,52 +1076,52 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andShrqEqualTo(Integer value) {
+        public Criteria andShrqEqualTo(Date value) {
             addCriterion("shrq =", value, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqNotEqualTo(Integer value) {
+        public Criteria andShrqNotEqualTo(Date value) {
             addCriterion("shrq <>", value, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqGreaterThan(Integer value) {
+        public Criteria andShrqGreaterThan(Date value) {
             addCriterion("shrq >", value, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqGreaterThanOrEqualTo(Integer value) {
+        public Criteria andShrqGreaterThanOrEqualTo(Date value) {
             addCriterion("shrq >=", value, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqLessThan(Integer value) {
+        public Criteria andShrqLessThan(Date value) {
             addCriterion("shrq <", value, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqLessThanOrEqualTo(Integer value) {
+        public Criteria andShrqLessThanOrEqualTo(Date value) {
             addCriterion("shrq <=", value, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqIn(List<Integer> values) {
+        public Criteria andShrqIn(List<Date> values) {
             addCriterion("shrq in", values, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqNotIn(List<Integer> values) {
+        public Criteria andShrqNotIn(List<Date> values) {
             addCriterion("shrq not in", values, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqBetween(Integer value1, Integer value2) {
+        public Criteria andShrqBetween(Date value1, Date value2) {
             addCriterion("shrq between", value1, value2, "shrq");
             return (Criteria) this;
         }
 
-        public Criteria andShrqNotBetween(Integer value1, Integer value2) {
+        public Criteria andShrqNotBetween(Date value1, Date value2) {
             addCriterion("shrq not between", value1, value2, "shrq");
             return (Criteria) this;
         }
@@ -1265,52 +1266,52 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andKprqEqualTo(Integer value) {
+        public Criteria andKprqEqualTo(Date value) {
             addCriterion("kprq =", value, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqNotEqualTo(Integer value) {
+        public Criteria andKprqNotEqualTo(Date value) {
             addCriterion("kprq <>", value, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqGreaterThan(Integer value) {
+        public Criteria andKprqGreaterThan(Date value) {
             addCriterion("kprq >", value, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqGreaterThanOrEqualTo(Integer value) {
+        public Criteria andKprqGreaterThanOrEqualTo(Date value) {
             addCriterion("kprq >=", value, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqLessThan(Integer value) {
+        public Criteria andKprqLessThan(Date value) {
             addCriterion("kprq <", value, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqLessThanOrEqualTo(Integer value) {
+        public Criteria andKprqLessThanOrEqualTo(Date value) {
             addCriterion("kprq <=", value, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqIn(List<Integer> values) {
+        public Criteria andKprqIn(List<Date> values) {
             addCriterion("kprq in", values, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqNotIn(List<Integer> values) {
+        public Criteria andKprqNotIn(List<Date> values) {
             addCriterion("kprq not in", values, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqBetween(Integer value1, Integer value2) {
+        public Criteria andKprqBetween(Date value1, Date value2) {
             addCriterion("kprq between", value1, value2, "kprq");
             return (Criteria) this;
         }
 
-        public Criteria andKprqNotBetween(Integer value1, Integer value2) {
+        public Criteria andKprqNotBetween(Date value1, Date value2) {
             addCriterion("kprq not between", value1, value2, "kprq");
             return (Criteria) this;
         }
@@ -1455,52 +1456,52 @@ public class PurchaseCgfpExample {
             return (Criteria) this;
         }
 
-        public Criteria andZfrqEqualTo(Integer value) {
+        public Criteria andZfrqEqualTo(Date value) {
             addCriterion("zfrq =", value, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqNotEqualTo(Integer value) {
+        public Criteria andZfrqNotEqualTo(Date value) {
             addCriterion("zfrq <>", value, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqGreaterThan(Integer value) {
+        public Criteria andZfrqGreaterThan(Date value) {
             addCriterion("zfrq >", value, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqGreaterThanOrEqualTo(Integer value) {
+        public Criteria andZfrqGreaterThanOrEqualTo(Date value) {
             addCriterion("zfrq >=", value, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqLessThan(Integer value) {
+        public Criteria andZfrqLessThan(Date value) {
             addCriterion("zfrq <", value, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqLessThanOrEqualTo(Integer value) {
+        public Criteria andZfrqLessThanOrEqualTo(Date value) {
             addCriterion("zfrq <=", value, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqIn(List<Integer> values) {
+        public Criteria andZfrqIn(List<Date> values) {
             addCriterion("zfrq in", values, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqNotIn(List<Integer> values) {
+        public Criteria andZfrqNotIn(List<Date> values) {
             addCriterion("zfrq not in", values, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqBetween(Integer value1, Integer value2) {
+        public Criteria andZfrqBetween(Date value1, Date value2) {
             addCriterion("zfrq between", value1, value2, "zfrq");
             return (Criteria) this;
         }
 
-        public Criteria andZfrqNotBetween(Integer value1, Integer value2) {
+        public Criteria andZfrqNotBetween(Date value1, Date value2) {
             addCriterion("zfrq not between", value1, value2, "zfrq");
             return (Criteria) this;
         }

@@ -1,6 +1,7 @@
 package com.febs.purchase.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -34,7 +35,7 @@ public class PurchaseCgfk {
      * 单据日期
      */
     @TableField("djrq")
-    private Integer djrq;
+    private Date djrq;
 
     /**
      * 供应商 供应商ID
@@ -81,7 +82,7 @@ public class PurchaseCgfk {
      * 制单日期
      */
     @TableField("zdrq")
-    private Integer zdrq;
+    private Date zdrq;
 
     /**
      * 确认 0-未确认 1-已确认
@@ -99,7 +100,7 @@ public class PurchaseCgfk {
      * 确认日期
      */
     @TableField("qrrq")
-    private Integer qrrq;
+    private Date qrrq;
 
     /**
      * 审核 -未审核 1-已审核
@@ -117,7 +118,7 @@ public class PurchaseCgfk {
      * 审核日期
      */
     @TableField("shrq")
-    private Integer shrq;
+    private Date shrq;
 
     /**
      * 付款 0-未付款 1-已付款
@@ -135,7 +136,7 @@ public class PurchaseCgfk {
      * 付款日期
      */
     @TableField("fkrq")
-    private Integer fkrq;
+    private Date fkrq;
 
     /**
      * 作废 0-未作废 1-已作废
@@ -153,7 +154,7 @@ public class PurchaseCgfk {
      * 作废日期
      */
     @TableField("zfrq")
-    private Integer zfrq;
+    private Date zfrq;
 
     /**
      * 备用1

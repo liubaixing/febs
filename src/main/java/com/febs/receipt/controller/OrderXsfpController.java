@@ -16,6 +16,7 @@ import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.req.OrderXsmxReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
 import com.febs.system.entity.User;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -39,6 +40,7 @@ import java.util.Map;
  */
 @Slf4j
 @Validated
+@Api(tags = "销售开票管理")
 @RestController
 @RequestMapping("orderXsfp")
 public class OrderXsfpController extends BaseController {

@@ -56,6 +56,12 @@ public class OrderXsskmx {
     private Integer gg2Id;
 
     /**
+     * 数量
+     */
+    @TableField("sl")
+    private Integer sl;
+
+    /**
      * 金额
      */
     @TableField("je")

@@ -13,6 +13,7 @@ import com.febs.receipt.service.IOrderXstkService;
 import com.febs.receipt.vo.req.OrderXstkReq;
 import com.febs.receipt.vo.resp.OrderXstkResp;
 import com.febs.system.entity.User;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -36,6 +37,7 @@ import java.util.Map;
  */
 @Slf4j
 @Validated
+@Api(tags = "销售退款管理")
 @RestController
 @RequestMapping("orderXstk")
 public class OrderXstkController extends BaseController {

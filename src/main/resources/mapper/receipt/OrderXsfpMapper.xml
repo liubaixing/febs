@@ -547,7 +547,7 @@
   </update>
 
     <sql id="Page_Column_List">
-        fp.Id, fp.djbh, fp.djrq, fp.ghdw_id, fp.je, fp.bz, fp.fj, fp.zdr, fp.zdrq, fp.sh, fp.shr, fp.shrq, fp.zf, fp.zfr, fp.zfrq, fp.ex1,
+        fp.Id, fp.djbh, fp.djrq, fp.ghdw_id, fp.bz, fp.fj, fp.zdr, fp.zdrq, fp.sh, fp.shr, fp.shrq, fp.zf, fp.zfr, fp.zfrq, fp.ex1,
         fp.ex2, fp.ex3, fp.create_time, fp.update_time, fp.deleted
     </sql>
 
@@ -568,7 +568,7 @@
                 and fp.djrq between #{startTime} and #{endTime}
             </if>
             <if test="djbh != null and djbh != ''">
-                fp.djbh like CONCAT('%',#{djbh},'%')
+                and fp.djbh like CONCAT('%',#{djbh},'%')
             </if>
             <if test="qr != null">
                 and fp.qr = #{qr}

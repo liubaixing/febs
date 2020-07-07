@@ -159,7 +159,7 @@
     <sql id="Page_Column_List">
     xt.Id, xt.djbh, xt.xdrq, xt.ydbh, xt.ydjh, xt.sfjj, xt.sfdz, xt.org_id, xt.user_id, xt.bumeng_id,
     xt.kehu_id, xt.cangku_id,xt.khly_id, xt.llly_id, xt.yqdhrq, xt.djlx_id, xt.khqy_id, xt.wldh, xt.bz, xt.fj,
-    xt.sl, xt.je, xt.kpsl, xt.sksl, xt.tksl, xt.kpje, xt.skje, xt.tkje, xt.address, xt.tel, xt.contact,
+    xt.sl,  xt.kpsl, xt.sksl, xt.tksl, xt.kpje, xt.skje, xt.tkje, xt.address, xt.tel, xt.contact,
     xt.zdr, xt.zdrq, xt.qr, xt.qrr, xt.qrrq, xt.sh, xt.shr, xt.shrq, xt.kssh, xt.ksshr, xt.ksshrq, xt.shqr,
     xt.shqrr, xt.shqrrq, xt.yflr, xt.yflrr, xt.yflrrq, xt.zs, xt.zsr, xt.zsrq, xt.zf, xt.zfr, xt.zfrq,
     xt.ex1, xt.ex2, xt.ex3, xt.create_time, xt.update_time, xt.deleted
@@ -172,18 +172,18 @@
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
         xtmx.id mxid , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
         ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
-        FROM order_xs xt
-        LEFT JOIN basic_ptda pt on xs.org_id = pt.id
-        LEFT JOIN t_user u on xs.user_id = u.USER_ID
-        LEFT JOIN system_bumeng bm on xs.bumeng_id = bm.id
-        LEFT JOIN system_kehu kehu on xs.kehu_id = kehu.id
-        LEFT JOIN system_cangku ck on xs.cangku_id = ck.id
-        LEFT JOIN basic_khly kly on xs.khly_id = kly.id
-        LEFT JOIN basic_llly lly on xs.llly_id = lly.id
-        LEFT JOIN basic_djlx dlx on xs.djlx_id = dlx.id
-        LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
-        LEFT JOIN order_xtmx xtmx on xs.id = xtmx.pid
-        LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
+        FROM order_xt xt
+        LEFT JOIN basic_ptda pt on xt.org_id = pt.id
+        LEFT JOIN t_user u on xt.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on xt.bumeng_id = bm.id
+        LEFT JOIN system_kehu kehu on xt.kehu_id = kehu.id
+        LEFT JOIN system_cangku ck on xt.cangku_id = ck.id
+        LEFT JOIN basic_khly kly on xt.khly_id = kly.id
+        LEFT JOIN basic_llly lly on xt.llly_id = lly.id
+        LEFT JOIN basic_djlx dlx on xt.djlx_id = dlx.id
+        LEFT JOIN basic_khqy qy on xt.khqy_id = qy.id
+        LEFT JOIN order_xtmx xtmx on xt.id = xtmx.pid
+        LEFT JOIN shangpin sp on xtmx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
             <if test="deleted != null">

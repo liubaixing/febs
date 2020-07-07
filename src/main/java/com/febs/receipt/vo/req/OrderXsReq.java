@@ -12,10 +12,10 @@ import java.util.List;
 @Data
 public class OrderXsReq extends OrderXs {
 
-    @ApiModelProperty("开始日期")
+    @ApiModelProperty("下单开始")
     private Date startTime;
 
-    @ApiModelProperty("结束日期")
+    @ApiModelProperty("下单结束")
     private Date endTime;
 
     @ApiModelProperty("业务员")

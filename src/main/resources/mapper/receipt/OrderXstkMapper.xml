@@ -549,7 +549,7 @@
 
 
     <sql id="Page_Column_List">
-        tk.Id, tk.djbh, tk.djrq, tk.ghdw_id, tk.je, tk.bz, tk.fj, tk.zdr, tk.zdrq, tk.sh, tk.shr, tk.shrq, tk.zf, tk.zfr, tk.zfrq, tk.ex1,
+        tk.Id, tk.djbh, tk.djrq, tk.ghdw_id, tk.bz, tk.fj, tk.zdr, tk.zdrq, tk.sh, tk.shr, tk.shrq, tk.zf, tk.zfr, tk.zfrq, tk.ex1,
         tk.ex2, tk.ex3, tk.create_time, tk.update_time, tk.deleted
     </sql>
 

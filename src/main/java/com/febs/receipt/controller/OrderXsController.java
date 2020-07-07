@@ -66,7 +66,7 @@ public class OrderXsController extends BaseController {
     @GetMapping("/list")
     @RequiresPermissions("orderXs:list")
     public FebsResponse orderXsList(QueryRequest request, OrderXsReq orderXs) {
-        Map<String, Object> dataTable = getDataTable(this.orderXsBiz.findByPage(request, orderXs));
+        Map<String, Object> dataTable = getDataTable(this.orderXsService.findOrderXss(request, orderXs));
         return new FebsResponse().success().data(dataTable);
     }
 

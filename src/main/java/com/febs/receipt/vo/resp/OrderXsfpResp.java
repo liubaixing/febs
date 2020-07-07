@@ -10,16 +10,24 @@ import java.util.Date;
 @Data
 public class OrderXsfpResp extends OrderXsfp {
 
+
+    @ApiModelProperty("发票明细id")
     private Long mxId;
-    @ApiModelProperty("单据编号")
+    @ApiModelProperty("原单号")
     private String ydjh;
+    @ApiModelProperty("商品id")
     private Integer spId;
+    @ApiModelProperty("开票数量")
     private Integer sl;
-    private BigDecimal je;
+    @ApiModelProperty("购货单位")
     private String ptdamc;
+    @ApiModelProperty("商品名称")
     private String spmc;
+    @ApiModelProperty("商品代码")
     private String spdm;
+    @ApiModelProperty("商品条码")
     private String memo;
+    @ApiModelProperty("计量单位")
     private String jldwmc;
 
 }

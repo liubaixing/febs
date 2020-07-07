@@ -49,10 +49,21 @@ public class Swagger2Configure {
     @Bean
     public Docket restApi3() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("单据模块")
+                .groupName("销售管理")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.febs.receipt"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    @Bean
+    public Docket restApi4() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("采购管理")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.febs.purchase"))
                 .paths(PathSelectors.any())
                 .build();
     }

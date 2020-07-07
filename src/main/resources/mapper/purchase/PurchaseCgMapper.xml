@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.febs.purchase.entity.PurchaseCg">
         <id column="Id" jdbcType="BIGINT" property="id" />
         <result column="djbh" jdbcType="VARCHAR" property="djbh" />
-        <result column="xdrq" jdbcType="INTEGER" property="xdrq" />
+        <result column="xdrq" jdbcType="TIMESTAMP" property="xdrq" />
         <result column="xsdh" jdbcType="VARCHAR" property="xsdh" />
         <result column="ydjh" jdbcType="VARCHAR" property="ydjh" />
         <result column="user_id" jdbcType="INTEGER" property="userId" />
@@ -19,7 +19,7 @@
         <result column="sfjj" jdbcType="TINYINT" property="sfjj" />
         <result column="sfdz" jdbcType="TINYINT" property="sfdz" />
         <result column="wldh" jdbcType="VARCHAR" property="wldh" />
-        <result column="yqdhrq" jdbcType="INTEGER" property="yqdhrq" />
+        <result column="yqdhrq" jdbcType="TIMESTAMP" property="yqdhrq" />
         <result column="bz" jdbcType="VARCHAR" property="bz" />
         <result column="address" jdbcType="VARCHAR" property="address" />
         <result column="tel" jdbcType="VARCHAR" property="tel" />
@@ -34,46 +34,46 @@
         <result column="tkje" jdbcType="DECIMAL" property="tkje" />
         <result column="fj" jdbcType="VARCHAR" property="fj" />
         <result column="zdr" jdbcType="VARCHAR" property="zdr" />
-        <result column="zdrq" jdbcType="INTEGER" property="zdrq" />
+        <result column="zdrq" jdbcType="TIMESTAMP" property="zdrq" />
         <result column="qr" jdbcType="TINYINT" property="qr" />
         <result column="qrr" jdbcType="VARCHAR" property="qrr" />
-        <result column="qrrq" jdbcType="INTEGER" property="qrrq" />
+        <result column="qrrq" jdbcType="TIMESTAMP" property="qrrq" />
         <result column="sh" jdbcType="TINYINT" property="sh" />
         <result column="shr" jdbcType="VARCHAR" property="shr" />
-        <result column="shrq" jdbcType="INTEGER" property="shrq" />
+        <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
         <result column="ecsh" jdbcType="TINYINT" property="ecsh" />
         <result column="ecshr" jdbcType="VARCHAR" property="ecshr" />
-        <result column="ecshrq" jdbcType="INTEGER" property="ecshrq" />
+        <result column="ecshrq" jdbcType="TIMESTAMP" property="ecshrq" />
         <result column="kssh" jdbcType="TINYINT" property="kssh" />
         <result column="ksshr" jdbcType="VARCHAR" property="ksshr" />
-        <result column="ksshrq" jdbcType="INTEGER" property="ksshrq" />
+        <result column="ksshrq" jdbcType="TIMESTAMP" property="ksshrq" />
         <result column="shqr" jdbcType="TINYINT" property="shqr" />
         <result column="shqrr" jdbcType="VARCHAR" property="shqrr" />
-        <result column="shqrrq" jdbcType="INTEGER" property="shqrrq" />
+        <result column="shqrrq" jdbcType="TIMESTAMP" property="shqrrq" />
         <result column="ksfh" jdbcType="TINYINT" property="ksfh" />
         <result column="ksfhr" jdbcType="VARCHAR" property="ksfhr" />
-        <result column="ksfhrq" jdbcType="INTEGER" property="ksfhrq" />
+        <result column="ksfhrq" jdbcType="TIMESTAMP" property="ksfhrq" />
         <result column="ksph" jdbcType="TINYINT" property="ksph" />
         <result column="ksphr" jdbcType="VARCHAR" property="ksphr" />
-        <result column="ksphrq" jdbcType="INTEGER" property="ksphrq" />
+        <result column="ksphrq" jdbcType="TIMESTAMP" property="ksphrq" />
         <result column="cgfh" jdbcType="TINYINT" property="cgfh" />
         <result column="cgfhr" jdbcType="VARCHAR" property="cgfhr" />
-        <result column="cgfhrq" jdbcType="INTEGER" property="cgfhrq" />
+        <result column="cgfhrq" jdbcType="TIMESTAMP" property="cgfhrq" />
         <result column="yflr" jdbcType="TINYINT" property="yflr" />
         <result column="yflrr" jdbcType="VARCHAR" property="yflrr" />
-        <result column="yflrrq" jdbcType="INTEGER" property="yflrrq" />
+        <result column="yflrrq" jdbcType="TIMESTAMP" property="yflrrq" />
         <result column="ysflr" jdbcType="TINYINT" property="ysflr" />
         <result column="ysflrr" jdbcType="VARCHAR" property="ysflrr" />
-        <result column="ysflrrq" jdbcType="INTEGER" property="ysflrrq" />
+        <result column="ysflrrq" jdbcType="TIMESTAMP" property="ysflrrq" />
         <result column="sctc" jdbcType="TINYINT" property="sctc" />
         <result column="sctcr" jdbcType="VARCHAR" property="sctcr" />
-        <result column="sctcrq" jdbcType="INTEGER" property="sctcrq" />
+        <result column="sctcrq" jdbcType="TIMESTAMP" property="sctcrq" />
         <result column="zs" jdbcType="TINYINT" property="zs" />
         <result column="zsr" jdbcType="VARCHAR" property="zsr" />
-        <result column="zsrq" jdbcType="INTEGER" property="zsrq" />
+        <result column="zsrq" jdbcType="TIMESTAMP" property="zsrq" />
         <result column="zf" jdbcType="TINYINT" property="zf" />
         <result column="zfr" jdbcType="VARCHAR" property="zfr" />
-        <result column="zfrq" jdbcType="INTEGER" property="zfrq" />
+        <result column="zfrq" jdbcType="TIMESTAMP" property="zfrq" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
         <result column="ex2" jdbcType="VARCHAR" property="ex2" />
         <result column="ex3" jdbcType="VARCHAR" property="ex3" />
@@ -180,47 +180,47 @@
       gys_id, cangku_id, fpsl_id,
       fplx_id, djlx_id, cgfzr,
       xdfzr, sfjj, sfdz,
-      wldh, yqdhrq, bz, address,
-      tel, contact, sl, kpsl,
-      fksl, tksl, je, kpje,
-      fkje, tkje, fj, zdr,
-      zdrq, qr, qrr, qrrq,
-      sh, shr, shrq, ecsh,
-      ecshr, ecshrq, kssh,
-      ksshr, ksshrq, shqr,
-      shqrr, shqrrq, ksfh,
-      ksfhr, ksfhrq, ksph,
-      ksphr, ksphrq, cgfh,
-      cgfhr, cgfhrq, yflr,
-      yflrr, yflrrq, ysflr,
-      ysflrr, ysflrrq, sctc,
-      sctcr, sctcrq, zs,
-      zsr, zsrq, zf, zfr,
-      zfrq, ex1, ex2, ex3
-      )
-    values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=INTEGER}, #{xsdh,jdbcType=VARCHAR},
+      wldh, yqdhrq, bz,
+      address, tel, contact,
+      sl, kpsl, fksl, tksl,
+      je, kpje, fkje, tkje,
+      fj, zdr, zdrq, qr,
+      qrr, qrrq, sh, shr,
+      shrq, ecsh, ecshr,
+      ecshrq, kssh, ksshr,
+      ksshrq, shqr, shqrr,
+      shqrrq, ksfh, ksfhr,
+      ksfhrq, ksph, ksphr,
+      ksphrq, cgfh, cgfhr,
+      cgfhrq, yflr, yflrr,
+      yflrrq, ysflr, ysflrr,
+      ysflrrq, sctc, sctcr,
+      sctcrq, zs, zsr,
+      zsrq, zf, zfr, zfrq,
+      ex1, ex2, ex3)
+    values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=TIMESTAMP}, #{xsdh,jdbcType=VARCHAR},
       #{ydjh,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{bmId,jdbcType=INTEGER},
       #{gysId,jdbcType=INTEGER}, #{cangkuId,jdbcType=INTEGER}, #{fpslId,jdbcType=INTEGER},
       #{fplxId,jdbcType=INTEGER}, #{djlxId,jdbcType=INTEGER}, #{cgfzr,jdbcType=INTEGER},
       #{xdfzr,jdbcType=INTEGER}, #{sfjj,jdbcType=TINYINT}, #{sfdz,jdbcType=TINYINT},
-      #{wldh,jdbcType=VARCHAR}, #{yqdhrq,jdbcType=INTEGER}, #{bz,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
-      #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{sl,jdbcType=INTEGER}, #{kpsl,jdbcType=INTEGER},
-      #{fksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, #{kpje,jdbcType=DECIMAL},
-      #{fkje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR},
-      #{zdrq,jdbcType=INTEGER}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=INTEGER},
-      #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=INTEGER}, #{ecsh,jdbcType=TINYINT},
-      #{ecshr,jdbcType=VARCHAR}, #{ecshrq,jdbcType=INTEGER}, #{kssh,jdbcType=TINYINT},
-      #{ksshr,jdbcType=VARCHAR}, #{ksshrq,jdbcType=INTEGER}, #{shqr,jdbcType=TINYINT},
-      #{shqrr,jdbcType=VARCHAR}, #{shqrrq,jdbcType=INTEGER}, #{ksfh,jdbcType=TINYINT},
-      #{ksfhr,jdbcType=VARCHAR}, #{ksfhrq,jdbcType=INTEGER}, #{ksph,jdbcType=TINYINT},
-      #{ksphr,jdbcType=VARCHAR}, #{ksphrq,jdbcType=INTEGER}, #{cgfh,jdbcType=TINYINT},
-      #{cgfhr,jdbcType=VARCHAR}, #{cgfhrq,jdbcType=INTEGER}, #{yflr,jdbcType=TINYINT},
-      #{yflrr,jdbcType=VARCHAR}, #{yflrrq,jdbcType=INTEGER}, #{ysflr,jdbcType=TINYINT},
-      #{ysflrr,jdbcType=VARCHAR}, #{ysflrrq,jdbcType=INTEGER}, #{sctc,jdbcType=TINYINT},
-      #{sctcr,jdbcType=VARCHAR}, #{sctcrq,jdbcType=INTEGER}, #{zs,jdbcType=TINYINT},
-      #{zsr,jdbcType=VARCHAR}, #{zsrq,jdbcType=INTEGER}, #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR},
-      #{zfrq,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}
-      )
+      #{wldh,jdbcType=VARCHAR}, #{yqdhrq,jdbcType=TIMESTAMP}, #{bz,jdbcType=VARCHAR},
+      #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
+      #{sl,jdbcType=INTEGER}, #{kpsl,jdbcType=INTEGER}, #{fksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER},
+      #{je,jdbcType=DECIMAL}, #{kpje,jdbcType=DECIMAL}, #{fkje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL},
+      #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, #{zdrq,jdbcType=TIMESTAMP}, #{qr,jdbcType=TINYINT},
+      #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR},
+      #{shrq,jdbcType=TIMESTAMP}, #{ecsh,jdbcType=TINYINT}, #{ecshr,jdbcType=VARCHAR},
+      #{ecshrq,jdbcType=TIMESTAMP}, #{kssh,jdbcType=TINYINT}, #{ksshr,jdbcType=VARCHAR},
+      #{ksshrq,jdbcType=TIMESTAMP}, #{shqr,jdbcType=TINYINT}, #{shqrr,jdbcType=VARCHAR},
+      #{shqrrq,jdbcType=TIMESTAMP}, #{ksfh,jdbcType=TINYINT}, #{ksfhr,jdbcType=VARCHAR},
+      #{ksfhrq,jdbcType=TIMESTAMP}, #{ksph,jdbcType=TINYINT}, #{ksphr,jdbcType=VARCHAR},
+      #{ksphrq,jdbcType=TIMESTAMP}, #{cgfh,jdbcType=TINYINT}, #{cgfhr,jdbcType=VARCHAR},
+      #{cgfhrq,jdbcType=TIMESTAMP}, #{yflr,jdbcType=TINYINT}, #{yflrr,jdbcType=VARCHAR},
+      #{yflrrq,jdbcType=TIMESTAMP}, #{ysflr,jdbcType=TINYINT}, #{ysflrr,jdbcType=VARCHAR},
+      #{ysflrrq,jdbcType=TIMESTAMP}, #{sctc,jdbcType=TINYINT}, #{sctcr,jdbcType=VARCHAR},
+      #{sctcrq,jdbcType=TIMESTAMP}, #{zs,jdbcType=TINYINT}, #{zsr,jdbcType=VARCHAR},
+      #{zsrq,jdbcType=TIMESTAMP}, #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP},
+      #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.purchase.entity.PurchaseCg" useGeneratedKeys="true">
         insert into purchase_cg
@@ -453,7 +453,7 @@
                 #{djbh,jdbcType=VARCHAR},
             </if>
             <if test="xdrq != null">
-                #{xdrq,jdbcType=INTEGER},
+                #{xdrq,jdbcType=TIMESTAMP},
             </if>
             <if test="xsdh != null">
                 #{xsdh,jdbcType=VARCHAR},
@@ -498,7 +498,7 @@
                 #{wldh,jdbcType=VARCHAR},
             </if>
             <if test="yqdhrq != null">
-                #{yqdhrq,jdbcType=INTEGER},
+                #{yqdhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="bz != null">
                 #{bz,jdbcType=VARCHAR},
@@ -543,7 +543,7 @@
                 #{zdr,jdbcType=VARCHAR},
             </if>
             <if test="zdrq != null">
-                #{zdrq,jdbcType=INTEGER},
+                #{zdrq,jdbcType=TIMESTAMP},
             </if>
             <if test="qr != null">
                 #{qr,jdbcType=TINYINT},
@@ -552,7 +552,7 @@
                 #{qrr,jdbcType=VARCHAR},
             </if>
             <if test="qrrq != null">
-                #{qrrq,jdbcType=INTEGER},
+                #{qrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="sh != null">
                 #{sh,jdbcType=TINYINT},
@@ -561,7 +561,7 @@
                 #{shr,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
-                #{shrq,jdbcType=INTEGER},
+                #{shrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ecsh != null">
                 #{ecsh,jdbcType=TINYINT},
@@ -570,7 +570,7 @@
                 #{ecshr,jdbcType=VARCHAR},
             </if>
             <if test="ecshrq != null">
-                #{ecshrq,jdbcType=INTEGER},
+                #{ecshrq,jdbcType=TIMESTAMP},
             </if>
             <if test="kssh != null">
                 #{kssh,jdbcType=TINYINT},
@@ -579,7 +579,7 @@
                 #{ksshr,jdbcType=VARCHAR},
             </if>
             <if test="ksshrq != null">
-                #{ksshrq,jdbcType=INTEGER},
+                #{ksshrq,jdbcType=TIMESTAMP},
             </if>
             <if test="shqr != null">
                 #{shqr,jdbcType=TINYINT},
@@ -588,7 +588,7 @@
                 #{shqrr,jdbcType=VARCHAR},
             </if>
             <if test="shqrrq != null">
-                #{shqrrq,jdbcType=INTEGER},
+                #{shqrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ksfh != null">
                 #{ksfh,jdbcType=TINYINT},
@@ -597,7 +597,7 @@
                 #{ksfhr,jdbcType=VARCHAR},
             </if>
             <if test="ksfhrq != null">
-                #{ksfhrq,jdbcType=INTEGER},
+                #{ksfhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ksph != null">
                 #{ksph,jdbcType=TINYINT},
@@ -606,7 +606,7 @@
                 #{ksphr,jdbcType=VARCHAR},
             </if>
             <if test="ksphrq != null">
-                #{ksphrq,jdbcType=INTEGER},
+                #{ksphrq,jdbcType=TIMESTAMP},
             </if>
             <if test="cgfh != null">
                 #{cgfh,jdbcType=TINYINT},
@@ -615,7 +615,7 @@
                 #{cgfhr,jdbcType=VARCHAR},
             </if>
             <if test="cgfhrq != null">
-                #{cgfhrq,jdbcType=INTEGER},
+                #{cgfhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="yflr != null">
                 #{yflr,jdbcType=TINYINT},
@@ -624,7 +624,7 @@
                 #{yflrr,jdbcType=VARCHAR},
             </if>
             <if test="yflrrq != null">
-                #{yflrrq,jdbcType=INTEGER},
+                #{yflrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ysflr != null">
                 #{ysflr,jdbcType=TINYINT},
@@ -633,7 +633,7 @@
                 #{ysflrr,jdbcType=VARCHAR},
             </if>
             <if test="ysflrrq != null">
-                #{ysflrrq,jdbcType=INTEGER},
+                #{ysflrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="sctc != null">
                 #{sctc,jdbcType=TINYINT},
@@ -642,7 +642,7 @@
                 #{sctcr,jdbcType=VARCHAR},
             </if>
             <if test="sctcrq != null">
-                #{sctcrq,jdbcType=INTEGER},
+                #{sctcrq,jdbcType=TIMESTAMP},
             </if>
             <if test="zs != null">
                 #{zs,jdbcType=TINYINT},
@@ -651,7 +651,7 @@
                 #{zsr,jdbcType=VARCHAR},
             </if>
             <if test="zsrq != null">
-                #{zsrq,jdbcType=INTEGER},
+                #{zsrq,jdbcType=TIMESTAMP},
             </if>
             <if test="zf != null">
                 #{zf,jdbcType=TINYINT},
@@ -660,7 +660,7 @@
                 #{zfr,jdbcType=VARCHAR},
             </if>
             <if test="zfrq != null">
-                #{zfrq,jdbcType=INTEGER},
+                #{zfrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ex1 != null">
                 #{ex1,jdbcType=VARCHAR},
@@ -689,7 +689,7 @@
                 djbh = #{record.djbh,jdbcType=VARCHAR},
             </if>
             <if test="record.xdrq != null">
-                xdrq = #{record.xdrq,jdbcType=INTEGER},
+                xdrq = #{record.xdrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.xsdh != null">
                 xsdh = #{record.xsdh,jdbcType=VARCHAR},
@@ -734,7 +734,7 @@
                 wldh = #{record.wldh,jdbcType=VARCHAR},
             </if>
             <if test="record.yqdhrq != null">
-                yqdhrq = #{record.yqdhrq,jdbcType=INTEGER},
+                yqdhrq = #{record.yqdhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.bz != null">
                 bz = #{record.bz,jdbcType=VARCHAR},
@@ -779,7 +779,7 @@
                 zdr = #{record.zdr,jdbcType=VARCHAR},
             </if>
             <if test="record.zdrq != null">
-                zdrq = #{record.zdrq,jdbcType=INTEGER},
+                zdrq = #{record.zdrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.qr != null">
                 qr = #{record.qr,jdbcType=TINYINT},
@@ -788,7 +788,7 @@
                 qrr = #{record.qrr,jdbcType=VARCHAR},
             </if>
             <if test="record.qrrq != null">
-                qrrq = #{record.qrrq,jdbcType=INTEGER},
+                qrrq = #{record.qrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.sh != null">
                 sh = #{record.sh,jdbcType=TINYINT},
@@ -797,7 +797,7 @@
                 shr = #{record.shr,jdbcType=VARCHAR},
             </if>
             <if test="record.shrq != null">
-                shrq = #{record.shrq,jdbcType=INTEGER},
+                shrq = #{record.shrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.ecsh != null">
                 ecsh = #{record.ecsh,jdbcType=TINYINT},
@@ -806,7 +806,7 @@
                 ecshr = #{record.ecshr,jdbcType=VARCHAR},
             </if>
             <if test="record.ecshrq != null">
-                ecshrq = #{record.ecshrq,jdbcType=INTEGER},
+                ecshrq = #{record.ecshrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.kssh != null">
                 kssh = #{record.kssh,jdbcType=TINYINT},
@@ -815,7 +815,7 @@
                 ksshr = #{record.ksshr,jdbcType=VARCHAR},
             </if>
             <if test="record.ksshrq != null">
-                ksshrq = #{record.ksshrq,jdbcType=INTEGER},
+                ksshrq = #{record.ksshrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.shqr != null">
                 shqr = #{record.shqr,jdbcType=TINYINT},
@@ -824,7 +824,7 @@
                 shqrr = #{record.shqrr,jdbcType=VARCHAR},
             </if>
             <if test="record.shqrrq != null">
-                shqrrq = #{record.shqrrq,jdbcType=INTEGER},
+                shqrrq = #{record.shqrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.ksfh != null">
                 ksfh = #{record.ksfh,jdbcType=TINYINT},
@@ -833,7 +833,7 @@
                 ksfhr = #{record.ksfhr,jdbcType=VARCHAR},
             </if>
             <if test="record.ksfhrq != null">
-                ksfhrq = #{record.ksfhrq,jdbcType=INTEGER},
+                ksfhrq = #{record.ksfhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.ksph != null">
                 ksph = #{record.ksph,jdbcType=TINYINT},
@@ -842,7 +842,7 @@
                 ksphr = #{record.ksphr,jdbcType=VARCHAR},
             </if>
             <if test="record.ksphrq != null">
-                ksphrq = #{record.ksphrq,jdbcType=INTEGER},
+                ksphrq = #{record.ksphrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.cgfh != null">
                 cgfh = #{record.cgfh,jdbcType=TINYINT},
@@ -851,7 +851,7 @@
                 cgfhr = #{record.cgfhr,jdbcType=VARCHAR},
             </if>
             <if test="record.cgfhrq != null">
-                cgfhrq = #{record.cgfhrq,jdbcType=INTEGER},
+                cgfhrq = #{record.cgfhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.yflr != null">
                 yflr = #{record.yflr,jdbcType=TINYINT},
@@ -860,7 +860,7 @@
                 yflrr = #{record.yflrr,jdbcType=VARCHAR},
             </if>
             <if test="record.yflrrq != null">
-                yflrrq = #{record.yflrrq,jdbcType=INTEGER},
+                yflrrq = #{record.yflrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.ysflr != null">
                 ysflr = #{record.ysflr,jdbcType=TINYINT},
@@ -869,7 +869,7 @@
                 ysflrr = #{record.ysflrr,jdbcType=VARCHAR},
             </if>
             <if test="record.ysflrrq != null">
-                ysflrrq = #{record.ysflrrq,jdbcType=INTEGER},
+                ysflrrq = #{record.ysflrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.sctc != null">
                 sctc = #{record.sctc,jdbcType=TINYINT},
@@ -878,7 +878,7 @@
                 sctcr = #{record.sctcr,jdbcType=VARCHAR},
             </if>
             <if test="record.sctcrq != null">
-                sctcrq = #{record.sctcrq,jdbcType=INTEGER},
+                sctcrq = #{record.sctcrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.zs != null">
                 zs = #{record.zs,jdbcType=TINYINT},
@@ -887,7 +887,7 @@
                 zsr = #{record.zsr,jdbcType=VARCHAR},
             </if>
             <if test="record.zsrq != null">
-                zsrq = #{record.zsrq,jdbcType=INTEGER},
+                zsrq = #{record.zsrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.zf != null">
                 zf = #{record.zf,jdbcType=TINYINT},
@@ -896,7 +896,7 @@
                 zfr = #{record.zfr,jdbcType=VARCHAR},
             </if>
             <if test="record.zfrq != null">
-                zfrq = #{record.zfrq,jdbcType=INTEGER},
+                zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
             </if>
             <if test="record.ex1 != null">
                 ex1 = #{record.ex1,jdbcType=VARCHAR},
@@ -916,7 +916,7 @@
         update purchase_cg
         set Id = #{record.id,jdbcType=BIGINT},
         djbh = #{record.djbh,jdbcType=VARCHAR},
-        xdrq = #{record.xdrq,jdbcType=INTEGER},
+        xdrq = #{record.xdrq,jdbcType=TIMESTAMP},
         xsdh = #{record.xsdh,jdbcType=VARCHAR},
         ydjh = #{record.ydjh,jdbcType=VARCHAR},
         user_id = #{record.userId,jdbcType=INTEGER},
@@ -931,7 +931,7 @@
         sfjj = #{record.sfjj,jdbcType=TINYINT},
         sfdz = #{record.sfdz,jdbcType=TINYINT},
         wldh = #{record.wldh,jdbcType=VARCHAR},
-        yqdhrq = #{record.yqdhrq,jdbcType=INTEGER},
+        yqdhrq = #{record.yqdhrq,jdbcType=TIMESTAMP},
         bz = #{record.bz,jdbcType=VARCHAR},
         address = #{record.address,jdbcType=VARCHAR},
         tel = #{record.tel,jdbcType=VARCHAR},
@@ -946,46 +946,46 @@
         tkje = #{record.tkje,jdbcType=DECIMAL},
         fj = #{record.fj,jdbcType=VARCHAR},
         zdr = #{record.zdr,jdbcType=VARCHAR},
-        zdrq = #{record.zdrq,jdbcType=INTEGER},
+        zdrq = #{record.zdrq,jdbcType=TIMESTAMP},
         qr = #{record.qr,jdbcType=TINYINT},
         qrr = #{record.qrr,jdbcType=VARCHAR},
-        qrrq = #{record.qrrq,jdbcType=INTEGER},
+        qrrq = #{record.qrrq,jdbcType=TIMESTAMP},
         sh = #{record.sh,jdbcType=TINYINT},
         shr = #{record.shr,jdbcType=VARCHAR},
-        shrq = #{record.shrq,jdbcType=INTEGER},
+        shrq = #{record.shrq,jdbcType=TIMESTAMP},
         ecsh = #{record.ecsh,jdbcType=TINYINT},
         ecshr = #{record.ecshr,jdbcType=VARCHAR},
-        ecshrq = #{record.ecshrq,jdbcType=INTEGER},
+        ecshrq = #{record.ecshrq,jdbcType=TIMESTAMP},
         kssh = #{record.kssh,jdbcType=TINYINT},
         ksshr = #{record.ksshr,jdbcType=VARCHAR},
-        ksshrq = #{record.ksshrq,jdbcType=INTEGER},
+        ksshrq = #{record.ksshrq,jdbcType=TIMESTAMP},
         shqr = #{record.shqr,jdbcType=TINYINT},
         shqrr = #{record.shqrr,jdbcType=VARCHAR},
-        shqrrq = #{record.shqrrq,jdbcType=INTEGER},
+        shqrrq = #{record.shqrrq,jdbcType=TIMESTAMP},
         ksfh = #{record.ksfh,jdbcType=TINYINT},
         ksfhr = #{record.ksfhr,jdbcType=VARCHAR},
-        ksfhrq = #{record.ksfhrq,jdbcType=INTEGER},
+        ksfhrq = #{record.ksfhrq,jdbcType=TIMESTAMP},
         ksph = #{record.ksph,jdbcType=TINYINT},
         ksphr = #{record.ksphr,jdbcType=VARCHAR},
-        ksphrq = #{record.ksphrq,jdbcType=INTEGER},
+        ksphrq = #{record.ksphrq,jdbcType=TIMESTAMP},
         cgfh = #{record.cgfh,jdbcType=TINYINT},
         cgfhr = #{record.cgfhr,jdbcType=VARCHAR},
-        cgfhrq = #{record.cgfhrq,jdbcType=INTEGER},
+        cgfhrq = #{record.cgfhrq,jdbcType=TIMESTAMP},
         yflr = #{record.yflr,jdbcType=TINYINT},
         yflrr = #{record.yflrr,jdbcType=VARCHAR},
-        yflrrq = #{record.yflrrq,jdbcType=INTEGER},
+        yflrrq = #{record.yflrrq,jdbcType=TIMESTAMP},
         ysflr = #{record.ysflr,jdbcType=TINYINT},
         ysflrr = #{record.ysflrr,jdbcType=VARCHAR},
-        ysflrrq = #{record.ysflrrq,jdbcType=INTEGER},
+        ysflrrq = #{record.ysflrrq,jdbcType=TIMESTAMP},
         sctc = #{record.sctc,jdbcType=TINYINT},
         sctcr = #{record.sctcr,jdbcType=VARCHAR},
-        sctcrq = #{record.sctcrq,jdbcType=INTEGER},
+        sctcrq = #{record.sctcrq,jdbcType=TIMESTAMP},
         zs = #{record.zs,jdbcType=TINYINT},
         zsr = #{record.zsr,jdbcType=VARCHAR},
-        zsrq = #{record.zsrq,jdbcType=INTEGER},
+        zsrq = #{record.zsrq,jdbcType=TIMESTAMP},
         zf = #{record.zf,jdbcType=TINYINT},
         zfr = #{record.zfr,jdbcType=VARCHAR},
-        zfrq = #{record.zfrq,jdbcType=INTEGER},
+        zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
         ex1 = #{record.ex1,jdbcType=VARCHAR},
         ex2 = #{record.ex2,jdbcType=VARCHAR},
         ex3 = #{record.ex3,jdbcType=VARCHAR}
@@ -1000,7 +1000,7 @@
                 djbh = #{djbh,jdbcType=VARCHAR},
             </if>
             <if test="xdrq != null">
-                xdrq = #{xdrq,jdbcType=INTEGER},
+                xdrq = #{xdrq,jdbcType=TIMESTAMP},
             </if>
             <if test="xsdh != null">
                 xsdh = #{xsdh,jdbcType=VARCHAR},
@@ -1045,7 +1045,7 @@
                 wldh = #{wldh,jdbcType=VARCHAR},
             </if>
             <if test="yqdhrq != null">
-                yqdhrq = #{yqdhrq,jdbcType=INTEGER},
+                yqdhrq = #{yqdhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="bz != null">
                 bz = #{bz,jdbcType=VARCHAR},
@@ -1090,7 +1090,7 @@
                 zdr = #{zdr,jdbcType=VARCHAR},
             </if>
             <if test="zdrq != null">
-                zdrq = #{zdrq,jdbcType=INTEGER},
+                zdrq = #{zdrq,jdbcType=TIMESTAMP},
             </if>
             <if test="qr != null">
                 qr = #{qr,jdbcType=TINYINT},
@@ -1099,7 +1099,7 @@
                 qrr = #{qrr,jdbcType=VARCHAR},
             </if>
             <if test="qrrq != null">
-                qrrq = #{qrrq,jdbcType=INTEGER},
+                qrrq = #{qrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="sh != null">
                 sh = #{sh,jdbcType=TINYINT},
@@ -1108,7 +1108,7 @@
                 shr = #{shr,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
-                shrq = #{shrq,jdbcType=INTEGER},
+                shrq = #{shrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ecsh != null">
                 ecsh = #{ecsh,jdbcType=TINYINT},
@@ -1117,7 +1117,7 @@
                 ecshr = #{ecshr,jdbcType=VARCHAR},
             </if>
             <if test="ecshrq != null">
-                ecshrq = #{ecshrq,jdbcType=INTEGER},
+                ecshrq = #{ecshrq,jdbcType=TIMESTAMP},
             </if>
             <if test="kssh != null">
                 kssh = #{kssh,jdbcType=TINYINT},
@@ -1126,7 +1126,7 @@
                 ksshr = #{ksshr,jdbcType=VARCHAR},
             </if>
             <if test="ksshrq != null">
-                ksshrq = #{ksshrq,jdbcType=INTEGER},
+                ksshrq = #{ksshrq,jdbcType=TIMESTAMP},
             </if>
             <if test="shqr != null">
                 shqr = #{shqr,jdbcType=TINYINT},
@@ -1135,7 +1135,7 @@
                 shqrr = #{shqrr,jdbcType=VARCHAR},
             </if>
             <if test="shqrrq != null">
-                shqrrq = #{shqrrq,jdbcType=INTEGER},
+                shqrrq = #{shqrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ksfh != null">
                 ksfh = #{ksfh,jdbcType=TINYINT},
@@ -1144,7 +1144,7 @@
                 ksfhr = #{ksfhr,jdbcType=VARCHAR},
             </if>
             <if test="ksfhrq != null">
-                ksfhrq = #{ksfhrq,jdbcType=INTEGER},
+                ksfhrq = #{ksfhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ksph != null">
                 ksph = #{ksph,jdbcType=TINYINT},
@@ -1153,7 +1153,7 @@
                 ksphr = #{ksphr,jdbcType=VARCHAR},
             </if>
             <if test="ksphrq != null">
-                ksphrq = #{ksphrq,jdbcType=INTEGER},
+                ksphrq = #{ksphrq,jdbcType=TIMESTAMP},
             </if>
             <if test="cgfh != null">
                 cgfh = #{cgfh,jdbcType=TINYINT},
@@ -1162,7 +1162,7 @@
                 cgfhr = #{cgfhr,jdbcType=VARCHAR},
             </if>
             <if test="cgfhrq != null">
-                cgfhrq = #{cgfhrq,jdbcType=INTEGER},
+                cgfhrq = #{cgfhrq,jdbcType=TIMESTAMP},
             </if>
             <if test="yflr != null">
                 yflr = #{yflr,jdbcType=TINYINT},
@@ -1171,7 +1171,7 @@
                 yflrr = #{yflrr,jdbcType=VARCHAR},
             </if>
             <if test="yflrrq != null">
-                yflrrq = #{yflrrq,jdbcType=INTEGER},
+                yflrrq = #{yflrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ysflr != null">
                 ysflr = #{ysflr,jdbcType=TINYINT},
@@ -1180,7 +1180,7 @@
                 ysflrr = #{ysflrr,jdbcType=VARCHAR},
             </if>
             <if test="ysflrrq != null">
-                ysflrrq = #{ysflrrq,jdbcType=INTEGER},
+                ysflrrq = #{ysflrrq,jdbcType=TIMESTAMP},
             </if>
             <if test="sctc != null">
                 sctc = #{sctc,jdbcType=TINYINT},
@@ -1189,7 +1189,7 @@
                 sctcr = #{sctcr,jdbcType=VARCHAR},
             </if>
             <if test="sctcrq != null">
-                sctcrq = #{sctcrq,jdbcType=INTEGER},
+                sctcrq = #{sctcrq,jdbcType=TIMESTAMP},
             </if>
             <if test="zs != null">
                 zs = #{zs,jdbcType=TINYINT},
@@ -1198,7 +1198,7 @@
                 zsr = #{zsr,jdbcType=VARCHAR},
             </if>
             <if test="zsrq != null">
-                zsrq = #{zsrq,jdbcType=INTEGER},
+                zsrq = #{zsrq,jdbcType=TIMESTAMP},
             </if>
             <if test="zf != null">
                 zf = #{zf,jdbcType=TINYINT},
@@ -1207,7 +1207,7 @@
                 zfr = #{zfr,jdbcType=VARCHAR},
             </if>
             <if test="zfrq != null">
-                zfrq = #{zfrq,jdbcType=INTEGER},
+                zfrq = #{zfrq,jdbcType=TIMESTAMP},
             </if>
             <if test="ex1 != null">
                 ex1 = #{ex1,jdbcType=VARCHAR},
@@ -1224,7 +1224,7 @@
     <update id="updateByPrimaryKey" parameterType="com.febs.purchase.entity.PurchaseCg">
     update purchase_cg
     set djbh = #{djbh,jdbcType=VARCHAR},
-      xdrq = #{xdrq,jdbcType=INTEGER},
+      xdrq = #{xdrq,jdbcType=TIMESTAMP},
       xsdh = #{xsdh,jdbcType=VARCHAR},
       ydjh = #{ydjh,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
@@ -1239,7 +1239,7 @@
       sfjj = #{sfjj,jdbcType=TINYINT},
       sfdz = #{sfdz,jdbcType=TINYINT},
       wldh = #{wldh,jdbcType=VARCHAR},
-      yqdhrq = #{yqdhrq,jdbcType=INTEGER},
+      yqdhrq = #{yqdhrq,jdbcType=TIMESTAMP},
       bz = #{bz,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
@@ -1254,49 +1254,80 @@
       tkje = #{tkje,jdbcType=DECIMAL},
       fj = #{fj,jdbcType=VARCHAR},
       zdr = #{zdr,jdbcType=VARCHAR},
-      zdrq = #{zdrq,jdbcType=INTEGER},
+      zdrq = #{zdrq,jdbcType=TIMESTAMP},
       qr = #{qr,jdbcType=TINYINT},
       qrr = #{qrr,jdbcType=VARCHAR},
-      qrrq = #{qrrq,jdbcType=INTEGER},
+      qrrq = #{qrrq,jdbcType=TIMESTAMP},
       sh = #{sh,jdbcType=TINYINT},
       shr = #{shr,jdbcType=VARCHAR},
-      shrq = #{shrq,jdbcType=INTEGER},
+      shrq = #{shrq,jdbcType=TIMESTAMP},
       ecsh = #{ecsh,jdbcType=TINYINT},
       ecshr = #{ecshr,jdbcType=VARCHAR},
-      ecshrq = #{ecshrq,jdbcType=INTEGER},
+      ecshrq = #{ecshrq,jdbcType=TIMESTAMP},
       kssh = #{kssh,jdbcType=TINYINT},
       ksshr = #{ksshr,jdbcType=VARCHAR},
-      ksshrq = #{ksshrq,jdbcType=INTEGER},
+      ksshrq = #{ksshrq,jdbcType=TIMESTAMP},
       shqr = #{shqr,jdbcType=TINYINT},
       shqrr = #{shqrr,jdbcType=VARCHAR},
-      shqrrq = #{shqrrq,jdbcType=INTEGER},
+      shqrrq = #{shqrrq,jdbcType=TIMESTAMP},
       ksfh = #{ksfh,jdbcType=TINYINT},
       ksfhr = #{ksfhr,jdbcType=VARCHAR},
-      ksfhrq = #{ksfhrq,jdbcType=INTEGER},
+      ksfhrq = #{ksfhrq,jdbcType=TIMESTAMP},
       ksph = #{ksph,jdbcType=TINYINT},
       ksphr = #{ksphr,jdbcType=VARCHAR},
-      ksphrq = #{ksphrq,jdbcType=INTEGER},
+      ksphrq = #{ksphrq,jdbcType=TIMESTAMP},
       cgfh = #{cgfh,jdbcType=TINYINT},
       cgfhr = #{cgfhr,jdbcType=VARCHAR},
-      cgfhrq = #{cgfhrq,jdbcType=INTEGER},
+      cgfhrq = #{cgfhrq,jdbcType=TIMESTAMP},
       yflr = #{yflr,jdbcType=TINYINT},
       yflrr = #{yflrr,jdbcType=VARCHAR},
-      yflrrq = #{yflrrq,jdbcType=INTEGER},
+      yflrrq = #{yflrrq,jdbcType=TIMESTAMP},
       ysflr = #{ysflr,jdbcType=TINYINT},
       ysflrr = #{ysflrr,jdbcType=VARCHAR},
-      ysflrrq = #{ysflrrq,jdbcType=INTEGER},
+      ysflrrq = #{ysflrrq,jdbcType=TIMESTAMP},
       sctc = #{sctc,jdbcType=TINYINT},
       sctcr = #{sctcr,jdbcType=VARCHAR},
-      sctcrq = #{sctcrq,jdbcType=INTEGER},
+      sctcrq = #{sctcrq,jdbcType=TIMESTAMP},
       zs = #{zs,jdbcType=TINYINT},
       zsr = #{zsr,jdbcType=VARCHAR},
-      zsrq = #{zsrq,jdbcType=INTEGER},
+      zsrq = #{zsrq,jdbcType=TIMESTAMP},
       zf = #{zf,jdbcType=TINYINT},
       zfr = #{zfr,jdbcType=VARCHAR},
-      zfrq = #{zfrq,jdbcType=INTEGER},
+      zfrq = #{zfrq,jdbcType=TIMESTAMP},
       ex1 = #{ex1,jdbcType=VARCHAR},
       ex2 = #{ex2,jdbcType=VARCHAR},
       ex3 = #{ex3,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+    <sql id="Page_Column_List">
+        cg.Id, cg.djbh, cg.xdrq, cg.xsdh, cg.ydjh, cg.user_id, cg.bm_id, cg.gys_id, cg.cangku_id, cg.fpsl_id, cg.fplx_id,
+        cg.djlx_id, cg.cgfzr, cg.xdfzr, cg.sfjj, cg.sfdz, cg.wldh, cg.yqdhrq, cg.bz, cg.address, cg.tel, cg.contact, cg.sl,
+		cg.kpsl, cg.fksl, cg.tksl, cg.je, cg.kpje, cg.fkje, cg.tkje, cg.fj, cg.zdr, cg.zdrq, cg.qr, cg.qrr, cg.qrrq, cg.sh,
+		cg.shr, cg.shrq, cg.ecsh, cg.ecshr, cg.ecshrq, cg.kssh, cg.ksshr, cg.ksshrq, cg.shqr, cg.shqrr, cg.shqrrq, cg.ksfh,
+		cg.ksfhr, cg.ksfhrq, cg.ksph,cg.ksphr, cg.ksphrq, cg.cgfh, cg.cgfhr, cg.cgfhrq, cg.yflr, cg.yflrr, cg.yflrrq, cg.ysflr,
+		cg.ysflrr, cg.ysflrrq,cg.sctc, cg.sctcr, cg.sctcrq, cg.zs, cg.zsr, cg.zsrq, cg.zf, cg.zfr, cg.zfrq, cg.ex1, cg.ex2, cg.ex3
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseCgReq" resultType="com.febs.purchase.vo.resp.PurchaseCgResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,u.USERNAME userName,bm.bmmc,gys.gysmc,ck.ckmc,fpsd.fpsdmc,fplx.fplxmc,djlx.djlxmc,cu.USERNAME cgfzrmc,xu.USERNAME xdfzrmc
+        ,mx.id mxId,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        FROM purchase_cg cg
+        LEFT JOIN t_user u ON cg.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on cg.bm_id = bm.id
+        LEFT JOIN system_gys gys on cg.gys_id = gys.id
+        LEFT JOIN system_cangku ck ON cg.cangku_id = ck.id
+        LEFT JOIN basic_fpsd fpsd ON cg.fpsl_id = fpsd.id
+        LEFT JOIN basic_fplx fplx ON cg.fplx_id = fplx.id
+        LEFT JOIN basic_djlx djlx ON cg.djlx_id = djlx.id
+        LEFT JOIN t_user cu on cg.cgfzr = cu.USER_ID
+        LEFT JOIN t_user xu on cg.xdfzr = xu.USER_ID
+        LEFT JOIN purchase_cgmx mx ON cg.id = mx.pid
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+
+    </select>
+
 </mapper>

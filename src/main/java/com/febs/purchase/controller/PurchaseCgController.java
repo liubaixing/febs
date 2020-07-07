@@ -9,6 +9,8 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.purchase.entity.PurchaseCg;
 import com.febs.purchase.service.IPurchaseCgService;
 
+import com.febs.purchase.vo.req.PurchaseCgReq;
+import com.febs.purchase.vo.resp.PurchaseCgResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class PurchaseCgController extends BaseController {
 
     @GetMapping("/list")
     @RequiresPermissions("purchaseCg:list")
-    public FebsResponse purchaseCgList(QueryRequest request, PurchaseCg purchaseCg) {
+    public FebsResponse purchaseCgList(QueryRequest request, PurchaseCgReq purchaseCg) {
         Map<String, Object> dataTable = getDataTable(this.purchaseCgService.findPurchaseCgs(request, purchaseCg));
         return new FebsResponse().success().data(dataTable);
     }
@@ -79,8 +81,8 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("purchaseCg:export")
-    public void export(QueryRequest queryRequest, PurchaseCg purchaseCg, HttpServletResponse response) throws IOException {
-        List<PurchaseCg> purchaseCgs = this.purchaseCgService.findPurchaseCgs(queryRequest, purchaseCg).getRecords();
-        ExcelUtil.export(purchaseCgs, PurchaseCg.class,"采购单",response);
+    public void export(QueryRequest queryRequest, PurchaseCgReq purchaseCg, HttpServletResponse response) throws IOException {
+        List<PurchaseCgResp> purchaseCgs = this.purchaseCgService.findPurchaseCgs(queryRequest, purchaseCg).getRecords();
+        ExcelUtil.export(purchaseCgs, PurchaseCgResp.class,"采购单",response);
     }
 }

@@ -548,7 +548,7 @@
   </update>
 
     <sql id="Page_Column_List">
-        sk.Id, sk.djbh, sk.djrq, sk.ghdw_id, sk.je, sk.bz, sk.fj, sk.zdr, sk.zdrq, sk.sh, sk.shr, sk.shrq, sk.zf, sk.zfr, sk.zfrq, sk.ex1,
+        sk.Id, sk.djbh, sk.djrq, sk.ghdw_id, sk.bz, sk.fj, sk.zdr, sk.zdrq, sk.sh, sk.shr, sk.shrq, sk.zf, sk.zfr, sk.zfrq, sk.ex1,
         sk.ex2, sk.ex3, sk.create_time, sk.update_time, sk.deleted
     </sql>
 
@@ -556,7 +556,7 @@
     <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsskReq" resultType="com.febs.receipt.vo.resp.OrderXsskResp">
         SELECT
         <include refid="Page_Column_List" />
-        ,mx.id mxId,mx.ydjh,mx.sp_id,mx.je,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
+        ,mx.id mxId,mx.ydjh,mx.sp_id,mx.sl,mx.je ,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
         FROM order_xssk sk
         LEFT JOIN order_xsskmx mx on mx.pid = sk.id
         LEFT JOIN basic_ptda da on sk.ghdw_id = da.id

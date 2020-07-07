@@ -250,7 +250,7 @@ public class OrderXs {
     /**
      * 收货人人电话
      */
-    @ExcelProperty(value = "联系电话",index = 31)
+    @ExcelProperty(value = "电话 / 联系人",index = 31)
     @TableField("tel")
     private String tel;
 
@@ -352,7 +352,7 @@ public class OrderXs {
     /**
      * 0-未生成退款 1-已生成退款
      */
-    @ApiModelProperty("是否生成退款")
+    @ApiModelProperty("销退（0-未销退 1-部分销退 2-已销退）")
     @ExcelIgnore
     @TableField("sctk")
     private Byte sctk;
@@ -360,7 +360,7 @@ public class OrderXs {
     /**
      * 生成退款人
      */
-    @ApiModelProperty("生成退款人")
+    @ApiModelProperty("销退人")
     @ExcelIgnore
     @TableField("sctkr")
     private String sctkr;
@@ -368,7 +368,7 @@ public class OrderXs {
     /**
      * 生成退款日期
      */
-    @ApiModelProperty("生成退款日期")
+    @ApiModelProperty("销退日期")
     @ExcelIgnore
     @TableField("sctkrq")
     private Date sctkrq;
@@ -376,7 +376,7 @@ public class OrderXs {
     /**
      * 0-未关闭 1-已关闭
      */
-    @ApiModelProperty("是否关闭")
+    @ApiModelProperty("是否关闭（0-未关闭 1-已关闭）")
     @ExcelIgnore
     @TableField("gb")
     private Byte gb;
