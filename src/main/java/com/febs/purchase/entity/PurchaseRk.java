@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 入库单 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 19:56:08
+ * @date 2020-07-07 15:40:21
  */
 @Data
 @TableName("purchase_rk")
@@ -50,25 +50,25 @@ public class PurchaseRk {
     private Date xdrq;
 
     /**
-     * 仓库ID 入库仓库
+     * 入库仓库 仓库ID
      */
     @TableField("cangku_id")
     private Integer cangkuId;
 
     /**
-     * 客户ID 客户名称
+     * 客户名称 客户ID
      */
     @TableField("kehu_id")
     private Integer kehuId;
 
     /**
-     * 购货单位ID 购货单位
+     * 购货单位 购货单位ID
      */
     @TableField("org_id")
     private Integer orgId;
 
     /**
-     * 单据类型ID 单据类型名称 导入是填入字母用于单据编号编码
+     * 单据类型 单据类型ID
      */
     @TableField("djlx_id")
     private Integer djlxId;
@@ -109,7 +109,7 @@ public class PurchaseRk {
     private Date zdrq;
 
     /**
-     * 0-未确认 1-已确认
+     * 确认 0-未确认 1-已确认
      */
     @TableField("qr")
     private Byte qr;
@@ -127,7 +127,7 @@ public class PurchaseRk {
     private Date qrrq;
 
     /**
-     * 0-未审核入库 1-已审核入库
+     * 审核入库 0-未审核入库 1-已审核入库
      */
     @TableField("shrk")
     private Byte shrk;
@@ -145,7 +145,7 @@ public class PurchaseRk {
     private Date shrkrq;
 
     /**
-     * 0-未关闭 1-已关闭
+     * 关闭 0-未关闭 1-已关闭
      */
     @TableField("gb")
     private Byte gb;
@@ -163,7 +163,7 @@ public class PurchaseRk {
     private Date gbrq;
 
     /**
-     * 0-未作废 1-已作废
+     * 作废 0-未作废 1-已作废
      */
     @TableField("zf")
     private Byte zf;

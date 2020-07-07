@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 退仓单 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 19:55:32
+ * @date 2020-07-07 15:40:14
  */
 @Data
 @TableName("purchase_tc")
@@ -49,55 +49,55 @@ public class PurchaseTc {
     private String xtdh;
 
     /**
-     * 用户ID 业务员
+     * 业务员 用户ID
      */
     @TableField("user_id")
     private Integer userId;
 
     /**
-     * 部门ID 部门
+     * 部门 部门ID
      */
     @TableField("bm_id")
     private Integer bmId;
 
     /**
-     * 供应商ID 供应商
+     * 供应商 供应商ID
      */
     @TableField("gys_id")
     private Integer gysId;
 
     /**
-     * 仓库ID 仓库名称
+     * 仓库 仓库ID
      */
     @TableField("cangku_id")
     private Integer cangkuId;
 
     /**
-     * 发票税率ID 发票税率
+     * 发票税率 发票税率ID
      */
     @TableField("fpsl_id")
     private Integer fpslId;
 
     /**
-     * 发票类型ID 发票类型
+     * 发票类型 发票类型ID
      */
     @TableField("fplx_id")
     private Integer fplxId;
 
     /**
-     * 单据类型ID 单据类型名称
+     * 单据类型 单据类型ID
      */
     @TableField("djlx_id")
     private Integer djlxId;
 
     /**
-     * 用户ID 采购负责人
+     * 采购负责人 用户ID
      */
     @TableField("cgfzr")
     private Integer cgfzr;
 
     /**
-     * 用户ID 下单负责人
+     * 下单负责人 用户ID
      */
     @TableField("xdfzr")
     private Integer xdfzr;
@@ -213,7 +213,7 @@ public class PurchaseTc {
     private Integer zdrq;
 
     /**
-     * 0-未确认 1-已确认
+     * 确认 0-未确认 1-已确认
      */
     @TableField("qr")
     private Byte qr;
@@ -231,7 +231,7 @@ public class PurchaseTc {
     private Integer qrrq;
 
     /**
-     * 0-未审核 1-已审核
+     * 审核 0-未审核 1-已审核
      */
     @TableField("sh")
     private Byte sh;
@@ -249,7 +249,7 @@ public class PurchaseTc {
     private Integer shrq;
 
     /**
-     * 0-未开始收货 1-已开始收货
+     * 开始收货 0-未开始收货 1-已开始收货
      */
     @TableField("kssh")
     private Byte kssh;
@@ -267,7 +267,7 @@ public class PurchaseTc {
     private Integer ksshrq;
 
     /**
-     * 0-未收货确认 1-已收货确认
+     * 收货确认 0-未收货确认 1-已收货确认
      */
     @TableField("shqr")
     private Byte shqr;
@@ -285,7 +285,7 @@ public class PurchaseTc {
     private Integer shqrrq;
 
     /**
-     * 0-未开始退仓 1-已开始退仓
+     * 开始退仓 0-未开始退仓 1-已开始退仓
      */
     @TableField("kstc")
     private Byte kstc;
@@ -303,7 +303,7 @@ public class PurchaseTc {
     private Integer kstcrq;
 
     /**
-     * 0-未退仓发货 1-已退仓发货
+     * 退仓发货 0-未退仓发货 1-已退仓发货
      */
     @TableField("tcfh")
     private Byte tcfh;
@@ -321,7 +321,7 @@ public class PurchaseTc {
     private Integer tcfhrq;
 
     /**
-     * 0-未运费录入 1-已运费录入
+     * 运费录入 0-未运费录入 1-已运费录入
      */
     @TableField("yflr")
     private Byte yflr;
@@ -339,7 +339,7 @@ public class PurchaseTc {
     private Integer yflrrq;
 
     /**
-     * 0-未印刷费录入 1-已印刷费录入
+     * 印刷费录入 0-未印刷费录入 1-已印刷费录入
      */
     @TableField("ysflr")
     private Byte ysflr;
@@ -357,13 +357,13 @@ public class PurchaseTc {
     private Integer ysflrrq;
 
     /**
-     * 0-未关闭 1-已关闭
+     * 关闭 0-未关闭 1-已关闭
      */
     @TableField("zs")
     private Byte zs;
 
     /**
-     * 关闭
+     * 关闭人
      */
     @TableField("zsr")
     private String zsr;
@@ -375,13 +375,13 @@ public class PurchaseTc {
     private Integer zsrq;
 
     /**
-     * 0-未作废 1-已作废
+     * 作废 0-未作废 1-已作废
      */
     @TableField("zf")
     private Byte zf;
 
     /**
-     * 作废
+     * 作废人
      */
     @TableField("zfr")
     private String zfr;

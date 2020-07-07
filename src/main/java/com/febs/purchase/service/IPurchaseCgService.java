@@ -37,7 +37,7 @@ public interface IPurchaseCgService extends IService<PurchaseCg> {
      *
      * @param purchaseCg purchaseCg
      */
-    void createPurchaseCg(PurchaseCg purchaseCg);
+    Long createPurchaseCg(PurchaseCg purchaseCg);
 
     /**
      * 修改

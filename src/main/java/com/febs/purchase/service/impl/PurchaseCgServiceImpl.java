@@ -1,7 +1,11 @@
 package com.febs.purchase.service.impl;
 
+import com.febs.common.constant.OrderConstant;
+import com.febs.common.constant.PurchaseConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
 import com.febs.purchase.entity.PurchaseCg;
 import com.febs.purchase.mapper.PurchaseCgMapper;
 import com.febs.purchase.service.IPurchaseCgService;
@@ -9,7 +13,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -48,24 +51,18 @@ public class PurchaseCgServiceImpl extends ServiceImpl<PurchaseCgMapper, Purchas
 
     @Override
     @Transactional
-    public void createPurchaseCg(PurchaseCg purchaseCg) {
-        LambdaQueryWrapper<PurchaseCg> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(purchaseCg);
+    public Long createPurchaseCg(PurchaseCg purchaseCg) {
+        this.purchaseCgMapper.insertSelective(purchaseCg);
+        String bh = PurchaseConstant.PURCHASE_CG_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseCg.getId());
+        purchaseCg.setDjbh(bh);
+        this.purchaseCgMapper.updateByPrimaryKeySelective(purchaseCg);
+        return purchaseCg.getId();
     }
 
     @Override
     @Transactional
     public void updatePurchaseCg(PurchaseCg purchaseCg) {
-        LambdaQueryWrapper<PurchaseCg> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(purchaseCg);
+        this.purchaseCgMapper.updateByPrimaryKeySelective(purchaseCg);
     }
 
     @Override

@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -48,24 +47,15 @@ public class PurchaseCgtkmxServiceImpl extends ServiceImpl<PurchaseCgtkmxMapper,
 
     @Override
     @Transactional
-    public void createPurchaseCgtkmx(PurchaseCgtkmx purchaseCgtkmx) {
-        LambdaQueryWrapper<PurchaseCgtkmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(purchaseCgtkmx);
+    public Long createPurchaseCgtkmx(PurchaseCgtkmx purchaseCgtkmx) {
+        this.purchaseCgtkmxMapper.insertSelective(purchaseCgtkmx);
+        return purchaseCgtkmx.getId();
     }
 
     @Override
     @Transactional
     public void updatePurchaseCgtkmx(PurchaseCgtkmx purchaseCgtkmx) {
-        LambdaQueryWrapper<PurchaseCgtkmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(purchaseCgtkmx);
+        this.purchaseCgtkmxMapper.updateByPrimaryKeySelective(purchaseCgtkmx);
     }
 
     @Override

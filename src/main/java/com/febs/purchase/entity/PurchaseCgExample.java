@@ -2565,6 +2565,196 @@ public class PurchaseCgExample {
             return (Criteria) this;
         }
 
+        public Criteria andEcshIsNull() {
+            addCriterion("ecsh is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshIsNotNull() {
+            addCriterion("ecsh is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshEqualTo(Byte value) {
+            addCriterion("ecsh =", value, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshNotEqualTo(Byte value) {
+            addCriterion("ecsh <>", value, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshGreaterThan(Byte value) {
+            addCriterion("ecsh >", value, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshGreaterThanOrEqualTo(Byte value) {
+            addCriterion("ecsh >=", value, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshLessThan(Byte value) {
+            addCriterion("ecsh <", value, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshLessThanOrEqualTo(Byte value) {
+            addCriterion("ecsh <=", value, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshIn(List<Byte> values) {
+            addCriterion("ecsh in", values, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshNotIn(List<Byte> values) {
+            addCriterion("ecsh not in", values, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshBetween(Byte value1, Byte value2) {
+            addCriterion("ecsh between", value1, value2, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshNotBetween(Byte value1, Byte value2) {
+            addCriterion("ecsh not between", value1, value2, "ecsh");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrIsNull() {
+            addCriterion("ecshr is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrIsNotNull() {
+            addCriterion("ecshr is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrEqualTo(String value) {
+            addCriterion("ecshr =", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrNotEqualTo(String value) {
+            addCriterion("ecshr <>", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrGreaterThan(String value) {
+            addCriterion("ecshr >", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrGreaterThanOrEqualTo(String value) {
+            addCriterion("ecshr >=", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrLessThan(String value) {
+            addCriterion("ecshr <", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrLessThanOrEqualTo(String value) {
+            addCriterion("ecshr <=", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrLike(String value) {
+            addCriterion("ecshr like", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrNotLike(String value) {
+            addCriterion("ecshr not like", value, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrIn(List<String> values) {
+            addCriterion("ecshr in", values, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrNotIn(List<String> values) {
+            addCriterion("ecshr not in", values, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrBetween(String value1, String value2) {
+            addCriterion("ecshr between", value1, value2, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrNotBetween(String value1, String value2) {
+            addCriterion("ecshr not between", value1, value2, "ecshr");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqIsNull() {
+            addCriterion("ecshrq is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqIsNotNull() {
+            addCriterion("ecshrq is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqEqualTo(Integer value) {
+            addCriterion("ecshrq =", value, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqNotEqualTo(Integer value) {
+            addCriterion("ecshrq <>", value, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqGreaterThan(Integer value) {
+            addCriterion("ecshrq >", value, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ecshrq >=", value, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqLessThan(Integer value) {
+            addCriterion("ecshrq <", value, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqLessThanOrEqualTo(Integer value) {
+            addCriterion("ecshrq <=", value, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqIn(List<Integer> values) {
+            addCriterion("ecshrq in", values, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqNotIn(List<Integer> values) {
+            addCriterion("ecshrq not in", values, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqBetween(Integer value1, Integer value2) {
+            addCriterion("ecshrq between", value1, value2, "ecshrq");
+            return (Criteria) this;
+        }
+
+        public Criteria andEcshrqNotBetween(Integer value1, Integer value2) {
+            addCriterion("ecshrq not between", value1, value2, "ecshrq");
+            return (Criteria) this;
+        }
+
         public Criteria andKsshIsNull() {
             addCriterion("kssh is null");
             return (Criteria) this;

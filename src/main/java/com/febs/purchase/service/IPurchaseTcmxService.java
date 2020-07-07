@@ -37,7 +37,7 @@ public interface IPurchaseTcmxService extends IService<PurchaseTcmx> {
      *
      * @param purchaseTcmx purchaseTcmx
      */
-    void createPurchaseTcmx(PurchaseTcmx purchaseTcmx);
+    Long createPurchaseTcmx(PurchaseTcmx purchaseTcmx);
 
     /**
      * 修改

@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 入库单明细 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 19:56:10
+ * @date 2020-07-07 15:39:15
  */
 @Data
 @TableName("purchase_rkmx")

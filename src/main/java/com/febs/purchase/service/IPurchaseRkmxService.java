@@ -37,7 +37,7 @@ public interface IPurchaseRkmxService extends IService<PurchaseRkmx> {
      *
      * @param purchaseRkmx purchaseRkmx
      */
-    void createPurchaseRkmx(PurchaseRkmx purchaseRkmx);
+    Long createPurchaseRkmx(PurchaseRkmx purchaseRkmx);
 
     /**
      * 修改

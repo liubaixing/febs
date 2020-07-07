@@ -37,7 +37,7 @@ public interface IPurchaseTcService extends IService<PurchaseTc> {
      *
      * @param purchaseTc purchaseTc
      */
-    void createPurchaseTc(PurchaseTc purchaseTc);
+    Long createPurchaseTc(PurchaseTc purchaseTc);
 
     /**
      * 修改

@@ -1,7 +1,10 @@
 package com.febs.purchase.service.impl;
 
+import com.febs.common.constant.PurchaseConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
 import com.febs.purchase.entity.PurchaseTc;
 import com.febs.purchase.mapper.PurchaseTcMapper;
 import com.febs.purchase.service.IPurchaseTcService;
@@ -9,7 +12,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -48,24 +50,18 @@ public class PurchaseTcServiceImpl extends ServiceImpl<PurchaseTcMapper, Purchas
 
     @Override
     @Transactional
-    public void createPurchaseTc(PurchaseTc purchaseTc) {
-        LambdaQueryWrapper<PurchaseTc> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(purchaseTc);
+    public Long createPurchaseTc(PurchaseTc purchaseTc) {
+        this.purchaseTcMapper.insertSelective(purchaseTc);
+        String bh = PurchaseConstant.PURCHASE_TC_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseTc.getId());
+        purchaseTc.setDjbh(bh);
+        this.purchaseTcMapper.updateByPrimaryKeySelective(purchaseTc);
+        return purchaseTc.getId();
     }
 
     @Override
     @Transactional
     public void updatePurchaseTc(PurchaseTc purchaseTc) {
-        LambdaQueryWrapper<PurchaseTc> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(purchaseTc);
+        this.purchaseTcMapper.updateByPrimaryKeySelective(purchaseTc);
     }
 
     @Override

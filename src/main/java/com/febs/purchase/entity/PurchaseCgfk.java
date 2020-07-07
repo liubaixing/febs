@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 采购付款 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 19:46:20
+ * @date 2020-07-07 15:40:16
  */
 @Data
 @TableName("purchase_cgfk")
@@ -25,7 +25,7 @@ public class PurchaseCgfk {
     private Long id;
 
     /**
-     * 付款编号
+     * 付款单号
      */
     @TableField("djbh")
     private String djbh;
@@ -37,7 +37,7 @@ public class PurchaseCgfk {
     private Integer djrq;
 
     /**
-     * 供应商ID 供应商
+     * 供应商 供应商ID
      */
     @TableField("gys_id")
     private Integer gysId;
@@ -48,7 +48,7 @@ public class PurchaseCgfk {
     @TableField("je")
     private BigDecimal je;
     /**
-     * 开户银行ID 开户银行
+     * 开户银行 开户银行ID
      */
     @TableField("khyh_id")
     private Integer khyhId;
@@ -84,7 +84,7 @@ public class PurchaseCgfk {
     private Integer zdrq;
 
     /**
-     * 0-未确认 1-已确认
+     * 确认 0-未确认 1-已确认
      */
     @TableField("qr")
     private Byte qr;
@@ -102,7 +102,7 @@ public class PurchaseCgfk {
     private Integer qrrq;
 
     /**
-     * 0-未审核 1-已审核
+     * 审核 -未审核 1-已审核
      */
     @TableField("sh")
     private Byte sh;
@@ -120,7 +120,7 @@ public class PurchaseCgfk {
     private Integer shrq;
 
     /**
-     * 0-未付款 1-已付款
+     * 付款 0-未付款 1-已付款
      */
     @TableField("fk")
     private Byte fk;
@@ -138,7 +138,7 @@ public class PurchaseCgfk {
     private Integer fkrq;
 
     /**
-     * 0-未作废 1-已作废
+     * 作废 0-未作废 1-已作废
      */
     @TableField("zf")
     private Byte zf;

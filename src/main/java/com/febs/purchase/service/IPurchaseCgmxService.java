@@ -37,7 +37,7 @@ public interface IPurchaseCgmxService extends IService<PurchaseCgmx> {
      *
      * @param purchaseCgmx purchaseCgmx
      */
-    void createPurchaseCgmx(PurchaseCgmx purchaseCgmx);
+    Long createPurchaseCgmx(PurchaseCgmx purchaseCgmx);
 
     /**
      * 修改

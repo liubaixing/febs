@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 采购发票 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 19:55:27
+ * @date 2020-07-07 15:40:19
  */
 @Data
 @TableName("purchase_cgfp")
@@ -25,7 +25,7 @@ public class PurchaseCgfp {
     private Long id;
 
     /**
-     * 采购开票编号
+     * 采购开票单号
      */
     @TableField("djbh")
     private String djbh;
@@ -37,13 +37,13 @@ public class PurchaseCgfp {
     private Integer djrq;
 
     /**
-     * 供应商ID 供应商
+     * 供应商 供应商ID
      */
     @TableField("gys_id")
     private Integer gysId;
 
     /**
-     * 开户银行ID 开户银行
+     * 开户银行 开户银行ID
      */
     @TableField("khyh_id")
     private Integer khyhId;
@@ -78,7 +78,7 @@ public class PurchaseCgfp {
     private Integer zdrq;
 
     /**
-     * 0-未确认 1-已确认
+     * 确认 0-未确认 1-已确认
      */
     @TableField("qr")
     private Byte qr;
@@ -96,7 +96,7 @@ public class PurchaseCgfp {
     private Integer qrrq;
 
     /**
-     * 0-未审核 1-已审核
+     * 审核 0-未审核 1-已审核
      */
     @TableField("sh")
     private Byte sh;
@@ -114,7 +114,7 @@ public class PurchaseCgfp {
     private Integer shrq;
 
     /**
-     * 0-未开票 1-已开票
+     * 开票 0-未开票 1-已开票
      */
     @TableField("kp")
     private Byte kp;
@@ -132,13 +132,13 @@ public class PurchaseCgfp {
     private Integer kprq;
 
     /**
-     * 0-未作废 1-已作废
+     * 作废 0-未作废 1-已作废
      */
     @TableField("zf")
     private Byte zf;
 
     /**
-     * 作废
+     * 作废人
      */
     @TableField("zfr")
     private String zfr;

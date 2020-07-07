@@ -1,7 +1,10 @@
 package com.febs.purchase.service.impl;
 
+import com.febs.common.constant.PurchaseConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
 import com.febs.purchase.entity.PurchaseCgfp;
 import com.febs.purchase.mapper.PurchaseCgfpMapper;
 import com.febs.purchase.service.IPurchaseCgfpService;
@@ -9,7 +12,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -48,24 +50,18 @@ public class PurchaseCgfpServiceImpl extends ServiceImpl<PurchaseCgfpMapper, Pur
 
     @Override
     @Transactional
-    public void createPurchaseCgfp(PurchaseCgfp purchaseCgfp) {
-        LambdaQueryWrapper<PurchaseCgfp> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(purchaseCgfp);
+    public Long createPurchaseCgfp(PurchaseCgfp purchaseCgfp) {
+        this.purchaseCgfpMapper.insertSelective(purchaseCgfp);
+        String bh = PurchaseConstant.PURCHASE_RK_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseCgfp.getId());
+        purchaseCgfp.setDjbh(bh);
+        this.purchaseCgfpMapper.updateByPrimaryKeySelective(purchaseCgfp);
+        return purchaseCgfp.getId();
     }
 
     @Override
     @Transactional
     public void updatePurchaseCgfp(PurchaseCgfp purchaseCgfp) {
-        LambdaQueryWrapper<PurchaseCgfp> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(purchaseCgfp);
+        this.purchaseCgfpMapper.updateByPrimaryKeySelective(purchaseCgfp);
     }
 
     @Override

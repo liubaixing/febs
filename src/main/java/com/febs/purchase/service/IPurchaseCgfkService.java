@@ -37,7 +37,7 @@ public interface IPurchaseCgfkService extends IService<PurchaseCgfk> {
      *
      * @param purchaseCgfk purchaseCgfk
      */
-    void createPurchaseCgfk(PurchaseCgfk purchaseCgfk);
+    Long createPurchaseCgfk(PurchaseCgfk purchaseCgfk);
 
     /**
      * 修改

@@ -37,7 +37,7 @@ public interface IPurchaseCgtkmxService extends IService<PurchaseCgtkmx> {
      *
      * @param purchaseCgtkmx purchaseCgtkmx
      */
-    void createPurchaseCgtkmx(PurchaseCgtkmx purchaseCgtkmx);
+    Long createPurchaseCgtkmx(PurchaseCgtkmx purchaseCgtkmx);
 
     /**
      * 修改

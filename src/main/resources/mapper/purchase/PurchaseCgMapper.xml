@@ -41,6 +41,9 @@
         <result column="sh" jdbcType="TINYINT" property="sh" />
         <result column="shr" jdbcType="VARCHAR" property="shr" />
         <result column="shrq" jdbcType="INTEGER" property="shrq" />
+        <result column="ecsh" jdbcType="TINYINT" property="ecsh" />
+        <result column="ecshr" jdbcType="VARCHAR" property="ecshr" />
+        <result column="ecshrq" jdbcType="INTEGER" property="ecshrq" />
         <result column="kssh" jdbcType="TINYINT" property="kssh" />
         <result column="ksshr" jdbcType="VARCHAR" property="ksshr" />
         <result column="ksshrq" jdbcType="INTEGER" property="ksshrq" />
@@ -136,10 +139,10 @@
     <sql id="Base_Column_List">
     Id, djbh, xdrq, xsdh, ydjh, user_id, bm_id, gys_id, cangku_id, fpsl_id, fplx_id,
     djlx_id, cgfzr, xdfzr, sfjj, sfdz, wldh, yqdhrq, bz, address, tel, contact, sl, kpsl,
-    fksl, tksl, je, kpje, fkje, tkje, fj, zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq, kssh,
-    ksshr, ksshrq, shqr, shqrr, shqrrq, ksfh, ksfhr, ksfhrq, ksph, ksphr, ksphrq, cgfh,
-    cgfhr, cgfhrq, yflr, yflrr, yflrrq, ysflr, ysflrr, ysflrrq, sctc, sctcr, sctcrq,
-    zs, zsr, zsrq, zf, zfr, zfrq, ex1, ex2, ex3
+    fksl, tksl, je, kpje, fkje, tkje, fj, zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq, ecsh,
+    ecshr, ecshrq, kssh, ksshr, ksshrq, shqr, shqrr, shqrrq, ksfh, ksfhr, ksfhrq, ksph,
+    ksphr, ksphrq, cgfh, cgfhr, cgfhrq, yflr, yflrr, yflrrq, ysflr, ysflrr, ysflrrq,
+    sctc, sctcr, sctcrq, zs, zsr, zsrq, zf, zfr, zfrq, ex1, ex2, ex3
   </sql>
     <select id="selectByExample" parameterType="com.febs.purchase.entity.PurchaseCgExample" resultMap="BaseResultMap">
         select
@@ -182,7 +185,8 @@
       fksl, tksl, je, kpje,
       fkje, tkje, fj, zdr,
       zdrq, qr, qrr, qrrq,
-      sh, shr, shrq, kssh,
+      sh, shr, shrq, ecsh,
+      ecshr, ecshrq, kssh,
       ksshr, ksshrq, shqr,
       shqrr, shqrrq, ksfh,
       ksfhr, ksfhrq, ksph,
@@ -204,7 +208,8 @@
       #{fksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, #{kpje,jdbcType=DECIMAL},
       #{fkje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR},
       #{zdrq,jdbcType=INTEGER}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=INTEGER},
-      #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=INTEGER}, #{kssh,jdbcType=TINYINT},
+      #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=INTEGER}, #{ecsh,jdbcType=TINYINT},
+      #{ecshr,jdbcType=VARCHAR}, #{ecshrq,jdbcType=INTEGER}, #{kssh,jdbcType=TINYINT},
       #{ksshr,jdbcType=VARCHAR}, #{ksshrq,jdbcType=INTEGER}, #{shqr,jdbcType=TINYINT},
       #{shqrr,jdbcType=VARCHAR}, #{shqrrq,jdbcType=INTEGER}, #{ksfh,jdbcType=TINYINT},
       #{ksfhr,jdbcType=VARCHAR}, #{ksfhrq,jdbcType=INTEGER}, #{ksph,jdbcType=TINYINT},
@@ -333,6 +338,15 @@
             </if>
             <if test="shrq != null">
                 shrq,
+            </if>
+            <if test="ecsh != null">
+                ecsh,
+            </if>
+            <if test="ecshr != null">
+                ecshr,
+            </if>
+            <if test="ecshrq != null">
+                ecshrq,
             </if>
             <if test="kssh != null">
                 kssh,
@@ -548,6 +562,15 @@
             </if>
             <if test="shrq != null">
                 #{shrq,jdbcType=INTEGER},
+            </if>
+            <if test="ecsh != null">
+                #{ecsh,jdbcType=TINYINT},
+            </if>
+            <if test="ecshr != null">
+                #{ecshr,jdbcType=VARCHAR},
+            </if>
+            <if test="ecshrq != null">
+                #{ecshrq,jdbcType=INTEGER},
             </if>
             <if test="kssh != null">
                 #{kssh,jdbcType=TINYINT},
@@ -776,6 +799,15 @@
             <if test="record.shrq != null">
                 shrq = #{record.shrq,jdbcType=INTEGER},
             </if>
+            <if test="record.ecsh != null">
+                ecsh = #{record.ecsh,jdbcType=TINYINT},
+            </if>
+            <if test="record.ecshr != null">
+                ecshr = #{record.ecshr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ecshrq != null">
+                ecshrq = #{record.ecshrq,jdbcType=INTEGER},
+            </if>
             <if test="record.kssh != null">
                 kssh = #{record.kssh,jdbcType=TINYINT},
             </if>
@@ -921,6 +953,9 @@
         sh = #{record.sh,jdbcType=TINYINT},
         shr = #{record.shr,jdbcType=VARCHAR},
         shrq = #{record.shrq,jdbcType=INTEGER},
+        ecsh = #{record.ecsh,jdbcType=TINYINT},
+        ecshr = #{record.ecshr,jdbcType=VARCHAR},
+        ecshrq = #{record.ecshrq,jdbcType=INTEGER},
         kssh = #{record.kssh,jdbcType=TINYINT},
         ksshr = #{record.ksshr,jdbcType=VARCHAR},
         ksshrq = #{record.ksshrq,jdbcType=INTEGER},
@@ -1075,6 +1110,15 @@
             <if test="shrq != null">
                 shrq = #{shrq,jdbcType=INTEGER},
             </if>
+            <if test="ecsh != null">
+                ecsh = #{ecsh,jdbcType=TINYINT},
+            </if>
+            <if test="ecshr != null">
+                ecshr = #{ecshr,jdbcType=VARCHAR},
+            </if>
+            <if test="ecshrq != null">
+                ecshrq = #{ecshrq,jdbcType=INTEGER},
+            </if>
             <if test="kssh != null">
                 kssh = #{kssh,jdbcType=TINYINT},
             </if>
@@ -1217,6 +1261,9 @@
       sh = #{sh,jdbcType=TINYINT},
       shr = #{shr,jdbcType=VARCHAR},
       shrq = #{shrq,jdbcType=INTEGER},
+      ecsh = #{ecsh,jdbcType=TINYINT},
+      ecshr = #{ecshr,jdbcType=VARCHAR},
+      ecshrq = #{ecshrq,jdbcType=INTEGER},
       kssh = #{kssh,jdbcType=TINYINT},
       ksshr = #{ksshr,jdbcType=VARCHAR},
       ksshrq = #{ksshrq,jdbcType=INTEGER},

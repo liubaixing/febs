@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 采购退款明细 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 19:54:49
+ * @date 2020-07-07 15:39:55
  */
 @Data
 @TableName("purchase_cgtkmx")

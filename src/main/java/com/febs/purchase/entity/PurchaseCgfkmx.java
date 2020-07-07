@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 采购付款明细 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 20:02:41
+ * @date 2020-07-07 15:40:07
  */
 @Data
 @TableName("purchase_cgfkmx")
@@ -55,13 +55,13 @@ public class PurchaseCgfkmx {
     private Integer gg2Id;
 
     /**
-     * 数量
+     * 付款数量
      */
     @TableField("sl")
     private Integer sl;
 
     /**
-     * 金额
+     * 付款金额
      */
     @TableField("je")
     private BigDecimal je;

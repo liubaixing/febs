@@ -37,7 +37,7 @@ public interface IPurchaseRkService extends IService<PurchaseRk> {
      *
      * @param purchaseRk purchaseRk
      */
-    void createPurchaseRk(PurchaseRk purchaseRk);
+    Long createPurchaseRk(PurchaseRk purchaseRk);
 
     /**
      * 修改

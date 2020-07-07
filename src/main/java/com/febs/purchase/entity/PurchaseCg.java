@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 采购单 Entity
  *
  * @author liubaixing
- * @date 2020-06-27 19:45:59
+ * @date 2020-07-07 15:40:13
  */
 @Data
 @TableName("purchase_cg")
@@ -49,67 +49,67 @@ public class PurchaseCg {
     private String ydjh;
 
     /**
-     * 用户ID 业务员
+     * 业务员 用户ID
      */
     @TableField("user_id")
     private Integer userId;
 
     /**
-     * 部门ID 部门
+     * 部门 部门ID
      */
     @TableField("bm_id")
     private Integer bmId;
 
     /**
-     * 供应商ID 供应商
+     * 供应商 供应商ID
      */
     @TableField("gys_id")
     private Integer gysId;
 
     /**
-     * 仓库ID 仓库名称
+     * 仓库 仓库ID
      */
     @TableField("cangku_id")
     private Integer cangkuId;
 
     /**
-     * 发票税率ID 发票税率名称
+     * 发票税率 发票税率ID
      */
     @TableField("fpsl_id")
     private Integer fpslId;
 
     /**
-     * 发票类型ID 发票类型名称
+     * 发票类型 发票类型ID
      */
     @TableField("fplx_id")
     private Integer fplxId;
 
     /**
-     * 单据类型ID 单据类型名称
+     * 单据类型 单据类型ID
      */
     @TableField("djlx_id")
     private Integer djlxId;
 
     /**
-     * 用户ID 采购负责人
+     * 采购负责人 用户ID
      */
     @TableField("cgfzr")
     private Integer cgfzr;
 
     /**
-     * 用户ID 下单负责人
+     * 下单负责人 用户ID
      */
     @TableField("xdfzr")
     private Integer xdfzr;
 
     /**
-     * 加急 0-否 1-是
+     * 是否加急 0-否 1-是
      */
     @TableField("sfjj")
     private Byte sfjj;
 
     /**
-     * 定制 0-否 1-是
+     * 是否定制 0-否 1-是
      */
     @TableField("sfdz")
     private Byte sfdz;
@@ -213,7 +213,7 @@ public class PurchaseCg {
     private Integer zdrq;
 
     /**
-     * 0-未确认 1-已确认
+     * 确认 0-未确认 1-已确认
      */
     @TableField("qr")
     private Byte qr;
@@ -231,7 +231,7 @@ public class PurchaseCg {
     private Integer qrrq;
 
     /**
-     * 0-未审核 1-已审核
+     * 审核 0-未审核 1-已审核
      */
     @TableField("sh")
     private Byte sh;
@@ -249,7 +249,25 @@ public class PurchaseCg {
     private Integer shrq;
 
     /**
-     * 0-未开始收货 1-已开始收货
+     * 二次复合 0-未二次复合 1-已二次复合
+     */
+    @TableField("ecsh")
+    private Byte ecsh;
+
+    /**
+     * 二次复合人
+     */
+    @TableField("ecshr")
+    private String ecshr;
+
+    /**
+     * 二次复合日期
+     */
+    @TableField("ecshrq")
+    private Integer ecshrq;
+
+    /**
+     * 开始收货 0-未开始收货 1-已开始收货
      */
     @TableField("kssh")
     private Byte kssh;
@@ -267,7 +285,7 @@ public class PurchaseCg {
     private Integer ksshrq;
 
     /**
-     * 0-未收货确认 1-已收货确认
+     * 收货确认 0-未收货确认 1-已收货确认
      */
     @TableField("shqr")
     private Byte shqr;
@@ -279,19 +297,19 @@ public class PurchaseCg {
     private String shqrr;
 
     /**
-     * 开始收货确认
+     * 收货确认日期
      */
     @TableField("shqrrq")
     private Integer shqrrq;
 
     /**
-     * 0-未开始发货 1-已开始发货
+     * 开始发货 0-未开始发货 1-已开始发货
      */
     @TableField("ksfh")
     private Byte ksfh;
 
     /**
-     * 开始发货
+     * 开始发货人
      */
     @TableField("ksfhr")
     private String ksfhr;
@@ -303,13 +321,13 @@ public class PurchaseCg {
     private Integer ksfhrq;
 
     /**
-     * 0-未开始配货 1-已开始配货
+     * 开始配货 0-未开始配货 1-已开始配货
      */
     @TableField("ksph")
     private Byte ksph;
 
     /**
-     * 开始配货
+     * 开始配货人
      */
     @TableField("ksphr")
     private String ksphr;
@@ -321,7 +339,7 @@ public class PurchaseCg {
     private Integer ksphrq;
 
     /**
-     * 0-未采购发货 1-已采购发货
+     * 采购发货 0-未采购发货 1-已采购发货
      */
     @TableField("cgfh")
     private Byte cgfh;
@@ -339,7 +357,7 @@ public class PurchaseCg {
     private Integer cgfhrq;
 
     /**
-     * 0-未运费录入 1-已运费录入
+     * 运费录入 0-未运费录入 1-已运费录入
      */
     @TableField("yflr")
     private Byte yflr;
@@ -357,7 +375,7 @@ public class PurchaseCg {
     private Integer yflrrq;
 
     /**
-     * 0-未印刷费录入 1-已印刷费录入
+     * 印刷费录入 0-未印刷费录入 1-已印刷费录入
      */
     @TableField("ysflr")
     private Byte ysflr;
@@ -375,7 +393,7 @@ public class PurchaseCg {
     private Integer ysflrrq;
 
     /**
-     * 0-未生成退仓 1-已生成退仓
+     * 生成退仓 0-未生成退仓 1-已生成退仓
      */
     @TableField("sctc")
     private Byte sctc;
@@ -393,13 +411,13 @@ public class PurchaseCg {
     private Integer sctcrq;
 
     /**
-     * 0-未关闭 1-已关闭
+     * 关闭 0-未关闭 1-已关闭
      */
     @TableField("zs")
     private Byte zs;
 
     /**
-     * 关闭
+     * 关闭人
      */
     @TableField("zsr")
     private String zsr;
@@ -411,13 +429,13 @@ public class PurchaseCg {
     private Integer zsrq;
 
     /**
-     * 0-未作废 1-已作废
+     * 作废 0-未作废 1-已作废
      */
     @TableField("zf")
     private Byte zf;
 
     /**
-     * 作废
+     * 作废人
      */
     @TableField("zfr")
     private String zfr;
