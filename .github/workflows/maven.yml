@@ -22,20 +22,20 @@ jobs:
     - name: Deploy
       uses: garygrossgarten/github-action-scp@release
       with:
-        local: ./target/
+        local: ./target/classes/
         remote: /home/
         host: ${{ secrets.HOST }}
         username: ${{ secrets.HOST_USER }}
         password: ${{ secrets.HOST_PASSWORD }}
         port: ${{ secrets.HOST_PORT }}
 
-    - name: Restart
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.HOST_USER }}
-        password: ${{ secrets.HOST_PASSWORD }}
-        port: ${{ secrets.HOST_PORT }}
-        # 重启的脚本，根据自身情况做相应改动，一般要做的是migrate数据库以及重启服务器
-        script: |
-          cp /home/febs.jar /projects/
+    #- name: Restart
+    #  uses: appleboy/ssh-action@master
+    #  with:
+    #    host: ${{ secrets.HOST }}
+    #    username: ${{ secrets.HOST_USER }}
+    #    password: ${{ secrets.HOST_PASSWORD }}
+    #    port: ${{ secrets.HOST_PORT }}
+    #    # 重启的脚本，根据自身情况做相应改动，一般要做的是migrate数据库以及重启服务器
+    #    script: |
+    #      cp /home/febs.jar /projects/
