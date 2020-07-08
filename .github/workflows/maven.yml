@@ -22,7 +22,7 @@ jobs:
     - name: Deploy
       uses: garygrossgarten/github-action-scp@release
       with:
-        local: ./target/classes/application.yml
+        local: ./target/febs*
         remote: /home
         host: ${{ secrets.HOST }}
         username: ${{ secrets.HOST_USER }}
