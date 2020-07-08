@@ -1,5 +1,6 @@
 package com.febs.receipt.vo.req;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsmx;

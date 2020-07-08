@@ -59,7 +59,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("业务员 用户ID")
     @TableField("user_id")
-    private Integer userId;
+    private Long userId;
 
     /**
      * 部门 部门ID

@@ -7,6 +7,10 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.enums.order.OrderStatusEnum;
 import com.febs.common.exception.FebsException;
+import com.febs.purchase.entity.PurchaseCg;
+import com.febs.purchase.entity.PurchaseCgmx;
+import com.febs.purchase.service.IPurchaseCgService;
+import com.febs.purchase.service.IPurchaseCgmxService;
 import com.febs.receipt.entity.*;
 import com.febs.receipt.service.*;
 import com.febs.receipt.vo.req.OrderXsReq;
@@ -74,6 +78,13 @@ public class OrderXsBiz {
     private IOrderCkService ckService;
     @Autowired
     private IOrderCkmxService ckmxService;
+
+    @Autowired
+    private IPurchaseCgService cgService;
+
+    @Autowired
+    private IPurchaseCgmxService cgmxService;
+
     /**
      * @param request
      * @param orderXs
@@ -320,8 +331,31 @@ public class OrderXsBiz {
             ckmxService.createOrderCkmx(orderCkmx);
         }else{
             //直发，生成采购单
+            PurchaseCg cg = new PurchaseCg();
+            cg.setXdrq(new Date());
+            cg.setXsdh(orderXs.getDjbh());
+            cg.setUserId(req.getUserId());
+            cg.setBmId(orderXs.getBumengId());
 
+            Shangpin sp = new Shangpin();
+            sp.setId(xsmx.getSpId());
+            sp = shangpinService.findOneByQuery(sp);
 
+            cg.setGysId(sp.getGysId());
+            cg.setCangkuId(orderXs.getCangkuId());
+            cg.setSl(req.getTzsl());
+            cg.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            cg.setZdr(req.getZxr());
+            cg.setZdrq(new Date());
+            Long cgId = cgService.createPurchaseCg(cg);
+
+            PurchaseCgmx cgmx = new PurchaseCgmx();
+            cgmx.setPid(cgId);
+            cgmx.setSpId(xsmx.getSpId());
+            cgmx.setSl(req.getTzsl());
+            cgmx.setDj(xsmx.getDj());
+            cgmx.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            cgmxService.createPurchaseCgmx(cgmx);
         }
 
     }
@@ -331,7 +365,8 @@ public class OrderXsBiz {
         if (orderXs == null) {
             throw new FebsException("销售单不存在");
         }
-
+        if (status == true && orderXs.getSh() == 1) throw new FebsException("销售单已关闭");
+        if (status == false && orderXs.getSh() == 0) throw new FebsException("销售单未关闭");
         orderXs.setGb(req.getGb());
         orderXs.setGbr(req.getGbr());
         orderXs.setGbrq(new Date());

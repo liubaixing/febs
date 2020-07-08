@@ -72,6 +72,9 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     public Shangpin findOneByQuery(Shangpin shangpin){
         ShangpinExample example = new ShangpinExample();
         ShangpinExample.Criteria criteria = example.createCriteria();
+        if(shangpin.getId() != null){
+            criteria.andIdEqualTo(shangpin.getId());
+        }
         if (StringUtils.isNotBlank(shangpin.getSpdm())) {
             criteria.andSpdmEqualTo(shangpin.getSpdm());
         }

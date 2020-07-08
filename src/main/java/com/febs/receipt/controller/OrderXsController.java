@@ -172,6 +172,7 @@ public class OrderXsController extends BaseController {
         req.setMxId(id);
         req.setZx((byte)1);
         req.setZxr(user.getUsername());
+        req.setUserId(user.getUserId());
         this.orderXsBiz.executeOrderXs(req,true);
         return new FebsResponse().success();
     }

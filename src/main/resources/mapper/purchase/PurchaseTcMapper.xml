@@ -7,7 +7,7 @@
         <result column="xdrq" jdbcType="TIMESTAMP" property="xdrq" />
         <result column="ydjh" jdbcType="VARCHAR" property="ydjh" />
         <result column="xtdh" jdbcType="VARCHAR" property="xtdh" />
-        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
         <result column="bm_id" jdbcType="INTEGER" property="bmId" />
         <result column="gys_id" jdbcType="INTEGER" property="gysId" />
         <result column="cangku_id" jdbcType="INTEGER" property="cangkuId" />
@@ -186,7 +186,7 @@
       zfr, zfrq, ex1, ex2,
       ex3)
     values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=TIMESTAMP}, #{ydjh,jdbcType=VARCHAR},
-      #{xtdh,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{bmId,jdbcType=INTEGER},
+      #{xtdh,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{bmId,jdbcType=INTEGER},
       #{gysId,jdbcType=INTEGER}, #{cangkuId,jdbcType=INTEGER}, #{fpslId,jdbcType=INTEGER},
       #{fplxId,jdbcType=INTEGER}, #{djlxId,jdbcType=INTEGER}, #{cgfzr,jdbcType=INTEGER},
       #{xdfzr,jdbcType=INTEGER}, #{sfdz,jdbcType=TINYINT}, #{sfjj,jdbcType=TINYINT},
@@ -419,7 +419,7 @@
                 #{xtdh,jdbcType=VARCHAR},
             </if>
             <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
+                #{userId,jdbcType=BIGINT},
             </if>
             <if test="bmId != null">
                 #{bmId,jdbcType=INTEGER},
@@ -628,7 +628,7 @@
                 xtdh = #{record.xtdh,jdbcType=VARCHAR},
             </if>
             <if test="record.userId != null">
-                user_id = #{record.userId,jdbcType=INTEGER},
+                user_id = #{record.userId,jdbcType=BIGINT},
             </if>
             <if test="record.bmId != null">
                 bm_id = #{record.bmId,jdbcType=INTEGER},
@@ -822,7 +822,7 @@
         xdrq = #{record.xdrq,jdbcType=TIMESTAMP},
         ydjh = #{record.ydjh,jdbcType=VARCHAR},
         xtdh = #{record.xtdh,jdbcType=VARCHAR},
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=BIGINT},
         bm_id = #{record.bmId,jdbcType=INTEGER},
         gys_id = #{record.gysId,jdbcType=INTEGER},
         cangku_id = #{record.cangkuId,jdbcType=INTEGER},
@@ -903,7 +903,7 @@
                 xtdh = #{xtdh,jdbcType=VARCHAR},
             </if>
             <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
+                user_id = #{userId,jdbcType=BIGINT},
             </if>
             <if test="bmId != null">
                 bm_id = #{bmId,jdbcType=INTEGER},
@@ -1094,7 +1094,7 @@
       xdrq = #{xdrq,jdbcType=TIMESTAMP},
       ydjh = #{ydjh,jdbcType=VARCHAR},
       xtdh = #{xtdh,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
       bm_id = #{bmId,jdbcType=INTEGER},
       gys_id = #{gysId,jdbcType=INTEGER},
       cangku_id = #{cangkuId,jdbcType=INTEGER},
