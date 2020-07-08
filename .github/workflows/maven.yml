@@ -15,20 +15,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
     - name: Build with Maven
-      run: mvn clean package
+      run: mvn -B package -Dmaven.test.skip=true --file pom.xml
       
     # Deploy
     - name: Deploy
       uses: actions/checkout@master
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-        ARGS: "-avz --delete"
-        SOURCE: "public/"
-        REMOTE_HOST: 101.201.252.232
-        REMOTE_USER: root
-        TARGET: /home/febs
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.HOST_USER }}
+        password: ${{ secrets.HOST_PASSWORD }}
+        port: ${{ secrets.HOST_PORT }}
+        FOLDER: ./  # 要推送的文件夹，路径相对于代码仓库的根目录
+        SERVER_DESTINATION: /home/  # 部署到目标文件夹
