@@ -30,7 +30,7 @@ jobs:
         port: ${{ secrets.HOST_PORT }}
 
     - name: parent working directory
-      run: pwd
+      run: find / -name febs.jar
     #- name: Restart
     #  uses: appleboy/ssh-action@master
     #  with:
