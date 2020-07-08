@@ -18,23 +18,24 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package -Dmaven.test.skip=true
-      
-    # Deploy
-    #- name: Deploy
-    #  uses: actions/checkout@master
-    #  env:
-    #    host: ${{ secrets.HOST }}
-    #    username: ${{ secrets.HOST_USER }}
-    #    password: ${{ secrets.HOST_PASSWORD }}
-    #    port: ${{ secrets.HOST_PORT }}
-    #    FOLDER: ./  # 要推送的文件夹，路径相对于代码仓库的根目录
-    #    SERVER_DESTINATION: /home/  # 部署到目标文件夹
-    - name: scp
+
+    - name: Deploy
       uses: garygrossgarten/github-action-scp@release
       with:
-        local: ./target/
+        local: ./target/febs.jar
         remote: /home/
         host: ${{ secrets.HOST }}
         username: ${{ secrets.HOST_USER }}
         password: ${{ secrets.HOST_PASSWORD }}
         port: ${{ secrets.HOST_PORT }}
+
+    - name: Restart
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.HOST_USER }}
+        password: ${{ secrets.HOST_PASSWORD }}
+        port: ${{ secrets.HOST_PORT }}
+        # 重启的脚本，根据自身情况做相应改动，一般要做的是migrate数据库以及重启服务器
+        script: |
+          cp /home/febs.jar /projects/
