@@ -32,7 +32,7 @@ jobs:
     - name: scp
       uses: garygrossgarten/github-action-scp@release
       with:
-        local: ./target/febs.jar
+        local: ./target/
         remote: /home/
         host: ${{ secrets.HOST }}
         username: ${{ secrets.HOST_USER }}
