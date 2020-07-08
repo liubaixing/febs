@@ -22,16 +22,17 @@ jobs:
     - name: parent working directory
         run: pwd
 
-    #- name: Deploy
-    #  uses: garygrossgarten/github-action-scp@release
-    #  with:
-    #    local: ./target/febs*
-    #    remote: /home
-    #    host: ${{ secrets.HOST }}
-    #    username: ${{ secrets.HOST_USER }}
-    #    password: ${{ secrets.HOST_PASSWORD }}
-    #    port: ${{ secrets.HOST_PORT }}
-
+    - name: Deploy
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: ./target/febs*
+        remote: /home
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.HOST_USER }}
+        password: ${{ secrets.HOST_PASSWORD }}
+        port: ${{ secrets.HOST_PORT }}
+    - name: parent working directory22
+      run: pwd
     #- name: Restart
     #  uses: appleboy/ssh-action@master
     #  with:
