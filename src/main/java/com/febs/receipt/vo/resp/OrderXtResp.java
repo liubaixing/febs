@@ -3,10 +3,12 @@ package com.febs.receipt.vo.resp;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.febs.receipt.entity.OrderXt;
+import com.febs.receipt.entity.OrderXtmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class OrderXtResp extends OrderXt {
@@ -91,4 +93,7 @@ public class OrderXtResp extends OrderXt {
     @ApiModelProperty("计量单位")
     @ExcelProperty(value = "计量单位",index = 27)
     private String jldwmc;
+
+
+    private List<OrderXtmxResp> xtmxList;
 }

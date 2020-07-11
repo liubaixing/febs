@@ -34,6 +34,8 @@ public interface IPurchaseCgService extends IService<PurchaseCg> {
      */
     List<PurchaseCg> findPurchaseCgs(PurchaseCg purchaseCg);
 
+    PurchaseCgResp findById(Long id);
+
     /**
      * 新增
      *

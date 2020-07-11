@@ -3,6 +3,7 @@ package com.febs.purchase.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -28,6 +29,7 @@ public class PurchaseTc {
     /**
      * 退仓单号
      */
+    @ApiModelProperty("退仓单号")
     @TableField("djbh")
     private String djbh;
 
@@ -40,12 +42,14 @@ public class PurchaseTc {
     /**
      * 客户订单编号
      */
+    @ApiModelProperty("客户订单编号")
     @TableField("ydjh")
     private String ydjh;
 
     /**
      * 销退单号
      */
+    @ApiModelProperty("销退单号")
     @TableField("xtdh")
     private String xtdh;
 
@@ -106,30 +110,35 @@ public class PurchaseTc {
     /**
      * 是否定制 0-否 1-是
      */
+    @ApiModelProperty("是否定制 0-否 1-是")
     @TableField("sfdz")
     private Byte sfdz;
 
     /**
      * 是否加急 0-否 1-是
      */
+    @ApiModelProperty("是否加急 0-否 1-是")
     @TableField("sfjj")
     private Byte sfjj;
 
     /**
      * 物流单号
      */
+    @ApiModelProperty("物流单号")
     @TableField("wldh")
     private String wldh;
 
     /**
      * 摘要
      */
+    @ApiModelProperty("摘要 / 备注")
     @TableField("bz")
     private String bz;
 
     /**
      * 要求到货时间
      */
+    @ApiModelProperty("要求到货时间")
     @TableField("yqdhrq")
     private Date yqdhrq;
 
@@ -198,6 +207,7 @@ public class PurchaseTc {
     /**
      * 收货人
      */
+    @ApiModelProperty("收货人")
     @TableField("contact")
     private String contact;
 
@@ -216,12 +226,14 @@ public class PurchaseTc {
     /**
      * 确认 0-未确认 1-已确认
      */
+    @ApiModelProperty("确认 0-未确认 1-已确认")
     @TableField("qr")
     private Byte qr;
 
     /**
      * 确认人
      */
+    @ApiModelProperty("确认人")
     @TableField("qrr")
     private String qrr;
 
@@ -234,14 +246,16 @@ public class PurchaseTc {
     /**
      * 审核 0-未审核 1-已审核
      */
+    @ApiModelProperty("审核 0-未审核 1-已审核")
     @TableField("sh")
     private Byte sh;
 
     /**
      * 审核人
      */
-    @TableField("jshr")
-    private String jshr;
+    @ApiModelProperty("审核人")
+    @TableField("shr")
+    private String shr;
 
     /**
      * 审核日期
@@ -252,12 +266,14 @@ public class PurchaseTc {
     /**
      * 开始收货 0-未开始收货 1-已开始收货
      */
+    @ApiModelProperty("开始收货 0-未开始收货 1-已开始收货")
     @TableField("kssh")
     private Byte kssh;
 
     /**
      * 开始收货人
      */
+    @ApiModelProperty("开始收货人")
     @TableField("ksshr")
     private String ksshr;
 
@@ -270,12 +286,14 @@ public class PurchaseTc {
     /**
      * 收货确认 0-未收货确认 1-已收货确认
      */
+    @ApiModelProperty("收货确认 0-未收货确认 1-已收货确认")
     @TableField("shqr")
     private Byte shqr;
 
     /**
      * 收货确认人
      */
+    @ApiModelProperty("收货确认人")
     @TableField("shqrr")
     private String shqrr;
 
@@ -288,12 +306,14 @@ public class PurchaseTc {
     /**
      * 开始退仓 0-未开始退仓 1-已开始退仓
      */
+    @ApiModelProperty("开始退仓 0-未开始退仓 1-已开始退仓")
     @TableField("kstc")
     private Byte kstc;
 
     /**
      * 开始退仓人
      */
+    @ApiModelProperty("开始退仓人")
     @TableField("kstcr")
     private String kstcr;
 
@@ -306,12 +326,14 @@ public class PurchaseTc {
     /**
      * 退仓发货 0-未退仓发货 1-已退仓发货
      */
+    @ApiModelProperty("退仓发货 0-未退仓发货 1-已退仓发货")
     @TableField("tcfh")
     private Byte tcfh;
 
     /**
      * 退仓发货人
      */
+    @ApiModelProperty("退仓发货人")
     @TableField("tcfhr")
     private String tcfhr;
 
@@ -324,6 +346,7 @@ public class PurchaseTc {
     /**
      * 运费录入 0-未运费录入 1-已运费录入
      */
+    @ApiModelProperty("运费录入 0-未运费录入 1-已运费录入")
     @TableField("yflr")
     private Byte yflr;
 
@@ -342,6 +365,7 @@ public class PurchaseTc {
     /**
      * 印刷费录入 0-未印刷费录入 1-已印刷费录入
      */
+    @ApiModelProperty("印刷费录入 0-未印刷费录入 1-已印刷费录入")
     @TableField("ysflr")
     private Byte ysflr;
 
@@ -360,6 +384,7 @@ public class PurchaseTc {
     /**
      * 关闭 0-未关闭 1-已关闭
      */
+    @ApiModelProperty("关闭 0-未关闭 1-已关闭")
     @TableField("zs")
     private Byte zs;
 

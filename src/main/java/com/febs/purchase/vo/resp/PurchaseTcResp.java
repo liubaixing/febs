@@ -1,23 +1,15 @@
-package com.febs.purchase.vo.req;
+package com.febs.purchase.vo.resp;
 
-import com.febs.purchase.entity.PurchaseCg;
-import com.febs.purchase.entity.PurchaseCgmx;
+import com.febs.purchase.entity.PurchaseTc;
+import com.febs.purchase.entity.PurchaseTcmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @Data
-public class PurchaseCgReq extends PurchaseCg {
-
-    @ApiModelProperty("下单开始")
-    private Date startTime;
-
-    @ApiModelProperty("下单结束")
-    private Date endTime;
+public class PurchaseTcResp extends PurchaseTc {
 
     @ApiModelProperty("业务员")
     private String userName;
@@ -39,18 +31,17 @@ public class PurchaseCgReq extends PurchaseCg {
     private String xdfzrmc;
     @ApiModelProperty("采购单明细id")
     private Long mxId;
+    @ApiModelProperty("单价")
+    private BigDecimal dj;
+    @ApiModelProperty("商品代码")
+    private String spdm;
     @ApiModelProperty("商品名称")
     private String spmc;
+    @ApiModelProperty("商品条码")
+    private String memo;
+    @ApiModelProperty("计量单位")
+    private String jldwmc;
 
-    @ApiModelProperty("快递单号")
-    private String kuaidiNo;
 
-    @ApiModelProperty("备注信息")
-    private String remarkInfo;
-
-    @ApiModelProperty("服务费（运费、印刷费）")
-    private BigDecimal serviceFee;
-
-    @ApiModelProperty("明细集合")
-    List<PurchaseCgmx> cgmxList;
+    List<PurchaseTcmxResp> tcmxList;
 }

@@ -186,6 +186,9 @@
         LEFT JOIN shangpin sp on xtmx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
+            <if test="id != null">
+                and xt.id = #{id}
+            </if>
             <if test="deleted != null">
                 and xt.deleted = #{deleted}
             </if>
@@ -268,32 +271,32 @@
 
     </select>
 
-    <select id="selectOneByQuery" parameterType="com.febs.receipt.vo.req.OrderXtReq" resultType="com.febs.receipt.vo.resp.OrderXtResp">
+    <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXtReq" resultType="com.febs.receipt.vo.resp.OrderXtResp">
         SELECT
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
         xtmx.id mxid , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
         ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
-        FROM order_xs xt
-        LEFT JOIN basic_ptda pt on xs.org_id = pt.id
-        LEFT JOIN t_user u on xs.user_id = u.USER_ID
-        LEFT JOIN system_bumeng bm on xs.bumeng_id = bm.id
-        LEFT JOIN system_kehu kehu on xs.kehu_id = kehu.id
-        LEFT JOIN system_cangku ck on xs.cangku_id = ck.id
-        LEFT JOIN basic_khly kly on xs.khly_id = kly.id
-        LEFT JOIN basic_llly lly on xs.llly_id = lly.id
-        LEFT JOIN basic_djlx dlx on xs.djlx_id = dlx.id
-        LEFT JOIN basic_khqy qy on xs.khqy_id = qy.id
-        LEFT JOIN order_xtmx xtmx on xs.id = xtmx.pid
-        LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
+        FROM order_xt xt
+        LEFT JOIN basic_ptda pt on xt.org_id = pt.id
+        LEFT JOIN t_user u on xt.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on xt.bumeng_id = bm.id
+        LEFT JOIN system_kehu kehu on xt.kehu_id = kehu.id
+        LEFT JOIN system_cangku ck on xt.cangku_id = ck.id
+        LEFT JOIN basic_khly kly on xt.khly_id = kly.id
+        LEFT JOIN basic_llly lly on xt.llly_id = lly.id
+        LEFT JOIN basic_djlx dlx on xt.djlx_id = dlx.id
+        LEFT JOIN basic_khqy qy on xt.khqy_id = qy.id
+        LEFT JOIN order_xtmx xtmx on xt.id = xtmx.pid
+        LEFT JOIN shangpin sp on xtmx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
+            <if test="id != null">
+                and xt.id = #{id}
+            </if>
             <if test="deleted != null">
                 and xt.deleted = #{deleted}
-            </if>
-            <if test="id != null">
-                and id = #{id}
             </if>
             <if test="djbh != null and djbh != ''">
                 and xt.djbh like CONCAT('%',#{djbh},'%')

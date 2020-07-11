@@ -12,6 +12,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.purchase.vo.req.PurchaseTcReq;
+import com.febs.purchase.vo.resp.PurchaseTcResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,18 +37,22 @@ public class PurchaseTcServiceImpl extends ServiceImpl<PurchaseTcMapper, Purchas
     private PurchaseTcMapper purchaseTcMapper;
 
     @Override
-    public IPage<PurchaseTc> findPurchaseTcs(QueryRequest request, PurchaseTc purchaseTc) {
-        LambdaQueryWrapper<PurchaseTc> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseTcResp> findPurchaseTcs(QueryRequest request, PurchaseTcReq purchaseTc) {
         Page<PurchaseTc> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseTcMapper.selectPageByQuery(page,purchaseTc);
     }
 
     @Override
-    public List<PurchaseTc> findPurchaseTcs(PurchaseTc purchaseTc) {
-	    LambdaQueryWrapper<PurchaseTc> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseTcResp> findPurchaseTcs(PurchaseTcReq purchaseTc) {
+		return this.purchaseTcMapper.selectByQuery(purchaseTc);
+    }
+
+    @Override
+    public PurchaseTcResp findById(Long id) {
+        PurchaseTcReq purchaseTc = new PurchaseTcReq();
+        purchaseTc.setId(id);
+        List<PurchaseTcResp> resp = purchaseTcMapper.selectByQuery(purchaseTc);
+        return CollectionUtils.isEmpty(resp) ? null : resp.get(0);
     }
 
     @Override

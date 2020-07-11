@@ -70,11 +70,11 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ApiOperation("查询销售单详情")
-    @GetMapping("/{id}")
-    @RequiresPermissions("orderXs:list")
-    public FebsResponse orderXsDetail(@PathVariable Long id) {
-        return new FebsResponse().success().data(orderXsBiz.findDetail(id));
+    @ApiOperation("查看")
+    @GetMapping("view/{id}")
+    @RequiresPermissions("orderXs:view")
+    public FebsResponse view(@PathVariable Long id) {
+        return new FebsResponse().success().data(orderXsBiz.view(id));
     }
 
     @ApiOperation("新增销售单")
@@ -109,7 +109,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售单", exceptionMessage = "确认销售单失败")
-    @PostMapping("/confirm/{id}")
+    @GetMapping("/confirm/{id}")
     @RequiresPermissions("orderXs:confirm")
     public FebsResponse orderXsConfirm(@PathVariable Long id){
         User user = getCurrentUser();
@@ -123,7 +123,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("反确认")
     @ControllerEndpoint(operation = "反确认销售单", exceptionMessage = "反确认销售单失败")
-    @PostMapping("/unConfirm/{id}")
+    @GetMapping("/unConfirm/{id}")
     @RequiresPermissions("orderXs:unConfirm")
     public FebsResponse orderXsUnConfirm(@PathVariable Long id){
         User user = getCurrentUser();
@@ -137,7 +137,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销售单", exceptionMessage = "审核销售单失败")
-    @PostMapping("/check/{id}")
+    @GetMapping("/check/{id}")
     @RequiresPermissions("orderXs:check")
     public FebsResponse orderXsCheck(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -151,7 +151,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("反审核")
     @ControllerEndpoint(operation = "反审核销售单", exceptionMessage = "反审核销售单失败")
-    @PostMapping("/unCheck/{id}")
+    @GetMapping("/unCheck/{id}")
     @RequiresPermissions("orderXs:unCheck")
     public FebsResponse orderXsUnCheck(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -192,7 +192,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("作废")
     @ControllerEndpoint(operation = "作废销售单", exceptionMessage = "作废销售单失败")
-    @PostMapping("/invalid/{id}/{status}")
+    @GetMapping("/invalid/{id}/{status}")
     @RequiresPermissions("orderXs:invalid")
     public FebsResponse orderXsInvalid(
             @PathVariable Long id,

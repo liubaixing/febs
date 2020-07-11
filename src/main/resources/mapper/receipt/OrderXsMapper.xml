@@ -228,7 +228,7 @@
                 and xs.kp = #{kp}
             </if>
             <if test="sk != null">
-                xs.sk = #{sk}
+                and xs.sk = #{sk}
             </if>
             <if test="lllymc != null and lllymc != ''">
                 and lly.lllymc like CONCAT('%',#{lllymc},'%')

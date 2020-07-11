@@ -1,14 +1,15 @@
 package com.febs.purchase.service.impl;
 
-import com.febs.common.entity.QueryRequest;
-import com.febs.common.exception.FebsException;
-import com.febs.purchase.entity.PurchaseCgmx;
-import com.febs.purchase.mapper.PurchaseCgmxMapper;
-import com.febs.purchase.service.IPurchaseCgmxService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.common.entity.QueryRequest;
+import com.febs.purchase.entity.PurchaseCgmx;
+import com.febs.purchase.mapper.PurchaseCgmxMapper;
+import com.febs.purchase.service.IPurchaseCgmxService;
+import com.febs.purchase.vo.resp.PurchaseCgmxResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,19 +32,24 @@ public class PurchaseCgmxServiceImpl extends ServiceImpl<PurchaseCgmxMapper, Pur
     private PurchaseCgmxMapper purchaseCgmxMapper;
 
     @Override
-    public IPage<PurchaseCgmx> findPurchaseCgmxs(QueryRequest request, PurchaseCgmx purchaseCgmx) {
-        LambdaQueryWrapper<PurchaseCgmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseCgmxResp> findPurchaseCgmxs(QueryRequest request, PurchaseCgmx purchaseCgmx) {
         Page<PurchaseCgmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseCgmxMapper.selectPageByQuery(page, purchaseCgmx);
     }
 
     @Override
-    public List<PurchaseCgmx> findPurchaseCgmxs(PurchaseCgmx purchaseCgmx) {
-	    LambdaQueryWrapper<PurchaseCgmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseCgmxResp> findPurchaseCgmxs(PurchaseCgmx purchaseCgmx) {
+		return this.purchaseCgmxMapper.selectByQuery(purchaseCgmx);
     }
+
+    @Override
+    public PurchaseCgmxResp findById(Long id){
+        PurchaseCgmx purchaseCgmx = new PurchaseCgmx();
+        purchaseCgmx.setId(id);
+        List<PurchaseCgmxResp> resp = this.purchaseCgmxMapper.selectByQuery(purchaseCgmx);
+        return CollectionUtils.isEmpty(resp) ? null : resp.get(0);
+    }
+
 
     @Override
     @Transactional

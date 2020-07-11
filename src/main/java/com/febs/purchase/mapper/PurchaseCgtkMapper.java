@@ -1,8 +1,13 @@
 package com.febs.purchase.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.febs.purchase.entity.PurchaseCgtk;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.purchase.entity.PurchaseCgtkExample;
+import com.febs.purchase.entity.PurchaseTc;
+import com.febs.purchase.vo.req.PurchaseTcReq;
+import com.febs.purchase.vo.resp.PurchaseTcResp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -35,4 +40,6 @@ public interface PurchaseCgtkMapper extends BaseMapper<PurchaseCgtk> {
     int updateByPrimaryKeySelective(PurchaseCgtk record);
 
     int updateByPrimaryKey(PurchaseCgtk record);
+
+//    IPage<PurchaseTcResp> selectPageByQuery(Page<PurchaseTc> page, PurchaseTcReq req);
 }

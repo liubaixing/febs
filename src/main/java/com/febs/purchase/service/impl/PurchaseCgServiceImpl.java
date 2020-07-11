@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.resp.PurchaseCgResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -47,6 +48,13 @@ public class PurchaseCgServiceImpl extends ServiceImpl<PurchaseCgMapper, Purchas
 	    LambdaQueryWrapper<PurchaseCg> queryWrapper = new LambdaQueryWrapper<>();
 		// TODO 设置查询条件
 		return this.baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public PurchaseCgResp findById(Long id){
+        PurchaseCgReq req = new PurchaseCgReq();
+        List<PurchaseCgResp> resp = this.purchaseCgMapper.selectByQuery(req);
+        return CollectionUtils.isEmpty(resp)? null : resp.get(0);
     }
 
     @Override

@@ -10,9 +10,11 @@ import com.febs.receipt.service.IOrderXtmxService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXtReq;
 import com.febs.receipt.vo.resp.OrderXtResp;
+import com.febs.receipt.vo.resp.OrderXtmxResp;
 import com.febs.system.entity.Cangku;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -30,6 +32,14 @@ public class OrderXtBiz {
         return xtService.findOrderXts(request,orderXt);
     }
 
+    public OrderXtResp view(Long id){
+        OrderXtResp orderXt = xtService.findById(id);
+        OrderXtmx orderXtmx = new OrderXtmx();
+        orderXtmx.setPid(orderXt.getId());
+        orderXt.setXtmxList(xtmxService.findOrderXtmxs(orderXtmx));
+        return orderXt;
+    }
+
     public void create(OrderXtReq orderXtReq) {
         //保存商品明细
         if(CollectionUtils.isEmpty(orderXtReq.getOrderXtmxList())){
@@ -44,11 +54,6 @@ public class OrderXtBiz {
 
     }
 
-    public void update(OrderXt orderXt) {
-        xtService.updateOrderXt(orderXt);
-    }
-
-
     public void delete(String[] ids) {
         OrderXt orderXt = new OrderXt();
         for (String id : ids) {
@@ -59,7 +64,7 @@ public class OrderXtBiz {
     }
 
 
-    public void confirmOrderXs(OrderXs req, boolean status){
+    public void confirmOrderXt(OrderXs req, boolean status){
         OrderXt orderXt = xtService.findById(req.getId());
         if (orderXt == null) {
             throw new FebsException("销退单不存在");
@@ -74,7 +79,7 @@ public class OrderXtBiz {
     }
 
 
-    public void checkOrderXs(OrderXs req,boolean status){
+    public void checkOrderXt(OrderXs req,boolean status){
         OrderXt orderXt = xtService.findById(req.getId());
         if (orderXt == null) {
             throw new FebsException("销退单不存在");
@@ -87,8 +92,8 @@ public class OrderXtBiz {
         xtService.updateOrderXt(orderXt);
     }
 
-    public void executeOrderXs(OrderXsReq req,boolean status){
-        OrderXtmx xtmx = xtmxService.findById(req.getMxId());
+    public void executeOrderXt(OrderXsReq req,boolean status){
+        OrderXtmxResp xtmx = xtmxService.findById(req.getMxId());
         if (xtmx == null) {
             throw new FebsException("销售单不存在");
         }
@@ -96,14 +101,6 @@ public class OrderXtBiz {
             throw new FebsException("订单已执行完毕");
         }
 
-
-    }
-
-    public void closeOrderXs(OrderXs req,boolean status){
-        OrderXt orderXt = xtService.findById(req.getId());
-        if (orderXt == null) {
-            throw new FebsException("销售单不存在");
-        }
 
     }
 

@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.receipt.vo.req.OrderXtReq;
 import com.febs.receipt.vo.resp.OrderXtResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,14 +44,16 @@ public class OrderXtServiceImpl extends ServiceImpl<OrderXtMapper, OrderXt> impl
     }
 
     @Override
-    public List<OrderXt> findOrderXts(OrderXtReq orderXt) {
-	    LambdaQueryWrapper<OrderXt> queryWrapper = new LambdaQueryWrapper<>();
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderXtResp> findOrderXts(OrderXtReq orderXt) {
+		return this.orderXtMapper.selectByQuery(orderXt);
     }
 
     @Override
-    public OrderXt findById(Long id){
-        return this.orderXtMapper.selectByPrimaryKey(id);
+    public OrderXtResp findById(Long id){
+        OrderXtReq orderXt = new OrderXtReq();
+        orderXt.setId(id);
+        List<OrderXtResp> orderXtList = findOrderXts(orderXt);
+        return CollectionUtils.isEmpty(orderXtList) ? null : orderXtList.get(0);
     }
 
     @Override
@@ -65,15 +68,8 @@ public class OrderXtServiceImpl extends ServiceImpl<OrderXtMapper, OrderXt> impl
 
     @Override
     @Transactional
-    public OrderXtResp updateOrderXt(OrderXt orderXt) {
-        OrderXt order = this.orderXtMapper.selectByPrimaryKey(orderXt.getId());
-        if(order == null){
-            throw new FebsException("销退单不存在");
-        }
+    public void updateOrderXt(OrderXt orderXt) {
         this.orderXtMapper.updateByPrimaryKeySelective(orderXt);
-        OrderXtReq req = new OrderXtReq();
-        req.setId(orderXt.getId());
-        return this.orderXtMapper.selectOneByQuery(req);
     }
 
     @Override

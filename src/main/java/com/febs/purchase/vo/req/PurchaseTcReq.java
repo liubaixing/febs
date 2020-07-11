@@ -1,17 +1,14 @@
 package com.febs.purchase.vo.req;
 
-import com.febs.purchase.entity.PurchaseCg;
-import com.febs.purchase.entity.PurchaseCgmx;
+import com.febs.purchase.entity.PurchaseTc;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Data
-public class PurchaseCgReq extends PurchaseCg {
+public class PurchaseTcReq extends PurchaseTc {
 
     @ApiModelProperty("下单开始")
     private Date startTime;
@@ -42,15 +39,7 @@ public class PurchaseCgReq extends PurchaseCg {
     @ApiModelProperty("商品名称")
     private String spmc;
 
-    @ApiModelProperty("快递单号")
-    private String kuaidiNo;
-
-    @ApiModelProperty("备注信息")
-    private String remarkInfo;
 
     @ApiModelProperty("服务费（运费、印刷费）")
     private BigDecimal serviceFee;
-
-    @ApiModelProperty("明细集合")
-    List<PurchaseCgmx> cgmxList;
 }

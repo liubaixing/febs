@@ -94,7 +94,7 @@ public class OrderXsBiz {
         return xsService.findOrderXss(request, orderXs);
     }
 
-    public OrderXsResp findDetail(Long id){
+    public OrderXsResp view(Long id){
         OrderXsReq orderXs = new OrderXsReq();
         orderXs.setId(id);
         OrderXsResp resp =  xsService.selectOneByQuery(orderXs);

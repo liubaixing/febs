@@ -37,6 +37,8 @@ jobs:
         password: ${{ secrets.HOST_PASSWORD }}
         port: ${{ secrets.HOST_PORT }}
         script: |
-          cp /home/febs/febs.jar /projects
+          cd /projects
+          rm -rf febs.jar
+          mv /home/febs/febs.jar /projects
           cd /projects
           ./test.sh

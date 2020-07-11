@@ -4,6 +4,9 @@ import com.febs.purchase.entity.PurchaseCg;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Data
 public class PurchaseCgResp extends PurchaseCg {
 
@@ -27,6 +30,8 @@ public class PurchaseCgResp extends PurchaseCg {
     private String xdfzrmc;
     @ApiModelProperty("采购单明细id")
     private Long mxId;
+    @ApiModelProperty("单价")
+    private BigDecimal dj;
     @ApiModelProperty("商品代码")
     private String spdm;
     @ApiModelProperty("商品名称")
@@ -37,7 +42,7 @@ public class PurchaseCgResp extends PurchaseCg {
     private String jldwmc;
 
 
-
+    List<PurchaseCgmxResp> cgmxList;
 
 
 }

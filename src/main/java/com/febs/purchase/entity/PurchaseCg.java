@@ -148,7 +148,7 @@ public class PurchaseCg {
     /**
      * 摘要
      */
-    @ApiModelProperty("摘要")
+    @ApiModelProperty("摘要 / 备注")
     @TableField("bz")
     private String bz;
 
@@ -176,7 +176,7 @@ public class PurchaseCg {
     /**
      * 整单数量
      */
-    @ApiModelProperty("整单数量")
+    @ApiModelProperty("数量")
     @TableField("sl")
     private Integer sl;
 
@@ -204,7 +204,7 @@ public class PurchaseCg {
     /**
      * 整单金额
      */
-    @ApiModelProperty("整单金额")
+    @ApiModelProperty("金额")
     @TableField("je")
     private BigDecimal je;
     /**

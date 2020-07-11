@@ -1,8 +1,12 @@
 package com.febs.purchase.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.febs.purchase.entity.PurchaseCg;
 import com.febs.purchase.entity.PurchaseCgmx;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.purchase.entity.PurchaseCgmxExample;
+import com.febs.purchase.vo.resp.PurchaseCgmxResp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -35,4 +39,8 @@ public interface PurchaseCgmxMapper extends BaseMapper<PurchaseCgmx> {
     int updateByPrimaryKeySelective(PurchaseCgmx record);
 
     int updateByPrimaryKey(PurchaseCgmx record);
+
+    IPage<PurchaseCgmxResp> selectPageByQuery(Page<PurchaseCgmx> page, PurchaseCgmx req);
+
+    List<PurchaseCgmxResp> selectByQuery(PurchaseCgmx req);
 }

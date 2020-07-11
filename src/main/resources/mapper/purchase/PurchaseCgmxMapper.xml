@@ -404,4 +404,45 @@
       sku = #{sku,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+
+    <sql id="Page_Column_List">
+        mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.dj, mx.je, mx.kpsl, mx.fksl, mx.tksl, mx.kpje, mx.fkje, mx.tkje, mx.ex1,
+        mx.ex2, mx.ex3, mx.sku
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.purchase.entity.PurchaseCgmx" resultType="com.febs.purchase.vo.resp.PurchaseCgmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        FROM purchase_cgmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="Id != null ">
+                mx.id = #{id}
+            </if>
+            <if test="pid != null ">
+                mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
+    
+
+    <select id="selectByQuery" parameterType="com.febs.purchase.entity.PurchaseCgmx" resultType="com.febs.purchase.vo.resp.PurchaseCgmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        FROM purchase_cgmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="Id != null ">
+                mx.id = #{id}
+            </if>
+            <if test="pid != null ">
+                mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
 </mapper>

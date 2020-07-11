@@ -32,9 +32,9 @@ public interface IOrderXtService extends IService<OrderXt> {
      * @param orderXt orderXt
      * @return List<OrderXt>
      */
-    List<OrderXt> findOrderXts(OrderXtReq orderXt);
+    List<OrderXtResp> findOrderXts(OrderXtReq orderXt);
 
-    OrderXt findById(Long id);
+    OrderXtResp findById(Long id);
 
     /**
      * 新增
@@ -48,7 +48,7 @@ public interface IOrderXtService extends IService<OrderXt> {
      *
      * @param orderXt orderXt
      */
-    OrderXtResp updateOrderXt(OrderXt orderXt);
+    void updateOrderXt(OrderXt orderXt);
 
     /**
      * 删除

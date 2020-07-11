@@ -1157,4 +1157,278 @@
       ex3 = #{ex3,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+
+    <sql id="Page_Column_List">
+        tc.Id, tc.djbh, tc.xdrq, tc.ydjh, tc.xtdh, tc.user_id, tc.bm_id, tc.gys_id, tc.cangku_id, tc.fpsl_id, tc.fplx_id,
+        tc.djlx_id, tc.cgfzr, tc.xdfzr, tc.sfdz, tc.sfjj, tc.wldh, tc.bz, tc.yqdhrq, tc.kpsl, tc.fksl, tc.tksl, tc.kpje,
+        tc.fkje, tc.tkje, tc.fj, tc.address, tc.tel, tc.contact, tc.zdr, tc.zdrq, tc.qr, tc.qrr, tc.qrrq, tc.sh, tc.shr, tc.shrq, tc.kssh,
+        tc.ksshr, tc.ksshrq, tc.shqr, tc.shqrr, tc.shqrrq, tc.kstc, tc.kstcr, tc.kstcrq, tc.tcfh, tc.tcfhr, tc.tcfhrq, tc.yflr,
+        tc.yflrr, tc.yflrrq, tc.ysflr, tc.ysflrr, tc.ysflrrq, tc.zs, tc.zsr, tc.zsrq, tc.zf, tc.zfr, tc.zfrq, tc.ex1, tc.ex2, tc.ex3
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseTcReq" resultType="com.febs.purchase.vo.resp.PurchaseTcResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,u.USERNAME userName,bm.bmmc,gys.gysmc,ck.ckmc,fpsd.fpsdmc,fplx.fplxmc,djlx.djlxmc,cu.USERNAME cgfzrmc,xu.USERNAME xdfzrmc
+        ,mx.id mxId,mx.sl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        FROM purchase_cg tc
+        LEFT JOIN t_user u ON tc.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on tc.bm_id = bm.id
+        LEFT JOIN system_gys gys on tc.gys_id = gys.id
+        LEFT JOIN system_cangku ck ON tc.cangku_id = ck.id
+        LEFT JOIN basic_fpsd fpsd ON tc.fpsl_id = fpsd.id
+        LEFT JOIN basic_fplx fplx ON tc.fplx_id = fplx.id
+        LEFT JOIN basic_djlx djlx ON tc.djlx_id = djlx.id
+        LEFT JOIN t_user cu on tc.cgfzr = cu.USER_ID
+        LEFT JOIN t_user xu on tc.xdfzr = xu.USER_ID
+        LEFT JOIN purchase_cgmx mx ON tc.id = mx.pid
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="djbh != null and djbh != ''">
+                and tc.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and tc.xdrq between #{startTime} and #{endTime}
+            </if>
+            <if test="xtdh != null and xtdh != ''">
+                and tc.xtdh like CONCAT('%',#{xtdh},'%')
+            </if>
+            <if test="ydjh != null and ydjh != ''">
+                and tc.ydjh like CONCAT('%',#{ydjh},'%')
+            </if>
+            <if test="userName != null and userName != ''">
+                and u.USERNAME like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="bmmc != null and bmmc != ''">
+                and bmmc like CONCAT('%',#{bmmc},'%')
+            </if>
+            <if test="gysmc != null and gysmc != ''">
+                and gysmc like CONCAT('%',#{gysmc},'%')
+            </if>
+            <if test="ckmc != null and ckmc != ''">
+                and ckmc like CONCAT('%',#{ckmc},'%')
+            </if>
+            <if test="fpsdmc != null and fpsdmc != ''">
+                and fpsdmc like CONCAT('%',#{fpsdmc},'%')
+            </if>
+            <if test="fplxmc != null and fplxmc != ''">
+                and fplxmc like CONCAT('%',#{fplxmc},'%')
+            </if>
+            <if test="djlxmc != null and djlxmc != ''">
+                and djlxmc like CONCAT('%',#{djlxmc},'%')
+            </if>
+            <if test="cgfzrmc != null and cgfzrmc != ''">
+                and cu.USERNAME like CONCAT('%',#{cgfzrmc},'%')
+            </if>
+            <if test="xdfzrmc != null and xdfzrmc != ''">
+                and xu.USERNAME like CONCAT('%',#{xdfzrmc},'%')
+            </if>
+            <if test="sfdz != null ">
+                and cg.sfdz = #{sfdz}
+            </if>
+            <if test="sfjj != null ">
+                and cg.sfjj = #{sfjj}
+            </if>
+            <if test="wldh != null and wldh != ''">
+                and cg.wldh like CONCAT('%',#{wldh},'%')
+            </if>
+            <if test="yqdhrq != null">
+                and cg.yqdhrq = #{yqdhrq}
+            </if>
+            <if test="spdm != null and spdm != ''">
+                and sp.spdm like CONCAT('%',#{spdm},'%')
+            </if>
+
+            <if test="contact != null and contact != ''">
+                and cg.contact like CONCAT('%',#{contact},'%')
+            </if>
+            <if test="qr != null">
+                and cg.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and cg.qrr like CONCAT('%',#{qrr},'%')
+            </if>
+            <if test="sh != null">
+                and cg.sh = #{sh}
+            </if>
+            <if test="shr != null and shr != ''">
+                and cg.shr like CONCAT('%',#{shr},'%')
+            </if>
+            <if test="kssh != null">
+                and cg.kssh = #{kssh}
+            </if>
+            <if test="ksshr != null and ksshr != ''">
+                and cg.ksshr like CONCAT('%',#{ksshr},'%')
+            </if>
+            <if test="shqr != null">
+                and cg.shqr = #{shqr}
+            </if>
+            <if test="shqrr != null and shqrr != ''">
+                and cg.shqrr like CONCAT('%',#{shqrr},'%')
+            </if>
+            <if test="cgfh != null">
+                and cg.cgfh = #{cgfh}
+            </if>
+            <if test="cgfhr != null and cgfhr != ''">
+                and cg.cgfhr like CONCAT('%',#{cgfhr},'%')
+            </if>
+            <if test="zs != null">
+                and cg.zs = #{zs}
+            </if>
+            <if test="zsr != null and zsr != ''">
+                and cg.zsr like CONCAT('%',#{zsr},'%')
+            </if>
+            <if test="ksfh != null">
+                and cg.ksfh = #{ksfh}
+            </if>
+            <if test="ksph != null">
+                and cg.ksph = #{ksph}
+            </if>
+            <if test="yflr != null">
+                and cg.yflr = #{yflr}
+            </if>
+            <if test="ecshr != null and ecshr != ''">
+                and cg.ecshr like CONCAT('%',#{ecshr},'%')
+            </if>
+            <if test="ysflr != null">
+                and cg.ysflr = #{ysflr}
+            </if>
+            <!-- 分配下单 ？？ -->
+        </where>
+    </select>
+
+    <select id="selectByQuery" parameterType="com.febs.purchase.vo.req.PurchaseTcReq" resultType="com.febs.purchase.vo.resp.PurchaseTcResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,u.USERNAME userName,bm.bmmc,gys.gysmc,ck.ckmc,fpsd.fpsdmc,fplx.fplxmc,djlx.djlxmc,cu.USERNAME cgfzrmc,xu.USERNAME xdfzrmc
+        ,mx.id mxId,mx.sl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        FROM purchase_cg tc
+        LEFT JOIN t_user u ON tc.user_id = u.USER_ID
+        LEFT JOIN system_bumeng bm on tc.bm_id = bm.id
+        LEFT JOIN system_gys gys on tc.gys_id = gys.id
+        LEFT JOIN system_cangku ck ON tc.cangku_id = ck.id
+        LEFT JOIN basic_fpsd fpsd ON tc.fpsl_id = fpsd.id
+        LEFT JOIN basic_fplx fplx ON tc.fplx_id = fplx.id
+        LEFT JOIN basic_djlx djlx ON tc.djlx_id = djlx.id
+        LEFT JOIN t_user cu on tc.cgfzr = cu.USER_ID
+        LEFT JOIN t_user xu on tc.xdfzr = xu.USER_ID
+        LEFT JOIN purchase_cgmx mx ON tc.id = mx.pid
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="djbh != null and djbh != ''">
+                and tc.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and tc.xdrq between #{startTime} and #{endTime}
+            </if>
+            <if test="xtdh != null and xtdh != ''">
+                and tc.xtdh like CONCAT('%',#{xtdh},'%')
+            </if>
+            <if test="ydjh != null and ydjh != ''">
+                and tc.ydjh like CONCAT('%',#{ydjh},'%')
+            </if>
+            <if test="userName != null and userName != ''">
+                and u.USERNAME like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="bmmc != null and bmmc != ''">
+                and bmmc like CONCAT('%',#{bmmc},'%')
+            </if>
+            <if test="gysmc != null and gysmc != ''">
+                and gysmc like CONCAT('%',#{gysmc},'%')
+            </if>
+            <if test="ckmc != null and ckmc != ''">
+                and ckmc like CONCAT('%',#{ckmc},'%')
+            </if>
+            <if test="fpsdmc != null and fpsdmc != ''">
+                and fpsdmc like CONCAT('%',#{fpsdmc},'%')
+            </if>
+            <if test="fplxmc != null and fplxmc != ''">
+                and fplxmc like CONCAT('%',#{fplxmc},'%')
+            </if>
+            <if test="djlxmc != null and djlxmc != ''">
+                and djlxmc like CONCAT('%',#{djlxmc},'%')
+            </if>
+            <if test="cgfzrmc != null and cgfzrmc != ''">
+                and cu.USERNAME like CONCAT('%',#{cgfzrmc},'%')
+            </if>
+            <if test="xdfzrmc != null and xdfzrmc != ''">
+                and xu.USERNAME like CONCAT('%',#{xdfzrmc},'%')
+            </if>
+            <if test="sfdz != null ">
+                and cg.sfdz = #{sfdz}
+            </if>
+            <if test="sfjj != null ">
+                and cg.sfjj = #{sfjj}
+            </if>
+            <if test="wldh != null and wldh != ''">
+                and cg.wldh like CONCAT('%',#{wldh},'%')
+            </if>
+            <if test="yqdhrq != null">
+                and cg.yqdhrq = #{yqdhrq}
+            </if>
+            <if test="spdm != null and spdm != ''">
+                and sp.spdm like CONCAT('%',#{spdm},'%')
+            </if>
+
+            <if test="contact != null and contact != ''">
+                and cg.contact like CONCAT('%',#{contact},'%')
+            </if>
+            <if test="qr != null">
+                and cg.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and cg.qrr like CONCAT('%',#{qrr},'%')
+            </if>
+            <if test="sh != null">
+                and cg.sh = #{sh}
+            </if>
+            <if test="shr != null and shr != ''">
+                and cg.shr like CONCAT('%',#{shr},'%')
+            </if>
+            <if test="kssh != null">
+                and cg.kssh = #{kssh}
+            </if>
+            <if test="ksshr != null and ksshr != ''">
+                and cg.ksshr like CONCAT('%',#{ksshr},'%')
+            </if>
+            <if test="shqr != null">
+                and cg.shqr = #{shqr}
+            </if>
+            <if test="shqrr != null and shqrr != ''">
+                and cg.shqrr like CONCAT('%',#{shqrr},'%')
+            </if>
+            <if test="cgfh != null">
+                and cg.cgfh = #{cgfh}
+            </if>
+            <if test="cgfhr != null and cgfhr != ''">
+                and cg.cgfhr like CONCAT('%',#{cgfhr},'%')
+            </if>
+            <if test="zs != null">
+                and cg.zs = #{zs}
+            </if>
+            <if test="zsr != null and zsr != ''">
+                and cg.zsr like CONCAT('%',#{zsr},'%')
+            </if>
+            <if test="ksfh != null">
+                and cg.ksfh = #{ksfh}
+            </if>
+            <if test="ksph != null">
+                and cg.ksph = #{ksph}
+            </if>
+            <if test="yflr != null">
+                and cg.yflr = #{yflr}
+            </if>
+            <if test="ecshr != null and ecshr != ''">
+                and cg.ecshr like CONCAT('%',#{ecshr},'%')
+            </if>
+            <if test="ysflr != null">
+                and cg.ysflr = #{ysflr}
+            </if>
+            <!-- 分配下单 ？？ -->
+        </where>
+    </select>
+
 </mapper>

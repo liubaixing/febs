@@ -1,8 +1,10 @@
 package com.febs.receipt.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.febs.receipt.entity.OrderXtmx;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.receipt.entity.OrderXtmxExample;
+import com.febs.receipt.vo.resp.OrderXtmxResp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -35,4 +37,9 @@ public interface OrderXtmxMapper extends BaseMapper<OrderXtmx> {
     int updateByPrimaryKeySelective(OrderXtmx record);
 
     int updateByPrimaryKey(OrderXtmx record);
+
+    IPage<OrderXtmxResp> selectPageByQuery(IPage<OrderXtmx> page, OrderXtmx orderXtmx);
+
+    List<OrderXtmxResp> selectByQuery(OrderXtmx orderXtmx);
+
 }

@@ -9,6 +9,7 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.entity.OrderXtmx;
 import com.febs.receipt.service.IOrderXtmxService;
 
+import com.febs.receipt.vo.resp.OrderXtmxResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class OrderXtmxController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("orderXtmx:export")
     public void export(QueryRequest queryRequest, OrderXtmx orderXtmx, HttpServletResponse response) throws IOException {
-        List<OrderXtmx> orderXtmxs = this.orderXtmxService.findOrderXtmxs(queryRequest, orderXtmx).getRecords();
-        ExcelUtil.export(orderXtmxs, OrderXtmx.class,"销退单明细",response);
+        List<OrderXtmxResp> orderXtmxs = this.orderXtmxService.findOrderXtmxs(queryRequest, orderXtmx).getRecords();
+        ExcelUtil.export(orderXtmxs, OrderXtmxResp.class,"销退单明细",response);
     }
 }

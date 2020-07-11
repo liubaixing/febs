@@ -36,10 +36,6 @@ public interface OrderXtMapper extends BaseMapper<OrderXt> {
 
     OrderXt selectByPrimaryKey(Long id);
 
-    IPage<OrderXtResp> selectPageByQuery(Page<OrderXt> page, OrderXtReq req);
-
-    OrderXtResp selectOneByQuery(OrderXtReq req);
-
     int updateByExampleSelective(@Param("record") OrderXt record, @Param("example") OrderXtExample example);
 
     int updateByExample(@Param("record") OrderXt record, @Param("example") OrderXtExample example);
@@ -47,5 +43,9 @@ public interface OrderXtMapper extends BaseMapper<OrderXt> {
     int updateByPrimaryKeySelective(OrderXt record);
 
     int updateByPrimaryKey(OrderXt record);
+
+    IPage<OrderXtResp> selectPageByQuery(Page<OrderXt> page, OrderXtReq req);
+
+    List<OrderXtResp> selectByQuery(OrderXtReq req);
 
 }
