@@ -53,7 +53,7 @@ public class OrderXsfpController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("orderXsfp:list")
-    public FebsResponse getAllOrderXsfps(OrderXsfp orderXsfp) {
+    public FebsResponse getAllOrderXsfps(OrderXsfpReq orderXsfp) {
         return new FebsResponse().success().data(orderXsfpService.findOrderXsfps(orderXsfp));
     }
 
@@ -67,8 +67,10 @@ public class OrderXsfpController extends BaseController {
     @ControllerEndpoint(operation = "新增销售发票", exceptionMessage = "新增销售发票失败")
     @PostMapping("")
     @RequiresPermissions("orderXsfp:add")
-    public FebsResponse addOrderXsfp(@Valid OrderXsfp orderXsfp) {
-        this.orderXsfpService.createOrderXsfp(orderXsfp);
+    public FebsResponse addOrderXsfp(@Valid OrderXsfpReq req) {
+        User user = getCurrentUser();
+        req.setZdr(user.getUsername());
+        xsfpBiz.createOrderXsfp(req);
         return new FebsResponse().success();
     }
 
@@ -92,7 +94,7 @@ public class OrderXsfpController extends BaseController {
 
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售发票", exceptionMessage = "确认销售发票失败")
-    @PostMapping("/confirm/{id}")
+    @GetMapping("/confirm/{id}")
     @RequiresPermissions("orderXsfp:confirm")
     public FebsResponse orderXsfpConfirm(@PathVariable Long id){
         User user = getCurrentUser();
@@ -107,7 +109,7 @@ public class OrderXsfpController extends BaseController {
 
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销售发票", exceptionMessage = "审核销售发票失败")
-    @PostMapping("/check/{id}")
+    @GetMapping("/check/{id}")
     @RequiresPermissions("orderXsfp:check")
     public FebsResponse orderXsfpCheck(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -125,20 +127,26 @@ public class OrderXsfpController extends BaseController {
     @PostMapping("/create/{id}")
     @RequiresPermissions("orderXsfp:create")
     public FebsResponse createOrderXsfp(@RequestBody OrderXsfpReq req){
-        User user = getCurrentUser();
-        req.setZdr(user.getUsername());
-        xsfpBiz.createOrderXsfp(req);
+
         return new FebsResponse().success();
     }
 
     @ApiOperation("开票")
     @ControllerEndpoint(operation = "开票", exceptionMessage = "开票失败")
-    @PostMapping("/kp/{id}")
+    @GetMapping("/kp/{id}")
     @RequiresPermissions("orderXsfp:kp")
     public FebsResponse kp(@PathVariable Long id ){
         User user = getCurrentUser();
 
         return new FebsResponse().success();
+    }
+
+    @ApiOperation("查看")
+    @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
+    @GetMapping("/view/{id}")
+    @RequiresPermissions("orderXsfp:view")
+    public FebsResponse view(@PathVariable Long id ){
+        return new FebsResponse().data(xsfpBiz.view(id));
     }
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")

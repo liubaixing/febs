@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class OrderXstkResp extends OrderXstk {
@@ -27,5 +28,7 @@ public class OrderXstkResp extends OrderXstk {
     private String memo;
     @ApiModelProperty("计量单位")
     private String jldwmc;
+
+    List<OrderXstkmxResp> xstkmxList;
 
 }

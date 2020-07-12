@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.receipt.vo.resp.OrderXsskmxResp;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,18 +33,14 @@ public class OrderXsskmxServiceImpl extends ServiceImpl<OrderXsskmxMapper, Order
     private OrderXsskmxMapper orderXsskmxMapper;
 
     @Override
-    public IPage<OrderXsskmx> findOrderXsskmxs(QueryRequest request, OrderXsskmx orderXsskmx) {
-        LambdaQueryWrapper<OrderXsskmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<OrderXsskmxResp> findOrderXsskmxs(QueryRequest request, OrderXsskmx orderXsskmx) {
         Page<OrderXsskmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.orderXsskmxMapper.selectPageByQuery(page, orderXsskmx);
     }
 
     @Override
-    public List<OrderXsskmx> findOrderXsskmxs(OrderXsskmx orderXsskmx) {
-	    LambdaQueryWrapper<OrderXsskmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderXsskmxResp> findOrderXsskmxs(OrderXsskmx orderXsskmx) {
+		return this.orderXsskmxMapper.selectByQuery(orderXsskmx);
     }
 
     @Override

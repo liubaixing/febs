@@ -1,13 +1,13 @@
 package com.febs.purchase.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.febs.purchase.entity.PurchaseCgfp;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.febs.purchase.entity.PurchaseCgfpExample;
 import com.febs.purchase.entity.PurchaseTc;
-import com.febs.purchase.vo.req.PurchaseTcReq;
-import com.febs.purchase.vo.resp.PurchaseTcResp;
+import com.febs.purchase.vo.req.PurchaseCgfpReq;
+import com.febs.purchase.vo.resp.PurchaseCgfpResp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -41,5 +41,7 @@ public interface PurchaseCgfpMapper extends BaseMapper<PurchaseCgfp> {
 
     int updateByPrimaryKey(PurchaseCgfp record);
 
-//    IPage<PurchaseTcResp> selectPageByQuery(Page<PurchaseTc> page, PurchaseTcReq req);
+    IPage<PurchaseCgfpResp> selectPageByQuery(Page<PurchaseCgfp> page, PurchaseCgfpReq req);
+
+    List<PurchaseCgfpResp> selectByQuery(PurchaseCgfpReq req);
 }

@@ -1,5 +1,6 @@
 package com.febs.receipt.vo.resp;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.febs.receipt.entity.OrderXt;
@@ -94,6 +95,10 @@ public class OrderXtResp extends OrderXt {
     @ExcelProperty(value = "计量单位",index = 27)
     private String jldwmc;
 
+    @ApiModelProperty("销退单明细id")
+    @ExcelIgnore
+    private Long mxId;
 
+    @ExcelIgnore
     private List<OrderXtmxResp> xtmxList;
 }

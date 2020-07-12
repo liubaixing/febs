@@ -68,6 +68,9 @@ public class OrderXtController extends BaseController {
     @PostMapping("")
     @RequiresPermissions("orderXt:add")
     public FebsResponse addOrderXt(@Valid OrderXtReq orderXt) {
+        User user = getCurrentUser();
+        orderXt.setZdr(user.getUsername());
+        orderXt.setZdrq(new Date());
         this.xtBiz.create(orderXt);
         return new FebsResponse().success();
     }
@@ -99,7 +102,7 @@ public class OrderXtController extends BaseController {
 
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销退单", exceptionMessage = "确认销退单失败")
-    @PostMapping("/confirm/{id}")
+    @GetMapping("/confirm/{id}")
     @RequiresPermissions("orderXt:confirm")
     public FebsResponse orderXsConfirm(@PathVariable Long id){
         User user = getCurrentUser();
@@ -113,7 +116,7 @@ public class OrderXtController extends BaseController {
 
     @ApiOperation("反确认")
     @ControllerEndpoint(operation = "反确销退单单", exceptionMessage = "反确认销退单失败")
-    @PostMapping("/unConfirm/{id}")
+    @GetMapping("/unConfirm/{id}")
     @RequiresPermissions("orderXt:unConfirm")
     public FebsResponse orderXsUnConfirm(@PathVariable Long id){
         User user = getCurrentUser();
@@ -127,7 +130,7 @@ public class OrderXtController extends BaseController {
 
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销退单", exceptionMessage = "审核销退单失败")
-    @PostMapping("/check/{id}")
+    @GetMapping("/check/{id}")
     @RequiresPermissions("orderXt:check")
     public FebsResponse orderXsCheck(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -141,7 +144,7 @@ public class OrderXtController extends BaseController {
 
     @ApiOperation("反审核")
     @ControllerEndpoint(operation = "反审销退单单", exceptionMessage = "反审核销退单失败")
-    @PostMapping("/unCheck/{id}")
+    @GetMapping("/unCheck/{id}")
     @RequiresPermissions("orderXt:unCheck")
     public FebsResponse orderXsUnCheck(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -155,27 +158,13 @@ public class OrderXtController extends BaseController {
 
     @ApiOperation("执行")
     @ControllerEndpoint(operation = "执行", exceptionMessage = "执行失败")
-    @PostMapping("/execute/{id}")
+    @PostMapping("/execute")
     @RequiresPermissions("orderXt:execute")
-    public FebsResponse orderXsExecute(@PathVariable Long id, OrderXsReq req){
+    public FebsResponse orderXsExecute(@RequestBody OrderXtReq req){
         User user = getCurrentUser();
-        req.setMxId(id);
         req.setZx((byte)1);
         req.setZxr(user.getUsername());
-        this.xtBiz.executeOrderXt(req,true);
-        return new FebsResponse().success();
-    }
-
-    @ApiOperation("反执行")
-    @ControllerEndpoint(operation = "反执行", exceptionMessage = "反执行失败")
-    @PostMapping("/unExecute/{id}")
-    @RequiresPermissions("orderXt:unExecute")
-    public FebsResponse orderXsUnExecute(@PathVariable Long id,OrderXsReq req){
-        User user = getCurrentUser();
-        req.setMxId(id);
-        req.setZx((byte)1);
-        req.setZxr(user.getUsername());
-        this.xtBiz.executeOrderXt(req,false);
+        this.xtBiz.executeOrderXt(req);
         return new FebsResponse().success();
     }
 

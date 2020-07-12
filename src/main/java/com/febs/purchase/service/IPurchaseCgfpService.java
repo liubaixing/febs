@@ -5,6 +5,8 @@ import com.febs.purchase.entity.PurchaseCgfp;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.vo.req.PurchaseCgfpReq;
+import com.febs.purchase.vo.resp.PurchaseCgfpResp;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public interface IPurchaseCgfpService extends IService<PurchaseCgfp> {
      * @param purchaseCgfp purchaseCgfp
      * @return IPage<PurchaseCgfp>
      */
-    IPage<PurchaseCgfp> findPurchaseCgfps(QueryRequest request, PurchaseCgfp purchaseCgfp);
+    IPage<PurchaseCgfpResp> findPurchaseCgfps(QueryRequest request, PurchaseCgfpReq purchaseCgfp);
 
     /**
      * 查询（所有）
@@ -30,7 +32,10 @@ public interface IPurchaseCgfpService extends IService<PurchaseCgfp> {
      * @param purchaseCgfp purchaseCgfp
      * @return List<PurchaseCgfp>
      */
-    List<PurchaseCgfp> findPurchaseCgfps(PurchaseCgfp purchaseCgfp);
+    List<PurchaseCgfpResp> findPurchaseCgfps(PurchaseCgfpReq purchaseCgfp);
+
+
+    PurchaseCgfpResp findById(Long id);
 
     /**
      * 新增

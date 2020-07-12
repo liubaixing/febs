@@ -1,15 +1,13 @@
 package com.febs.receipt.service.impl;
 
-import com.febs.common.entity.QueryRequest;
-import com.febs.common.exception.FebsException;
-import com.febs.receipt.entity.OrderXsfpmx;
-import com.febs.receipt.mapper.OrderXsfpmxMapper;
-import com.febs.receipt.service.IOrderXsfpmxService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
+import com.febs.common.entity.QueryRequest;
+import com.febs.receipt.entity.OrderXsfpmx;
+import com.febs.receipt.mapper.OrderXsfpmxMapper;
+import com.febs.receipt.service.IOrderXsfpmxService;
+import com.febs.receipt.vo.resp.OrderXsfpmxResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,18 +30,14 @@ public class OrderXsfpmxServiceImpl extends ServiceImpl<OrderXsfpmxMapper, Order
     private OrderXsfpmxMapper orderXsfpmxMapper;
 
     @Override
-    public IPage<OrderXsfpmx> findOrderXsfpmxs(QueryRequest request, OrderXsfpmx orderXsfpmx) {
-        LambdaQueryWrapper<OrderXsfpmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<OrderXsfpmxResp> findOrderXsfpmxs(QueryRequest request, OrderXsfpmx orderXsfpmx) {
         Page<OrderXsfpmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.orderXsfpmxMapper.selectPageByQuery(page,orderXsfpmx);
     }
 
     @Override
-    public List<OrderXsfpmx> findOrderXsfpmxs(OrderXsfpmx orderXsfpmx) {
-	    LambdaQueryWrapper<OrderXsfpmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderXsfpmxResp> findOrderXsfpmxs(OrderXsfpmx orderXsfpmx) {
+		return this.orderXsfpmxMapper.selectByQuery(orderXsfpmx);
     }
 
     @Override

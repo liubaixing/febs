@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.receipt.vo.req.OrderCkReq;
 import com.febs.receipt.vo.resp.OrderCkResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,16 @@ public class OrderCkServiceImpl extends ServiceImpl<OrderCkMapper, OrderCk> impl
     }
 
     @Override
-    public List<OrderCk> findOrderCks(OrderCk orderCk) {
-	    LambdaQueryWrapper<OrderCk> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderCkResp> findOrderCks(OrderCkReq orderCk) {
+		return this.orderCkMapper.selectByQuery(orderCk);
+    }
+
+    @Override
+    public OrderCkResp findById(Long id) {
+        OrderCkReq orderCk = new OrderCkReq();
+        orderCk.setId(id);
+        List<OrderCkResp> orderCkList = findOrderCks(orderCk);
+        return CollectionUtils.isEmpty(orderCkList) ? null : orderCkList.get(0);
     }
 
     @Override

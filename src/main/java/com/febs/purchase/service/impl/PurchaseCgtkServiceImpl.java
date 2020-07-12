@@ -12,6 +12,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.purchase.vo.req.PurchaseCgtkReq;
+import com.febs.purchase.vo.resp.PurchaseCgtkResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,19 +37,24 @@ public class PurchaseCgtkServiceImpl extends ServiceImpl<PurchaseCgtkMapper, Pur
     private PurchaseCgtkMapper purchaseCgtkMapper;
 
     @Override
-    public IPage<PurchaseCgtk> findPurchaseCgtks(QueryRequest request, PurchaseCgtk purchaseCgtk) {
-        LambdaQueryWrapper<PurchaseCgtk> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseCgtkResp> findPurchaseCgtks(QueryRequest request, PurchaseCgtkReq purchaseCgtk) {
         Page<PurchaseCgtk> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseCgtkMapper.selectPageByQuery(page, purchaseCgtk);
     }
 
     @Override
-    public List<PurchaseCgtk> findPurchaseCgtks(PurchaseCgtk purchaseCgtk) {
-	    LambdaQueryWrapper<PurchaseCgtk> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseCgtkResp> findPurchaseCgtks(PurchaseCgtkReq purchaseCgtk) {
+		return this.purchaseCgtkMapper.selectByQuery(purchaseCgtk);
     }
+
+    @Override
+    public PurchaseCgtkResp findById(Long id) {
+        PurchaseCgtkReq purchaseCgtk = new PurchaseCgtkReq();
+        purchaseCgtk.setId(id);
+        List<PurchaseCgtkResp> cgtkList = findPurchaseCgtks(purchaseCgtk);
+        return CollectionUtils.isEmpty(cgtkList) ? null : cgtkList.get(0);
+    }
+
 
     @Override
     @Transactional

@@ -9,6 +9,7 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.purchase.entity.PurchaseCgtkmx;
 import com.febs.purchase.service.IPurchaseCgtkmxService;
 
+import com.febs.purchase.vo.resp.PurchaseCgtkmxResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class PurchaseCgtkmxController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("purchaseCgtkmx:export")
     public void export(QueryRequest queryRequest, PurchaseCgtkmx purchaseCgtkmx, HttpServletResponse response) throws IOException {
-        List<PurchaseCgtkmx> purchaseCgtkmxs = this.purchaseCgtkmxService.findPurchaseCgtkmxs(queryRequest, purchaseCgtkmx).getRecords();
-        ExcelUtil.export(purchaseCgtkmxs, PurchaseCgtkmx.class,"采购退款明细",response);
+        List<PurchaseCgtkmxResp> purchaseCgtkmxs = this.purchaseCgtkmxService.findPurchaseCgtkmxs(queryRequest, purchaseCgtkmx).getRecords();
+        ExcelUtil.export(purchaseCgtkmxs, PurchaseCgtkmxResp.class,"采购退款明细",response);
     }
 }

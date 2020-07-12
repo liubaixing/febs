@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.receipt.vo.req.OrderXsskReq;
 import com.febs.receipt.vo.resp.OrderXsskResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,10 +45,16 @@ public class OrderXsskServiceImpl extends ServiceImpl<OrderXsskMapper, OrderXssk
     }
 
     @Override
-    public List<OrderXssk> findOrderXssks(OrderXssk orderXssk) {
-	    LambdaQueryWrapper<OrderXssk> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderXsskResp> findOrderXssks(OrderXsskReq orderXssk) {
+		return this.orderXsskMapper.selectByQuery(orderXssk);
+    }
+
+    @Override
+    public OrderXsskResp findById(Long id) {
+        OrderXsskReq orderXssk = new OrderXsskReq();
+        orderXssk.setId(id);
+        List<OrderXsskResp> xsskList = findOrderXssks(orderXssk);
+        return CollectionUtils.isEmpty(xsskList) ? null : xsskList.get(0);
     }
 
     @Override

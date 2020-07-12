@@ -170,7 +170,7 @@
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
-        xtmx.id mxid , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        xtmx.id mxId , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
         ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
         FROM order_xt xt
         LEFT JOIN basic_ptda pt on xt.org_id = pt.id
@@ -276,7 +276,7 @@
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
-        xtmx.id mxid , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        xtmx.id mxId , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
         ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
         FROM order_xt xt
         LEFT JOIN basic_ptda pt on xt.org_id = pt.id

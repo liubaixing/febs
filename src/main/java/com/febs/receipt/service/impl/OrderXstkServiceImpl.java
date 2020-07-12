@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.receipt.vo.req.OrderXstkReq;
 import com.febs.receipt.vo.resp.OrderXstkResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,16 @@ public class OrderXstkServiceImpl extends ServiceImpl<OrderXstkMapper, OrderXstk
     }
 
     @Override
-    public List<OrderXstk> findOrderXstks(OrderXstk orderXstk) {
-	    LambdaQueryWrapper<OrderXstk> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderXstkResp> findOrderXstks(OrderXstkReq orderXstk) {
+		return this.orderXstkMapper.selectByQuery(orderXstk);
+    }
+
+    @Override
+    public OrderXstkResp findById(Long id) {
+        OrderXstkReq orderXstk = new OrderXstkReq();
+        orderXstk.setId(id);
+        List<OrderXstkResp> xstkList = findOrderXstks(orderXstk);
+        return CollectionUtils.isEmpty(xstkList) ? null : xstkList.get(0);
     }
 
     @Override

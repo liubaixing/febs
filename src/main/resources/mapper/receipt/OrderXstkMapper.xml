@@ -564,6 +564,61 @@
         LEFT JOIN shangpin sp on mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
+            <if test="id != null">
+                and tk.Id = #{id}
+            </if>
+            <if test="deleted != null">
+                and sk.deleted = #{deleted}
+            </if>
+            <if test="startTime != null and endTime != null">
+                and sk.djrq between #{startTime} and #{endTime}
+            </if>
+            <if test="djbh != null and djbh != ''">
+                sk.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="qr != null">
+                and sk.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and sk.qrr = #{qrr}
+            </if>
+            <if test="sh != null">
+                and sk.sh = #{sh}
+            </if>
+            <if test="shr != null and shr != ''">
+                and sk.shr = #{shr}
+            </if>
+            <if test="kp != null">
+                and fp.kp = #{kp}
+            </if>
+            <if test="kpr != null and kpr != ''">
+                and fp.kpr = #{kpr}
+            </if>
+            <if test="zdr != null and zdr != ''">
+                and sk.zdr = #{zdr}
+            </if>
+            <if test="ptdamc != null and ptdamc != ''">
+                and da.ptdamc like CONCAT('%',#{ptdamc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and sp.spmc like CONCAT('%',#{spmc},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXstkReq" resultType="com.febs.receipt.vo.resp.OrderXstkResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,mx.id mxId,mx.ydjh,mx.sp_id,mx.je,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
+        FROM order_xstk tk
+        LEFT JOIN order_xsskmx mx on mx.pid = tk.id
+        LEFT JOIN basic_ptda da on tk.ghdw_id = da.id
+        LEFT JOIN shangpin sp on mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and tk.Id = #{id}
+            </if>
             <if test="deleted != null">
                 and sk.deleted = #{deleted}
             </if>

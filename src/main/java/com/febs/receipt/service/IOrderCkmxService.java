@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderCkmx;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.receipt.vo.resp.OrderCkmxResp;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface IOrderCkmxService extends IService<OrderCkmx> {
      * @param orderCkmx orderCkmx
      * @return IPage<OrderCkmx>
      */
-    IPage<OrderCkmx> findOrderCkmxs(QueryRequest request, OrderCkmx orderCkmx);
+    IPage<OrderCkmxResp> findOrderCkmxs(QueryRequest request, OrderCkmx orderCkmx);
 
     /**
      * 查询（所有）
@@ -30,7 +31,9 @@ public interface IOrderCkmxService extends IService<OrderCkmx> {
      * @param orderCkmx orderCkmx
      * @return List<OrderCkmx>
      */
-    List<OrderCkmx> findOrderCkmxs(OrderCkmx orderCkmx);
+    List<OrderCkmxResp> findOrderCkmxs(OrderCkmx orderCkmx);
+
+    OrderCkmxResp findById(Long id);
 
     /**
      * 新增

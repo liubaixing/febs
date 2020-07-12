@@ -44,4 +44,6 @@ public interface OrderXsskMapper extends BaseMapper<OrderXssk> {
     int updateByPrimaryKey(OrderXssk record);
 
     IPage<OrderXsskResp> selectPageByQuery(Page<OrderXssk> page, OrderXsskReq req);
+
+    List<OrderXsskResp> selectByQuery(OrderXsskReq req);
 }

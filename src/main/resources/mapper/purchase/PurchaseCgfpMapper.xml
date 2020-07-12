@@ -513,4 +513,105 @@
       ex3 = #{ex3,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+    <sql id="Page_Column_List">
+    fp.Id, fp.djbh, fp.djrq, fp.gys_id, fp.khyh_id, fp.bz, fp.fj, fp.zdr, fp.zdrq, fp.qr, fp.qrr, fp.qrrq, fp.sh, fp.shr, fp.shrq,
+    fp.kp, fp.kpr, fp.kprq, fp.zf, fp.zfr, fp.zfrq, fp.ex1, fp.ex2, fp.ex3
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseCgfpReq" resultType="com.febs.purchase.vo.resp.PurchaseCgfpResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,gys.gysmc ,yh.khyhmc ,mx.id mxId, mx.ydjh , mx.sl,mx.je, sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_cgfp fp
+        LEFT JOIN system_gys gys ON fp.gys_id = gys.id
+        LEFT JOIN basic_khyh yh ON fp.khyh_id = yh.id
+        LEFT JOIN purchase_cgfpmx mx ON fp.id = mx.pid
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="djbh != null and djbh != ''">
+                and fp.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and fp.djrq between #{startTime} and #{endTime}
+            </if>
+            <if test="kp != null">
+                and fp.kp = #{kp}
+            </if>
+            <if test="kpr != null and kpr != ''">
+                and fp.kpr like CONCAT('%',#{kpr},'%')
+            </if>
+            <if test="qr != null">
+                and fp.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and fp.qrr like CONCAT('%',#{qrr},'%')
+            </if>
+            <if test="sh != null">
+                and fp.sh = #{sh}
+            </if>
+            <if test="shr != null and shr != ''">
+                and fp.shr like CONCAT('%',#{shr},'%')
+            </if>
+            <if test="zdr != null and zdr != ''">
+                and fp.zdr like CONCAT('%',#{zdr},'%')
+            </if>
+            <if test="gysmc != null and gysmc != ''">
+                and gysmc like CONCAT('%',#{gysmc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and spmc like CONCAT('%',#{spmc},'%')
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="selectByQuery" parameterType="com.febs.purchase.vo.req.PurchaseCgfpReq" resultType="com.febs.purchase.vo.resp.PurchaseCgfpResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,gys.gysmc ,yh.khyhmc ,mx.id mxId, mx.ydjh , mx.sl,mx.je, sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_cgfp fp
+        LEFT JOIN system_gys gys ON fp.gys_id = gys.id
+        LEFT JOIN basic_khyh yh ON fp.khyh_id = yh.id
+        LEFT JOIN purchase_cgfpmx mx ON fp.id = mx.pid
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="djbh != null and djbh != ''">
+                and fp.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and fp.djrq between #{startTime} and #{endTime}
+            </if>
+            <if test="kp != null">
+                and fp.kp = #{kp}
+            </if>
+            <if test="kpr != null and kpr != ''">
+                and fp.kpr like CONCAT('%',#{kpr},'%')
+            </if>
+            <if test="qr != null">
+                and fp.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and fp.qrr like CONCAT('%',#{qrr},'%')
+            </if>
+            <if test="sh != null">
+                and fp.sh = #{sh}
+            </if>
+            <if test="shr != null and shr != ''">
+                and fp.shr like CONCAT('%',#{shr},'%')
+            </if>
+            <if test="zdr != null and zdr != ''">
+                and fp.zdr like CONCAT('%',#{zdr},'%')
+            </if>
+            <if test="gysmc != null and gysmc != ''">
+                and gysmc like CONCAT('%',#{gysmc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and spmc like CONCAT('%',#{spmc},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

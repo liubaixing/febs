@@ -8,6 +8,7 @@
         <result column="sp_id" jdbcType="INTEGER" property="spId" />
         <result column="gg1_id" jdbcType="INTEGER" property="gg1Id" />
         <result column="gg2_id" jdbcType="INTEGER" property="gg2Id" />
+        <result column="sl" jdbcType="INTEGER" property="sl" />
         <result column="dj" jdbcType="DECIMAL" property="dj" />
         <result column="je" jdbcType="DECIMAL" property="je" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
@@ -80,7 +81,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, pid, sp_id, gg1_id, gg2_id, dj, je, ex1, ex2, ex3, jsjg, jishuije, sku, create_time,
+    Id, pid, sp_id, gg1_id, gg2_id, sl, dj, je, ex1, ex2, ex3, jsjg, jishuije, sku, create_time,
     update_time, deleted, cbje
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderCkmxExample" resultMap="BaseResultMap">
@@ -115,12 +116,12 @@
     </delete>
     <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderCkmx" useGeneratedKeys="true">
     insert into order_ckmx (pid, sp_id, gg1_id,
-      gg2_id, dj, je, ex1,
+      gg2_id, sl, dj, je, ex1,
       ex2, ex3, jsjg, jishuije,
       sku, create_time, update_time,
       deleted, cbje)
     values (#{pid,jdbcType=BIGINT}, #{spId,jdbcType=INTEGER}, #{gg1Id,jdbcType=INTEGER},
-      #{gg2Id,jdbcType=INTEGER}, #{dj,jdbcType=DECIMAL}, #{je,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR},
+      #{gg2Id,jdbcType=INTEGER},#{sl,jdbcType=INTEGER}, #{dj,jdbcType=DECIMAL}, #{je,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR},
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{jsjg,jdbcType=DECIMAL}, #{jishuije,jdbcType=DECIMAL},
       #{sku,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=INTEGER}, #{cbje,jdbcType=DECIMAL})
@@ -139,6 +140,9 @@
             </if>
             <if test="gg2Id != null">
                 gg2_id,
+            </if>
+            <if test="sl != null">
+                sl,
             </if>
             <if test="dj != null">
                 dj,
@@ -189,6 +193,9 @@
             </if>
             <if test="gg2Id != null">
                 #{gg2Id,jdbcType=INTEGER},
+            </if>
+            <if test="sl != null">
+                #{sl,jdbcType=INTEGER},
             </if>
             <if test="dj != null">
                 #{dj,jdbcType=DECIMAL},
@@ -252,6 +259,9 @@
             <if test="record.gg2Id != null">
                 gg2_id = #{record.gg2Id,jdbcType=INTEGER},
             </if>
+            <if test="record.sl != null">
+                sl = #{record.sl,jdbcType=INTEGER},
+            </if>
             <if test="record.dj != null">
                 dj = #{record.dj,jdbcType=DECIMAL},
             </if>
@@ -300,6 +310,7 @@
         sp_id = #{record.spId,jdbcType=INTEGER},
         gg1_id = #{record.gg1Id,jdbcType=INTEGER},
         gg2_id = #{record.gg2Id,jdbcType=INTEGER},
+        sl = #{record.sl,jdbcType=INTEGER},
         dj = #{record.dj,jdbcType=DECIMAL},
         je = #{record.je,jdbcType=DECIMAL},
         ex1 = #{record.ex1,jdbcType=VARCHAR},
@@ -330,6 +341,9 @@
             </if>
             <if test="gg2Id != null">
                 gg2_id = #{gg2Id,jdbcType=INTEGER},
+            </if>
+            <if test="sl != null">
+                sl = #{sl,jdbcType=INTEGER},
             </if>
             <if test="dj != null">
                 dj = #{dj,jdbcType=DECIMAL},
@@ -376,6 +390,7 @@
       sp_id = #{spId,jdbcType=INTEGER},
       gg1_id = #{gg1Id,jdbcType=INTEGER},
       gg2_id = #{gg2Id,jdbcType=INTEGER},
+      sl = #{sl,jdbcType=INTEGER},
       dj = #{dj,jdbcType=DECIMAL},
       je = #{je,jdbcType=DECIMAL},
       ex1 = #{ex1,jdbcType=VARCHAR},
@@ -390,5 +405,45 @@
       cbje = #{cbje,jdbcType=DECIMAL}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+
+    <sql id="Page_Column_List">
+        mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.dj, mx.je, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.entity.OrderCkmx" resultType="com.febs.receipt.vo.resp.OrderCkmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM order_ckmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and mx.Id = #{id}
+            </if>
+            <if test="pid != null">
+                and mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectByQuery" parameterType="com.febs.receipt.entity.OrderCkmx" resultType="com.febs.receipt.vo.resp.OrderCkmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM order_ckmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and mx.Id = #{id}
+            </if>
+            <if test="pid != null">
+                and mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
 
 </mapper>

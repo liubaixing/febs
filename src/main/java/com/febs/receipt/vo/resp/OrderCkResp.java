@@ -1,10 +1,12 @@
 package com.febs.receipt.vo.resp;
 
 import com.febs.receipt.entity.OrderCk;
+import com.febs.receipt.entity.OrderCkmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class OrderCkResp extends OrderCk {
@@ -35,5 +37,7 @@ public class OrderCkResp extends OrderCk {
     private BigDecimal jsjg;
     @ApiModelProperty("计税金额")
     private BigDecimal jishuije;
+
+    List<OrderCkmxResp> ckmxList;
 
 }

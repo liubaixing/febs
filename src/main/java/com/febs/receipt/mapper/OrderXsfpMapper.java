@@ -43,4 +43,6 @@ public interface OrderXsfpMapper extends BaseMapper<OrderXsfp> {
 
     IPage<OrderXsfpResp> selectPageByQuery(Page<OrderXsfp> page, OrderXsfpReq req);
 
+    List<OrderXsfpResp> selectByQuery( OrderXsfpReq req);
+
 }

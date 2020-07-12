@@ -12,6 +12,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.purchase.vo.req.PurchaseCgfkReq;
+import com.febs.purchase.vo.resp.PurchaseCgfkResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,18 +37,22 @@ public class PurchaseCgfkServiceImpl extends ServiceImpl<PurchaseCgfkMapper, Pur
     private PurchaseCgfkMapper purchaseCgfkMapper;
 
     @Override
-    public IPage<PurchaseCgfk> findPurchaseCgfks(QueryRequest request, PurchaseCgfk purchaseCgfk) {
-        LambdaQueryWrapper<PurchaseCgfk> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseCgfkResp> findPurchaseCgfks(QueryRequest request, PurchaseCgfkReq purchaseCgfk) {
         Page<PurchaseCgfk> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseCgfkMapper.selectPageByQuery(page, purchaseCgfk);
     }
 
     @Override
-    public List<PurchaseCgfk> findPurchaseCgfks(PurchaseCgfk purchaseCgfk) {
-	    LambdaQueryWrapper<PurchaseCgfk> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseCgfkResp> findPurchaseCgfks(PurchaseCgfkReq purchaseCgfk) {
+		return this.purchaseCgfkMapper.selectByQuery(purchaseCgfk);
+    }
+
+    @Override
+    public PurchaseCgfkResp findById(Long id) {
+        PurchaseCgfkReq purchaseCgfk = new PurchaseCgfkReq();
+        purchaseCgfk.setId(id);
+        List<PurchaseCgfkResp> cgList = findPurchaseCgfks(purchaseCgfk);
+        return CollectionUtils.isEmpty(cgList) ? null : cgList.get(0);
     }
 
     @Override

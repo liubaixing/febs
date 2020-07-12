@@ -6,14 +6,18 @@ import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.receipt.biz.OrderCkBiz;
 import com.febs.receipt.entity.OrderCk;
 import com.febs.receipt.service.IOrderCkService;
 
 import com.febs.receipt.vo.req.OrderCkReq;
 import com.febs.receipt.vo.resp.OrderCkResp;
+import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,10 +46,12 @@ public class OrderCkController extends BaseController {
     @Autowired
     private IOrderCkService orderCkService;
 
+    @Autowired
+    private OrderCkBiz ckBiz;
 
     @GetMapping("")
     @RequiresPermissions("orderCk:list")
-    public FebsResponse getAllOrderCks(OrderCk orderCk) {
+    public FebsResponse getAllOrderCks(OrderCkReq orderCk) {
         return new FebsResponse().success().data(orderCkService.findOrderCks(orderCk));
     }
 
@@ -58,8 +65,11 @@ public class OrderCkController extends BaseController {
     @ControllerEndpoint(operation = "新增出库单", exceptionMessage = "新增出库单失败")
     @PostMapping("")
     @RequiresPermissions("orderCk:add")
-    public FebsResponse addOrderCk(@Valid OrderCk orderCk) {
-        this.orderCkService.createOrderCk(orderCk);
+    public FebsResponse addOrderCk(@Valid OrderCkReq req) {
+        User user = getCurrentUser();
+        req.setZdr(user.getUsername());
+        req.setZdrq(new Date());
+        ckBiz.add(req);
         return new FebsResponse().success();
     }
 
@@ -80,6 +90,15 @@ public class OrderCkController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("查看")
+    @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
+    @GetMapping("/view/{id}")
+    @RequiresPermissions("orderCk:view")
+    public FebsResponse view(@PathVariable Long id ){
+        return new FebsResponse().data(ckBiz.view(id));
+    }
+
+
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderCk:export")
@@ -87,4 +106,67 @@ public class OrderCkController extends BaseController {
         List<OrderCkResp> orderCks = this.orderCkService.findOrderCks(queryRequest, orderCk).getRecords();
         ExcelUtil.export(orderCks, OrderCkResp.class,"出库单",response);
     }
+
+
+    @ApiOperation("确认")
+    @ControllerEndpoint(operation = "确认销售收款单", exceptionMessage = "确认销售收款单失败")
+    @GetMapping("/confirm/{id}")
+    @RequiresPermissions("orderCk:confirm")
+    public FebsResponse OrderXsskConfirm(@PathVariable Long id){
+        User user = getCurrentUser();
+        OrderCk ck = new OrderCk();
+        ck.setId(id);
+        ck.setQr((byte)1);
+        ck.setQrr(user.getUsername());
+        ck.setQrrq(new Date());
+        orderCkService.updateOrderCk(ck);
+        return new FebsResponse().success();
+    }
+
+
+    @ApiOperation("关闭")
+    @ControllerEndpoint(operation = "关闭", exceptionMessage = "关闭失败")
+    @GetMapping("/close/{id}")
+    @RequiresPermissions("orderCk:close")
+    public FebsResponse close(@PathVariable Long id){
+        User user = getCurrentUser();
+        OrderCk ck = new OrderCk();
+        ck.setId(id);
+        ck.setGb((byte)1);
+        ck.setGbr(user.getUsername());
+        ck.setGbrq(new Date());
+        orderCkService.updateOrderCk(ck);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("作废")
+    @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
+    @GetMapping("/zf/{id}")
+    @RequiresPermissions("orderCk:zf")
+    public FebsResponse zf(@PathVariable Long id){
+        User user = getCurrentUser();
+        OrderCk ck = new OrderCk();
+        ck.setId(id);
+        ck.setZf((byte)1);
+        ck.setZfr(user.getUsername());
+        ck.setZfrq(new Date());
+        orderCkService.updateOrderCk(ck);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("备货发货")
+    @ControllerEndpoint(operation = "备货发货", exceptionMessage = "备货发货失败")
+    @PostMapping("/bhfh")
+    @RequiresPermissions("orderCk:bhfh")
+    public FebsResponse bhfh(@RequestBody OrderCkReq req){
+        User user = getCurrentUser();
+        OrderCk ck = new OrderCk();
+        ck.setId(req.getId());
+        ck.setBhfh((byte)1);
+        ck.setBhfhr(user.getUsername());
+        ck.setBhfhrq(new Date());
+        orderCkService.updateOrderCk(ck);
+        return new FebsResponse().success();
+    }
+
 }

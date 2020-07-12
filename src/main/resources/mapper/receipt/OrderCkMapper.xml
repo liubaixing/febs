@@ -643,7 +643,7 @@
   </update>
 
     <sql id="Page_Column_List">
-        ck.Id, ck.djbh, ck.ydbh, ck.ydjh, ck.xdrq, ck.cangku_id, ck.kehu_id, ck.org_id, ck.djlx_id, ck.bz, ck.fj, ck.sl,
+        ck.Id, ck.djbh, ck.ydbh, ck.ydjh, ck.xdrq, ck.cangku_id, ck.kehu_id, ck.org_id, ck.djlx_id, ck.bz, ck.fj,
         ck.zdr, ck.zdrq, ck.qr, ck.qrr, ck.qrrq, ck.bhfh, ck.bhfhr, ck.bhfhrq, ck.gb, ck.gbr, ck.gbrq, ck.zf, ck.zfr, ck.zfrq, ck.ex1,
         ck.ex2, ck.ex3, ck.create_time, ck.update_time, ck.deleted
     </sql>
@@ -652,6 +652,7 @@
         SELECT
         <include refid="Page_Column_List" />
         ,mx.id mxId
+        ,mx.sl
         ,mx.dj
         ,mx.je
         ,mx.sp_id
@@ -676,6 +677,9 @@
         LEFT JOIN shangpin sp on mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
+            <if test="id != null">
+                and ck.Id = #{id}
+            </if>
             <if test="deleted != null">
                 and ck.deleted = #{deleted}
             </if>
@@ -721,5 +725,81 @@
         </where>
     </select>
 
+
+    <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderCkReq" resultType="com.febs.receipt.vo.resp.OrderCkResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,mx.id mxId
+        ,mx.dj
+        ,mx.je
+        ,mx.sp_id
+        ,mx.jsjg
+        ,mx.jishuije
+        ,mx.cbje
+        ,dw.jldwmc
+        ,ku.ckmc
+        ,kh.khmc
+        ,da.ptdamc
+        ,lx.djlxmc
+        ,sp.spdm
+        ,sp.spmc
+        ,sp.memo
+        FROM
+        order_ck ck
+        LEFT JOIN system_cangku ku on ck.cangku_id = ku.id
+        LEFT JOIN system_kehu kh on ck.kehu_id = kh.id
+        LEFT JOIN basic_ptda da on ck.org_id = da.id
+        LEFT JOIN basic_djlx lx on ck.djlx_id = lx.id
+        LEFT JOIN order_ckmx mx on mx.pid = ck.Id
+        LEFT JOIN shangpin sp on mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and ck.Id = #{id}
+            </if>
+            <if test="deleted != null">
+                and ck.deleted = #{deleted}
+            </if>
+            <if test="startTime != null and endTime != null">
+                and ck.djrq between #{startTime} and #{endTime}
+            </if>
+            <if test="djbh != null and djbh != ''">
+                and ck.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="ptdamc != null and ptdamc != ''">
+                and ck.ptdamc like CONCAT('%',#{ptdamc},'%')
+            </if>
+            <if test="ckmc != null and ckmc != ''">
+                and ku.ckmc like CONCAT('%',#{ckmc},'%')
+            </if>
+            <if test="spmc != null and spmc != ''">
+                and sp.spmc like CONCAT('%',#{spmc},'%')
+            </if>
+            <if test="qr != null">
+                and ck.qr = #{qr}
+            </if>
+            <if test="qrr != null and qrr != ''">
+                and ck.qrr = #{qrr}
+            </if>
+            <if test="gb != null">
+                and ck.gb = #{gb}
+            </if>
+            <if test="gbr != null and gbr != ''">
+                and ck.gbr = #{gbr}
+            </if>
+            <if test="bhfh != null">
+                and ck.bhfh = #{bhfh}
+            </if>
+            <if test="bhfhr != null and bhfhr != ''">
+                and ck.bhfhr = #{bhfhr}
+            </if>
+            <if test="khmc != null and khmc != ''">
+                and khmc like CONCAT('%',#{khmc},'%')
+            </if>
+            <if test="ydjh != null and ydjh != ''">
+                and ck.ydjh like CONCAT('%',#{ydjh},'%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

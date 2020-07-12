@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderXtmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -32,8 +33,8 @@ public class OrderXtReq extends OrderXt {
     @ApiModelProperty("客户来源")
     private String khlymc;
 
-//    @ApiModelProperty("流量来源")
-//    private String lllymc;
+    @ApiModelProperty("流量来源")
+    private String lllymc;
 
     @ApiModelProperty("购货单位")
     private String ptdamc;
@@ -44,8 +45,17 @@ public class OrderXtReq extends OrderXt {
     @ApiModelProperty("客户区域")
     private String khqymc;
 
+    @ApiModelProperty("销退单明细id")
+    private Long mxId;
+    @ApiModelProperty("单价")
+    private BigDecimal dj;
+    @ApiModelProperty("商品id")
+    private Integer spId;
     @ApiModelProperty("商品名称")
     private String spmc;
+
+    @ApiModelProperty("仓库性质 0:自发 1:直发")
+    private Integer ckxz;
 
     private List<OrderXtmx> orderXtmxList;
 

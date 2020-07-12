@@ -50,6 +50,12 @@ public class OrderCkmx {
     private Integer gg2Id;
 
     /**
+     * 数量
+     */
+    @TableField("sl")
+    private Integer sl;
+
+    /**
      * 单价
      */
     @TableField("dj")

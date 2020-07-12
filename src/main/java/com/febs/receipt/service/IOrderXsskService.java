@@ -32,7 +32,9 @@ public interface IOrderXsskService extends IService<OrderXssk> {
      * @param orderXssk orderXssk
      * @return List<OrderXssk>
      */
-    List<OrderXssk> findOrderXssks(OrderXssk orderXssk);
+    List<OrderXsskResp> findOrderXssks(OrderXsskReq orderXssk);
+
+    OrderXsskResp findById(Long id);
 
     /**
      * 新增

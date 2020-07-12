@@ -32,7 +32,9 @@ public interface IOrderXsfpService extends IService<OrderXsfp> {
      * @param orderXsfp orderXsfp
      * @return List<OrderXsfp>
      */
-    List<OrderXsfp> findOrderXsfps(OrderXsfp orderXsfp);
+    List<OrderXsfpResp> findOrderXsfps(OrderXsfpReq orderXsfp);
+
+    OrderXsfpResp findById(Long id);
 
     /**
      * 新增

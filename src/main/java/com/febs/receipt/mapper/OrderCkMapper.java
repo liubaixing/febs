@@ -41,4 +41,7 @@ public interface OrderCkMapper extends BaseMapper<OrderCk> {
     int updateByPrimaryKey(OrderCk record);
 
     IPage<OrderCkResp> selectPageByQuery(Page<OrderCk> page, OrderCkReq req);
+
+    List<OrderCkResp> selectByQuery(OrderCkReq req);
+
 }

@@ -7,6 +7,7 @@ import com.febs.receipt.service.IOrderXsfpService;
 import com.febs.receipt.service.IOrderXsfpmxService;
 import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.req.OrderXsmxReq;
+import com.febs.receipt.vo.resp.OrderXsfpResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,4 +61,12 @@ public class OrderXsfpBiz {
         }
     }
 
+    public OrderXsfpResp view(Long id) {
+
+        OrderXsfpResp xsfpResp = xsfpService.findById(id);
+        OrderXsfpmx orderXsfpmx = new OrderXsfpmx();
+        orderXsfpmx.setPid(xsfpResp.getId());
+        xsfpResp.setXsfpmxList(xsfpmxService.findOrderXsfpmxs(orderXsfpmx));
+        return xsfpResp;
+    }
 }

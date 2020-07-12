@@ -1,6 +1,7 @@
 package com.febs.receipt.vo.req;
 
 import com.febs.receipt.entity.OrderCk;
+import com.febs.receipt.entity.OrderCkmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -25,6 +26,6 @@ public class OrderCkReq extends OrderCk {
     @ApiModelProperty("商品名称")
     private String spmc;
 
-    List<OrderXsmxReq> orderXsmxeList;
+    List<OrderCkmx> ckmxList;
 
 }

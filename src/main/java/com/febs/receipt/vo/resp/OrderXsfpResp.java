@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class OrderXsfpResp extends OrderXsfp {
@@ -30,4 +31,5 @@ public class OrderXsfpResp extends OrderXsfp {
     @ApiModelProperty("计量单位")
     private String jldwmc;
 
+    List<OrderXsfpmxResp> xsfpmxList;
 }

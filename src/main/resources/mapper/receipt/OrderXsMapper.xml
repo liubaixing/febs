@@ -290,7 +290,7 @@
                 and xs.deleted = #{deleted}
             </if>
             <if test="id != null">
-                and id = #{id}
+                and xs.Id = #{id}
             </if>
             <if test="djbh != null and djbh != ''">
                 and xs.djbh like CONCAT('%',#{djbh},'%')

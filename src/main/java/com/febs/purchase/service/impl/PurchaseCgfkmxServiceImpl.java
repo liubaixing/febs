@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.purchase.vo.resp.PurchaseCgfkmxResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,19 +33,24 @@ public class PurchaseCgfkmxServiceImpl extends ServiceImpl<PurchaseCgfkmxMapper,
     private PurchaseCgfkmxMapper purchaseCgfkmxMapper;
 
     @Override
-    public IPage<PurchaseCgfkmx> findPurchaseCgfkmxs(QueryRequest request, PurchaseCgfkmx purchaseCgfkmx) {
-        LambdaQueryWrapper<PurchaseCgfkmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseCgfkmxResp> findPurchaseCgfkmxs(QueryRequest request, PurchaseCgfkmx purchaseCgfkmx) {
         Page<PurchaseCgfkmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseCgfkmxMapper.selectPageByQuery(page, purchaseCgfkmx);
     }
 
     @Override
-    public List<PurchaseCgfkmx> findPurchaseCgfkmxs(PurchaseCgfkmx purchaseCgfkmx) {
-	    LambdaQueryWrapper<PurchaseCgfkmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseCgfkmxResp> findPurchaseCgfkmxs(PurchaseCgfkmx purchaseCgfkmx) {
+		return this.purchaseCgfkmxMapper.selectByQuery(purchaseCgfkmx);
     }
+
+    @Override
+    public PurchaseCgfkmxResp findById(Long id) {
+        PurchaseCgfkmx purchaseCgfkmx = new PurchaseCgfkmx();
+        purchaseCgfkmx.setId(id);
+        List<PurchaseCgfkmxResp> cgfkmxList = findPurchaseCgfkmxs(purchaseCgfkmx);
+        return CollectionUtils.isEmpty(cgfkmxList) ? null : cgfkmxList.get(0);
+    }
+
 
     @Override
     @Transactional

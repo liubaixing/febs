@@ -294,4 +294,45 @@
       ex3 = #{ex3,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+
+    <sql id="Page_Column_List">
+       mx.Id, mx.pid, mx.ydjh, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.je, mx.ex1, mx.ex2, mx.ex3
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.purchase.entity.PurchaseCgfpmx" resultType="com.febs.purchase.vo.resp.PurchaseCgfpmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_cgfkmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and mx.Id = #{id}
+            </if>
+            <if test="pid != null">
+                and mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectByQuery" parameterType="com.febs.purchase.entity.PurchaseCgfpmx" resultType="com.febs.purchase.vo.resp.PurchaseCgfpmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_cgfkmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and mx.Id = #{id}
+            </if>
+            <if test="pid != null">
+                and mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
+
 </mapper>

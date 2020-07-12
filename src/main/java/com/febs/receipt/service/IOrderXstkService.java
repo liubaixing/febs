@@ -32,7 +32,9 @@ public interface IOrderXstkService extends IService<OrderXstk> {
      * @param orderXstk orderXstk
      * @return List<OrderXstk>
      */
-    List<OrderXstk> findOrderXstks(OrderXstk orderXstk);
+    List<OrderXstkResp> findOrderXstks(OrderXstkReq orderXstk);
+
+    OrderXstkResp findById(Long id);
 
     /**
      * 新增

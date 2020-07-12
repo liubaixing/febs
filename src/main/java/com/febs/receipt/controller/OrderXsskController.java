@@ -50,7 +50,7 @@ public class OrderXsskController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("orderXssk:list")
-    public FebsResponse getAllOrderXssks(OrderXssk orderXssk) {
+    public FebsResponse getAllOrderXssks(OrderXsskReq orderXssk) {
         return new FebsResponse().success().data(orderXsskService.findOrderXssks(orderXssk));
     }
 
@@ -64,8 +64,10 @@ public class OrderXsskController extends BaseController {
     @ControllerEndpoint(operation = "新增销售收款", exceptionMessage = "新增销售收款失败")
     @PostMapping("")
     @RequiresPermissions("orderXssk:add")
-    public FebsResponse addOrderXssk(@Valid OrderXssk orderXssk) {
-        this.orderXsskService.createOrderXssk(orderXssk);
+    public FebsResponse addOrderXssk(@Valid OrderXsskReq req) {
+        User user = getCurrentUser();
+        req.setZdr(user.getUsername());
+        xsskBiz.createOrderXssk(req);
         return new FebsResponse().success();
     }
 
@@ -87,8 +89,8 @@ public class OrderXsskController extends BaseController {
     }
 
     @ApiOperation("确认")
-    @ControllerEndpoint(operation = "确认销售收款单", exceptionMessage = "确认销售收款单失败")
-    @PostMapping("/confirm/{id}")
+    @ControllerEndpoint(operation = "确认", exceptionMessage = "确认失败")
+    @GetMapping("/confirm/{id}")
     @RequiresPermissions("orderXssk:confirm")
     public FebsResponse OrderXsskConfirm(@PathVariable Long id){
         User user = getCurrentUser();
@@ -102,8 +104,8 @@ public class OrderXsskController extends BaseController {
     }
 
     @ApiOperation("审核")
-    @ControllerEndpoint(operation = "审核销售收款单", exceptionMessage = "审核销售收款单失败")
-    @PostMapping("/check/{id}")
+    @ControllerEndpoint(operation = "审核", exceptionMessage = "审核失败")
+    @GetMapping("/check/{id}")
     @RequiresPermissions("orderXssk:check")
     public FebsResponse orderXsskCheck(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -117,19 +119,17 @@ public class OrderXsskController extends BaseController {
     }
 
     @ApiOperation("生成")
-    @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
+    @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("/create/{id}")
     @RequiresPermissions("orderXssk:create")
     public FebsResponse createorderXssk(@RequestBody OrderXsskReq req ){
-        User user = getCurrentUser();
-        req.setZdr(user.getUsername());
-        xsskBiz.createOrderXssk(req);
+
         return new FebsResponse().success();
     }
 
     @ApiOperation("收款")
     @ControllerEndpoint(operation = "收款", exceptionMessage = "收款失败")
-    @PostMapping("/kp/{id}")
+    @GetMapping("/kp/{id}")
     @RequiresPermissions("orderXssk:kp")
     public FebsResponse sk(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -137,6 +137,13 @@ public class OrderXsskController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("查看")
+    @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
+    @GetMapping("/view/{id}")
+    @RequiresPermissions("orderXssk:view")
+    public FebsResponse view(@PathVariable Long id ){
+        return new FebsResponse().data(xsskBiz.view(id));
+    }
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")

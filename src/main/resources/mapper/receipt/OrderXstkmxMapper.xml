@@ -77,7 +77,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, pid, ydjh, sp_id, gg1_id, gg2_id, je, ex1, ex2, ex3, create_time, update_time, 
+    Id, pid, ydjh, sp_id, gg1_id, gg2_id, je,sl, ex1, ex2, ex3, create_time, update_time,
     deleted
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXstkmxExample" resultMap="BaseResultMap">
@@ -343,5 +343,44 @@
       deleted = #{deleted,jdbcType=INTEGER}
     where Id = #{id,jdbcType=BIGINT}
   </update>
-    
+
+
+    <sql id="Page_Column_List">
+        mx.Id, mx.pid, mx.ydjh, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.je, mx.ex1, mx.ex2, mx.ex3, mx.create_time, mx.update_time, mx.deleted
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.entity.OrderXstkmx" resultType="com.febs.receipt.vo.resp.OrderXstkmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM order_xstkmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and mx.Id = #{id}
+            </if>
+            <if test="pid != null">
+                and mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectByQuery" parameterType="com.febs.receipt.entity.OrderXstkmx" resultType="com.febs.receipt.vo.resp.OrderXstkmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM order_xstkmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and mx.Id = #{id}
+            </if>
+            <if test="pid != null">
+                and mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
 </mapper>

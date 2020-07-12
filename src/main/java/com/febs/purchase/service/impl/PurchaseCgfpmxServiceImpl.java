@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.purchase.vo.resp.PurchaseCgfpmxResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,18 +32,14 @@ public class PurchaseCgfpmxServiceImpl extends ServiceImpl<PurchaseCgfpmxMapper,
     private PurchaseCgfpmxMapper purchaseCgfpmxMapper;
 
     @Override
-    public IPage<PurchaseCgfpmx> findPurchaseCgfpmxs(QueryRequest request, PurchaseCgfpmx purchaseCgfpmx) {
-        LambdaQueryWrapper<PurchaseCgfpmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseCgfpmxResp> findPurchaseCgfpmxs(QueryRequest request, PurchaseCgfpmx purchaseCgfpmx) {
         Page<PurchaseCgfpmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseCgfpmxMapper.selectPageByQuery(page, purchaseCgfpmx);
     }
 
     @Override
-    public List<PurchaseCgfpmx> findPurchaseCgfpmxs(PurchaseCgfpmx purchaseCgfpmx) {
-	    LambdaQueryWrapper<PurchaseCgfpmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseCgfpmxResp> findPurchaseCgfpmxs(PurchaseCgfpmx purchaseCgfpmx) {
+		return this.purchaseCgfpmxMapper.selectByQuery(purchaseCgfpmx);
     }
 
     @Override

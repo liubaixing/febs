@@ -14,6 +14,7 @@ import com.febs.receipt.mapper.OrderXsfpMapper;
 import com.febs.receipt.service.IOrderXsfpService;
 import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -42,10 +43,16 @@ public class OrderXsfpServiceImpl extends ServiceImpl<OrderXsfpMapper, OrderXsfp
     }
 
     @Override
-    public List<OrderXsfp> findOrderXsfps(OrderXsfp orderXsfp) {
-	    LambdaQueryWrapper<OrderXsfp> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderXsfpResp> findOrderXsfps(OrderXsfpReq orderXsfp) {
+		return this.orderXsfpMapper.selectByQuery(orderXsfp);
+    }
+
+    @Override
+    public OrderXsfpResp findById(Long id) {
+        OrderXsfpReq orderXsfp = new OrderXsfpReq();
+        orderXsfp.setId(id);
+        List<OrderXsfpResp>  orderXsfpList = findOrderXsfps(orderXsfp);
+        return CollectionUtils.isEmpty(orderXsfpList) ? null : orderXsfpList.get(0);
     }
 
     @Override

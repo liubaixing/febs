@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.receipt.vo.resp.OrderCkmxResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,18 +34,22 @@ public class OrderCkmxServiceImpl extends ServiceImpl<OrderCkmxMapper, OrderCkmx
     private OrderCkmxMapper orderCkmxMapper;
 
     @Override
-    public IPage<OrderCkmx> findOrderCkmxs(QueryRequest request, OrderCkmx orderCkmx) {
-        LambdaQueryWrapper<OrderCkmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<OrderCkmxResp> findOrderCkmxs(QueryRequest request, OrderCkmx orderCkmx) {
         Page<OrderCkmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.orderCkmxMapper.selectPageByQuery(page, orderCkmx);
     }
 
     @Override
-    public List<OrderCkmx> findOrderCkmxs(OrderCkmx orderCkmx) {
-	    LambdaQueryWrapper<OrderCkmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<OrderCkmxResp> findOrderCkmxs(OrderCkmx orderCkmx) {
+		return this.orderCkmxMapper.selectByQuery(orderCkmx);
+    }
+
+    @Override
+    public OrderCkmxResp findById(Long id) {
+        OrderCkmx orderCkmx = new OrderCkmx();
+        orderCkmx.setId(id);
+        List<OrderCkmxResp> ckmxList = findOrderCkmxs(orderCkmx);
+        return CollectionUtils.isEmpty(ckmxList) ? null : ckmxList.get(0);
     }
 
     @Override

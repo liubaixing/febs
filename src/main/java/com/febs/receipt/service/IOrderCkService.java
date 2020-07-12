@@ -32,7 +32,9 @@ public interface IOrderCkService extends IService<OrderCk> {
      * @param orderCk orderCk
      * @return List<OrderCk>
      */
-    List<OrderCk> findOrderCks(OrderCk orderCk);
+    List<OrderCkResp> findOrderCks(OrderCkReq orderCk);
+
+    OrderCkResp findById(Long id);
 
     /**
      * 新增

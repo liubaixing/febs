@@ -50,7 +50,7 @@ public class OrderXstkController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("orderXstk:list")
-    public FebsResponse getAllOrderXstks(OrderXstk orderXstk) {
+    public FebsResponse getAllOrderXstks(OrderXstkReq orderXstk) {
         return new FebsResponse().success().data(orderXstkService.findOrderXstks(orderXstk));
     }
 
@@ -64,8 +64,10 @@ public class OrderXstkController extends BaseController {
     @ControllerEndpoint(operation = "新增销售退款", exceptionMessage = "新增销售退款失败")
     @PostMapping("")
     @RequiresPermissions("orderXstk:add")
-    public FebsResponse addOrderXstk(@Valid OrderXstk orderXstk) {
-        this.orderXstkService.createOrderXstk(orderXstk);
+    public FebsResponse addOrderXstk(@Valid OrderXstkReq req) {
+        User user = getCurrentUser();
+        req.setZdr(user.getUsername());
+        xstkBiz.createOrderXstk(req);
         return new FebsResponse().success();
     }
 
@@ -89,7 +91,7 @@ public class OrderXstkController extends BaseController {
 
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售收款单", exceptionMessage = "确认销售收款单失败")
-    @PostMapping("/confirm/{id}")
+    @GetMapping("/confirm/{id}")
     @RequiresPermissions("orderXssk:confirm")
     public FebsResponse OrderXsskConfirm(@PathVariable Long id){
         User user = getCurrentUser();
@@ -104,7 +106,7 @@ public class OrderXstkController extends BaseController {
 
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销售收款单", exceptionMessage = "审核销售收款单失败")
-    @PostMapping("/check/{id}")
+    @GetMapping("/check/{id}")
     @RequiresPermissions("orderXssk:check")
     public FebsResponse orderXsskCheck(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -122,15 +124,13 @@ public class OrderXstkController extends BaseController {
     @PostMapping("/create/{id}")
     @RequiresPermissions("orderXssk:create")
     public FebsResponse createorderXssk(@RequestBody OrderXstkReq req ){
-        User user = getCurrentUser();
-        req.setZdr(user.getUsername());
-        xstkBiz.createOrderXstk(req);
+
         return new FebsResponse().success();
     }
 
     @ApiOperation("收款")
     @ControllerEndpoint(operation = "收款", exceptionMessage = "收款失败")
-    @PostMapping("/kp/{id}")
+    @GetMapping("/kp/{id}")
     @RequiresPermissions("orderXssk:kp")
     public FebsResponse sk(@PathVariable Long id ){
         User user = getCurrentUser();
@@ -138,6 +138,14 @@ public class OrderXstkController extends BaseController {
         return new FebsResponse().success();
     }
 
+
+    @ApiOperation("查看")
+    @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
+    @GetMapping("/view/{id}")
+    @RequiresPermissions("orderXssk:view")
+    public FebsResponse view(@PathVariable Long id ){
+        return new FebsResponse().data(xstkBiz.view(id));
+    }
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
