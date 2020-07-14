@@ -194,12 +194,10 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "作废销售单", exceptionMessage = "作废销售单失败")
     @GetMapping("/invalid/{id}/{status}")
 //    @RequiresPermissions("orderXs:invalid")
-    public FebsResponse orderXsInvalid(
-            @PathVariable Long id,
-            @PathVariable boolean status
-    ){
+    public FebsResponse orderXsInvalid(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXs orderXs = new OrderXs();
+        orderXs.setId(id);
         orderXs.setZf((byte)1);
         orderXs.setZfr(user.getUsername());
         orderXs.setZfrq(new Date());
@@ -211,8 +209,9 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "关闭销售单", exceptionMessage = "关闭销售单失败")
     @PostMapping("/close/{id}")
 //    @RequiresPermissions("orderXs:close")
-    public FebsResponse orderXsClose(@PathVariable Long id,OrderXs req){
+    public FebsResponse orderXsClose(@PathVariable Long id){
         User user = getCurrentUser();
+        OrderXs req = new OrderXs();
         req.setId(id);
         req.setGb((byte)1);
         req.setGbr(user.getUsername());
@@ -224,8 +223,9 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "反关闭销售单", exceptionMessage = "反关闭销售单失败")
     @PostMapping("/unClose/{id}")
 //    @RequiresPermissions("orderXs:unClose")
-    public FebsResponse orderXsUnClose(@PathVariable Long id,OrderXs req){
+    public FebsResponse orderXsUnClose(@PathVariable Long id){
         User user = getCurrentUser();
+        OrderXs req = new OrderXs();
         req.setId(id);
         req.setGb((byte)0);
         req.setGbr(user.getUsername());
@@ -233,7 +233,7 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ApiOperation("生成销退单（参数：mxId、sl、je）")
+    @ApiOperation("生成销退单")
     @ControllerEndpoint(operation = "生成销退单", exceptionMessage = "生成销退单失败")
     @PostMapping("/return")
 //    @RequiresPermissions("orderXs:return")

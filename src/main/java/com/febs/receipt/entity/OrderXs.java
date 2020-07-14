@@ -400,7 +400,7 @@ public class OrderXs {
     /**
      * 0-未作废 1-已作废
      */
-    @ApiModelProperty("是否作废")
+    @ApiModelProperty("是否作废（0-未作废 1-已作废）")
     @ExcelIgnore
     @TableField("zf")
     private Byte zf;
