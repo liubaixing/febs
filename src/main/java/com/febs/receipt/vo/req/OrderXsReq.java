@@ -66,7 +66,7 @@ public class OrderXsReq extends OrderXs {
     @ApiModelProperty("通知数")
     private Integer tzsl;
 
-    @ApiModelProperty("执行方式 0:自发,1:自发")
+    @ApiModelProperty("执行方式 0:自发,1:直发")
     private Integer zxfs;
 
     @ApiModelProperty("销售明细list")

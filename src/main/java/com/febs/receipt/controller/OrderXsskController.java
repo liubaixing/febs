@@ -124,7 +124,7 @@ public class OrderXsskController extends BaseController {
     @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("/create")
     @RequiresPermissions("orderXssk:create")
-    public FebsResponse createorderXssk(@RequestBody OrderXsskCreateReq req){
+    public FebsResponse createorderXssk(OrderXsskCreateReq req){
         User user = getCurrentUser();
         xsskBiz.create(req,user);
         return new FebsResponse().success();

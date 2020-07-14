@@ -126,7 +126,7 @@ public class OrderXsfpController extends BaseController {
     @ControllerEndpoint(operation = "生成销售发票", exceptionMessage = "生成销售发票失败")
     @PostMapping("/create/{id}")
     @RequiresPermissions("orderXsfp:create")
-    public FebsResponse createOrderXsfp(@RequestBody OrderXsfpReq req){
+    public FebsResponse createOrderXsfp(OrderXsfpReq req){
 
         return new FebsResponse().success();
     }

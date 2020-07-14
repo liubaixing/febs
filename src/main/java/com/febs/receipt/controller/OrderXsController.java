@@ -81,7 +81,7 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "新增销售单", exceptionMessage = "新增销售单失败")
     @PostMapping("")
 //    @RequiresPermissions("orderXs:add")
-    public FebsResponse addOrderXs(@RequestBody OrderXsReq orderXs) {
+    public FebsResponse addOrderXs(OrderXsReq orderXs) {
         User user = getCurrentUser();
         orderXs.setUserId(user.getUserId());
         this.orderXsBiz.create(orderXs);
@@ -102,7 +102,7 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "修改销售单", exceptionMessage = "修改销售单失败")
     @PostMapping("/update")
 //    @RequiresPermissions("orderXs:update")
-    public FebsResponse updateOrderXs(@RequestBody OrderXs orderXs) {
+    public FebsResponse updateOrderXs(OrderXs orderXs) {
         this.orderXsBiz.update(orderXs);
         return new FebsResponse().success();
     }
@@ -110,7 +110,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售单", exceptionMessage = "确认销售单失败")
     @GetMapping("/confirm/{id}")
-    @RequiresPermissions("orderXs:confirm")
+//    @RequiresPermissions("orderXs:confirm")
     public FebsResponse orderXsConfirm(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -124,7 +124,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("反确认")
     @ControllerEndpoint(operation = "反确认销售单", exceptionMessage = "反确认销售单失败")
     @GetMapping("/unConfirm/{id}")
-    @RequiresPermissions("orderXs:unConfirm")
+//    @RequiresPermissions("orderXs:unConfirm")
     public FebsResponse orderXsUnConfirm(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -138,7 +138,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销售单", exceptionMessage = "审核销售单失败")
     @GetMapping("/check/{id}")
-    @RequiresPermissions("orderXs:check")
+//    @RequiresPermissions("orderXs:check")
     public FebsResponse orderXsCheck(@PathVariable Long id ){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -152,7 +152,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("反审核")
     @ControllerEndpoint(operation = "反审核销售单", exceptionMessage = "反审核销售单失败")
     @GetMapping("/unCheck/{id}")
-    @RequiresPermissions("orderXs:unCheck")
+//    @RequiresPermissions("orderXs:unCheck")
     public FebsResponse orderXsUnCheck(@PathVariable Long id ){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -166,8 +166,8 @@ public class OrderXsController extends BaseController {
     @ApiOperation("执行（执行必需的三个参数： mxId、zxfs(执行方式)、cangkuId）")
     @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
     @PostMapping("/execute")
-    @RequiresPermissions("orderXs:execute")
-    public FebsResponse orderXsExecute(@RequestBody OrderXsReq req){
+//    @RequiresPermissions("orderXs:execute")
+    public FebsResponse orderXsExecute(OrderXsReq req){
         User user = getCurrentUser();
         req.setZx((byte)1);
         req.setZxr(user.getUsername());
@@ -180,8 +180,8 @@ public class OrderXsController extends BaseController {
     @ApiOperation("反执行")
     @ControllerEndpoint(operation = "反执行销售单", exceptionMessage = "反执行销售单失败")
     @PostMapping("/unExecute")
-    @RequiresPermissions("orderXs:unExecute")
-    public FebsResponse orderXsUnExecute(@RequestBody OrderXsReq req){
+//    @RequiresPermissions("orderXs:unExecute")
+    public FebsResponse orderXsUnExecute(OrderXsReq req){
         User user = getCurrentUser();
         req.setZx((byte)0);
         req.setZxr(user.getUsername());
@@ -193,7 +193,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("作废")
     @ControllerEndpoint(operation = "作废销售单", exceptionMessage = "作废销售单失败")
     @GetMapping("/invalid/{id}/{status}")
-    @RequiresPermissions("orderXs:invalid")
+//    @RequiresPermissions("orderXs:invalid")
     public FebsResponse orderXsInvalid(
             @PathVariable Long id,
             @PathVariable boolean status
@@ -210,7 +210,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("关闭")
     @ControllerEndpoint(operation = "关闭销售单", exceptionMessage = "关闭销售单失败")
     @PostMapping("/close/{id}")
-    @RequiresPermissions("orderXs:close")
+//    @RequiresPermissions("orderXs:close")
     public FebsResponse orderXsClose(@PathVariable Long id,OrderXs req){
         User user = getCurrentUser();
         req.setId(id);
@@ -223,7 +223,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("反关闭")
     @ControllerEndpoint(operation = "反关闭销售单", exceptionMessage = "反关闭销售单失败")
     @PostMapping("/unClose/{id}")
-    @RequiresPermissions("orderXs:unClose")
+//    @RequiresPermissions("orderXs:unClose")
     public FebsResponse orderXsUnClose(@PathVariable Long id,OrderXs req){
         User user = getCurrentUser();
         req.setId(id);
@@ -236,8 +236,8 @@ public class OrderXsController extends BaseController {
     @ApiOperation("生成销退单（参数：mxId、sl、je）")
     @ControllerEndpoint(operation = "生成销退单", exceptionMessage = "生成销退单失败")
     @PostMapping("/return")
-    @RequiresPermissions("orderXs:return")
-    public FebsResponse orderXsReturn(@RequestBody OrderXsReq req){
+//    @RequiresPermissions("orderXs:return")
+    public FebsResponse orderXsReturn(OrderXsReq req){
         User user = getCurrentUser();
         req.setUserName(user.getUsername());
         orderXsBiz.returnOrderXs(req);
@@ -246,7 +246,7 @@ public class OrderXsController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("orderXs:export")
+//    @RequiresPermissions("orderXs:export")
     public void export(QueryRequest queryRequest, OrderXsReq orderXs, HttpServletResponse response) throws IOException {
         List<OrderXsResp> orderXss = this.orderXsBiz.findByPage(queryRequest, orderXs).getRecords();
         ExcelUtil.export(orderXss, OrderXsResp.class,"销售单",response);
@@ -254,7 +254,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("导入")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
-    @PostMapping("import")
+//    @PostMapping("import")
     public void excelImport(@RequestParam MultipartFile file) throws IOException{
         EasyExcel.read(file.getInputStream(), OrderXsResp.class, new OrderXslistener(orderXsBiz)).sheet().doRead();
     }

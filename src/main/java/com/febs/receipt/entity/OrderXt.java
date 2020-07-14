@@ -216,8 +216,8 @@ public class OrderXt {
     /**
      * 收货地址
      */
-    @ApiModelProperty("收货")
-    @ExcelProperty(value = "收货",index = 28)
+    @ApiModelProperty("地址")
+    @ExcelProperty(value = "地址",index = 28)
     @TableField("address")
     private String address;
 

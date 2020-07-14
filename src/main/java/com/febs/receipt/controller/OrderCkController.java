@@ -158,7 +158,7 @@ public class OrderCkController extends BaseController {
     @ControllerEndpoint(operation = "备货发货", exceptionMessage = "备货发货失败")
     @PostMapping("/bhfh")
     @RequiresPermissions("orderCk:bhfh")
-    public FebsResponse bhfh(@RequestBody OrderCkReq req){
+    public FebsResponse bhfh(OrderCkReq req){
         User user = getCurrentUser();
         OrderCk ck = new OrderCk();
         ck.setId(req.getId());

@@ -161,7 +161,7 @@ public class PurchaseCgfpController extends BaseController {
     @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("/kssc")
     @RequiresPermissions("purchaseCgfp:kssc")
-    public FebsResponse kssc(@RequestBody Long id){
+    public FebsResponse kssc(Long id){
         User user = getCurrentUser();
         return new FebsResponse().success();
     }

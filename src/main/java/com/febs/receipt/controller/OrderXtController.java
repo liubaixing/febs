@@ -52,13 +52,13 @@ public class OrderXtController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("orderXt:list")
+//    @RequiresPermissions("orderXt:list")
     public FebsResponse getAllOrderXts(OrderXtReq orderXt) {
         return new FebsResponse().success().data(orderXtService.findOrderXts(orderXt));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("orderXt:list")
+//    @RequiresPermissions("orderXt:list")
     public FebsResponse orderXtList(QueryRequest request, OrderXtReq orderXt) {
         Map<String, Object> dataTable = getDataTable(this.xtBiz.findByPage(request, orderXt));
         return new FebsResponse().success().data(dataTable);
@@ -66,7 +66,7 @@ public class OrderXtController extends BaseController {
 
     @ControllerEndpoint(operation = "新增销退单", exceptionMessage = "新增销退单失败")
     @PostMapping("")
-    @RequiresPermissions("orderXt:add")
+//    @RequiresPermissions("orderXt:add")
     public FebsResponse addOrderXt(@Valid OrderXtReq orderXt) {
         User user = getCurrentUser();
         orderXt.setZdr(user.getUsername());
@@ -77,7 +77,7 @@ public class OrderXtController extends BaseController {
 
     @ControllerEndpoint(operation = "删除销退单", exceptionMessage = "删除销退单失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("orderXt:delete")
+//    @RequiresPermissions("orderXt:delete")
     public FebsResponse deleteOrderXt(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.xtBiz.delete(id);
@@ -86,7 +86,7 @@ public class OrderXtController extends BaseController {
 
     @ControllerEndpoint(operation = "修改销退单", exceptionMessage = "修改销退单失败")
     @PostMapping("/update")
-    @RequiresPermissions("orderXt:update")
+//    @RequiresPermissions("orderXt:update")
     public FebsResponse updateOrderXt(OrderXt orderXt) {
         this.orderXtService.updateOrderXt(orderXt);
         return new FebsResponse().success();
@@ -95,7 +95,7 @@ public class OrderXtController extends BaseController {
 
     @ApiOperation("查看")
     @GetMapping("view/{id}")
-    @RequiresPermissions("orderXt:view")
+//    @RequiresPermissions("orderXt:view")
     public FebsResponse view(@PathVariable Long id) {
         return new FebsResponse().success().data(xtBiz.view(id));
     }
@@ -103,7 +103,7 @@ public class OrderXtController extends BaseController {
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销退单", exceptionMessage = "确认销退单失败")
     @GetMapping("/confirm/{id}")
-    @RequiresPermissions("orderXt:confirm")
+//    @RequiresPermissions("orderXt:confirm")
     public FebsResponse orderXsConfirm(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -117,7 +117,7 @@ public class OrderXtController extends BaseController {
     @ApiOperation("反确认")
     @ControllerEndpoint(operation = "反确销退单单", exceptionMessage = "反确认销退单失败")
     @GetMapping("/unConfirm/{id}")
-    @RequiresPermissions("orderXt:unConfirm")
+//    @RequiresPermissions("orderXt:unConfirm")
     public FebsResponse orderXsUnConfirm(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -131,7 +131,7 @@ public class OrderXtController extends BaseController {
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销退单", exceptionMessage = "审核销退单失败")
     @GetMapping("/check/{id}")
-    @RequiresPermissions("orderXt:check")
+//    @RequiresPermissions("orderXt:check")
     public FebsResponse orderXsCheck(@PathVariable Long id ){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -145,7 +145,7 @@ public class OrderXtController extends BaseController {
     @ApiOperation("反审核")
     @ControllerEndpoint(operation = "反审销退单单", exceptionMessage = "反审核销退单失败")
     @GetMapping("/unCheck/{id}")
-    @RequiresPermissions("orderXt:unCheck")
+//    @RequiresPermissions("orderXt:unCheck")
     public FebsResponse orderXsUnCheck(@PathVariable Long id ){
         User user = getCurrentUser();
         OrderXs req = new OrderXs();
@@ -159,8 +159,8 @@ public class OrderXtController extends BaseController {
     @ApiOperation("执行")
     @ControllerEndpoint(operation = "执行", exceptionMessage = "执行失败")
     @PostMapping("/execute")
-    @RequiresPermissions("orderXt:execute")
-    public FebsResponse orderXsExecute(@RequestBody OrderXtReq req){
+//    @RequiresPermissions("orderXt:execute")
+    public FebsResponse orderXsExecute(OrderXtReq req){
         User user = getCurrentUser();
         req.setZx((byte)1);
         req.setZxr(user.getUsername());
@@ -171,7 +171,7 @@ public class OrderXtController extends BaseController {
     @ApiOperation("作废")
     @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
     @GetMapping("/invalid/{id}")
-    @RequiresPermissions("orderXt:invalid")
+//    @RequiresPermissions("orderXt:invalid")
     public FebsResponse orderXsInvalid(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXt orderXt = new OrderXt();
@@ -186,7 +186,7 @@ public class OrderXtController extends BaseController {
     @ApiOperation("关闭")
     @ControllerEndpoint(operation = "关闭", exceptionMessage = "关闭失败")
     @GetMapping("/close/{id}")
-    @RequiresPermissions("orderXt:close")
+//    @RequiresPermissions("orderXt:close")
     public FebsResponse close(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXt orderXt = new OrderXt();
@@ -201,7 +201,7 @@ public class OrderXtController extends BaseController {
     @ApiOperation("反关闭")
     @ControllerEndpoint(operation = "反关闭", exceptionMessage = "反关闭失败")
     @GetMapping("/unClose/{id}")
-    @RequiresPermissions("orderXt:unClose")
+//    @RequiresPermissions("orderXt:unClose")
     public FebsResponse unClose(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXt orderXt = new OrderXt();
@@ -216,7 +216,7 @@ public class OrderXtController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("orderXt:export")
+//    @RequiresPermissions("orderXt:export")
     public void export(QueryRequest queryRequest, OrderXtReq orderXt, HttpServletResponse response) throws IOException {
         List<OrderXtResp> orderXts = this.orderXtService.findOrderXts(queryRequest, orderXt).getRecords();
         ExcelUtil.export(orderXts, OrderXtResp.class,"销退单",response);

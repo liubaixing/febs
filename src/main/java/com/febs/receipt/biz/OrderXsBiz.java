@@ -292,7 +292,7 @@ public class OrderXsBiz {
         }
 
         //计划数为销售单总数量
-        if ((xsmx.getTzsl() +xsmx.getCksl()) < xsmx.getJhsl() ) {
+        if ((xsmx.getTzsl() +xsmx.getCksl()) > xsmx.getJhsl() ) {
             throw new FebsException("执行数量超出销售单数量");
         }
 

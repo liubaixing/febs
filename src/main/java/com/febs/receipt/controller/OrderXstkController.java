@@ -123,7 +123,7 @@ public class OrderXstkController extends BaseController {
     @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
     @PostMapping("/create")
     @RequiresPermissions("orderXssk:create")
-    public FebsResponse createorderXssk(@RequestBody OrderXstkReq req ){
+    public FebsResponse createorderXssk(OrderXstkReq req ){
 
         return new FebsResponse().success();
     }

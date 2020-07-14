@@ -161,7 +161,7 @@
             <include refid="Page_Column_List" />
             ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
             kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
-            xsmx.id mxid , xsmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
+            xsmx.id mxId , xsmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
             ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje,dw.jldwmc
             ,xsmx.kpsl,xsmx.sksl,xsmx.tksl,xsmx.kpje,xsmx.skje,xsmx.tkje
         FROM order_xs xs
@@ -274,7 +274,7 @@
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
-        xsmx.id mxid , xsmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
+        xsmx.id mxId , xsmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
         ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje,dw.jldwmc
         ,xsmx.kpsl,xsmx.sksl,xsmx.tksl,xsmx.kpje,xsmx.skje,xsmx.tkje
         FROM order_xs xs

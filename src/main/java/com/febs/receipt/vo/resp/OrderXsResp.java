@@ -50,6 +50,10 @@ public class OrderXsResp extends OrderXs {
     @ExcelProperty(value = "客户区域名称",index = 14)
     private String khqymc;
 
+    @ApiModelProperty("明细id")
+    @ExcelIgnore
+    private Long mxId;
+
     @ExcelIgnore
     private Integer spId;
 

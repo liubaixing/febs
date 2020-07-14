@@ -167,7 +167,7 @@ public class PurchaseTcController extends BaseController {
     @ControllerEndpoint(operation = "退仓发货", exceptionMessage = "退仓发货失败")
     @PostMapping("/tcfh/{id}")
     @RequiresPermissions("purchaseTc:tcfh")
-    public FebsResponse tcfh(@RequestBody PurchaseTc purchaseTc){
+    public FebsResponse tcfh(PurchaseTc purchaseTc){
         User user = getCurrentUser();
         purchaseTc.setTcfh((byte)1);
         purchaseTc.setTcfhr(user.getUsername());
@@ -181,7 +181,7 @@ public class PurchaseTcController extends BaseController {
     @ControllerEndpoint(operation = "运费录入", exceptionMessage = "运费录入失败")
     @PostMapping("/yflr")
     @RequiresPermissions("purchaseTc:yflr")
-    public FebsResponse yflr(@RequestBody PurchaseTcReq req){
+    public FebsResponse yflr(PurchaseTcReq req){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
         purchaseTc.setId(req.getId());
@@ -195,7 +195,7 @@ public class PurchaseTcController extends BaseController {
     @ControllerEndpoint(operation = "印刷费录入", exceptionMessage = "印刷费录入失败")
     @PostMapping("/ysflr")
     @RequiresPermissions("purchaseTc:ysflr")
-    public FebsResponse ysflr(@RequestBody PurchaseTcReq req){
+    public FebsResponse ysflr(PurchaseTcReq req){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
         purchaseTc.setId(req.getId());

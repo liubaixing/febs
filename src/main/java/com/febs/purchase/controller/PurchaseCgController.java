@@ -274,7 +274,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "分配下单", exceptionMessage = "分配下单失败")
     @PostMapping("/fpxd")
     @RequiresPermissions("purchaseCg:fpxd")
-    public FebsResponse fpxd(@RequestBody PurchaseCgReq purchaseCg){
+    public FebsResponse fpxd(PurchaseCgReq purchaseCg){
         User user = getCurrentUser();
 
         return new FebsResponse().success();
@@ -284,7 +284,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "反分配下单", exceptionMessage = "反分配下单失败")
     @GetMapping("/unFpxd")
     @RequiresPermissions("purchaseCg:unFpxd")
-    public FebsResponse unFpxd(@RequestBody PurchaseCgReq purchaseCg){
+    public FebsResponse unFpxd(PurchaseCgReq purchaseCg){
         User user = getCurrentUser();
         //???
         return new FebsResponse().success();
@@ -325,7 +325,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "采购发货", exceptionMessage = "采购发货失败")
     @PostMapping("/cgfh")
     @RequiresPermissions("purchaseCg:cgfh")
-    public FebsResponse cgfh(@RequestBody PurchaseCg purchaseCg){
+    public FebsResponse cgfh(PurchaseCg purchaseCg){
         User user = getCurrentUser();
         purchaseCg.setCgfh((byte)1);
         purchaseCg.setCgfhr(user.getUsername());
@@ -338,7 +338,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "运费录入", exceptionMessage = "运费录入失败")
     @PostMapping("/yflr")
     @RequiresPermissions("purchaseCg:yflr")
-    public FebsResponse yflr(@RequestBody PurchaseCgReq req){
+    public FebsResponse yflr(PurchaseCgReq req){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(req.getId());
@@ -352,7 +352,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "印刷费录入", exceptionMessage = "印刷费录入失败")
     @PostMapping("/ysflr")
     @RequiresPermissions("purchaseCg:ysflr")
-    public FebsResponse ysflr(@RequestBody PurchaseCgReq req){
+    public FebsResponse ysflr(PurchaseCgReq req){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(req.getId());
@@ -366,7 +366,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "生成退仓", exceptionMessage = "生成退仓失败")
     @PostMapping("/sctc")
     @RequiresPermissions("purchaseCg:sctc")
-    public FebsResponse sctc(@RequestBody PurchaseCgReq req){
+    public FebsResponse sctc(PurchaseCgReq req){
         User user = getCurrentUser();
         req.setSctcr(user.getUsername());
         cgBiz.sctc(req);
