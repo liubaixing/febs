@@ -1,5 +1,6 @@
 package com.febs.receipt.vo.resp;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.febs.receipt.entity.OrderXs;
@@ -49,6 +50,9 @@ public class OrderXsResp extends OrderXs {
     @ExcelProperty(value = "客户区域名称",index = 14)
     private String khqymc;
 
+    @ExcelIgnore
+    private Integer spId;
+
     @ApiModelProperty("商品代码")
     @ExcelProperty(value = "商品代码",index = 18)
     private String spdm;
@@ -93,6 +97,7 @@ public class OrderXsResp extends OrderXs {
     @ExcelProperty(value = "计量单位",index = 28)
     private String jldwmc;
 
+    @ExcelIgnore
     List<OrderXsmxResp> mxList;
 
 }

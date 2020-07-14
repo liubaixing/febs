@@ -17,7 +17,7 @@
         <result column="qrr" jdbcType="VARCHAR" property="qrr" />
         <result column="qrrq" jdbcType="TIMESTAMP" property="qrrq" />
         <result column="sh" jdbcType="TINYINT" property="sh" />
-        <result column="shr" jdbcType="VARCHAR" property="shr" />
+        <result column="auditor" jdbcType="VARCHAR" property="auditor" />
         <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
         <result column="fk" jdbcType="TINYINT" property="fk" />
         <result column="fkr" jdbcType="VARCHAR" property="fkr" />
@@ -89,7 +89,7 @@
     </sql>
     <sql id="Base_Column_List">
     Id, djbh, djrq, gys_id, je, khyh_id, yhzh, bz, fj, zdr, zdrq, qr, qrr, qrrq, sh,
-    shr, shrq, fk, fkr, fkrq, zf, zfr, zfrq, ex1, ex2, ex3
+    auditor, shrq, fk, fkr, fkrq, zf, zfr, zfrq, ex1, ex2, ex3
   </sql>
     <select id="selectByExample" parameterType="com.febs.purchase.entity.PurchaseCgfkExample" resultMap="BaseResultMap">
         select
@@ -125,14 +125,14 @@
     insert into purchase_cgfk (djbh, djrq, gys_id,
       je, khyh_id, yhzh, bz,
       fj, zdr, zdrq, qr,
-      qrr, qrrq, sh, shr,
+      qrr, qrrq, sh, auditor,
       shrq, fk, fkr, fkrq,
       zf, zfr, zfrq, ex1,
       ex2, ex3)
     values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{gysId,jdbcType=INTEGER},
       #{je,jdbcType=DECIMAL}, #{khyhId,jdbcType=INTEGER}, #{yhzh,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR},
       #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, #{zdrq,jdbcType=TIMESTAMP}, #{qr,jdbcType=TINYINT},
-      #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR},
+      #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{auditor,jdbcType=VARCHAR},
       #{shrq,jdbcType=TIMESTAMP}, #{fk,jdbcType=TINYINT}, #{fkr,jdbcType=VARCHAR}, #{fkrq,jdbcType=TIMESTAMP},
       #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR},
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR})
@@ -182,8 +182,8 @@
             <if test="sh != null">
                 sh,
             </if>
-            <if test="shr != null">
-                shr,
+            <if test="auditor != null">
+                auditor,
             </if>
             <if test="shrq != null">
                 shrq,
@@ -259,8 +259,8 @@
             <if test="sh != null">
                 #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 #{shrq,jdbcType=TIMESTAMP},
@@ -348,8 +348,8 @@
             <if test="record.sh != null">
                 sh = #{record.sh,jdbcType=TINYINT},
             </if>
-            <if test="record.shr != null">
-                shr = #{record.shr,jdbcType=VARCHAR},
+            <if test="record.auditor != null">
+                auditor = #{record.auditor,jdbcType=VARCHAR},
             </if>
             <if test="record.shrq != null">
                 shrq = #{record.shrq,jdbcType=TIMESTAMP},
@@ -403,7 +403,7 @@
         qrr = #{record.qrr,jdbcType=VARCHAR},
         qrrq = #{record.qrrq,jdbcType=TIMESTAMP},
         sh = #{record.sh,jdbcType=TINYINT},
-        shr = #{record.shr,jdbcType=VARCHAR},
+        auditor = #{record.auditor,jdbcType=VARCHAR},
         shrq = #{record.shrq,jdbcType=TIMESTAMP},
         fk = #{record.fk,jdbcType=TINYINT},
         fkr = #{record.fkr,jdbcType=VARCHAR},
@@ -463,8 +463,8 @@
             <if test="sh != null">
                 sh = #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                shr = #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                auditor = #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 shrq = #{shrq,jdbcType=TIMESTAMP},
@@ -515,7 +515,7 @@
       qrr = #{qrr,jdbcType=VARCHAR},
       qrrq = #{qrrq,jdbcType=TIMESTAMP},
       sh = #{sh,jdbcType=TINYINT},
-      shr = #{shr,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
       shrq = #{shrq,jdbcType=TIMESTAMP},
       fk = #{fk,jdbcType=TINYINT},
       fkr = #{fkr,jdbcType=VARCHAR},
@@ -532,7 +532,7 @@
 
     <sql id="Page_Column_List">
        fk.Id, fk.djbh, fk.djrq, fk.gys_id, fk.khyh_id, fk.yhzh, fk.bz, fk.fj, fk.zdr, fk.zdrq, fk.qr, fk.qrr, fk.qrrq, fk.sh,
-        fk.shr, fk.shrq, fk.fk, fk.fkr, fk.fkrq, fk.zf, fk.zfr, fk.zfrq, fk.ex1, fk.ex2, fk.ex3
+        fk.auditor, fk.shrq, fk.fk, fk.fkr, fk.fkrq, fk.zf, fk.zfr, fk.zfrq, fk.ex1, fk.ex2, fk.ex3
     </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseCgfkReq" resultType="com.febs.purchase.vo.resp.PurchaseCgfkResp">
@@ -546,38 +546,38 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
-            <if test="djbh != null and djbh != ''">
-                and fk.djbh like CONCAT('%',#{djbh},'%')
+            <if test="fk.djbh != null and fk.djbh != ''">
+                and fk.djbh like CONCAT('%',#{fk.djbh},'%')
             </if>
-            <if test="startTime != null and endTime != null">
-                and fk.djrq between #{startTime} and #{endTime}
+            <if test="fk.startTime != null and fk.endTime != null">
+                and fk.djrq between #{fk.startTime} and #{fk.endTime}
             </if>
-            <if test="fk != null">
-                and fk.fk = #{fk}
+            <if test="fk.fk != null">
+                and fk.fk = #{fk.fk}
             </if>
-            <if test="fkr != null and fkr != ''">
-                and fk.fkr like CONCAT('%',#{fkr},'%')
+            <if test="fk.fkr != null and fk.fkr != ''">
+                and fk.fkr like CONCAT('%',#{fk.fkr},'%')
             </if>
-            <if test="qr != null">
-                and fk.qr = #{qr}
+            <if test="fk.qr != null">
+                and fk.qr = #{fk.qr}
             </if>
-            <if test="qrr != null and qrr != ''">
-                and fk.qrr like CONCAT('%',#{qrr},'%')
+            <if test="fk.qrr != null and fk.qrr != ''">
+                and fk.qrr like CONCAT('%',#{fk.qrr},'%')
             </if>
-            <if test="sh != null">
-                and fk.sh = #{sh}
+            <if test="fk.sh != null">
+                and fk.sh = #{fk.sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and fk.shr like CONCAT('%',#{shr},'%')
+            <if test="fk.auditor != null and fk.auditor != ''">
+                and fk.auditor like CONCAT('%',#{fk.auditor},'%')
             </if>
-            <if test="zdr != null and zdr != ''">
-                and fk.zdr like CONCAT('%',#{zdr},'%')
+            <if test="fk.zdr != null and fk.zdr != ''">
+                and fk.zdr like CONCAT('%',#{fk.zdr},'%')
             </if>
-            <if test="gysmc != null and gysmc != ''">
-                and gysmc like CONCAT('%',#{gysmc},'%')
+            <if test="fk.gysmc != null and fk.gysmc != ''">
+                and gysmc like CONCAT('%',#{fk.gysmc},'%')
             </if>
-            <if test="spmc != null and spmc != ''">
-                and spmc like CONCAT('%',#{spmc},'%')
+            <if test="fk.spmc != null and fk.spmc != ''">
+                and spmc like CONCAT('%',#{fk.spmc},'%')
             </if>
         </where>
 
@@ -616,8 +616,8 @@
             <if test="sh != null">
                 and fk.sh = #{sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and fk.shr like CONCAT('%',#{shr},'%')
+            <if test="auditor != null and auditor != ''">
+                and fk.auditor like CONCAT('%',#{auditor},'%')
             </if>
             <if test="zdr != null and zdr != ''">
                 and fk.zdr like CONCAT('%',#{zdr},'%')

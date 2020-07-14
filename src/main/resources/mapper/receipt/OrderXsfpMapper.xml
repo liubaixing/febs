@@ -12,7 +12,7 @@
         <result column="zdr" jdbcType="VARCHAR" property="zdr" />
         <result column="zdrq" jdbcType="TIMESTAMP" property="zdrq" />
         <result column="sh" jdbcType="TINYINT" property="sh" />
-        <result column="shr" jdbcType="VARCHAR" property="shr" />
+        <result column="auditor" jdbcType="VARCHAR" property="auditor" />
         <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
         <result column="zf" jdbcType="TINYINT" property="zf" />
         <result column="zfr" jdbcType="VARCHAR" property="zfr" />
@@ -89,7 +89,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, djbh, djrq, ghdw_id, je, bz, fj, zdr, zdrq, sh, shr, shrq, zf, zfr, zfrq, ex1,
+    Id, djbh, djrq, ghdw_id, je, bz, fj, zdr, zdrq, sh, auditor, shrq, zf, zfr, zfrq, ex1,
     ex2, ex3, create_time, update_time, deleted, qr, qrr, qrrq, kp, kpr, kprq
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsfpExample" resultMap="BaseResultMap">
@@ -125,7 +125,7 @@
     <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.receipt.entity.OrderXsfp" useGeneratedKeys="true">
     insert into order_xsfp (djbh, djrq, ghdw_id,
       je, bz, fj, zdr,
-      zdrq, sh, shr, shrq,
+      zdrq, sh, auditor, shrq,
       zf, zfr, zfrq, ex1,
       ex2, ex3, create_time,
       update_time, deleted, qr,
@@ -133,7 +133,7 @@
       kprq)
     values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{ghdwId,jdbcType=INTEGER},
       #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR},
-      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
+      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{auditor,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
       #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR},
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, #{qr,jdbcType=TINYINT},
@@ -170,8 +170,8 @@
             <if test="sh != null">
                 sh,
             </if>
-            <if test="shr != null">
-                shr,
+            <if test="auditor != null">
+                auditor,
             </if>
             <if test="shrq != null">
                 shrq,
@@ -250,8 +250,8 @@
             <if test="sh != null">
                 #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 #{shrq,jdbcType=TIMESTAMP},
@@ -342,8 +342,8 @@
             <if test="record.sh != null">
                 sh = #{record.sh,jdbcType=TINYINT},
             </if>
-            <if test="record.shr != null">
-                shr = #{record.shr,jdbcType=VARCHAR},
+            <if test="record.auditor != null">
+                auditor = #{record.auditor,jdbcType=VARCHAR},
             </if>
             <if test="record.shrq != null">
                 shrq = #{record.shrq,jdbcType=TIMESTAMP},
@@ -410,7 +410,7 @@
         zdr = #{record.zdr,jdbcType=VARCHAR},
         zdrq = #{record.zdrq,jdbcType=TIMESTAMP},
         sh = #{record.sh,jdbcType=TINYINT},
-        shr = #{record.shr,jdbcType=VARCHAR},
+        auditor = #{record.auditor,jdbcType=VARCHAR},
         shrq = #{record.shrq,jdbcType=TIMESTAMP},
         zf = #{record.zf,jdbcType=TINYINT},
         zfr = #{record.zfr,jdbcType=VARCHAR},
@@ -461,8 +461,8 @@
             <if test="sh != null">
                 sh = #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                shr = #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                auditor = #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 shrq = #{shrq,jdbcType=TIMESTAMP},
@@ -526,7 +526,7 @@
       zdr = #{zdr,jdbcType=VARCHAR},
       zdrq = #{zdrq,jdbcType=TIMESTAMP},
       sh = #{sh,jdbcType=TINYINT},
-      shr = #{shr,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
       shrq = #{shrq,jdbcType=TIMESTAMP},
       zf = #{zf,jdbcType=TINYINT},
       zfr = #{zfr,jdbcType=VARCHAR},
@@ -547,7 +547,7 @@
   </update>
 
     <sql id="Page_Column_List">
-        fp.Id, fp.djbh, fp.djrq, fp.ghdw_id, fp.bz, fp.fj, fp.zdr, fp.zdrq, fp.sh, fp.shr, fp.shrq, fp.zf, fp.zfr, fp.zfrq, fp.ex1,
+        fp.Id, fp.djbh, fp.djrq, fp.ghdw_id, fp.bz, fp.fj, fp.zdr, fp.zdrq, fp.sh, fp.auditor, fp.shrq, fp.zf, fp.zfr, fp.zfrq, fp.ex1,
         fp.ex2, fp.ex3, fp.create_time, fp.update_time, fp.deleted
     </sql>
 
@@ -561,44 +561,44 @@
         LEFT JOIN shangpin sp on mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
-            <if test="id != null">
-                and fp.Id = #{id}
+            <if test="fp.id != null">
+                and fp.Id = #{fp.id}
             </if>
-            <if test="deleted != null">
-                and fp.deleted = #{deleted}
+            <if test="fp.deleted != null">
+                and fp.deleted = #{fp.deleted}
             </if>
-            <if test="startTime != null and endTime != null">
-                and fp.djrq between #{startTime} and #{endTime}
+            <if test="fp.startTime != null and fp.endTime != null">
+                and fp.djrq between #{fp.startTime} and #{fp.endTime}
             </if>
-            <if test="djbh != null and djbh != ''">
-                and fp.djbh like CONCAT('%',#{djbh},'%')
+            <if test="fp.djbh != null and fp.djbh != ''">
+                and fp.djbh like CONCAT('%',#{fp.djbh},'%')
             </if>
-            <if test="qr != null">
-                and fp.qr = #{qr}
+            <if test="fp.qr != null">
+                and fp.qr = #{fp.qr}
             </if>
-            <if test="qrr != null and qrr != ''">
-                and fp.qrr = #{qrr}
+            <if test="fp.qrr != null and fp.qrr != ''">
+                and fp.qrr = #{fp.qrr}
             </if>
-            <if test="sh != null">
-                and fp.sh = #{sh}
+            <if test="fp.sh != null">
+                and fp.sh = #{fp.sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and fp.shr = #{shr}
+            <if test="fp.auditor != null and fp.auditor != ''">
+                and fp.auditor = #{fp.auditor}
             </if>
-            <if test="kp != null">
-                and fp.kp = #{kp}
+            <if test="fp.kp != null">
+                and fp.kp = #{fp.kp}
             </if>
-            <if test="kpr != null and kpr != ''">
-                and fp.kpr = #{kpr}
+            <if test="fp.kpr != null and fp.kpr != ''">
+                and fp.kpr = #{fp.kpr}
             </if>
-            <if test="zdr != null and zdr != ''">
-                and fp.zdr = #{zdr}
+            <if test="fp.zdr != null and fp.zdr != ''">
+                and fp.zdr = #{fp.zdr}
             </if>
-            <if test="ptdamc != null and ptdamc != ''">
-                and da.ptdamc like CONCAT('%',#{ptdamc},'%')
+            <if test="fp.ptdamc != null and fp.ptdamc != ''">
+                and da.ptdamc like CONCAT('%',#{fp.ptdamc},'%')
             </if>
-            <if test="spmc != null and spmc != ''">
-                and sp.spmc like CONCAT('%',#{spmc},'%')
+            <if test="fp.spmc != null and fp.spmc != ''">
+                and sp.spmc like CONCAT('%',#{fp.spmc},'%')
             </if>
         </where>
     </select>
@@ -635,8 +635,8 @@
             <if test="sh != null">
                 and fp.sh = #{sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and fp.shr = #{shr}
+            <if test="auditor != null and auditor != ''">
+                and fp.auditor = #{auditor}
             </if>
             <if test="kp != null">
                 and fp.kp = #{kp}

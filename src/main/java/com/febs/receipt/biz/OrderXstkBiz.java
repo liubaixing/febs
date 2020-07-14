@@ -70,4 +70,8 @@ public class OrderXstkBiz {
         xstkResp.setXstkmxList(xstkmxService.findOrderXstkmxs(orderXstkmx));
         return  xstkResp;
     }
+
+    public void sk() {
+
+    }
 }

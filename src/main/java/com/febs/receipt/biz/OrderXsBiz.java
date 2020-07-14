@@ -122,7 +122,9 @@ public class OrderXsBiz {
         orderXsReq.setSl(total);
         orderXsReq.setJe(totalAmount);
         orderXsReq.setXdrq(new Date());
-        Long orderXsId = xsService.createOrderXs(orderXsReq);
+        OrderXs orderXs = new OrderXs();
+        BeanUtils.copyProperties(orderXsReq,orderXs);
+        Long orderXsId = xsService.createOrderXs(orderXs);
 
         for(OrderXsmx mx : orderXsReq.getOrderXsmxList()){
             mx.setPid(orderXsId);
@@ -278,7 +280,7 @@ public class OrderXsBiz {
         if (status == true && orderXs.getSh() == 1) throw new FebsException("销售单已审核");
         if (status == false && orderXs.getSh() == 0) throw new FebsException("销售单未审核");
         orderXs.setSh(req.getSh());
-        orderXs.setShr(req.getShr());
+        orderXs.setAuditor(req.getAuditor());
         orderXs.setShrq(new Date());
         xsService.updateOrderXs(orderXs);
     }
@@ -288,15 +290,13 @@ public class OrderXsBiz {
         if (xsmx == null) {
             throw new FebsException("销售单不存在");
         }
-        if (xsmx.getJhsl() == (xsmx.getTzsl()+xsmx.getCksl())) {
-            throw new FebsException("订单已执行完毕");
-        }
+
         //计划数为销售单总数量
-        if ((xsmx.getTzsl() +xsmx.getCksl() + req.getTzsl()) < xsmx.getJhsl() ) {
+        if ((xsmx.getTzsl() +xsmx.getCksl()) < xsmx.getJhsl() ) {
             throw new FebsException("执行数量超出销售单数量");
         }
 
-        xsmx.setTzsl(xsmx.getTzsl() + req.getSl());
+        xsmx.setTzsl(xsmx.getJhsl());
         OrderXsmx orderXsmx = xsmxService.updateOrderXsmx(xsmx);
 
         OrderXs orderXs = xsService.findById(orderXsmx.getPid());
@@ -309,7 +309,7 @@ public class OrderXsBiz {
 
         if (ck == null) throw new FebsException("销售单仓库不存在");
 
-        if (0 == ck.getCkxz()){
+        if (0 == req.getZxfs()){
             //自发，生成出库单
             OrderCk orderCk = new OrderCk();
             orderCk.setYdbh(orderXs.getDjbh());
@@ -318,18 +318,19 @@ public class OrderXsBiz {
             orderCk.setKehuId(orderXs.getKehuId());
             orderCk.setOrgId(orderXs.getOrgId());
             orderCk.setDjlxId(orderXs.getDjlxId());
-            orderCk.setSl(req.getTzsl());
-            orderCk.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            orderCk.setSl(xsmx.getTzsl());
+            orderCk.setJe(xsmx.getJe());
             orderCk.setZdr(req.getZxr());
             orderCk.setZdrq(new Date());
             Long orderCkId = ckService.createOrderCk(orderCk);
             OrderCkmx orderCkmx = new OrderCkmx();
             orderCkmx.setPid(orderCkId);
             orderCkmx.setSpId(xsmx.getSpId());
+            orderCkmx.setSl(xsmx.getTzsl());
             orderCkmx.setDj(xsmx.getDj());
-            orderCkmx.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            orderCkmx.setJe(xsmx.getJe());
             ckmxService.createOrderCkmx(orderCkmx);
-        }else{
+        }else if (1 == req.getZxfs()){
             //直发，生成采购单
             PurchaseCg cg = new PurchaseCg();
             cg.setXdrq(new Date());
@@ -342,9 +343,9 @@ public class OrderXsBiz {
             sp = shangpinService.findOneByQuery(sp);
 
             cg.setGysId(sp.getGysId());
-            cg.setCangkuId(orderXs.getCangkuId());
-            cg.setSl(req.getTzsl());
-            cg.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            cg.setCangkuId(req.getCangkuId());
+            cg.setSl(xsmx.getTzsl());
+            cg.setJe(xsmx.getJe());
             cg.setZdr(req.getZxr());
             cg.setZdrq(new Date());
             Long cgId = cgService.createPurchaseCg(cg);
@@ -352,9 +353,9 @@ public class OrderXsBiz {
             PurchaseCgmx cgmx = new PurchaseCgmx();
             cgmx.setPid(cgId);
             cgmx.setSpId(xsmx.getSpId());
-            cgmx.setSl(req.getTzsl());
-            cgmx.setDj(xsmx.getDj());
-            cgmx.setJe(xsmx.getDj().multiply(new BigDecimal(req.getTzsl())));
+            cgmx.setSl(xsmx.getTzsl());
+            cgmx.setDj(xsmx.getJe());
+            cgmx.setJe(xsmx.getJe());
             cgmxService.createPurchaseCgmx(cgmx);
         }
 
@@ -374,8 +375,8 @@ public class OrderXsBiz {
 
     }
 
-    public void returnOrderXs(Long id , OrderXsReq req){
-        OrderXsmx mx = xsmxService.findById(id);
+    public void returnOrderXs(OrderXsReq req){
+        OrderXsmx mx = xsmxService.findById(req.getMxId());
         if (mx == null) {
             throw new FebsException("销售单不存在");
         }

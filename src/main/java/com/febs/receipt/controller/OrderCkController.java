@@ -50,13 +50,13 @@ public class OrderCkController extends BaseController {
     private OrderCkBiz ckBiz;
 
     @GetMapping("")
-    @RequiresPermissions("orderCk:list")
+//    @RequiresPermissions("orderCk:list")
     public FebsResponse getAllOrderCks(OrderCkReq orderCk) {
         return new FebsResponse().success().data(orderCkService.findOrderCks(orderCk));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("orderCk:list")
+//    @RequiresPermissions("orderCk:list")
     public FebsResponse orderCkList(QueryRequest request, OrderCkReq orderCk) {
         Map<String, Object> dataTable = getDataTable(this.orderCkService.findOrderCks(request, orderCk));
         return new FebsResponse().success().data(dataTable);

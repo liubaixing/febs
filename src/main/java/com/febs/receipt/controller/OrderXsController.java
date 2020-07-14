@@ -64,7 +64,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("查询销售单")
     @GetMapping("/list")
-    @RequiresPermissions("orderXs:list")
+//    @RequiresPermissions("orderXs:list")
     public FebsResponse orderXsList(QueryRequest request, OrderXsReq orderXs) {
         Map<String, Object> dataTable = getDataTable(this.orderXsService.findOrderXss(request, orderXs));
         return new FebsResponse().success().data(dataTable);
@@ -80,8 +80,8 @@ public class OrderXsController extends BaseController {
     @ApiOperation("新增销售单")
     @ControllerEndpoint(operation = "新增销售单", exceptionMessage = "新增销售单失败")
     @PostMapping("")
-    @RequiresPermissions("orderXs:add")
-    public FebsResponse addOrderXs(@Valid OrderXsReq orderXs) {
+//    @RequiresPermissions("orderXs:add")
+    public FebsResponse addOrderXs(@RequestBody OrderXsReq orderXs) {
         User user = getCurrentUser();
         orderXs.setUserId(user.getUserId());
         this.orderXsBiz.create(orderXs);
@@ -101,8 +101,8 @@ public class OrderXsController extends BaseController {
     @ApiOperation("修改销售单")
     @ControllerEndpoint(operation = "修改销售单", exceptionMessage = "修改销售单失败")
     @PostMapping("/update")
-    @RequiresPermissions("orderXs:update")
-    public FebsResponse updateOrderXs(OrderXs orderXs) {
+//    @RequiresPermissions("orderXs:update")
+    public FebsResponse updateOrderXs(@RequestBody OrderXs orderXs) {
         this.orderXsBiz.update(orderXs);
         return new FebsResponse().success();
     }
@@ -144,7 +144,7 @@ public class OrderXsController extends BaseController {
         OrderXs req = new OrderXs();
         req.setId(id);
         req.setSh((byte)1);
-        req.setShr(user.getUsername());
+        req.setAuditor(user.getUsername());
         this.orderXsBiz.checkOrderXs(req,true);
         return new FebsResponse().success();
     }
@@ -158,20 +158,20 @@ public class OrderXsController extends BaseController {
         OrderXs req = new OrderXs();
         req.setId(id);
         req.setSh((byte)0);
-        req.setShr(user.getUsername());
+        req.setAuditor(user.getUsername());
         this.orderXsBiz.checkOrderXs(req,false);
         return new FebsResponse().success();
     }
 
-    @ApiOperation("执行（传入 mxId，通知数量）")
+    @ApiOperation("执行（执行必需的三个参数： mxId、zxfs(执行方式)、cangkuId）")
     @ControllerEndpoint(operation = "执行销售单", exceptionMessage = "执行销售单失败")
-    @PostMapping("/execute/{id}")
+    @PostMapping("/execute")
     @RequiresPermissions("orderXs:execute")
-    public FebsResponse orderXsExecute(@PathVariable Long id,OrderXsReq req){
+    public FebsResponse orderXsExecute(@RequestBody OrderXsReq req){
         User user = getCurrentUser();
-        req.setMxId(id);
         req.setZx((byte)1);
         req.setZxr(user.getUsername());
+        req.setZxrq(new Date());
         req.setUserId(user.getUserId());
         this.orderXsBiz.executeOrderXs(req,true);
         return new FebsResponse().success();
@@ -179,13 +179,13 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("反执行")
     @ControllerEndpoint(operation = "反执行销售单", exceptionMessage = "反执行销售单失败")
-    @PostMapping("/unExecute/{id}")
+    @PostMapping("/unExecute")
     @RequiresPermissions("orderXs:unExecute")
-    public FebsResponse orderXsUnExecute(@PathVariable Long id,OrderXsReq req){
+    public FebsResponse orderXsUnExecute(@RequestBody OrderXsReq req){
         User user = getCurrentUser();
-        req.setMxId(id);
         req.setZx((byte)0);
         req.setZxr(user.getUsername());
+        req.setZxrq(new Date());
         this.orderXsBiz.executeOrderXs(req,false);
         return new FebsResponse().success();
     }
@@ -233,14 +233,14 @@ public class OrderXsController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ApiOperation("生成销退单")
+    @ApiOperation("生成销退单（参数：mxId、sl、je）")
     @ControllerEndpoint(operation = "生成销退单", exceptionMessage = "生成销退单失败")
-    @PostMapping("/return/{id}")
+    @PostMapping("/return")
     @RequiresPermissions("orderXs:return")
-    public FebsResponse orderXsReturn(@PathVariable Long id,OrderXsReq req){
+    public FebsResponse orderXsReturn(@RequestBody OrderXsReq req){
         User user = getCurrentUser();
         req.setUserName(user.getUsername());
-        orderXsBiz.returnOrderXs(id,req);
+        orderXsBiz.returnOrderXs(req);
         return new FebsResponse().success();
     }
 

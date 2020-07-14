@@ -134,7 +134,7 @@ public class PurchaseCgfkController extends BaseController {
         PurchaseCgfk purchaseFk = new PurchaseCgfk();
         purchaseFk.setId(id);
         purchaseFk.setSh((byte)1);
-        purchaseFk.setShr(user.getUsername());
+        purchaseFk.setAuditor(user.getUsername());
         purchaseFk.setShrq(new Date());
         this.purchaseCgfkService.updatePurchaseCgfk(purchaseFk);
         return new FebsResponse().success();

@@ -31,7 +31,7 @@ public interface OrderXsmxMapper extends BaseMapper<OrderXsmx> {
     List<OrderXsmx> selectByExample(OrderXsmxExample example);
 
 
-    IPage<OrderXsmxResp> selectPageByQuery(IPage<OrderXsmx> page, OrderXsmxReq orderXsmx);
+    IPage<OrderXsmxResp> selectPageByQuery(IPage<OrderXsmx> page,@Param("mx") OrderXsmxReq orderXsmx);
 
     List<OrderXsmxResp> selectByQuery(OrderXsmxReq orderXsmx);
 

@@ -579,14 +579,14 @@
         LEFT JOIN shangpin sp on mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
-            <if test="deleted">
-                and deleted = #{deleted}
+            <if test="mx.deleted">
+                and mx.deleted = #{mx.deleted}
             </if>
-            <if test="pid != null and pid != ''">
-                pid = #{pid}
+            <if test="mx.pid != null">
+                and mx.pid = #{mx.pid}
             </if>
-            <if test="spId != null">
-                sp_id = #{sp_id}
+            <if test="mx.spId != null">
+                and mx.sp_id = #{mx.sp_id}
             </if>
         </where>
     </select>
@@ -601,13 +601,13 @@
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
             <if test="deleted">
-                and deleted = #{deleted}
+                and mx.deleted = #{deleted}
             </if>
             <if test="pid != null and pid != ''">
-                pid = #{pid}
+                and mx.pid = #{pid}
             </if>
             <if test="spId != null">
-                sp_id = #{sp_id}
+                and mx.sp_id = #{sp_id}
             </if>
         </where>
     </select>

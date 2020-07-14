@@ -3,6 +3,7 @@ package com.febs.purchase.vo.req;
 import com.febs.purchase.entity.PurchaseTc;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,9 +12,11 @@ import java.util.Date;
 public class PurchaseTcReq extends PurchaseTc {
 
     @ApiModelProperty("下单开始")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startTime;
 
     @ApiModelProperty("下单结束")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
 
     @ApiModelProperty("业务员")

@@ -140,7 +140,7 @@ public class PurchaseCgController extends BaseController {
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
         purchaseCg.setSh((byte)1);
-        purchaseCg.setShr(user.getUsername());
+        purchaseCg.setAuditor(user.getUsername());
         purchaseCg.setShrq(new Date());
         this.purchaseCgService.updatePurchaseCg(purchaseCg);
         return new FebsResponse().success();
@@ -155,7 +155,7 @@ public class PurchaseCgController extends BaseController {
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
         purchaseCg.setSh((byte)0);
-        purchaseCg.setShr(user.getUsername());
+        purchaseCg.setAuditor(user.getUsername());
         purchaseCg.setShrq(new Date());
         this.purchaseCgService.updatePurchaseCg(purchaseCg);
         return new FebsResponse().success();

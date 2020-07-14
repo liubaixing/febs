@@ -4,3 +4,7 @@ target/
 *.iml
 test/
 .mvn/
+src/main/resources/static
+src/main/resources/templates
+src/main/resources/ip2region
+src/main/resources/generator/

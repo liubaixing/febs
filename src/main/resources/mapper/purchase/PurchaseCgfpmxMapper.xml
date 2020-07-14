@@ -308,11 +308,11 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
-            <if test="id != null">
-                and mx.Id = #{id}
+            <if test="mx.id != null">
+                and mx.Id = #{mx.id}
             </if>
-            <if test="pid != null">
-                and mx.pid = #{pid}
+            <if test="mx.pid != null">
+                and mx.pid = #{mx.pid}
             </if>
         </where>
     </select>

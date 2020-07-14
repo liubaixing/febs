@@ -135,8 +135,8 @@ public class OrderXssk {
      * 审核人
      */
     @ApiModelProperty("审核人")
-    @TableField("shr")
-    private String shr;
+    @TableField("auditor")
+    private String auditor;
 
     /**
      * 审核日期

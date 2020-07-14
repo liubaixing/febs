@@ -131,7 +131,7 @@ public class PurchaseCgtkController extends BaseController {
         PurchaseCgtk purchaseCgtk = new PurchaseCgtk();
         purchaseCgtk.setId(id);
         purchaseCgtk.setSh((byte)1);
-        purchaseCgtk.setShr(user.getUsername());
+        purchaseCgtk.setAuditor(user.getUsername());
         purchaseCgtk.setShrq(new Date());
         this.purchaseCgtkService.updatePurchaseCgtk(purchaseCgtk);
         return new FebsResponse().success();

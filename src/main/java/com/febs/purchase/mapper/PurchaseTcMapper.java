@@ -40,7 +40,7 @@ public interface PurchaseTcMapper extends BaseMapper<PurchaseTc> {
 
     int updateByPrimaryKey(PurchaseTc record);
 
-    IPage<PurchaseTcResp> selectPageByQuery(Page<PurchaseTc> page, PurchaseTcReq req);
+    IPage<PurchaseTcResp> selectPageByQuery(Page<PurchaseTc> page,@Param("tc") PurchaseTcReq req);
 
     List<PurchaseTcResp> selectByQuery(PurchaseTcReq req);
 

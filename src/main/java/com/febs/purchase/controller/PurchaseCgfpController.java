@@ -133,7 +133,7 @@ public class PurchaseCgfpController extends BaseController {
         PurchaseCgfp purchasefp = new PurchaseCgfp();
         purchasefp.setId(id);
         purchasefp.setSh((byte)1);
-        purchasefp.setShr(user.getUsername());
+        purchasefp.setAuditor(user.getUsername());
         purchasefp.setShrq(new Date());
         this.purchaseCgfpService.updatePurchaseCgfp(purchasefp);
         return new FebsResponse().success();

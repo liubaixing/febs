@@ -677,50 +677,50 @@
         LEFT JOIN shangpin sp on mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
-            <if test="id != null">
-                and ck.Id = #{id}
+            <if test="ck.id != null">
+                and ck.Id = #{ck.id}
             </if>
-            <if test="deleted != null">
-                and ck.deleted = #{deleted}
+            <if test="ck.deleted != null">
+                and ck.deleted = #{ck.deleted}
             </if>
-            <if test="startTime != null and endTime != null">
-                and ck.djrq between #{startTime} and #{endTime}
+            <if test="ck.startTime != null and ck.endTime != null">
+                and ck.djrq between #{ck.startTime} and #{ck.endTime}
             </if>
-            <if test="djbh != null and djbh != ''">
-                and ck.djbh like CONCAT('%',#{djbh},'%')
+            <if test="ck.djbh != null and ck.djbh != ''">
+                and ck.djbh like CONCAT('%',#{ck.djbh},'%')
             </if>
-            <if test="ptdamc != null and ptdamc != ''">
-                and ck.ptdamc like CONCAT('%',#{ptdamc},'%')
+            <if test="ck.ptdamc != null and ck.ptdamc != ''">
+                and ck.ptdamc like CONCAT('%',#{ck.ptdamc},'%')
             </if>
-            <if test="ckmc != null and ckmc != ''">
-                and ku.ckmc like CONCAT('%',#{ckmc},'%')
+            <if test="ck.ckmc != null and ck.ckmc != ''">
+                and ku.ckmc like CONCAT('%',#{ck.ckmc},'%')
             </if>
-            <if test="spmc != null and spmc != ''">
-                and sp.spmc like CONCAT('%',#{spmc},'%')
+            <if test="ck.spmc != null and ck.spmc != ''">
+                and sp.spmc like CONCAT('%',#{ck.spmc},'%')
             </if>
-            <if test="qr != null">
-                and ck.qr = #{qr}
+            <if test="ck.qr != null">
+                and ck.qr = #{ck.qr}
             </if>
-            <if test="qrr != null and qrr != ''">
-                and ck.qrr = #{qrr}
+            <if test="ck.qrr != null and ck.qrr != ''">
+                and ck.qrr = #{ck.qrr}
             </if>
-            <if test="gb != null">
-                and ck.gb = #{gb}
+            <if test="ck.gb != null">
+                and ck.gb = #{ck.gb}
             </if>
-            <if test="gbr != null and gbr != ''">
-                and ck.gbr = #{gbr}
+            <if test="ck.gbr != null and ck.gbr != ''">
+                and ck.gbr = #{ck.gbr}
             </if>
-            <if test="bhfh != null">
-                and ck.bhfh = #{bhfh}
+            <if test="ck.bhfh != null">
+                and ck.bhfh = #{ck.bhfh}
             </if>
-            <if test="bhfhr != null and bhfhr != ''">
-                and ck.bhfhr = #{bhfhr}
+            <if test="ck.bhfhr != null and ck.bhfhr != ''">
+                and ck.bhfhr = #{ck.bhfhr}
             </if>
-            <if test="khmc != null and khmc != ''">
-                and khmc like CONCAT('%',#{khmc},'%')
+            <if test="ck.khmc != null and ck.khmc != ''">
+                and ck.khmc like CONCAT('%',#{ck.khmc},'%')
             </if>
-            <if test="ydjh != null and ydjh != ''">
-                and ck.ydjh like CONCAT('%',#{ydjh},'%')
+            <if test="ck.ydjh != null and ck.ydjh != ''">
+                and ck.ydjh like CONCAT('%',#{ck.ydjh},'%')
             </if>
         </where>
     </select>

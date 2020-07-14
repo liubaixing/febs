@@ -41,8 +41,8 @@ public interface OrderXsfpMapper extends BaseMapper<OrderXsfp> {
 
     int updateByPrimaryKey(OrderXsfp record);
 
-    IPage<OrderXsfpResp> selectPageByQuery(Page<OrderXsfp> page, OrderXsfpReq req);
+    IPage<OrderXsfpResp> selectPageByQuery(Page<OrderXsfp> page,@Param("fp") OrderXsfpReq req);
 
-    List<OrderXsfpResp> selectByQuery( OrderXsfpReq req);
+    List<OrderXsfpResp> selectByQuery(OrderXsfpReq req);
 
 }

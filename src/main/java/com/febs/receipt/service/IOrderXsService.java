@@ -33,7 +33,7 @@ public interface IOrderXsService extends IService<OrderXs> {
      * @param orderXs orderXs
      * @return List<OrderXs>
      */
-    List<OrderXs> findOrderXss(OrderXsReq orderXs);
+    List<OrderXsResp> findOrderXss(OrderXsReq orderXs);
 
     OrderXsResp findOrderXsDetail(OrderXsReq orderXs);
 
@@ -54,6 +54,8 @@ public interface IOrderXsService extends IService<OrderXs> {
      * @param orderXs orderXs
      */
     OrderXsResp updateOrderXs(OrderXs orderXs);
+
+    void updateByExample(OrderXs orderXs,OrderXsExample example);
 
     /**
      * 删除

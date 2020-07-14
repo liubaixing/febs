@@ -39,7 +39,7 @@ public interface OrderXsfpmxMapper extends BaseMapper<OrderXsfpmx> {
 
     int updateByPrimaryKey(OrderXsfpmx record);
 
-    IPage<OrderXsfpmxResp> selectPageByQuery(Page<OrderXsfpmx> page, OrderXsfpmx req);
+    IPage<OrderXsfpmxResp> selectPageByQuery(Page<OrderXsfpmx> page,@Param("mx") OrderXsfpmx req);
 
     List<OrderXsfpmxResp> selectByQuery(OrderXsfpmx orderXsfpmx);
 }

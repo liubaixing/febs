@@ -40,7 +40,7 @@ public interface PurchaseCgtkmxMapper extends BaseMapper<PurchaseCgtkmx> {
     int updateByPrimaryKey(PurchaseCgtkmx record);
 
 
-    IPage<PurchaseCgtkmxResp> selectPageByQuery(Page<PurchaseCgtkmx> page, PurchaseCgtkmx req);
+    IPage<PurchaseCgtkmxResp> selectPageByQuery(Page<PurchaseCgtkmx> page,@Param("mx") PurchaseCgtkmx req);
 
     List<PurchaseCgtkmxResp> selectByQuery(PurchaseCgtkmx req);
 

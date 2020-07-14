@@ -116,7 +116,7 @@ public class OrderXsfpController extends BaseController {
         OrderXsfp xsfp = new OrderXsfp();
         xsfp.setId(id);
         xsfp.setSh((byte)1);
-        xsfp.setShr(user.getUsername());
+        xsfp.setAuditor(user.getUsername());
         xsfp.setShrq(new Date());
         xsfpBiz.update(xsfp);
         return new FebsResponse().success();

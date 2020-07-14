@@ -39,7 +39,7 @@
         <result column="qrr" jdbcType="VARCHAR" property="qrr" />
         <result column="qrrq" jdbcType="TIMESTAMP" property="qrrq" />
         <result column="sh" jdbcType="TINYINT" property="sh" />
-        <result column="shr" jdbcType="VARCHAR" property="shr" />
+        <result column="auditor" jdbcType="VARCHAR" property="auditor" />
         <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
         <result column="kssh" jdbcType="TINYINT" property="kssh" />
         <result column="ksshr" jdbcType="VARCHAR" property="ksshr" />
@@ -130,7 +130,7 @@
     <sql id="Base_Column_List">
     Id, djbh, xdrq, ydjh, xtdh, user_id, bm_id, gys_id, cangku_id, fpsl_id, fplx_id,
     djlx_id, cgfzr, xdfzr, sfdz, sfjj, wldh, bz, yqdhrq, sl, je, kpsl, fksl, tksl, kpje,
-    fkje, tkje, fj, address, tel, contact, zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq, kssh,
+    fkje, tkje, fj, address, tel, contact, zdr, zdrq, qr, qrr, qrrq, sh, auditor, shrq, kssh,
     ksshr, ksshrq, shqr, shqrr, shqrrq, kstc, kstcr, kstcrq, tcfh, tcfhr, tcfhrq, yflr,
     yflrr, yflrrq, ysflr, ysflrr, ysflrrq, zs, zsr, zsrq, zf, zfr, zfrq, ex1, ex2, ex3
   </sql>
@@ -175,7 +175,7 @@
       tksl, kpje, fkje, tkje,
       fj, address, tel, contact,
       zdr, zdrq, qr, qrr,
-      qrrq, sh, shr, shrq,
+      qrrq, sh, auditor, shrq,
       kssh, ksshr, ksshrq,
       shqr, shqrr, shqrrq,
       kstc, kstcr, kstcrq,
@@ -195,7 +195,7 @@
       #{tksl,jdbcType=INTEGER}, #{kpje,jdbcType=DECIMAL}, #{fkje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL},
       #{fj,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
       #{zdr,jdbcType=VARCHAR}, #{zdrq,jdbcType=TIMESTAMP}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR},
-      #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
+      #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{auditor,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
       #{kssh,jdbcType=TINYINT}, #{ksshr,jdbcType=VARCHAR}, #{ksshrq,jdbcType=TIMESTAMP},
       #{shqr,jdbcType=TINYINT}, #{shqrr,jdbcType=VARCHAR}, #{shqrrq,jdbcType=TIMESTAMP},
       #{kstc,jdbcType=TINYINT}, #{kstcr,jdbcType=VARCHAR}, #{kstcrq,jdbcType=TIMESTAMP},
@@ -317,8 +317,8 @@
             <if test="sh != null">
                 sh,
             </if>
-            <if test="shr != null">
-                shr,
+            <if test="auditor != null">
+                auditor,
             </if>
             <if test="shrq != null">
                 shrq,
@@ -514,8 +514,8 @@
             <if test="sh != null">
                 #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 #{shrq,jdbcType=TIMESTAMP},
@@ -723,8 +723,8 @@
             <if test="record.sh != null">
                 sh = #{record.sh,jdbcType=TINYINT},
             </if>
-            <if test="record.shr != null">
-                shr = #{record.shr,jdbcType=VARCHAR},
+            <if test="record.auditor != null">
+                auditor = #{record.auditor,jdbcType=VARCHAR},
             </if>
             <if test="record.shrq != null">
                 shrq = #{record.shrq,jdbcType=TIMESTAMP},
@@ -854,7 +854,7 @@
         qrr = #{record.qrr,jdbcType=VARCHAR},
         qrrq = #{record.qrrq,jdbcType=TIMESTAMP},
         sh = #{record.sh,jdbcType=TINYINT},
-        shr = #{record.shr,jdbcType=VARCHAR},
+        auditor = #{record.auditor,jdbcType=VARCHAR},
         shrq = #{record.shrq,jdbcType=TIMESTAMP},
         kssh = #{record.kssh,jdbcType=TINYINT},
         ksshr = #{record.ksshr,jdbcType=VARCHAR},
@@ -998,8 +998,8 @@
             <if test="sh != null">
                 sh = #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                shr = #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                auditor = #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 shrq = #{shrq,jdbcType=TIMESTAMP},
@@ -1126,7 +1126,7 @@
       qrr = #{qrr,jdbcType=VARCHAR},
       qrrq = #{qrrq,jdbcType=TIMESTAMP},
       sh = #{sh,jdbcType=TINYINT},
-      shr = #{shr,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
       shrq = #{shrq,jdbcType=TIMESTAMP},
       kssh = #{kssh,jdbcType=TINYINT},
       ksshr = #{ksshr,jdbcType=VARCHAR},
@@ -1162,7 +1162,7 @@
     <sql id="Page_Column_List">
         tc.Id, tc.djbh, tc.xdrq, tc.ydjh, tc.xtdh, tc.user_id, tc.bm_id, tc.gys_id, tc.cangku_id, tc.fpsl_id, tc.fplx_id,
         tc.djlx_id, tc.cgfzr, tc.xdfzr, tc.sfdz, tc.sfjj, tc.wldh, tc.bz, tc.yqdhrq, tc.kpsl, tc.fksl, tc.tksl, tc.kpje,
-        tc.fkje, tc.tkje, tc.fj, tc.address, tc.tel, tc.contact, tc.zdr, tc.zdrq, tc.qr, tc.qrr, tc.qrrq, tc.sh, tc.shr, tc.shrq, tc.kssh,
+        tc.fkje, tc.tkje, tc.fj, tc.address, tc.tel, tc.contact, tc.zdr, tc.zdrq, tc.qr, tc.qrr, tc.qrrq, tc.sh, tc.auditor, tc.shrq, tc.kssh,
         tc.ksshr, tc.ksshrq, tc.shqr, tc.shqrr, tc.shqrrq, tc.kstc, tc.kstcr, tc.kstcrq, tc.tcfh, tc.tcfhr, tc.tcfhrq, tc.yflr,
         tc.yflrr, tc.yflrrq, tc.ysflr, tc.ysflrr, tc.ysflrrq, tc.zs, tc.zsr, tc.zsrq, tc.zf, tc.zfr, tc.zfrq, tc.ex1, tc.ex2, tc.ex3
     </sql>
@@ -1186,116 +1186,115 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
-            <if test="djbh != null and djbh != ''">
-                and tc.djbh like CONCAT('%',#{djbh},'%')
+            <if test="tc.djbh != null and tc.djbh != ''">
+                and tc.djbh like CONCAT('%',#{tc.djbh},'%')
             </if>
-            <if test="startTime != null and endTime != null">
-                and tc.xdrq between #{startTime} and #{endTime}
+            <if test="tc.startTime != null and tc.endTime != null">
+                and tc.xdrq between #{startTime} and #{tc.endTime}
             </if>
-            <if test="xtdh != null and xtdh != ''">
-                and tc.xtdh like CONCAT('%',#{xtdh},'%')
+            <if test="tc.xtdh != null and tc.xtdh != ''">
+                and tc.xtdh like CONCAT('%',#{tc.xtdh},'%')
             </if>
-            <if test="ydjh != null and ydjh != ''">
-                and tc.ydjh like CONCAT('%',#{ydjh},'%')
+            <if test="tc.ydjh != null and tc.ydjh != ''">
+                and tc.ydjh like CONCAT('%',#{tc.ydjh},'%')
             </if>
-            <if test="userName != null and userName != ''">
-                and u.USERNAME like CONCAT('%',#{userName},'%')
+            <if test="tc.userName != null and tc.userName != ''">
+                and u.USERNAME like CONCAT('%',#{tc.userName},'%')
             </if>
-            <if test="bmmc != null and bmmc != ''">
-                and bmmc like CONCAT('%',#{bmmc},'%')
+            <if test="tc.bmmc != null and tc.bmmc != ''">
+                and bmmc like CONCAT('%',#{tc.bmmc},'%')
             </if>
-            <if test="gysmc != null and gysmc != ''">
-                and gysmc like CONCAT('%',#{gysmc},'%')
+            <if test="tc.gysmc != null and tc.gysmc != ''">
+                and gysmc like CONCAT('%',#{tc.gysmc},'%')
             </if>
-            <if test="ckmc != null and ckmc != ''">
-                and ckmc like CONCAT('%',#{ckmc},'%')
+            <if test="tc.ckmc != null and tc.ckmc != ''">
+                and ckmc like CONCAT('%',#{tc.ckmc},'%')
             </if>
-            <if test="fpsdmc != null and fpsdmc != ''">
-                and fpsdmc like CONCAT('%',#{fpsdmc},'%')
+            <if test="tc.fpsdmc != null and tc.fpsdmc != ''">
+                and fpsdmc like CONCAT('%',#{tc.fpsdmc},'%')
             </if>
-            <if test="fplxmc != null and fplxmc != ''">
-                and fplxmc like CONCAT('%',#{fplxmc},'%')
+            <if test="tc.fplxmc != null and tc.fplxmc != ''">
+                and fplxmc like CONCAT('%',#{tc.fplxmc},'%')
             </if>
-            <if test="djlxmc != null and djlxmc != ''">
-                and djlxmc like CONCAT('%',#{djlxmc},'%')
+            <if test="tc.djlxmc != null and tc.djlxmc != ''">
+                and djlxmc like CONCAT('%',#{tc.djlxmc},'%')
             </if>
-            <if test="cgfzrmc != null and cgfzrmc != ''">
-                and cu.USERNAME like CONCAT('%',#{cgfzrmc},'%')
+            <if test="tc.cgfzrmc != null and tc.cgfzrmc != ''">
+                and cu.USERNAME like CONCAT('%',#{tc.cgfzrmc},'%')
             </if>
-            <if test="xdfzrmc != null and xdfzrmc != ''">
-                and xu.USERNAME like CONCAT('%',#{xdfzrmc},'%')
+            <if test="tc.xdfzrmc != null and tc.xdfzrmc != ''">
+                and xu.USERNAME like CONCAT('%',#{tc.xdfzrmc},'%')
             </if>
-            <if test="sfdz != null ">
-                and cg.sfdz = #{sfdz}
+            <if test="tc.sfdz != null ">
+                and cg.sfdz = #{tc.sfdz}
             </if>
-            <if test="sfjj != null ">
-                and cg.sfjj = #{sfjj}
+            <if test="tc.sfjj != null ">
+                and cg.sfjj = #{tc.sfjj}
             </if>
-            <if test="wldh != null and wldh != ''">
-                and cg.wldh like CONCAT('%',#{wldh},'%')
+            <if test="tc.wldh != null and tc.wldh != ''">
+                and cg.wldh like CONCAT('%',#{tc.wldh},'%')
             </if>
-            <if test="yqdhrq != null">
-                and cg.yqdhrq = #{yqdhrq}
+            <if test="tc.yqdhrq != null">
+                and cg.yqdhrq = #{tc.yqdhrq}
             </if>
-            <if test="spdm != null and spdm != ''">
-                and sp.spdm like CONCAT('%',#{spdm},'%')
+            <if test="tc.spdm != null and tc.spdm != ''">
+                and sp.spdm like CONCAT('%',#{tc.spdm},'%')
             </if>
 
-            <if test="contact != null and contact != ''">
-                and cg.contact like CONCAT('%',#{contact},'%')
+            <if test="tc.contact != null and tc.contact != ''">
+                and cg.contact like CONCAT('%',#{tc.contact},'%')
             </if>
-            <if test="qr != null">
-                and cg.qr = #{qr}
+            <if test="tc.qr != null">
+                and cg.qr = #{tc.qr}
             </if>
-            <if test="qrr != null and qrr != ''">
-                and cg.qrr like CONCAT('%',#{qrr},'%')
+            <if test="tc.qrr != null and tc.qrr != ''">
+                and cg.qrr like CONCAT('%',#{tc.qrr},'%')
             </if>
-            <if test="sh != null">
-                and cg.sh = #{sh}
+            <if test="tc.sh != null">
+                and cg.sh = #{tc.sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and cg.shr like CONCAT('%',#{shr},'%')
+            <if test="tc.auditor != null and tc.auditor != ''">
+                and cg.auditor like CONCAT('%',#{tc.auditor},'%')
             </if>
-            <if test="kssh != null">
-                and cg.kssh = #{kssh}
+            <if test="tc.kssh != null">
+                and cg.kssh = #{tc.kssh}
             </if>
-            <if test="ksshr != null and ksshr != ''">
-                and cg.ksshr like CONCAT('%',#{ksshr},'%')
+            <if test="tc.ksshr != null and tc.ksshr != ''">
+                and cg.ksshr like CONCAT('%',#{tc.ksshr},'%')
             </if>
-            <if test="shqr != null">
-                and cg.shqr = #{shqr}
+            <if test="tc.shqr != null">
+                and cg.shqr = #{tc.shqr}
             </if>
-            <if test="shqrr != null and shqrr != ''">
-                and cg.shqrr like CONCAT('%',#{shqrr},'%')
+            <if test="tc.shqrr != null and tc.shqrr != ''">
+                and cg.shqrr like CONCAT('%',#{tc.shqrr},'%')
             </if>
-            <if test="cgfh != null">
-                and cg.cgfh = #{cgfh}
+            <if test="tc.cgfh != null">
+                and cg.cgfh = #{tc.cgfh}
             </if>
-            <if test="cgfhr != null and cgfhr != ''">
-                and cg.cgfhr like CONCAT('%',#{cgfhr},'%')
+            <if test="tc.cgfhr != null and tc.cgfhr != ''">
+                and cg.cgfhr like CONCAT('%',#{tc.cgfhr},'%')
             </if>
-            <if test="zs != null">
-                and cg.zs = #{zs}
+            <if test="tc.zs != null">
+                and cg.zs = #{tc.zs}
             </if>
-            <if test="zsr != null and zsr != ''">
-                and cg.zsr like CONCAT('%',#{zsr},'%')
+            <if test="tc.zsr != null and tc.zsr != ''">
+                and cg.zsr like CONCAT('%',#{tc.zsr},'%')
             </if>
-            <if test="ksfh != null">
-                and cg.ksfh = #{ksfh}
+            <if test="tc.ksfh != null">
+                and cg.ksfh = #{tc.ksfh}
             </if>
-            <if test="ksph != null">
-                and cg.ksph = #{ksph}
+            <if test="tc.ksph != null">
+                and cg.ksph = #{tc.ksph}
             </if>
-            <if test="yflr != null">
-                and cg.yflr = #{yflr}
+            <if test="tc.yflr != null">
+                and cg.yflr = #{tc.yflr}
             </if>
-            <if test="ecshr != null and ecshr != ''">
-                and cg.ecshr like CONCAT('%',#{ecshr},'%')
+            <if test="tc.ecshr != null and tc.ecshr != ''">
+                and cg.ecshr like CONCAT('%',#{tc.ecshr},'%')
             </if>
-            <if test="ysflr != null">
-                and cg.ysflr = #{ysflr}
+            <if test="tc.ysflr != null">
+                and cg.ysflr = #{tc.ysflr}
             </if>
-            <!-- 分配下单 ？？ -->
         </where>
     </select>
 
@@ -1385,8 +1384,8 @@
             <if test="sh != null">
                 and cg.sh = #{sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and cg.shr like CONCAT('%',#{shr},'%')
+            <if test="auditor != null and auditor != ''">
+                and cg.auditor like CONCAT('%',#{auditor},'%')
             </if>
             <if test="kssh != null">
                 and cg.kssh = #{kssh}
@@ -1427,7 +1426,6 @@
             <if test="ysflr != null">
                 and cg.ysflr = #{ysflr}
             </if>
-            <!-- 分配下单 ？？ -->
         </where>
     </select>
 

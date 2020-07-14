@@ -125,7 +125,7 @@ public class PurchaseTcController extends BaseController {
         PurchaseTc purchaseTc = new PurchaseTc();
         purchaseTc.setId(id );
         purchaseTc.setSh((byte)1);
-        purchaseTc.setShr(user.getUsername());
+        purchaseTc.setAuditor(user.getUsername());
         purchaseTc.setShrq(new Date());
         this.purchaseTcService.updatePurchaseTc(purchaseTc);
         return new FebsResponse().success();

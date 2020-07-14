@@ -39,7 +39,7 @@ public interface PurchaseCgfpmxMapper extends BaseMapper<PurchaseCgfpmx> {
 
     int updateByPrimaryKey(PurchaseCgfpmx record);
 
-    IPage<PurchaseCgfpmxResp> selectPageByQuery(Page<PurchaseCgfpmx> page, PurchaseCgfpmx req);
+    IPage<PurchaseCgfpmxResp> selectPageByQuery(Page<PurchaseCgfpmx> page,@Param("mx") PurchaseCgfpmx req);
 
     List<PurchaseCgfpmxResp> selectByQuery(PurchaseCgfpmx req);
 }

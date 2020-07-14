@@ -747,17 +747,17 @@ public class OrderXsfpExample {
         }
 
         public Criteria andShrIsNull() {
-            addCriterion("shr is null");
+            addCriterion("auditor is null");
             return (Criteria) this;
         }
 
         public Criteria andShrIsNotNull() {
-            addCriterion("shr is not null");
+            addCriterion("auditor is not null");
             return (Criteria) this;
         }
 
         public Criteria andShrEqualTo(String value) {
-            addCriterion("shr =", value, "shr");
+            addCriterion("auditor =", value, "auditor");
             return (Criteria) this;
         }
 

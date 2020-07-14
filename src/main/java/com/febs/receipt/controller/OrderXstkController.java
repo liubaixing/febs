@@ -55,7 +55,7 @@ public class OrderXstkController extends BaseController {
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("orderXstk:list")
+//    @RequiresPermissions("orderXstk:list")
     public FebsResponse orderXstkList(QueryRequest request, OrderXstkReq orderXstk) {
         Map<String, Object> dataTable = getDataTable(this.orderXstkService.findOrderXstks(request, orderXstk));
         return new FebsResponse().success().data(dataTable);
@@ -113,7 +113,7 @@ public class OrderXstkController extends BaseController {
         OrderXstk xstk = new OrderXstk();
         xstk.setId(id);
         xstk.setSh((byte)1);
-        xstk.setShr(user.getUsername());
+        xstk.setAuditor(user.getUsername());
         xstk.setShrq(new Date());
         xstkBiz.update(xstk);
         return new FebsResponse().success();
@@ -121,20 +121,20 @@ public class OrderXstkController extends BaseController {
 
     @ApiOperation("生成")
     @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
-    @PostMapping("/create/{id}")
+    @PostMapping("/create")
     @RequiresPermissions("orderXssk:create")
     public FebsResponse createorderXssk(@RequestBody OrderXstkReq req ){
 
         return new FebsResponse().success();
     }
 
-    @ApiOperation("收款")
-    @ControllerEndpoint(operation = "收款", exceptionMessage = "收款失败")
-    @GetMapping("/kp/{id}")
-    @RequiresPermissions("orderXssk:kp")
-    public FebsResponse sk(@PathVariable Long id ){
+    @ApiOperation("退款(销退单号)")
+    @ControllerEndpoint(operation = "退款", exceptionMessage = "退款失败")
+    @GetMapping("/tk/{djbh}")
+    @RequiresPermissions("orderXssk:tk")
+    public FebsResponse tk(@PathVariable String djbh ){
         User user = getCurrentUser();
-
+        xstkBiz.sk();
         return new FebsResponse().success();
     }
 

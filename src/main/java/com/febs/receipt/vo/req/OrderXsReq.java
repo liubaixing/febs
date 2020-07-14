@@ -1,11 +1,11 @@
 package com.febs.receipt.vo.req;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
-import com.alibaba.excel.annotation.ExcelProperty;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +14,10 @@ import java.util.List;
 public class OrderXsReq extends OrderXs {
 
     @ApiModelProperty("下单开始")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty("下单结束")
     private Date endTime;
 
@@ -64,6 +66,11 @@ public class OrderXsReq extends OrderXs {
     @ApiModelProperty("通知数")
     private Integer tzsl;
 
+    @ApiModelProperty("执行方式 0:自发,1:自发")
+    private Integer zxfs;
+
+    @ApiModelProperty("销售明细list")
+    @ExcelIgnore
     List<OrderXsmx> orderXsmxList;
 
 }

@@ -7,6 +7,7 @@ import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXsfp;
 import com.febs.receipt.entity.OrderXssk;
+import com.febs.receipt.entity.OrderXsskExample;
 import com.febs.receipt.mapper.OrderXsskMapper;
 import com.febs.receipt.service.IOrderXsskService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -71,6 +72,12 @@ public class OrderXsskServiceImpl extends ServiceImpl<OrderXsskMapper, OrderXssk
     @Transactional
     public void updateOrderXssk(OrderXssk orderXssk) {
         this.orderXsskMapper.updateByPrimaryKeySelective(orderXssk);
+    }
+
+    @Override
+    @Transactional
+    public void updateByExample(OrderXssk orderXssk,OrderXsskExample example) {
+        this.orderXsskMapper.updateByExampleSelective(orderXssk,example);
     }
 
     @Override

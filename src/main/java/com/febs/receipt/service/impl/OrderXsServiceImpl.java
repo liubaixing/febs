@@ -45,9 +45,8 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     }
 
     @Override
-    public List<OrderXs> findOrderXss(OrderXsReq orderXs) {
-        OrderXsExample example = buildQueryExample(orderXs);
-		return this.orderXsMapper.selectByExample(example);
+    public List<OrderXsResp> findOrderXss(OrderXsReq orderXs) {
+		return this.orderXsMapper.selectByQuery(orderXs);
     }
 
     public OrderXsResp selectOneByQuery(OrderXsReq req){
@@ -87,7 +86,13 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         this.orderXsMapper.updateByPrimaryKeySelective(orderXs);
         OrderXsReq req = new OrderXsReq();
         req.setId(orderXs.getId());
-        return this.orderXsMapper.selectOneByQuery(req);
+        return findOrderXss(req).get(0);
+    }
+
+    @Override
+    @Transactional
+    public void updateByExample(OrderXs orderXs,OrderXsExample example) {
+        this.orderXsMapper.updateByExampleSelective(orderXs,example);
     }
 
     @Override

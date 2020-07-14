@@ -39,7 +39,7 @@
         <result column="qrr" jdbcType="VARCHAR" property="qrr" />
         <result column="qrrq" jdbcType="TIMESTAMP" property="qrrq" />
         <result column="sh" jdbcType="TINYINT" property="sh" />
-        <result column="shr" jdbcType="VARCHAR" property="shr" />
+        <result column="auditor" jdbcType="VARCHAR" property="auditor" />
         <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
         <result column="ecsh" jdbcType="TINYINT" property="ecsh" />
         <result column="ecshr" jdbcType="VARCHAR" property="ecshr" />
@@ -139,7 +139,7 @@
     <sql id="Base_Column_List">
     Id, djbh, xdrq, xsdh, ydjh, user_id, bm_id, gys_id, cangku_id, fpsl_id, fplx_id,
     djlx_id, cgfzr, xdfzr, sfjj, sfdz, wldh, yqdhrq, bz, address, tel, contact, sl, kpsl,
-    fksl, tksl, je, kpje, fkje, tkje, fj, zdr, zdrq, qr, qrr, qrrq, sh, shr, shrq, ecsh,
+    fksl, tksl, je, kpje, fkje, tkje, fj, zdr, zdrq, qr, qrr, qrrq, sh, auditor, shrq, ecsh,
     ecshr, ecshrq, kssh, ksshr, ksshrq, shqr, shqrr, shqrrq, ksfh, ksfhr, ksfhrq, ksph,
     ksphr, ksphrq, cgfh, cgfhr, cgfhrq, yflr, yflrr, yflrrq, ysflr, ysflrr, ysflrrq,
     sctc, sctcr, sctcrq, zs, zsr, zsrq, zf, zfr, zfrq, ex1, ex2, ex3
@@ -185,7 +185,7 @@
       sl, kpsl, fksl, tksl,
       je, kpje, fkje, tkje,
       fj, zdr, zdrq, qr,
-      qrr, qrrq, sh, shr,
+      qrr, qrrq, sh, auditor,
       shrq, ecsh, ecshr,
       ecshrq, kssh, ksshr,
       ksshrq, shqr, shqrr,
@@ -208,7 +208,7 @@
       #{sl,jdbcType=INTEGER}, #{kpsl,jdbcType=INTEGER}, #{fksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER},
       #{je,jdbcType=DECIMAL}, #{kpje,jdbcType=DECIMAL}, #{fkje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL},
       #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, #{zdrq,jdbcType=TIMESTAMP}, #{qr,jdbcType=TINYINT},
-      #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR},
+      #{qrr,jdbcType=VARCHAR}, #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{auditor,jdbcType=VARCHAR},
       #{shrq,jdbcType=TIMESTAMP}, #{ecsh,jdbcType=TINYINT}, #{ecshr,jdbcType=VARCHAR},
       #{ecshrq,jdbcType=TIMESTAMP}, #{kssh,jdbcType=TINYINT}, #{ksshr,jdbcType=VARCHAR},
       #{ksshrq,jdbcType=TIMESTAMP}, #{shqr,jdbcType=TINYINT}, #{shqrr,jdbcType=VARCHAR},
@@ -333,8 +333,8 @@
             <if test="sh != null">
                 sh,
             </if>
-            <if test="shr != null">
-                shr,
+            <if test="auditor != null">
+                auditor,
             </if>
             <if test="shrq != null">
                 shrq,
@@ -557,8 +557,8 @@
             <if test="sh != null">
                 #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 #{shrq,jdbcType=TIMESTAMP},
@@ -793,8 +793,8 @@
             <if test="record.sh != null">
                 sh = #{record.sh,jdbcType=TINYINT},
             </if>
-            <if test="record.shr != null">
-                shr = #{record.shr,jdbcType=VARCHAR},
+            <if test="record.auditor != null">
+                auditor = #{record.auditor,jdbcType=VARCHAR},
             </if>
             <if test="record.shrq != null">
                 shrq = #{record.shrq,jdbcType=TIMESTAMP},
@@ -951,7 +951,7 @@
         qrr = #{record.qrr,jdbcType=VARCHAR},
         qrrq = #{record.qrrq,jdbcType=TIMESTAMP},
         sh = #{record.sh,jdbcType=TINYINT},
-        shr = #{record.shr,jdbcType=VARCHAR},
+        auditor = #{record.auditor,jdbcType=VARCHAR},
         shrq = #{record.shrq,jdbcType=TIMESTAMP},
         ecsh = #{record.ecsh,jdbcType=TINYINT},
         ecshr = #{record.ecshr,jdbcType=VARCHAR},
@@ -1104,8 +1104,8 @@
             <if test="sh != null">
                 sh = #{sh,jdbcType=TINYINT},
             </if>
-            <if test="shr != null">
-                shr = #{shr,jdbcType=VARCHAR},
+            <if test="auditor != null">
+                auditor = #{auditor,jdbcType=VARCHAR},
             </if>
             <if test="shrq != null">
                 shrq = #{shrq,jdbcType=TIMESTAMP},
@@ -1259,7 +1259,7 @@
       qrr = #{qrr,jdbcType=VARCHAR},
       qrrq = #{qrrq,jdbcType=TIMESTAMP},
       sh = #{sh,jdbcType=TINYINT},
-      shr = #{shr,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
       shrq = #{shrq,jdbcType=TIMESTAMP},
       ecsh = #{ecsh,jdbcType=TINYINT},
       ecshr = #{ecshr,jdbcType=VARCHAR},
@@ -1304,7 +1304,7 @@
         cg.Id, cg.djbh, cg.xdrq, cg.xsdh, cg.ydjh, cg.user_id, cg.bm_id, cg.gys_id, cg.cangku_id, cg.fpsl_id, cg.fplx_id,
         cg.djlx_id, cg.cgfzr, cg.xdfzr, cg.sfjj, cg.sfdz, cg.wldh, cg.yqdhrq, cg.bz, cg.address, cg.tel, cg.contact,
 		cg.kpsl, cg.fksl, cg.tksl, cg.kpje, cg.fkje, cg.tkje, cg.fj, cg.zdr, cg.zdrq, cg.qr, cg.qrr, cg.qrrq, cg.sh,
-		cg.shr, cg.shrq, cg.ecsh, cg.ecshr, cg.ecshrq, cg.kssh, cg.ksshr, cg.ksshrq, cg.shqr, cg.shqrr, cg.shqrrq, cg.ksfh,
+		cg.auditor, cg.shrq, cg.ecsh, cg.ecshr, cg.ecshrq, cg.kssh, cg.ksshr, cg.ksshrq, cg.shqr, cg.shqrr, cg.shqrrq, cg.ksfh,
 		cg.ksfhr, cg.ksfhrq, cg.ksph,cg.ksphr, cg.ksphrq, cg.cgfh, cg.cgfhr, cg.cgfhrq, cg.yflr, cg.yflrr, cg.yflrrq, cg.ysflr,
 		cg.ysflrr, cg.ysflrrq,cg.sctc, cg.sctcr, cg.sctcrq, cg.zs, cg.zsr, cg.zsrq, cg.zf, cg.zfr, cg.zfrq, cg.ex1, cg.ex2, cg.ex3
     </sql>
@@ -1328,116 +1328,115 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
-            <if test="djbh != null and djbh != ''">
-                and cg.djbh like CONCAT('%',#{djbh},'%')
+            <if test="cg.djbh != null and cg.djbh != ''">
+                and cg.djbh like CONCAT('%',#{cg.djbh},'%')
             </if>
-            <if test="startTime != null and endTime != null">
-                and cg.xdrq between #{startTime} and #{endTime}
+            <if test="cg.startTime != null and cg.endTime != null">
+                and cg.xdrq between #{cg.startTime} and #{cg.endTime}
             </if>
-            <if test="xsdh != null and xsdh != ''">
-                and cg.xsdh like CONCAT('%',#{xsdh},'%')
+            <if test="cg.xsdh != null and cg.xsdh != ''">
+                and cg.xsdh like CONCAT('%',#{cg.xsdh},'%')
             </if>
-            <if test="ydjh != null and ydjh != ''">
-                and cg.ydjh like CONCAT('%',#{ydjh},'%')
+            <if test="cg.ydjh != null and cg.ydjh != ''">
+                and cg.ydjh like CONCAT('%',#{cg.ydjh},'%')
             </if>
-            <if test="userName != null and userName != ''">
-                and u.USERNAME like CONCAT('%',#{userName},'%')
+            <if test="cg.userName != null and cg.userName != ''">
+                and u.USERNAME like CONCAT('%',#{cg.userName},'%')
             </if>
-            <if test="bmmc != null and bmmc != ''">
-                and bmmc like CONCAT('%',#{bmmc},'%')
+            <if test="cg.bmmc != null and cg.bmmc != ''">
+                and bmmc like CONCAT('%',#{cg.bmmc},'%')
             </if>
-            <if test="gysmc != null and gysmc != ''">
-                and gysmc like CONCAT('%',#{gysmc},'%')
+            <if test="cg.gysmc != null and cg.gysmc != ''">
+                and gysmc like CONCAT('%',#{cg.gysmc},'%')
             </if>
-            <if test="ckmc != null and ckmc != ''">
-                and ckmc like CONCAT('%',#{ckmc},'%')
+            <if test="cg.ckmc != null and cg.ckmc != ''">
+                and ckmc like CONCAT('%',#{cg.ckmc},'%')
             </if>
-            <if test="fpsdmc != null and fpsdmc != ''">
-                and fpsdmc like CONCAT('%',#{fpsdmc},'%')
+            <if test="cg.fpsdmc != null and cg.fpsdmc != ''">
+                and fpsdmc like CONCAT('%',#{cg.fpsdmc},'%')
             </if>
-            <if test="fplxmc != null and fplxmc != ''">
-                and fplxmc like CONCAT('%',#{fplxmc},'%')
+            <if test="cg.fplxmc != null and cg.fplxmc != ''">
+                and fplxmc like CONCAT('%',#{cg.fplxmc},'%')
             </if>
-            <if test="djlxmc != null and djlxmc != ''">
-                and djlxmc like CONCAT('%',#{djlxmc},'%')
+            <if test="cg.djlxmc != null and cg.djlxmc != ''">
+                and djlxmc like CONCAT('%',#{cg.djlxmc},'%')
             </if>
-            <if test="cgfzrmc != null and cgfzrmc != ''">
-                and cu.USERNAME like CONCAT('%',#{cgfzrmc},'%')
+            <if test="cg.cgfzrmc != null and cg.cgfzrmc != ''">
+                and cu.USERNAME like CONCAT('%',#{cg.cgfzrmc},'%')
             </if>
-            <if test="xdfzrmc != null and xdfzrmc != ''">
-                and xu.USERNAME like CONCAT('%',#{xdfzrmc},'%')
+            <if test="cg.xdfzrmc != null and cg.xdfzrmc != ''">
+                and xu.USERNAME like CONCAT('%',#{cg.xdfzrmc},'%')
             </if>
-            <if test="sfdz != null ">
-                and cg.sfdz = #{sfdz}
+            <if test="cg.sfdz != null ">
+                and cg.sfdz = #{cg.sfdz}
             </if>
-            <if test="sfjj != null ">
-                and cg.sfjj = #{sfjj}
+            <if test="cg.sfjj != null ">
+                and cg.sfjj = #{cg.sfjj}
             </if>
-            <if test="wldh != null and wldh != ''">
-                and cg.wldh like CONCAT('%',#{wldh},'%')
+            <if test="cg.wldh != null and cg.wldh != ''">
+                and cg.wldh like CONCAT('%',#{cg.wldh},'%')
             </if>
-            <if test="yqdhrq != null">
-                and cg.yqdhrq = #{yqdhrq}
+            <if test="cg.yqdhrq != null">
+                and cg.yqdhrq = #{cg.yqdhrq}
             </if>
-            <if test="spdm != null and spdm != ''">
-                and sp.spdm like CONCAT('%',#{spdm},'%')
+            <if test="cg.spdm != null and cg.spdm != ''">
+                and sp.spdm like CONCAT('%',#{cg.spdm},'%')
             </if>
 
-            <if test="contact != null and contact != ''">
-                and cg.contact like CONCAT('%',#{contact},'%')
+            <if test="cg.contact != null and cg.contact != ''">
+                and cg.contact like CONCAT('%',#{cg.contact},'%')
             </if>
-            <if test="qr != null">
-                and cg.qr = #{qr}
+            <if test="cg.qr != null">
+                and cg.qr = #{cg.qr}
             </if>
-            <if test="qrr != null and qrr != ''">
-                and cg.qrr like CONCAT('%',#{qrr},'%')
+            <if test="cg.qrr != null and cg.qrr != ''">
+                and cg.qrr like CONCAT('%',#{cg.qrr},'%')
             </if>
-            <if test="sh != null">
-                and cg.sh = #{sh}
+            <if test="cg.sh != null">
+                and cg.sh = #{cg.sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and cg.shr like CONCAT('%',#{shr},'%')
+            <if test="cg.auditor != null and cg.auditor != ''">
+                and cg.auditor like CONCAT('%',#{cg.auditor},'%')
             </if>
-            <if test="kssh != null">
-                and cg.kssh = #{kssh}
+            <if test="cg.kssh != null">
+                and cg.kssh = #{cg.kssh}
             </if>
-            <if test="ksshr != null and ksshr != ''">
-                and cg.ksshr like CONCAT('%',#{ksshr},'%')
+            <if test="cg.ksshr != null and cg.ksshr != ''">
+                and cg.ksshr like CONCAT('%',#{cg.ksshr},'%')
             </if>
-            <if test="shqr != null">
-                and cg.shqr = #{shqr}
+            <if test="cg.shqr != null">
+                and cg.shqr = #{cg.shqr}
             </if>
-            <if test="shqrr != null and shqrr != ''">
-                and cg.shqrr like CONCAT('%',#{shqrr},'%')
+            <if test="cg.shqrr != null and cg.shqrr != ''">
+                and cg.shqrr like CONCAT('%',#{cg.shqrr},'%')
             </if>
-            <if test="cgfh != null">
-                and cg.cgfh = #{cgfh}
+            <if test="cg.cgfh != null">
+                and cg.cgfh = #{cg.cgfh}
             </if>
-            <if test="cgfhr != null and cgfhr != ''">
-                and cg.cgfhr like CONCAT('%',#{cgfhr},'%')
+            <if test="cg.cgfhr != null and cg.cgfhr != ''">
+                and cg.cgfhr like CONCAT('%',#{cg.cgfhr},'%')
             </if>
-            <if test="zs != null">
-                and cg.zs = #{zs}
+            <if test="cg.zs != null">
+                and cg.zs = #{cg.zs}
             </if>
-            <if test="zsr != null and zsr != ''">
-                and cg.zsr like CONCAT('%',#{zsr},'%')
+            <if test="cg.zsr != null and cg.zsr != ''">
+                and cg.zsr like CONCAT('%',#{cg.zsr},'%')
             </if>
-            <if test="ksfh != null">
-                and cg.ksfh = #{ksfh}
+            <if test="cg.ksfh != null">
+                and cg.ksfh = #{cg.ksfh}
             </if>
-            <if test="ksph != null">
-                and cg.ksph = #{ksph}
+            <if test="cg.ksph != null">
+                and cg.ksph = #{cg.ksph}
             </if>
-            <if test="yflr != null">
-                and cg.yflr = #{yflr}
+            <if test="cg.yflr != null">
+                and cg.yflr = #{cg.yflr}
             </if>
-            <if test="ecshr != null and ecshr != ''">
-                and cg.ecshr like CONCAT('%',#{ecshr},'%')
+            <if test="cg.ecshr != null and cg.ecshr != ''">
+                and cg.ecshr like CONCAT('%',#{cg.ecshr},'%')
             </if>
-            <if test="ysflr != null">
-                and cg.ysflr = #{ysflr}
+            <if test="cg.ysflr != null">
+                and cg.ysflr = #{cg.ysflr}
             </if>
-            <!-- 分配下单 ？？ -->
         </where>
     </select>
 
@@ -1527,8 +1526,8 @@
             <if test="sh != null">
                 and cg.sh = #{sh}
             </if>
-            <if test="shr != null and shr != ''">
-                and cg.shr like CONCAT('%',#{shr},'%')
+            <if test="auditor != null and auditor != ''">
+                and cg.auditor like CONCAT('%',#{auditor},'%')
             </if>
             <if test="kssh != null">
                 and cg.kssh = #{kssh}

@@ -10,7 +10,9 @@ import com.febs.receipt.biz.OrderXsskBiz;
 import com.febs.receipt.entity.OrderXssk;
 import com.febs.receipt.service.IOrderXsskService;
 
+import com.febs.receipt.vo.req.OrderXsskCreateReq;
 import com.febs.receipt.vo.req.OrderXsskReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.receipt.vo.resp.OrderXsskResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
@@ -112,7 +114,7 @@ public class OrderXsskController extends BaseController {
         OrderXssk xssk = new OrderXssk();
         xssk.setId(id);
         xssk.setSh((byte)1);
-        xssk.setShr(user.getUsername());
+        xssk.setAuditor(user.getUsername());
         xssk.setShrq(new Date());
         xsskBiz.update(xssk);
         return new FebsResponse().success();
@@ -120,20 +122,26 @@ public class OrderXsskController extends BaseController {
 
     @ApiOperation("生成")
     @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
-    @PostMapping("/create/{id}")
+    @PostMapping("/create")
     @RequiresPermissions("orderXssk:create")
-    public FebsResponse createorderXssk(@RequestBody OrderXsskReq req ){
-
+    public FebsResponse createorderXssk(@RequestBody OrderXsskCreateReq req){
+        User user = getCurrentUser();
+        xsskBiz.create(req,user);
         return new FebsResponse().success();
     }
 
-    @ApiOperation("收款")
+    @ApiOperation("收款(收款单号)")
     @ControllerEndpoint(operation = "收款", exceptionMessage = "收款失败")
-    @GetMapping("/kp/{id}")
+    @GetMapping("/kp/{djbh}")
     @RequiresPermissions("orderXssk:kp")
-    public FebsResponse sk(@PathVariable Long id ){
+    public FebsResponse sk(@PathVariable String djbh ){
         User user = getCurrentUser();
-
+        OrderXssk xssk = new OrderXssk();
+        xssk.setDjbh(djbh);
+        xssk.setSk((byte)1);
+        xssk.setSkr(user.getUsername());
+        xssk.setSkrq(new Date());
+        xsskBiz.sk(xssk);
         return new FebsResponse().success();
     }
 

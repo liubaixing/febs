@@ -121,7 +121,7 @@ public class OrderXtBiz {
         if (status == true && orderXt.getSh() == 1) throw new FebsException("销退单已审核");
         if (status == false && orderXt.getSh() == 0) throw new FebsException("销退单未审核");
         orderXt.setSh(req.getSh());
-        orderXt.setShr(req.getShr());
+        orderXt.setAuditor(req.getAuditor());
         orderXt.setShrq(new Date());
         xtService.updateOrderXt(orderXt);
     }

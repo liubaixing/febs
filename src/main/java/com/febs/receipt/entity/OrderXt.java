@@ -287,8 +287,8 @@ public class OrderXt {
      */
     @ApiModelProperty("审核人")
     @ExcelIgnore
-    @TableField("shr")
-    private String shr;
+    @TableField("auditor")
+    private String auditor;
 
     /**
      * 审核日期

@@ -2076,73 +2076,73 @@ public class OrderXsExample {
             return (Criteria) this;
         }
 
-        public Criteria andShrIsNull() {
-            addCriterion("shr is null");
+        public Criteria andAuditorIsNull() {
+            addCriterion("auditor is null");
             return (Criteria) this;
         }
 
-        public Criteria andShrIsNotNull() {
-            addCriterion("shr is not null");
+        public Criteria andAuditorIsNotNull() {
+            addCriterion("auditor is not null");
             return (Criteria) this;
         }
 
-        public Criteria andShrEqualTo(String value) {
-            addCriterion("shr =", value, "shr");
+        public Criteria andAuditorEqualTo(String value) {
+            addCriterion("auditor =", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrNotEqualTo(String value) {
-            addCriterion("shr <>", value, "shr");
+        public Criteria andAuditorNotEqualTo(String value) {
+            addCriterion("auditor <>", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrGreaterThan(String value) {
-            addCriterion("shr >", value, "shr");
+        public Criteria andAuditorGreaterThan(String value) {
+            addCriterion("shr >", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrGreaterThanOrEqualTo(String value) {
-            addCriterion("shr >=", value, "shr");
+        public Criteria andAuditorGreaterThanOrEqualTo(String value) {
+            addCriterion("auditor >=", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrLessThan(String value) {
-            addCriterion("shr <", value, "shr");
+        public Criteria andAuditorLessThan(String value) {
+            addCriterion("auditor <", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrLessThanOrEqualTo(String value) {
-            addCriterion("shr <=", value, "shr");
+        public Criteria andAuditorLessThanOrEqualTo(String value) {
+            addCriterion("auditor <=", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrLike(String value) {
-            addCriterion("shr like", value, "shr");
+        public Criteria andAuditorLike(String value) {
+            addCriterion("auditor like", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrNotLike(String value) {
-            addCriterion("shr not like", value, "shr");
+        public Criteria andAuditorNotLike(String value) {
+            addCriterion("auditor not like", value, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrIn(List<String> values) {
-            addCriterion("shr in", values, "shr");
+        public Criteria andAuditorIn(List<String> values) {
+            addCriterion("auditor in", values, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrNotIn(List<String> values) {
-            addCriterion("shr not in", values, "shr");
+        public Criteria andAuditorNotIn(List<String> values) {
+            addCriterion("auditor not in", values, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrBetween(String value1, String value2) {
-            addCriterion("shr between", value1, value2, "shr");
+        public Criteria andAuditorBetween(String value1, String value2) {
+            addCriterion("auditor between", value1, value2, "auditor");
             return (Criteria) this;
         }
 
-        public Criteria andShrNotBetween(String value1, String value2) {
-            addCriterion("shr not between", value1, value2, "shr");
+        public Criteria andAuditorNotBetween(String value1, String value2) {
+            addCriterion("auditor not between", value1, value2, "auditor");
             return (Criteria) this;
         }
 
