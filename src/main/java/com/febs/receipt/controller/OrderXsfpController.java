@@ -52,13 +52,13 @@ public class OrderXsfpController extends BaseController {
     private OrderXsfpBiz xsfpBiz;
 
     @GetMapping("")
-    @RequiresPermissions("orderXsfp:list")
+//    @RequiresPermissions("orderXsfp:list")
     public FebsResponse getAllOrderXsfps(OrderXsfpReq orderXsfp) {
         return new FebsResponse().success().data(orderXsfpService.findOrderXsfps(orderXsfp));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("orderXsfp:list")
+//    @RequiresPermissions("orderXsfp:list")
     public FebsResponse orderXsfpList(QueryRequest request, OrderXsfpReq orderXsfp) {
         Map<String, Object> dataTable = getDataTable(this.orderXsfpService.findOrderXsfps(request, orderXsfp));
         return new FebsResponse().success().data(dataTable);
@@ -66,7 +66,7 @@ public class OrderXsfpController extends BaseController {
 
     @ControllerEndpoint(operation = "新增销售发票", exceptionMessage = "新增销售发票失败")
     @PostMapping("")
-    @RequiresPermissions("orderXsfp:add")
+//    @RequiresPermissions("orderXsfp:add")
     public FebsResponse addOrderXsfp(@Valid OrderXsfpReq req) {
         User user = getCurrentUser();
         req.setZdr(user.getUsername());
@@ -76,7 +76,7 @@ public class OrderXsfpController extends BaseController {
 
     @ControllerEndpoint(operation = "删除销售发票", exceptionMessage = "删除销售发票失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("orderXsfp:delete")
+//    @RequiresPermissions("orderXsfp:delete")
     public FebsResponse deleteOrderXsfp(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.orderXsfpService.deleteOrderXsfp(id);
@@ -85,7 +85,7 @@ public class OrderXsfpController extends BaseController {
 
     @ControllerEndpoint(operation = "修改销售发票", exceptionMessage = "修改销售发票失败")
     @PostMapping("/update")
-    @RequiresPermissions("orderXsfp:update")
+//    @RequiresPermissions("orderXsfp:update")
     public FebsResponse updateOrderXsfp(OrderXsfp orderXsfp) {
         this.orderXsfpService.updateOrderXsfp(orderXsfp);
         return new FebsResponse().success();
@@ -95,7 +95,7 @@ public class OrderXsfpController extends BaseController {
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售发票", exceptionMessage = "确认销售发票失败")
     @GetMapping("/confirm/{id}")
-    @RequiresPermissions("orderXsfp:confirm")
+//    @RequiresPermissions("orderXsfp:confirm")
     public FebsResponse orderXsfpConfirm(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXsfp xsfp = new OrderXsfp();
@@ -110,7 +110,7 @@ public class OrderXsfpController extends BaseController {
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核销售发票", exceptionMessage = "审核销售发票失败")
     @GetMapping("/check/{id}")
-    @RequiresPermissions("orderXsfp:check")
+//    @RequiresPermissions("orderXsfp:check")
     public FebsResponse orderXsfpCheck(@PathVariable Long id ){
         User user = getCurrentUser();
         OrderXsfp xsfp = new OrderXsfp();
@@ -125,7 +125,7 @@ public class OrderXsfpController extends BaseController {
     @ApiOperation("生成")
     @ControllerEndpoint(operation = "生成销售发票", exceptionMessage = "生成销售发票失败")
     @PostMapping("/create/{id}")
-    @RequiresPermissions("orderXsfp:create")
+//    @RequiresPermissions("orderXsfp:create")
     public FebsResponse createOrderXsfp(OrderXsfpReq req){
 
         return new FebsResponse().success();
@@ -134,7 +134,7 @@ public class OrderXsfpController extends BaseController {
     @ApiOperation("开票")
     @ControllerEndpoint(operation = "开票", exceptionMessage = "开票失败")
     @GetMapping("/kp/{id}")
-    @RequiresPermissions("orderXsfp:kp")
+//    @RequiresPermissions("orderXsfp:kp")
     public FebsResponse kp(@PathVariable Long id ){
         User user = getCurrentUser();
         OrderXsfp xsfp = new OrderXsfp();
@@ -148,7 +148,7 @@ public class OrderXsfpController extends BaseController {
     @ApiOperation("查看")
     @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
     @GetMapping("/view/{id}")
-    @RequiresPermissions("orderXsfp:view")
+//    @RequiresPermissions("orderXsfp:view")
     public FebsResponse view(@PathVariable Long id ){
         return new FebsResponse().data(xsfpBiz.view(id));
     }

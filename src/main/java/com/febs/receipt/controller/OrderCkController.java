@@ -64,7 +64,7 @@ public class OrderCkController extends BaseController {
 
     @ControllerEndpoint(operation = "新增出库单", exceptionMessage = "新增出库单失败")
     @PostMapping("")
-    @RequiresPermissions("orderCk:add")
+//    @RequiresPermissions("orderCk:add")
     public FebsResponse addOrderCk(@Valid OrderCkReq req) {
         User user = getCurrentUser();
         req.setZdr(user.getUsername());
@@ -75,7 +75,7 @@ public class OrderCkController extends BaseController {
 
     @ControllerEndpoint(operation = "删除出库单", exceptionMessage = "删除出库单失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("orderCk:delete")
+//    @RequiresPermissions("orderCk:delete")
     public FebsResponse deleteOrderCk(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.orderCkService.deleteOrderCk(id);
@@ -84,7 +84,7 @@ public class OrderCkController extends BaseController {
 
     @ControllerEndpoint(operation = "修改出库单", exceptionMessage = "修改出库单失败")
     @PostMapping("/update")
-    @RequiresPermissions("orderCk:update")
+//    @RequiresPermissions("orderCk:update")
     public FebsResponse updateOrderCk(OrderCk orderCk) {
         this.orderCkService.updateOrderCk(orderCk);
         return new FebsResponse().success();
@@ -93,7 +93,7 @@ public class OrderCkController extends BaseController {
     @ApiOperation("查看")
     @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
     @GetMapping("/view/{id}")
-    @RequiresPermissions("orderCk:view")
+//    @RequiresPermissions("orderCk:view")
     public FebsResponse view(@PathVariable Long id ){
         return new FebsResponse().data(ckBiz.view(id));
     }
@@ -101,7 +101,7 @@ public class OrderCkController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("orderCk:export")
+//    @RequiresPermissions("orderCk:export")
     public void export(QueryRequest queryRequest, OrderCkReq orderCk, HttpServletResponse response) throws IOException {
         List<OrderCkResp> orderCks = this.orderCkService.findOrderCks(queryRequest, orderCk).getRecords();
         ExcelUtil.export(orderCks, OrderCkResp.class,"出库单",response);
@@ -111,7 +111,7 @@ public class OrderCkController extends BaseController {
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售收款单", exceptionMessage = "确认销售收款单失败")
     @GetMapping("/confirm/{id}")
-    @RequiresPermissions("orderCk:confirm")
+//    @RequiresPermissions("orderCk:confirm")
     public FebsResponse OrderXsskConfirm(@PathVariable Long id){
         User user = getCurrentUser();
         OrderCk ck = new OrderCk();
@@ -127,7 +127,7 @@ public class OrderCkController extends BaseController {
     @ApiOperation("关闭")
     @ControllerEndpoint(operation = "关闭", exceptionMessage = "关闭失败")
     @GetMapping("/close/{id}")
-    @RequiresPermissions("orderCk:close")
+//    @RequiresPermissions("orderCk:close")
     public FebsResponse close(@PathVariable Long id){
         User user = getCurrentUser();
         OrderCk ck = new OrderCk();
@@ -142,7 +142,7 @@ public class OrderCkController extends BaseController {
     @ApiOperation("作废")
     @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
     @GetMapping("/zf/{id}")
-    @RequiresPermissions("orderCk:zf")
+//    @RequiresPermissions("orderCk:zf")
     public FebsResponse zf(@PathVariable Long id){
         User user = getCurrentUser();
         OrderCk ck = new OrderCk();
@@ -157,7 +157,7 @@ public class OrderCkController extends BaseController {
     @ApiOperation("备货发货")
     @ControllerEndpoint(operation = "备货发货", exceptionMessage = "备货发货失败")
     @PostMapping("/bhfh")
-    @RequiresPermissions("orderCk:bhfh")
+//    @RequiresPermissions("orderCk:bhfh")
     public FebsResponse bhfh(OrderCkReq req){
         User user = getCurrentUser();
         OrderCk ck = new OrderCk();

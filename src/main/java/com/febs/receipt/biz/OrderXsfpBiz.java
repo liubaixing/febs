@@ -10,7 +10,7 @@ import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.req.OrderXsmxReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
 import com.febs.receipt.vo.resp.OrderXsmxResp;
-import com.febs.receipt.vo.resp.OrderXsskResp;
+import com.febs.receipt.vo.resp.OrderXtmxResp;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,11 +100,10 @@ public class OrderXsfpBiz {
 
         if (CollectionUtils.isEmpty(xsfpRespList)) throw new FebsException("发票单不存在");
 
-        String djbh = xsfpRespList.get(0).getYdjh();
-        String orderType = djbh.substring(0,2);
+        for (OrderXsfpResp fp : xsfpRespList){
+            String orderType = fp.getYdjh().substring(0,2);
 
-        if ("xs".equals(orderType)) {
-            for (OrderXsfpResp fp : xsfpRespList){
+            if ("xs".equals(orderType)) {
 
                 OrderXsExample example = new OrderXsExample();
                 example.createCriteria().andDjbhEqualTo(fp.getYdjh());
@@ -131,15 +130,33 @@ public class OrderXsfpBiz {
                 xs.setSkje(orderXs.getSkje().add(fp.getJe()));
                 xsService.updateOrderXs(xs);
 
+            } else if ("xt".equals(orderType)) {
+
+                OrderXtExample example = new OrderXtExample();
+                example.createCriteria().andDjbhEqualTo(fp.getYdjh());
+                OrderXt orderXt = xtMapper.selectByExample(example).get(0);
+
+                OrderXtmx orderXtmx = new OrderXtmx();
+                orderXtmx.setPid(orderXt.getId());
+                orderXtmx.setSpId(fp.getSpId());
+                OrderXtmxResp xtmxResp = xtmxService.findOrderXtmxs(orderXtmx).get(0);
+                if (xtmxResp.getTksl() + fp.getSl() > xtmxResp.getJhsl()) {
+                    throw new FebsException("退款数超出计划数");
+                }
+                OrderXtmx xtmx = new OrderXtmx();
+                xtmx.setId(xtmxResp.getId());
+                xtmx.setTksl(xtmxResp.getTksl() + fp.getSl());
+                xtmx.setTkje(xtmxResp.getTkje().add(fp.getJe()));
+                xtmxService.updateOrderXtmx(xtmx);
+
+                OrderXt xt = new OrderXt();
+                xt.setId(orderXt.getId());
+                xt.setTksl(orderXt.getTksl() + fp.getSl());
+                xt.setTkje(orderXt.getTkje().add(fp.getJe()));
+                xtService.updateOrderXt(xt);
+
             }
-
-
-        } else if ("xt".equals(orderType)) {
-
-
-
         }
-
         OrderXsfpExample example = new OrderXsfpExample();
         example.createCriteria().andDjbhEqualTo(xsfp.getDjbh());
         xsfpService.updateByExample(xsfp,example);

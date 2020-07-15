@@ -57,7 +57,7 @@ public class OrderXsController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("orderXs:list")
+//    @RequiresPermissions("orderXs:list")
     public FebsResponse getAllOrderXss(OrderXsReq orderXs) {
         return new FebsResponse().success().data(orderXsService.findOrderXss(orderXs));
     }
@@ -72,7 +72,7 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("查看")
     @GetMapping("view/{id}")
-    @RequiresPermissions("orderXs:view")
+//    @RequiresPermissions("orderXs:view")
     public FebsResponse view(@PathVariable Long id) {
         return new FebsResponse().success().data(orderXsBiz.view(id));
     }
