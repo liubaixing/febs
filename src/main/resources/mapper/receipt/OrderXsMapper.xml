@@ -154,7 +154,7 @@
         xs.address, xs.tel, xs.contact, xs.zdr, xs.zdrq, xs.qr, xs.qrr, xs.qrrq,
         xs.sh, xs.auditor, xs.shrq, xs.zx, xs.zxr, xs.zxrq, xs.sctk, xs.sctkr, xs.sctkrq,
         xs.gb, xs.gbr, xs.gbrq, xs.zf, xs.zfr, xs.zfrq, xs.ex1, xs.ex2, xs.ex3,
-        xs.create_time, xs.update_time, xs.deleted
+        xs.create_time, xs.update_time, xs.deleted , 'xs' as orderType
   </sql>
     <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
         SELECT

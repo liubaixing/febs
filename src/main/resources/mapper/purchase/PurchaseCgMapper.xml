@@ -1307,6 +1307,7 @@
 		cg.auditor, cg.shrq, cg.ecsh, cg.ecshr, cg.ecshrq, cg.kssh, cg.ksshr, cg.ksshrq, cg.shqr, cg.shqrr, cg.shqrrq, cg.ksfh,
 		cg.ksfhr, cg.ksfhrq, cg.ksph,cg.ksphr, cg.ksphrq, cg.cgfh, cg.cgfhr, cg.cgfhrq, cg.yflr, cg.yflrr, cg.yflrrq, cg.ysflr,
 		cg.ysflrr, cg.ysflrrq,cg.sctc, cg.sctcr, cg.sctcrq, cg.zs, cg.zsr, cg.zsrq, cg.zf, cg.zfr, cg.zfrq, cg.ex1, cg.ex2, cg.ex3
+		, 'cg' as orderType
     </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseCgReq" resultType="com.febs.purchase.vo.resp.PurchaseCgResp">

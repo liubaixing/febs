@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderXstk;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.receipt.entity.OrderXstkExample;
 import com.febs.receipt.vo.req.OrderXstkReq;
 import com.febs.receipt.vo.resp.OrderXstkResp;
 
@@ -49,6 +50,8 @@ public interface IOrderXstkService extends IService<OrderXstk> {
      * @param orderXstk orderXstk
      */
     void updateOrderXstk(OrderXstk orderXstk);
+
+    void updateByExample(OrderXstk orderXstk,OrderXstkExample example);
 
     /**
      * 删除

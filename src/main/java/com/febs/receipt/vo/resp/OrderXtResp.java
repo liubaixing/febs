@@ -100,5 +100,8 @@ public class OrderXtResp extends OrderXt {
     private Long mxId;
 
     @ExcelIgnore
+    private Integer spId;
+
+    @ExcelIgnore
     private List<OrderXtmxResp> xtmxList;
 }

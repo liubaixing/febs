@@ -137,7 +137,11 @@ public class OrderXsfpController extends BaseController {
     @RequiresPermissions("orderXsfp:kp")
     public FebsResponse kp(@PathVariable Long id ){
         User user = getCurrentUser();
-
+        OrderXsfp xsfp = new OrderXsfp();
+        xsfp.setKp((byte)1);
+        xsfp.setKpr(user.getUsername());
+        xsfp.setKprq(new Date());
+        xsfpBiz.kp(xsfp);
         return new FebsResponse().success();
     }
 

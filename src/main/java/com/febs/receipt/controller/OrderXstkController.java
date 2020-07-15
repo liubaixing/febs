@@ -9,7 +9,7 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXstkBiz;
 import com.febs.receipt.entity.OrderXstk;
 import com.febs.receipt.service.IOrderXstkService;
-
+import com.febs.receipt.vo.req.OrderXstkCreateReq;
 import com.febs.receipt.vo.req.OrderXstkReq;
 import com.febs.receipt.vo.resp.OrderXstkResp;
 import com.febs.system.entity.User;
@@ -123,8 +123,9 @@ public class OrderXstkController extends BaseController {
     @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
     @PostMapping("/create")
     @RequiresPermissions("orderXssk:create")
-    public FebsResponse createorderXssk(OrderXstkReq req ){
-
+    public FebsResponse createorderXssk(OrderXstkCreateReq req ){
+        User user = getCurrentUser();
+        xstkBiz.create(req,user);
         return new FebsResponse().success();
     }
 
@@ -134,7 +135,12 @@ public class OrderXstkController extends BaseController {
     @RequiresPermissions("orderXssk:tk")
     public FebsResponse tk(@PathVariable String djbh ){
         User user = getCurrentUser();
-        xstkBiz.sk();
+        OrderXstk xstk = new OrderXstk();
+        xstk.setDjbh(djbh);
+        xstk.setTk((byte)1);
+        xstk.setTkr(user.getUsername());
+        xstk.setTkrq(new Date());
+        xstkBiz.tk(xstk);
         return new FebsResponse().success();
     }
 

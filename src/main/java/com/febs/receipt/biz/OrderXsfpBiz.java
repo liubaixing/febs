@@ -1,13 +1,17 @@
 package com.febs.receipt.biz;
 
 import com.febs.common.enums.DeletedEnum;
-import com.febs.receipt.entity.OrderXsfp;
-import com.febs.receipt.entity.OrderXsfpmx;
-import com.febs.receipt.service.IOrderXsfpService;
-import com.febs.receipt.service.IOrderXsfpmxService;
+import com.febs.common.exception.FebsException;
+import com.febs.receipt.entity.*;
+import com.febs.receipt.mapper.OrderXsMapper;
+import com.febs.receipt.mapper.OrderXtMapper;
+import com.febs.receipt.service.*;
 import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.req.OrderXsmxReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
+import com.febs.receipt.vo.resp.OrderXsmxResp;
+import com.febs.receipt.vo.resp.OrderXsskResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,25 @@ public class OrderXsfpBiz {
 
     @Autowired
     private IOrderXsfpmxService xsfpmxService;
+
+
+    @Autowired
+    private IOrderXsService xsService;
+
+    @Autowired
+    private OrderXsMapper xsMapper;
+
+    @Autowired
+    private IOrderXsmxService xsmxService;
+
+    @Autowired
+    private IOrderXtService xtService;
+
+    @Autowired
+    private OrderXtMapper xtMapper;
+
+    @Autowired
+    private IOrderXtmxService xtmxService;
 
     public void update(OrderXsfp xsfp){
         xsfpService.updateOrderXsfp(xsfp);
@@ -68,5 +91,58 @@ public class OrderXsfpBiz {
         orderXsfpmx.setPid(xsfpResp.getId());
         xsfpResp.setXsfpmxList(xsfpmxService.findOrderXsfpmxs(orderXsfpmx));
         return xsfpResp;
+    }
+
+    public void kp(OrderXsfp xsfp) {
+        OrderXsfpReq xsfpReq = new OrderXsfpReq();
+        xsfpReq.setDjbh(xsfp.getDjbh());
+        List<OrderXsfpResp> xsfpRespList = xsfpService.findOrderXsfps(xsfpReq);
+
+        if (CollectionUtils.isEmpty(xsfpRespList)) throw new FebsException("发票单不存在");
+
+        String djbh = xsfpRespList.get(0).getYdjh();
+        String orderType = djbh.substring(0,2);
+
+        if ("xs".equals(orderType)) {
+            for (OrderXsfpResp fp : xsfpRespList){
+
+                OrderXsExample example = new OrderXsExample();
+                example.createCriteria().andDjbhEqualTo(fp.getYdjh());
+                OrderXs orderXs = xsMapper.selectByExample(example).get(0);
+
+                OrderXsmxReq orderXsmx = new OrderXsmxReq();
+                orderXsmx.setPid(orderXs.getId());
+                orderXsmx.setSpId(fp.getSpId());
+                OrderXsmxResp xsmxResp = xsmxService.findOrderXsmxs(orderXsmx).get(0);
+
+                if(xsmxResp.getSksl() + fp.getSl() > xsmxResp.getJhsl()){
+                    throw new FebsException("收款数超出计划数");
+                }
+
+                OrderXsmx xsmx = new OrderXsmx();
+                xsmx.setId(xsmxResp.getId());
+                xsmx.setSksl(xsmxResp.getSksl() + fp.getSl());
+                xsmx.setSkje(xsmxResp.getSkje().add(fp.getJe()));
+                xsmxService.updateOrderXsmx(xsmx);
+
+                OrderXs xs = new OrderXs();
+                xs.setId(orderXs.getId());
+                xs.setSksl(orderXs.getSksl() + fp.getSl());
+                xs.setSkje(orderXs.getSkje().add(fp.getJe()));
+                xsService.updateOrderXs(xs);
+
+            }
+
+
+        } else if ("xt".equals(orderType)) {
+
+
+
+        }
+
+        OrderXsfpExample example = new OrderXsfpExample();
+        example.createCriteria().andDjbhEqualTo(xsfp.getDjbh());
+        xsfpService.updateByExample(xsfp,example);
+
     }
 }

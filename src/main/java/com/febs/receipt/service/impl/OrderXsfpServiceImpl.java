@@ -10,6 +10,7 @@ import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXsfp;
+import com.febs.receipt.entity.OrderXsfpExample;
 import com.febs.receipt.mapper.OrderXsfpMapper;
 import com.febs.receipt.service.IOrderXsfpService;
 import com.febs.receipt.vo.req.OrderXsfpReq;
@@ -69,6 +70,12 @@ public class OrderXsfpServiceImpl extends ServiceImpl<OrderXsfpMapper, OrderXsfp
     @Transactional
     public void updateOrderXsfp(OrderXsfp orderXsfp) {
         this.orderXsfpMapper.updateByPrimaryKeySelective(orderXsfp);
+    }
+
+    @Override
+    @Transactional
+    public void updateByExample(OrderXsfp orderXsfp, OrderXsfpExample example) {
+        this.orderXsfpMapper.updateByExampleSelective(orderXsfp,example);
     }
 
     @Override

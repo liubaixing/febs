@@ -1,13 +1,21 @@
 package com.febs.receipt.biz;
 
 import com.febs.common.enums.DeletedEnum;
-import com.febs.receipt.entity.OrderXstk;
-import com.febs.receipt.entity.OrderXstkmx;
+import com.febs.common.exception.FebsException;
+import com.febs.receipt.entity.*;
+import com.febs.receipt.mapper.OrderXtMapper;
 import com.febs.receipt.service.IOrderXstkService;
 import com.febs.receipt.service.IOrderXstkmxService;
+import com.febs.receipt.service.IOrderXtService;
+import com.febs.receipt.service.IOrderXtmxService;
 import com.febs.receipt.vo.req.OrderXsmxReq;
+import com.febs.receipt.vo.req.OrderXstkCreateReq;
 import com.febs.receipt.vo.req.OrderXstkReq;
 import com.febs.receipt.vo.resp.OrderXstkResp;
+import com.febs.receipt.vo.resp.OrderXtResp;
+import com.febs.receipt.vo.resp.OrderXtmxResp;
+import com.febs.system.entity.User;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +31,15 @@ public class OrderXstkBiz {
 
     @Autowired
     private IOrderXstkmxService xstkmxService;
+
+    @Autowired
+    private IOrderXtService xtService;
+
+    @Autowired
+    private OrderXtMapper xtMapper;
+
+    @Autowired
+    private IOrderXtmxService xtmxService;
 
     public void update(OrderXstk xstk){
         xstkService.updateOrderXstk(xstk);
@@ -71,7 +88,73 @@ public class OrderXstkBiz {
         return  xstkResp;
     }
 
-    public void sk() {
+    public void tk(OrderXstk xstk) {
+        OrderXstkReq xstkReq = new OrderXstkReq();
+        xstkReq.setDjbh(xstk.getDjbh());
+        List<OrderXstkResp> xstkRespList = xstkService.findOrderXstks(xstkReq);
+
+        if (CollectionUtils.isEmpty(xstkRespList)) throw new FebsException("销退单不存在");
+
+        for (OrderXstkResp xstkResp : xstkRespList){
+            OrderXtExample example = new OrderXtExample();
+            example.createCriteria().andDjbhEqualTo(xstkResp.getYdjh());
+            OrderXt orderXt = xtMapper.selectByExample(example).get(0);
+
+            OrderXtmx orderXtmx = new OrderXtmx();
+            orderXtmx.setPid(orderXt.getId());
+            orderXtmx.setSpId(xstkResp.getSpId());
+            OrderXtmxResp xtmxResp = xtmxService.findOrderXtmxs(orderXtmx).get(0);
+            if (xtmxResp.getTksl() + xstkResp.getSl() > xtmxResp.getJhsl()) {
+                throw new FebsException("退款数超出计划数");
+            }
+            OrderXtmx xtmx = new OrderXtmx();
+            xtmx.setId(xtmxResp.getId());
+            xtmx.setTksl(xtmxResp.getTksl() + xstkResp.getSl());
+            xtmx.setTkje(xtmxResp.getTkje().add(xstkResp.getJe()));
+            xtmxService.updateOrderXtmx(xtmx);
+
+            OrderXt xt = new OrderXt();
+            xt.setId(orderXt.getId());
+            xt.setTksl(orderXt.getTksl() + xstkResp.getSl());
+            xt.setTkje(orderXt.getTkje().add(xstkResp.getJe()));
+            xtService.updateOrderXt(xt);
+        }
+
+        OrderXstkExample example = new OrderXstkExample();
+        example.createCriteria().andDjbhEqualTo(xstk.getDjbh());
+        xstkService.updateByExample(xstk,example);
+
+    }
+
+    public void create(OrderXstkCreateReq req, User user) {
+
+        List<OrderXtResp> orderXtList = req.getOrderXtList();
+        if (CollectionUtils.isEmpty(orderXtList)) {
+            throw new FebsException("单据不能为空");
+        }
+
+        Integer orgId = orderXtList.get(0).getOrgId();
+        OrderXstk xstk = new OrderXstk();
+
+        BigDecimal zje = orderXtList.stream().map(OrderXtResp::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+        xstk.setDjrq(new Date());
+        xstk.setGhdwId(orgId);
+        xstk.setJe(zje);
+        xstk.setBz(req.getBz());
+        xstk.setZdr(user.getUsername());
+        xstk.setZdrq(new Date());
+        Long pid = xstkService.createOrderXstk(xstk);
+
+        for (OrderXtResp xtResp : orderXtList){
+            OrderXstkmx tkmx = new OrderXstkmx();
+            tkmx.setPid(pid);
+            tkmx.setYdjh(xtResp.getDjbh());
+            tkmx.setSpId(xtResp.getSpId());
+            tkmx.setSl(xtResp.getSl());
+            tkmx.setJe(xtResp.getJe());
+            xstkmxService.createOrderXstkmx(tkmx);
+        }
+
 
     }
 }

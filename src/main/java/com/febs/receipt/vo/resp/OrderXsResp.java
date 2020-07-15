@@ -102,6 +102,9 @@ public class OrderXsResp extends OrderXs {
     private String jldwmc;
 
     @ExcelIgnore
+    private String orderType;
+
+    @ExcelIgnore
     List<OrderXsmxResp> mxList;
 
 }

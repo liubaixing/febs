@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderXsfp;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.receipt.entity.OrderXsfpExample;
 import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
 
@@ -49,6 +50,8 @@ public interface IOrderXsfpService extends IService<OrderXsfp> {
      * @param orderXsfp orderXsfp
      */
     void updateOrderXsfp(OrderXsfp orderXsfp);
+
+    void updateByExample(OrderXsfp orderXsfp, OrderXsfpExample example);
 
     /**
      * 删除

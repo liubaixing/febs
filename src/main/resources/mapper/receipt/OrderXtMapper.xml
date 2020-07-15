@@ -162,7 +162,7 @@
     xt.sl,  xt.kpsl, xt.sksl, xt.tksl, xt.kpje, xt.skje, xt.tkje, xt.address, xt.tel, xt.contact,
     xt.zdr, xt.zdrq, xt.qr, xt.qrr, xt.qrrq, xt.sh, xt.auditor, xt.shrq, xt.kssh, xt.ksshr, xt.ksshrq, xt.shqr,
     xt.shqrr, xt.shqrrq, xt.yflr, xt.yflrr, xt.yflrrq, xt.zs, xt.zsr, xt.zsrq, xt.zf, xt.zfr, xt.zfrq,
-    xt.ex1, xt.ex2, xt.ex3, xt.create_time, xt.update_time, xt.deleted
+    xt.ex1, xt.ex2, xt.ex3, xt.create_time, xt.update_time, xt.deleted , 'xt' as orderType
   </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXtReq" resultType="com.febs.receipt.vo.resp.OrderXtResp">
@@ -170,7 +170,7 @@
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
-        xtmx.id mxId , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        xtmx.id mxId , xtmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
         ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
         FROM order_xt xt
         LEFT JOIN basic_ptda pt on xt.org_id = pt.id
@@ -276,7 +276,7 @@
         <include refid="Page_Column_List" />
         ,pt.ptdamc , u.USERNAME user_name, bm.bmmc, kehu.khmc , ck.ckmc ,
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
-        xtmx.id mxId , xtmx.sp_id , sp.spdm , sp.spmc , sp.memo
+        xtmx.id mxId , xtmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
         ,xtmx.jhsl,xtmx.tzsl,xtmx.cksl,xtmx.dj,xtmx.je,xtmx.zk,xtmx.xsje,dw.jldwmc
         FROM order_xt xt
         LEFT JOIN basic_ptda pt on xt.org_id = pt.id

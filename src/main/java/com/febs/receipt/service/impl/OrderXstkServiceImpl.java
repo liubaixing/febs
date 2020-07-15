@@ -6,6 +6,7 @@ import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXstk;
+import com.febs.receipt.entity.OrderXstkExample;
 import com.febs.receipt.mapper.OrderXstkMapper;
 import com.febs.receipt.service.IOrderXstkService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -70,6 +71,12 @@ public class OrderXstkServiceImpl extends ServiceImpl<OrderXstkMapper, OrderXstk
     @Transactional
     public void updateOrderXstk(OrderXstk orderXstk) {
         this.orderXstkMapper.updateByPrimaryKeySelective(orderXstk);
+    }
+
+    @Override
+    @Transactional
+    public void updateByExample(OrderXstk orderXstk, OrderXstkExample example) {
+        this.orderXstkMapper.updateByExampleSelective(orderXstk,example);
     }
 
     @Override
