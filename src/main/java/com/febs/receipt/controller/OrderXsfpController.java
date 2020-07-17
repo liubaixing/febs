@@ -7,13 +7,11 @@ import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXsfpBiz;
-import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsfp;
-import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.service.IOrderXsfpService;
 
 import com.febs.receipt.vo.req.OrderXsfpReq;
-import com.febs.receipt.vo.req.OrderXsmxReq;
+import com.febs.receipt.vo.req.XsfpCreateReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
@@ -25,7 +23,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.util.Date;
@@ -64,13 +61,13 @@ public class OrderXsfpController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增销售发票", exceptionMessage = "新增销售发票失败")
+    @ApiOperation("开始生成")
+    @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("")
-//    @RequiresPermissions("orderXsfp:add")
-    public FebsResponse addOrderXsfp(@Valid OrderXsfpReq req) {
+//    @RequiresPermissions("orderXsfp:create")
+    public FebsResponse addOrderXsfp(XsfpCreateReq req) {
         User user = getCurrentUser();
-        req.setZdr(user.getUsername());
-        xsfpBiz.createOrderXsfp(req);
+        xsfpBiz.createOrderXsfp(req,user);
         return new FebsResponse().success();
     }
 
@@ -122,14 +119,6 @@ public class OrderXsfpController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ApiOperation("生成")
-    @ControllerEndpoint(operation = "生成销售发票", exceptionMessage = "生成销售发票失败")
-    @PostMapping("/create/{id}")
-//    @RequiresPermissions("orderXsfp:create")
-    public FebsResponse createOrderXsfp(OrderXsfpReq req){
-
-        return new FebsResponse().success();
-    }
 
     @ApiOperation("开票")
     @ControllerEndpoint(operation = "开票", exceptionMessage = "开票失败")

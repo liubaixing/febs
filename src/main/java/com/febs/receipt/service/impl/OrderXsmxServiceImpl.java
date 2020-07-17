@@ -1,17 +1,14 @@
 package com.febs.receipt.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.enums.DeletedEnum;
-import com.febs.common.exception.FebsException;
 import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.entity.OrderXsmxExample;
 import com.febs.receipt.mapper.OrderXsmxMapper;
 import com.febs.receipt.service.IOrderXsmxService;
-import com.febs.receipt.vo.req.OrderXsmxReq;
 import com.febs.receipt.vo.resp.OrderXsmxResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,13 +32,13 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     private OrderXsmxMapper orderXsmxMapper;
 
     @Override
-    public IPage<OrderXsmxResp> findOrderXsmxs(QueryRequest request, OrderXsmxReq orderXsmx) {
+    public IPage<OrderXsmxResp> findOrderXsmxs(QueryRequest request, OrderXsmx orderXsmx) {
         Page<OrderXsmx> page = new Page<>(request.getPageNum(), request.getPageSize());
         return this.orderXsmxMapper.selectPageByQuery(page,orderXsmx);
     }
 
     @Override
-    public List<OrderXsmxResp> findOrderXsmxs(OrderXsmxReq orderXsmx) {
+    public List<OrderXsmxResp> findOrderXsmxs(OrderXsmx orderXsmx) {
 		return this.orderXsmxMapper.selectByQuery(orderXsmx);
     }
 

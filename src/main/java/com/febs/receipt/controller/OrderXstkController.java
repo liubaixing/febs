@@ -9,14 +9,13 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXstkBiz;
 import com.febs.receipt.entity.OrderXstk;
 import com.febs.receipt.service.IOrderXstkService;
-import com.febs.receipt.vo.req.OrderXstkCreateReq;
 import com.febs.receipt.vo.req.OrderXstkReq;
+import com.febs.receipt.vo.req.XstkCreateReq;
 import com.febs.receipt.vo.resp.OrderXstkResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +60,7 @@ public class OrderXstkController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增销售退款", exceptionMessage = "新增销售退款失败")
+    /*@ControllerEndpoint(operation = "新增销售退款", exceptionMessage = "新增销售退款失败")
     @PostMapping("")
 //    @RequiresPermissions("orderXstk:add")
     public FebsResponse addOrderXstk(@Valid OrderXstkReq req) {
@@ -69,7 +68,7 @@ public class OrderXstkController extends BaseController {
         req.setZdr(user.getUsername());
         xstkBiz.createOrderXstk(req);
         return new FebsResponse().success();
-    }
+    }*/
 
     @ControllerEndpoint(operation = "删除销售退款", exceptionMessage = "删除销售退款失败")
     @GetMapping("delete/{ids}")
@@ -123,7 +122,7 @@ public class OrderXstkController extends BaseController {
     @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
     @PostMapping("/create")
 //    @RequiresPermissions("orderXssk:create")
-    public FebsResponse createorderXssk(OrderXstkCreateReq req ){
+    public FebsResponse createorderXssk(XstkCreateReq req){
         User user = getCurrentUser();
         xstkBiz.create(req,user);
         return new FebsResponse().success();

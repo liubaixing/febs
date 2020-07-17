@@ -1,6 +1,5 @@
 package com.febs.receipt.controller;
 
-import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
@@ -11,15 +10,12 @@ import com.febs.receipt.biz.OrderXsmxBiz;
 import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.service.IOrderXsmxService;
 
-import com.febs.receipt.vo.req.OrderXsmxReq;
 import com.febs.receipt.vo.resp.OrderXsmxResp;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -48,13 +44,13 @@ public class OrderXsmxController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("orderXsmx:list")
-    public FebsResponse getAllOrderXsmxs(OrderXsmxReq orderXsmx) {
+    public FebsResponse getAllOrderXsmxs(OrderXsmx orderXsmx) {
         return new FebsResponse().success().data(orderXsmxService.findOrderXsmxs(orderXsmx));
     }
 
     @GetMapping("/list")
     @RequiresPermissions("orderXsmx:list")
-    public FebsResponse orderXsmxList(QueryRequest request, OrderXsmxReq orderXsmx) {
+    public FebsResponse orderXsmxList(QueryRequest request, OrderXsmx orderXsmx) {
         Map<String, Object> dataTable = getDataTable(this.xsmxBiz.findPage(request, orderXsmx));
         return new FebsResponse().success().data(dataTable);
     }
@@ -87,7 +83,7 @@ public class OrderXsmxController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderXsmx:export")
-    public void export(QueryRequest queryRequest, OrderXsmxReq orderXsmx, HttpServletResponse response) throws IOException {
+    public void export(QueryRequest queryRequest, OrderXsmx orderXsmx, HttpServletResponse response) throws IOException {
         List<OrderXsmxResp> orderXsmxs = this.orderXsmxService.findOrderXsmxs(queryRequest, orderXsmx).getRecords();
         ExcelUtil.export(orderXsmxs, OrderXsmxResp.class,"销售单明细",response);
     }

@@ -24,7 +24,13 @@ public class OrderXsskReq extends OrderXssk {
     @ApiModelProperty("商品名称")
     private String spmc;
 
-    @ApiModelProperty("收款单明细")
-    List<OrderXsmxReq> orderXsmxeList;
+    @ApiModelProperty("原单号 (销售单号)")
+    private String ydjh;
+
+    @ApiModelProperty("商品id")
+    private Integer spId;
+
+    @ApiModelProperty("数量")
+    private Integer sl;
 
 }

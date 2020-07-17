@@ -8,10 +8,8 @@ import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.service.IOrderXsmxService;
 import com.febs.receipt.service.IOrderXsskService;
 import com.febs.receipt.service.IOrderXsskmxService;
-import com.febs.receipt.vo.req.OrderXsReq;
-import com.febs.receipt.vo.req.OrderXsmxReq;
-import com.febs.receipt.vo.req.OrderXsskCreateReq;
 import com.febs.receipt.vo.req.OrderXsskReq;
+import com.febs.receipt.vo.req.XsskCreateReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.receipt.vo.resp.OrderXsmxResp;
 import com.febs.receipt.vo.resp.OrderXsskResp;
@@ -46,9 +44,9 @@ public class OrderXsskBiz {
         xsskService.updateOrderXssk(xssk);
     }
 
-    public void createOrderXssk(OrderXsskReq req){
+    /*public void createOrderXssk(OrderXsskReq req){
 
-        List<OrderXsmxReq> xsmxList = req.getOrderXsmxeList();
+        List<OrderXsmxReq> xsmxList = req.getOrderXsmxList();
         BigDecimal zje = xsmxList.stream().map(OrderXsmxReq::getKpje).reduce(BigDecimal.ZERO,BigDecimal::add);
 
         OrderXssk xssk = new OrderXssk();
@@ -69,7 +67,7 @@ public class OrderXsskBiz {
             xsskmxService.createOrderXsskmx(orderXsskmx);
         }
 
-    }
+    }*/
 
     public void delete(String[] ids) {
         OrderXssk xssk = new OrderXssk();
@@ -94,27 +92,11 @@ public class OrderXsskBiz {
         List<OrderXsskResp> orderXsskList = xsskService.findOrderXssks(orderXssk);
         if (CollectionUtils.isEmpty(orderXsskList))throw new FebsException("收款单不存在");
 
-
         for (OrderXsskResp sk : orderXsskList){
 
             OrderXsExample example = new OrderXsExample();
             example.createCriteria().andDjbhEqualTo(sk.getYdjh());
             OrderXs orderXs = xsMapper.selectByExample(example).get(0);
-
-            OrderXsmxReq orderXsmx = new OrderXsmxReq();
-            orderXsmx.setPid(orderXs.getId());
-            orderXsmx.setSpId(sk.getSpId());
-            OrderXsmxResp xsmxResp = xsmxService.findOrderXsmxs(orderXsmx).get(0);
-
-            if(xsmxResp.getSksl() + sk.getSl() > xsmxResp.getJhsl()){
-                throw new FebsException("收款数超出计划数");
-            }
-
-            OrderXsmx xsmx = new OrderXsmx();
-            xsmx.setId(xsmxResp.getId());
-            xsmx.setSksl(xsmxResp.getSksl() + sk.getSl());
-            xsmx.setSkje(xsmxResp.getSkje().add(sk.getJe()));
-            xsmxService.updateOrderXsmx(xsmx);
 
             OrderXs xs = new OrderXs();
             xs.setId(orderXs.getId());
@@ -131,32 +113,52 @@ public class OrderXsskBiz {
 
     }
 
-    public void create(OrderXsskCreateReq req, User user) {
-        List<OrderXsResp> orderXsList = req.getOrderXsList();
-        if (CollectionUtils.isEmpty(orderXsList)) {
+    public void create(XsskCreateReq req, User user) {
+        if (CollectionUtils.isEmpty(req.getXsskList())) {
             throw new FebsException("单据不能为空");
         }
 
-        Integer orgId = orderXsList.get(0).getOrgId();
+        List<OrderXsskReq> xsskList = req.getXsskList();
+
         OrderXssk xssk = new OrderXssk();
 
-        BigDecimal zje = orderXsList.stream().map(OrderXsResp::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+        BigDecimal zje = xsskList.stream().map(OrderXsskReq::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+
         xssk.setDjrq(new Date());
-        xssk.setGhdwId(orgId);
+        xssk.setGhdwId(xsskList.get(0).getGhdwId());
         xssk.setJe(zje);
         xssk.setBz(req.getBz());
         xssk.setZdr(user.getUsername());
         xssk.setZdrq(new Date());
         Long pid = xsskService.createOrderXssk(xssk);
 
-        for (OrderXsResp xsResp : orderXsList) {
+        for (OrderXsskReq xsskReq : xsskList) {
             OrderXsskmx skmx = new OrderXsskmx();
             skmx.setPid(pid);
-            skmx.setYdjh(xsResp.getDjbh());
-            skmx.setSpId(xsResp.getSpId());
-            skmx.setSl(xsResp.getSl());
-            skmx.setJe(xsResp.getJe());
+            skmx.setYdjh(xsskReq.getDjbh());
+            skmx.setSpId(xsskReq.getSpId());
+            skmx.setSl(xsskReq.getSl());
+            skmx.setJe(xsskReq.getJe());
             xsskmxService.createOrderXsskmx(skmx);
+
+            OrderXsExample example = new OrderXsExample();
+            example.createCriteria().andDjbhEqualTo(xsskReq.getYdjh());
+            OrderXs orderXs = xsMapper.selectByExample(example).get(0);
+
+            OrderXsmx orderXsmx = new OrderXsmx();
+            orderXsmx.setPid(orderXs.getId());
+            orderXsmx.setSpId(xsskReq.getSpId());
+            OrderXsmxResp xsmxResp = xsmxService.findOrderXsmxs(orderXsmx).get(0);
+
+            if (xsmxResp.getTksl() + xsskReq.getSl() > xsmxResp.getJhsl()) {
+                throw new FebsException("收款数超出计划数");
+            }
+
+            OrderXsmx xsmx = new OrderXsmx();
+            xsmx.setId(xsmxResp.getId());
+            xsmx.setSksl(xsmxResp.getSksl() + xsskReq.getSl());
+            xsmx.setSkje(xsmxResp.getSkje().add(xsskReq.getJe()));
+            xsmxService.updateOrderXsmx(xsmx);
         }
 
     }

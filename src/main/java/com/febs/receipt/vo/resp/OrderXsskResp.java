@@ -12,7 +12,7 @@ public class OrderXsskResp extends OrderXssk {
 
     @ApiModelProperty("收款明细id")
     private Long mxId;
-    @ApiModelProperty("原单号")
+    @ApiModelProperty("原单号 (销售单号)")
     private String ydjh;
     @ApiModelProperty("商品id")
     private Integer spId;

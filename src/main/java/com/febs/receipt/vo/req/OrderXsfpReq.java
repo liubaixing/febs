@@ -26,6 +26,16 @@ public class OrderXsfpReq extends OrderXsfp {
     @ApiModelProperty("商品名称")
     private String spmc;
 
-    List<OrderXsmxReq> orderXsmxeList;
+    @ApiModelProperty("原单号 (销售单号)")
+    private String ydjh;
+
+    @ApiModelProperty("商品id")
+    private Integer spId;
+
+    @ApiModelProperty("数量")
+    private Integer sl;
+
+    @ApiModelProperty("单据类型")
+    private String orderType;
 
 }

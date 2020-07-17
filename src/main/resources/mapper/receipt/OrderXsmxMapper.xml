@@ -569,7 +569,7 @@
      mx.xsje,mx.kpsl, mx.sksl, mx.tksl, mx.kpje, mx.skje, mx.tkje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
     </sql>
 
-    <select id="selectPageByQuery" parameterType="com.febs.receipt.vo.req.OrderXsmxReq" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
+    <select id="selectPageByQuery" parameterType="com.febs.receipt.entity.OrderXsmx" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
         select
         <include refid="Page_Column_List" />
         ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
@@ -590,7 +590,7 @@
     </select>
 
 
-    <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXsmxReq" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
+    <select id="selectByQuery" parameterType="com.febs.receipt.entity.OrderXsmx" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">
         select
         <include refid="Page_Column_List" />
         ,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
