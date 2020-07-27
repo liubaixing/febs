@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 出库单 Entity
@@ -52,6 +53,7 @@ public class OrderCk {
      */
     @ApiModelProperty("单据日期")
     @TableField("xdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date xdrq;
 
     /**
@@ -121,6 +123,7 @@ public class OrderCk {
      */
     @ApiModelProperty("制单日期")
     @TableField("zdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zdrq;
 
     /**
@@ -142,6 +145,7 @@ public class OrderCk {
      */
     @ApiModelProperty("确认日期")
     @TableField("qrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date qrrq;
 
     /**
@@ -163,6 +167,7 @@ public class OrderCk {
      */
     @ApiModelProperty("备货发货日期")
     @TableField("bhfhrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date bhfhrq;
 
     /**
@@ -184,6 +189,7 @@ public class OrderCk {
      */
     @ApiModelProperty("关闭日期")
     @TableField("gbrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date gbrq;
 
     /**
@@ -205,6 +211,7 @@ public class OrderCk {
      */
     @ApiModelProperty("作废日期")
     @TableField("zfrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zfrq;
 
     /**
@@ -229,12 +236,14 @@ public class OrderCk {
      * 创建时间
      */
     @TableField("create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 修改时间
      */
     @TableField("update_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**

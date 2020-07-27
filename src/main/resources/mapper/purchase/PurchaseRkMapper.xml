@@ -640,4 +640,59 @@
       deleted = #{deleted,jdbcType=INTEGER}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+    <sql id="Page_Column_List">
+    rk.Id, rk.djbh, rk.ydbh, rk.ydjh, rk.xdrq, rk.cangku_id, rk.kehu_id, rk.org_id, rk.djlx_id, rk.bz, rk.fj, rk.sl,
+    rk.je,rk.zdr, rk.zdrq, rk.qr, rk.qrr, rk.qrrq, rk.shrk, rk.shrkr, rk.shrkrq, rk.gb, rk.gbr, rk.gbrq, rk.zf,
+    rk.zfr, rk.zfrq, rk.ex1,rk.ex2, rk.ex3, rk.create_time, rk.update_time, rk.deleted
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseRkReq" resultType="com.febs.purchase.vo.resp.PurchaseRkResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,gys.gysmc ,yh.khyhmc ,mx.id mxId, mx.ydjh , mx.sl,mx.je, sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_rk rk
+        LEFT JOIN system_gys gys ON fp.gys_id = gys.id
+        LEFT JOIN basic_khyh yh ON fp.khyh_id = yh.id
+        LEFT JOIN purchase_cgfpmx mx ON fp.id = mx.pid
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="fp.djbh != null and fp.djbh != ''">
+                and fp.djbh like CONCAT('%',#{fp.djbh},'%')
+            </if>
+            <if test="fp.startTime != null and fp.endTime != null">
+                and fp.djrq between #{fp.startTime} and #{fp.endTime}
+            </if>
+            <if test="fp.kp != null">
+                and fp.kp = #{fp.kp}
+            </if>
+            <if test="fp.kpr != null and fp.kpr != ''">
+                and fp.kpr like CONCAT('%',#{fp.kpr},'%')
+            </if>
+            <if test="fp.qr != null">
+                and fp.qr = #{fp.qr}
+            </if>
+            <if test="fp.qrr != null and fp.qrr != ''">
+                and fp.qrr like CONCAT('%',#{fp.qrr},'%')
+            </if>
+            <if test="fp.sh != null">
+                and fp.sh = #{fp.sh}
+            </if>
+            <if test="fp.auditor != null and fp.auditor != ''">
+                and fp.auditor like CONCAT('%',#{fp.auditor},'%')
+            </if>
+            <if test="fp.zdr != null and fp.zdr != ''">
+                and fp.zdr like CONCAT('%',#{fp.zdr},'%')
+            </if>
+            <if test="fp.gysmc != null and fp.gysmc != ''">
+                and gysmc like CONCAT('%',#{fp.gysmc},'%')
+            </if>
+            <if test="fp.spmc != null and fp.spmc != ''">
+                and spmc like CONCAT('%',#{fp.spmc},'%')
+            </if>
+        </where>
+
+    </select>
+
 </mapper>
