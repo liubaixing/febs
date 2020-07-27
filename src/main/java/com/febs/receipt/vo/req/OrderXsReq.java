@@ -71,6 +71,8 @@ public class OrderXsReq extends OrderXs {
 
     @ApiModelProperty("销售明细list")
     @ExcelIgnore
-    List<OrderXsmx> orderXsmxList;
+    private List<OrderXsmx> orderXsmxList;
+
+    private List<String> test;
 
 }

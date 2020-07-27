@@ -29,6 +29,6 @@ public class OrderCkReq extends OrderCk {
     @ApiModelProperty("商品名称")
     private String spmc;
 
-    List<OrderCkmx> ckmxList;
+    private List<OrderCkmx> ckmxList;
 
 }

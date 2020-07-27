@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 销售单 Entity
@@ -44,6 +45,7 @@ public class OrderXs {
     @ApiModelProperty("下单日期")
     @ExcelProperty(value = "下单日期",index = 1)
     @TableField("xdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date xdrq;
 
     /**
@@ -140,6 +142,7 @@ public class OrderXs {
     @ApiModelProperty("要求到货时间")
     @ExcelProperty(value = "要求到货时间",index = 11)
     @TableField("yqdhrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date yqdhrq;
 
     /**
@@ -275,6 +278,7 @@ public class OrderXs {
     @ApiModelProperty("制单日期")
     @ExcelIgnore
     @TableField("zdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zdrq;
 
     /**
@@ -299,6 +303,7 @@ public class OrderXs {
     @ApiModelProperty("确认日期")
     @ExcelIgnore
     @TableField("qrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date qrrq;
 
     /**
@@ -323,6 +328,7 @@ public class OrderXs {
     @ApiModelProperty("审核日期")
     @ExcelIgnore
     @TableField("shrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shrq;
 
     /**
@@ -347,6 +353,7 @@ public class OrderXs {
     @ApiModelProperty("执行日期")
     @ExcelIgnore
     @TableField("zxrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zxrq;
 
     /**
@@ -371,6 +378,7 @@ public class OrderXs {
     @ApiModelProperty("销退日期")
     @ExcelIgnore
     @TableField("sctkrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sctkrq;
 
     /**
@@ -395,6 +403,7 @@ public class OrderXs {
     @ApiModelProperty("关闭日期")
     @ExcelIgnore
     @TableField("gbrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date gbrq;
 
     /**
@@ -419,6 +428,7 @@ public class OrderXs {
     @ApiModelProperty("作废日期")
     @ExcelIgnore
     @TableField("zfrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zfrq;
 
     /**
@@ -443,6 +453,7 @@ public class OrderXs {
     @ApiModelProperty("收款日期")
     @ExcelIgnore
     @TableField("skrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date skrq;
 
     /**
@@ -467,6 +478,7 @@ public class OrderXs {
     @ApiModelProperty("开票日期")
     @ExcelIgnore
     @TableField("kprq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date kprq;
 
 
@@ -496,6 +508,7 @@ public class OrderXs {
      */
     @ExcelIgnore
     @TableField("create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -503,6 +516,7 @@ public class OrderXs {
      */
     @ExcelIgnore
     @TableField("update_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
