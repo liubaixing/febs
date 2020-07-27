@@ -40,7 +40,7 @@ public interface PurchaseRkMapper extends BaseMapper<PurchaseRk> {
 
     int updateByPrimaryKey(PurchaseRk record);
 
-    IPage<PurchaseRkResp> selectPageByQuery(Page<PurchaseRk> page, PurchaseRkReq req);
+    IPage<PurchaseRkResp> selectPageByQuery(Page<PurchaseRk> page,@Param("rk") PurchaseRkReq req);
 
-    List<PurchaseRkResp> selectByQuery(PurchaseRkReq req);
+    List<PurchaseRkResp> selectByQuery(@Param("rk") PurchaseRkReq req);
 }

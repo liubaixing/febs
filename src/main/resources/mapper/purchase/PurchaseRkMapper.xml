@@ -650,46 +650,127 @@
     <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseRkReq" resultType="com.febs.purchase.vo.resp.PurchaseRkResp">
         SELECT
         <include refid="Page_Column_List" />
-        ,gys.gysmc ,yh.khyhmc ,mx.id mxId, mx.ydjh , mx.sl,mx.je, sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        ,ck.ckmc,kh.khmc,ptda.ptdamc,djlx.djlxmc,sp.spdm,sp.spmc,sp.memo,jldw.jldwmc,mx.cbje,mx.id mxId
         FROM purchase_rk rk
-        LEFT JOIN system_gys gys ON fp.gys_id = gys.id
-        LEFT JOIN basic_khyh yh ON fp.khyh_id = yh.id
-        LEFT JOIN purchase_cgfpmx mx ON fp.id = mx.pid
+        LEFT JOIN system_cangku ck ON rk.cangku_id = ck.id
+        LEFT JOIN system_kehu kh ON rk.kehu_id = kh.id
+        LEFT JOIN basic_ptda ptda ON rk.org_id = ptda.id
+        LEFT JOIN basic_djlx djlx ON rk.djlx_id = djlx.id
+        LEFT JOIN purchase_rkmx mx ON rk.Id = mx.pid
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
-        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        LEFT JOIN basic_jldw jldw ON sp.jldw_id = jldw.id
         <where>
-            <if test="fp.djbh != null and fp.djbh != ''">
-                and fp.djbh like CONCAT('%',#{fp.djbh},'%')
+            <if test="rk.djbh != null and rk.djbh != ''">
+                and rk.djbh like CONCAT('%',#{rk.djbh},'%')
             </if>
-            <if test="fp.startTime != null and fp.endTime != null">
-                and fp.djrq between #{fp.startTime} and #{fp.endTime}
+            <if test="rk.startTime != null and rk.endTime != null">
+                and rk.djrq between #{rk.startTime} and #{rk.endTime}
             </if>
-            <if test="fp.kp != null">
-                and fp.kp = #{fp.kp}
+            <if test="rk.ptdamc != null and rk.ptdamc != ''">
+                and ptda.ptdamc like CONCAT('%',#{rk.ptdamc},'%')
             </if>
-            <if test="fp.kpr != null and fp.kpr != ''">
-                and fp.kpr like CONCAT('%',#{fp.kpr},'%')
+            <if test="rk.ckmc != null and rk.ckmc != ''">
+                and ck.ckmc like CONCAT('%',#{rk.ckmc},'%')
             </if>
-            <if test="fp.qr != null">
-                and fp.qr = #{fp.qr}
+            <if test="rk.spmc != null and rk.spmc != ''">
+                and sp.spmc like CONCAT('%',#{rk.spmc},'%')
             </if>
-            <if test="fp.qrr != null and fp.qrr != ''">
-                and fp.qrr like CONCAT('%',#{fp.qrr},'%')
+            <if test="rk.khmc != null and rk.khmc != ''">
+                and kh.khmc like CONCAT('%',#{rk.khmc},'%')
             </if>
-            <if test="fp.sh != null">
-                and fp.sh = #{fp.sh}
+            <if test="rk.ydbh != null and rk.ydbh != ''">
+                and rk.ydbh like CONCAT('%',#{rk.ydbh},'%')
             </if>
-            <if test="fp.auditor != null and fp.auditor != ''">
-                and fp.auditor like CONCAT('%',#{fp.auditor},'%')
+            <if test="rk.ydjh != null and rk.ydjh != ''">
+                and rk.ydjh like CONCAT('%',#{rk.ydjh},'%')
             </if>
-            <if test="fp.zdr != null and fp.zdr != ''">
-                and fp.zdr like CONCAT('%',#{fp.zdr},'%')
+            <if test="rk.qr != null">
+                and rk.qr = #{rk.qr}
             </if>
-            <if test="fp.gysmc != null and fp.gysmc != ''">
-                and gysmc like CONCAT('%',#{fp.gysmc},'%')
+            <if test="rk.qrr != null and rk.qrr != ''">
+                and rk.qrr like CONCAT('%',#{rk.qrr},'%')
             </if>
-            <if test="fp.spmc != null and fp.spmc != ''">
-                and spmc like CONCAT('%',#{fp.spmc},'%')
+            <if test="rk.gb != null">
+                and rk.gb = #{rk.gb}
+            </if>
+            <if test="rk.gbr != null and rk.gbr != ''">
+                and rk.gbr like CONCAT('%',#{rk.gbr},'%')
+            </if>
+            <if test="rk.shrk != null">
+                and rk.shrk = #{rk.shrk}
+            </if>
+            <if test="rk.shrkr != null and rk.shrkr != ''">
+                and rk.shrkr like CONCAT('%',#{rk.shrkr},'%')
+            </if>
+            <if test="rk.zf != null">
+                and rk.zf = #{rk.zf}
+            </if>
+            <if test="rk.zfr != null and rk.zfr != ''">
+                and rk.zfr like CONCAT('%',#{rk.zfr},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByQuery" parameterType="com.febs.purchase.vo.req.PurchaseRkReq" resultType="com.febs.purchase.vo.resp.PurchaseRkResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        ,ck.ckmc,kh.khmc,ptda.ptdamc,djlx.djlxmc,sp.spdm,sp.spmc,sp.memo,jldw.jldwmc,mx.cbje,mx.id mxId
+        FROM purchase_rk rk
+        LEFT JOIN system_cangku ck ON rk.cangku_id = ck.id
+        LEFT JOIN system_kehu kh ON rk.kehu_id = kh.id
+        LEFT JOIN basic_ptda ptda ON rk.org_id = ptda.id
+        LEFT JOIN basic_djlx djlx ON rk.djlx_id = djlx.id
+        LEFT JOIN purchase_rkmx mx ON rk.Id = mx.pid
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw jldw ON sp.jldw_id = jldw.id
+        <where>
+            <if test="rk.djbh != null and rk.djbh != ''">
+                and rk.djbh like CONCAT('%',#{rk.djbh},'%')
+            </if>
+            <if test="rk.startTime != null and rk.endTime != null">
+                and rk.djrq between #{rk.startTime} and #{rk.endTime}
+            </if>
+            <if test="rk.ptdamc != null and rk.ptdamc != ''">
+                and ptda.ptdamc like CONCAT('%',#{rk.ptdamc},'%')
+            </if>
+            <if test="rk.ckmc != null and rk.ckmc != ''">
+                and ck.ckmc like CONCAT('%',#{rk.ckmc},'%')
+            </if>
+            <if test="rk.spmc != null and rk.spmc != ''">
+                and sp.spmc like CONCAT('%',#{rk.spmc},'%')
+            </if>
+            <if test="rk.khmc != null and rk.khmc != ''">
+                and kh.khmc like CONCAT('%',#{rk.khmc},'%')
+            </if>
+            <if test="rk.ydbh != null and rk.ydbh != ''">
+                and rk.ydbh like CONCAT('%',#{rk.ydbh},'%')
+            </if>
+            <if test="rk.ydjh != null and rk.ydjh != ''">
+                and rk.ydjh like CONCAT('%',#{rk.ydjh},'%')
+            </if>
+            <if test="rk.qr != null">
+                and rk.qr = #{rk.qr}
+            </if>
+            <if test="rk.qrr != null and rk.qrr != ''">
+                and rk.qrr like CONCAT('%',#{rk.qrr},'%')
+            </if>
+            <if test="rk.gb != null">
+                and rk.gb = #{rk.gb}
+            </if>
+            <if test="rk.gbr != null and rk.gbr != ''">
+                and rk.gbr like CONCAT('%',#{rk.gbr},'%')
+            </if>
+            <if test="rk.shrk != null">
+                and rk.shrk = #{rk.shrk}
+            </if>
+            <if test="rk.shrkr != null and rk.shrkr != ''">
+                and rk.shrkr like CONCAT('%',#{rk.shrkr},'%')
+            </if>
+            <if test="rk.zf != null">
+                and rk.zf = #{rk.zf}
+            </if>
+            <if test="rk.zfr != null and rk.zfr != ''">
+                and rk.zfr like CONCAT('%',#{rk.zfr},'%')
             </if>
         </where>
 

@@ -5,6 +5,8 @@ import com.febs.purchase.entity.PurchaseRk;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.vo.req.PurchaseRkReq;
+import com.febs.purchase.vo.resp.PurchaseRkResp;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public interface IPurchaseRkService extends IService<PurchaseRk> {
      * @param purchaseRk purchaseRk
      * @return IPage<PurchaseRk>
      */
-    IPage<PurchaseRk> findPurchaseRks(QueryRequest request, PurchaseRk purchaseRk);
+    IPage<PurchaseRkResp> findPurchaseRks(QueryRequest request, PurchaseRkReq purchaseRk);
 
     /**
      * 查询（所有）
@@ -30,7 +32,9 @@ public interface IPurchaseRkService extends IService<PurchaseRk> {
      * @param purchaseRk purchaseRk
      * @return List<PurchaseRk>
      */
-    List<PurchaseRk> findPurchaseRks(PurchaseRk purchaseRk);
+    List<PurchaseRkResp> findPurchaseRks(PurchaseRkReq purchaseRk);
+
+    PurchaseRkResp findById(Long id);
 
     /**
      * 新增

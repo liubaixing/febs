@@ -9,6 +9,8 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.purchase.entity.PurchaseRk;
 import com.febs.purchase.service.IPurchaseRkService;
 
+import com.febs.purchase.vo.req.PurchaseRkReq;
+import com.febs.purchase.vo.resp.PurchaseRkResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +42,13 @@ public class PurchaseRkController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("purchaseRk:list")
-    public FebsResponse getAllPurchaseRks(PurchaseRk purchaseRk) {
+    public FebsResponse getAllPurchaseRks(PurchaseRkReq purchaseRk) {
         return new FebsResponse().success().data(purchaseRkService.findPurchaseRks(purchaseRk));
     }
 
     @GetMapping("/list")
     @RequiresPermissions("purchaseRk:list")
-    public FebsResponse purchaseRkList(QueryRequest request, PurchaseRk purchaseRk) {
+    public FebsResponse purchaseRkList(QueryRequest request, PurchaseRkReq purchaseRk) {
         Map<String, Object> dataTable = getDataTable(this.purchaseRkService.findPurchaseRks(request, purchaseRk));
         return new FebsResponse().success().data(dataTable);
     }
@@ -79,8 +81,8 @@ public class PurchaseRkController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("purchaseRk:export")
-    public void export(QueryRequest queryRequest, PurchaseRk purchaseRk, HttpServletResponse response) throws IOException {
-        List<PurchaseRk> purchaseRks = this.purchaseRkService.findPurchaseRks(queryRequest, purchaseRk).getRecords();
-        ExcelUtil.export(purchaseRks, PurchaseRk.class,"入库单",response);
+    public void export(QueryRequest queryRequest, PurchaseRkReq purchaseRk, HttpServletResponse response) throws IOException {
+        List<PurchaseRkResp> purchaseRks = this.purchaseRkService.findPurchaseRks(queryRequest, purchaseRk).getRecords();
+        ExcelUtil.export(purchaseRks, PurchaseRkResp.class,"入库单",response);
     }
 }

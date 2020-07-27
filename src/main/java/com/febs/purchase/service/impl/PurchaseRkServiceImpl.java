@@ -12,6 +12,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.purchase.vo.req.PurchaseRkReq;
+import com.febs.purchase.vo.resp.PurchaseRkResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,18 +37,22 @@ public class PurchaseRkServiceImpl extends ServiceImpl<PurchaseRkMapper, Purchas
     private PurchaseRkMapper purchaseRkMapper;
 
     @Override
-    public IPage<PurchaseRk> findPurchaseRks(QueryRequest request, PurchaseRk purchaseRk) {
-        LambdaQueryWrapper<PurchaseRk> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
+    public IPage<PurchaseRkResp> findPurchaseRks(QueryRequest request, PurchaseRkReq purchaseRk) {
         Page<PurchaseRk> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.purchaseRkMapper.selectPageByQuery(page, purchaseRk);
     }
 
     @Override
-    public List<PurchaseRk> findPurchaseRks(PurchaseRk purchaseRk) {
-	    LambdaQueryWrapper<PurchaseRk> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseRkResp> findPurchaseRks(PurchaseRkReq purchaseRk) {
+		return this.purchaseRkMapper.selectByQuery(purchaseRk);
+    }
+
+    @Override
+    public PurchaseRkResp findById(Long id) {
+        PurchaseRkReq purchaseRk = new PurchaseRkReq();
+        purchaseRk.setId(id);
+        List<PurchaseRkResp> purchaseRkResps = findPurchaseRks(purchaseRk);
+        return CollectionUtils.isEmpty(purchaseRkResps) ? null : purchaseRkResps.get(0);
     }
 
     @Override
