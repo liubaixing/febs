@@ -55,23 +55,13 @@ public class OrderXtmxServiceImpl extends ServiceImpl<OrderXtmxMapper, OrderXtmx
     @Override
     @Transactional
     public void createOrderXtmx(OrderXtmx orderXtmx) {
-        LambdaQueryWrapper<OrderXtmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderXtmx);
+        orderXtmxMapper.insertSelective(orderXtmx);
     }
 
     @Override
     @Transactional
     public void updateOrderXtmx(OrderXtmx orderXtmx) {
-        LambdaQueryWrapper<OrderXtmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(orderXtmx);
+        orderXtmxMapper.updateByPrimaryKeySelective(orderXtmx);
     }
 
     @Override

@@ -210,19 +210,19 @@
             <if test="xt.sh != null">
                 and xt.sh = #{xt.sh}
             </if>
-            <if test="xt.auditor != null">
+            <if test="xt.auditor != null and xt.auditor != ''">
                 and xt.auditor like CONCAT('%',#{xt.auditor},'%')
             </if>
             <if test="xt.zx != null">
                 and xt.zx = #{xt.zx}
             </if>
-            <if test="xt.zxr != null">
+            <if test="xt.zxr != null and xt.zxr != ''">
                 and xt.zxr like CONCAT('%',#{xt.zxr},'%')
             </if>
             <if test="xt.qr != null">
                 and xt.qr = #{xt.qr}
             </if>
-            <if test="xt.qrr != null">
+            <if test="xt.qrr != null and xt.qrr != ''">
                 and xt.qrr like CONCAT('%',#{xt.qrr},'%')
             </if>
             <if test="xt.zf != null">
@@ -231,7 +231,7 @@
             <if test="xt.zs != null">
                 and xt.zs = #{xt.zs}
             </if>
-            <if test="xt.zsr != null">
+            <if test="xt.zsr != null and xt.zsr != ''">
                 xt.zsr like CONCAT('%',#{xt.zsr},'%')
             </if>
             <if test="xt.userName != null and xt.userName != ''">

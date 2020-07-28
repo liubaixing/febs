@@ -52,7 +52,7 @@ public class PurchaseRk {
      * 订单日期
      */
     @ApiModelProperty("订单日期")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("xdrq")
     private Date xdrq;
 
@@ -119,7 +119,7 @@ public class PurchaseRk {
      */
     @ApiModelProperty("制单日期")
     @TableField("zdrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zdrq;
 
     /**
@@ -141,7 +141,7 @@ public class PurchaseRk {
      */
     @ApiModelProperty("确认日期")
     @TableField("qrrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date qrrq;
 
     /**
@@ -163,7 +163,7 @@ public class PurchaseRk {
      */
     @ApiModelProperty("审核入库日期")
     @TableField("shrkrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shrkrq;
 
     /**
@@ -185,7 +185,7 @@ public class PurchaseRk {
      */
     @ApiModelProperty("关闭日期")
     @TableField("gbrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date gbrq;
 
     /**
@@ -207,7 +207,7 @@ public class PurchaseRk {
      */
     @ApiModelProperty("作废日期")
     @TableField("zfrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zfrq;
 
     /**
@@ -232,14 +232,14 @@ public class PurchaseRk {
      * 创建时间
      */
     @TableField("create_time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 修改时间
      */
     @TableField("update_time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**

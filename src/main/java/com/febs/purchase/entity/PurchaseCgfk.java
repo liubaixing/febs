@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 采购付款 Entity
@@ -38,6 +39,7 @@ public class PurchaseCgfk {
      */
     @ApiModelProperty("单据日期")
     @TableField("djrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date djrq;
 
     /**
@@ -91,6 +93,7 @@ public class PurchaseCgfk {
      */
     @ApiModelProperty("制单日期")
     @TableField("zdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zdrq;
 
     /**
@@ -111,6 +114,7 @@ public class PurchaseCgfk {
      * 确认日期
      */
     @TableField("qrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date qrrq;
 
     /**
@@ -131,6 +135,7 @@ public class PurchaseCgfk {
      * 审核日期
      */
     @TableField("shrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shrq;
 
     /**
@@ -152,6 +157,7 @@ public class PurchaseCgfk {
      */
     @ApiModelProperty("付款日期")
     @TableField("fkrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fkrq;
 
     /**
@@ -172,6 +178,7 @@ public class PurchaseCgfk {
      * 作废日期
      */
     @TableField("zfrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zfrq;
 
     /**

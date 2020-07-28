@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 退仓单 Entity
@@ -37,6 +38,7 @@ public class PurchaseTc {
      * 下单日期
      */
     @TableField("xdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date xdrq;
 
     /**
@@ -140,6 +142,7 @@ public class PurchaseTc {
      */
     @ApiModelProperty("要求到货时间")
     @TableField("yqdhrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date yqdhrq;
 
     /**
@@ -221,6 +224,7 @@ public class PurchaseTc {
      * 制单日期
      */
     @TableField("zdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zdrq;
 
     /**
@@ -241,6 +245,7 @@ public class PurchaseTc {
      * 确认日期
      */
     @TableField("qrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date qrrq;
 
     /**
@@ -261,6 +266,7 @@ public class PurchaseTc {
      * 审核日期
      */
     @TableField("shrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shrq;
 
     /**
@@ -281,6 +287,7 @@ public class PurchaseTc {
      * 开始收货日期
      */
     @TableField("ksshrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ksshrq;
 
     /**
@@ -301,6 +308,7 @@ public class PurchaseTc {
      * 收货确认日期
      */
     @TableField("shqrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shqrrq;
 
     /**
@@ -321,6 +329,7 @@ public class PurchaseTc {
      * 开始退仓日期
      */
     @TableField("kstcrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date kstcrq;
 
     /**
@@ -341,6 +350,7 @@ public class PurchaseTc {
      * 退仓发货日期
      */
     @TableField("tcfhrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date tcfhrq;
 
     /**
@@ -360,6 +370,7 @@ public class PurchaseTc {
      * 运费录入日期
      */
     @TableField("yflrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date yflrrq;
 
     /**
@@ -379,6 +390,7 @@ public class PurchaseTc {
      * 印刷费录入日期
      */
     @TableField("ysflrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ysflrrq;
 
     /**
@@ -398,6 +410,7 @@ public class PurchaseTc {
      * 关闭日期
      */
     @TableField("zsrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zsrq;
 
     /**
@@ -416,6 +429,7 @@ public class PurchaseTc {
      * 作废日期
      */
     @TableField("zfrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zfrq;
 
     /**

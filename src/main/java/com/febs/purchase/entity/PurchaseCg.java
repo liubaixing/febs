@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 采购单 Entity
@@ -38,6 +39,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("下单日期")
     @TableField("xdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date xdrq;
 
     /**
@@ -143,6 +145,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("要求到货时间")
     @TableField("yqdhrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date yqdhrq;
 
     /**
@@ -244,6 +247,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("制单日期")
     @TableField("zdrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zdrq;
 
     /**
@@ -265,6 +269,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("确认日期")
     @TableField("qrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date qrrq;
 
     /**
@@ -286,6 +291,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("审核日期")
     @TableField("shrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shrq;
 
     /**
@@ -307,6 +313,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("二次复合日期")
     @TableField("ecshrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ecshrq;
 
     /**
@@ -328,6 +335,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("开始收货日期")
     @TableField("ksshrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ksshrq;
 
     /**
@@ -349,6 +357,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("收货确认日期")
     @TableField("shqrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shqrrq;
 
     /**
@@ -370,6 +379,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("开始发货日期")
     @TableField("ksfhrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ksfhrq;
 
     /**
@@ -391,6 +401,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("开始配货日期")
     @TableField("ksphrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ksphrq;
 
     /**
@@ -412,6 +423,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("采购发货日期")
     @TableField("cgfhrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date cgfhrq;
 
     /**
@@ -433,6 +445,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("运费录入日期")
     @TableField("yflrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date yflrrq;
 
     /**
@@ -454,6 +467,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("印刷费录入日期")
     @TableField("ysflrrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ysflrrq;
 
     /**
@@ -475,6 +489,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("生成退仓日期")
     @TableField("sctcrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sctcrq;
 
     /**
@@ -496,6 +511,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("关闭日期")
     @TableField("zsrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zsrq;
 
     /**
@@ -517,6 +533,7 @@ public class PurchaseCg {
      */
     @ApiModelProperty("作废日期")
     @TableField("zfrq")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zfrq;
 
     /**
