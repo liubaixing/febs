@@ -8,6 +8,8 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.orderqt.entity.OrderqtYsfd;
 import com.febs.orderqt.service.IOrderqtYsfdService;
+import com.febs.orderqt.vo.req.YsfdReq;
+import com.febs.orderqt.vo.resp.YsfdResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +41,14 @@ public class OrderqtYsfdController extends BaseController {
 
     @GetMapping("")
     @RequiresPermissions("orderqtYsfd:list")
-    public FebsResponse getAllOrderqtYsfds(OrderqtYsfd orderqtYsfd) {
-        return new FebsResponse().success().data(orderqtYsfdService.findOrderqtYsfds(orderqtYsfd));
+    public FebsResponse getAllOrderqtYsfds(YsfdReq req) {
+        return new FebsResponse().success().data(orderqtYsfdService.findOrderqtYsfds(req));
     }
 
     @GetMapping("/list")
     @RequiresPermissions("orderqtYsfd:list")
-    public FebsResponse orderqtYsfdList(QueryRequest request, OrderqtYsfd orderqtYsfd) {
-        Map<String, Object> dataTable = getDataTable(this.orderqtYsfdService.findOrderqtYsfds(request, orderqtYsfd));
+    public FebsResponse orderqtYsfdList(QueryRequest request, YsfdReq req) {
+        Map<String, Object> dataTable = getDataTable(this.orderqtYsfdService.findOrderqtYsfds(request, req));
         return new FebsResponse().success().data(dataTable);
     }
 
@@ -78,8 +80,8 @@ public class OrderqtYsfdController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("orderqtYsfd:export")
-    public void export(QueryRequest queryRequest, OrderqtYsfd orderqtYsfd, HttpServletResponse response) throws IOException {
-        List<OrderqtYsfd> orderqtYsfds = this.orderqtYsfdService.findOrderqtYsfds(queryRequest, orderqtYsfd).getRecords();
-        ExcelUtil.export(orderqtYsfds, OrderqtYsfd.class,"印刷费单",response);
+    public void export(QueryRequest queryRequest, YsfdReq req, HttpServletResponse response) throws IOException {
+        List<YsfdResp> orderqtYsfds = this.orderqtYsfdService.findOrderqtYsfds(queryRequest, req).getRecords();
+        ExcelUtil.export(orderqtYsfds, YsfdResp.class,"印刷费单",response);
     }
 }
