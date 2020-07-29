@@ -95,7 +95,7 @@ public class OrderCkController extends BaseController {
     @GetMapping("/view/{id}")
 //    @RequiresPermissions("orderCk:view")
     public FebsResponse view(@PathVariable Long id ){
-        return new FebsResponse().data(ckBiz.view(id));
+        return new FebsResponse().success().data(ckBiz.view(id));
     }
 
 

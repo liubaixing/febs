@@ -97,7 +97,7 @@ public class PurchaseTcController extends BaseController {
     @GetMapping("/view/{id}")
     @RequiresPermissions("purchaseTc:view")
     public FebsResponse view(@PathVariable Long id){
-        return new FebsResponse().data(tcBiz.view(id));
+        return new FebsResponse().success().data(tcBiz.view(id));
     }
 
 

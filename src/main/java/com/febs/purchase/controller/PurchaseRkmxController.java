@@ -9,6 +9,7 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.purchase.entity.PurchaseRkmx;
 import com.febs.purchase.service.IPurchaseRkmxService;
 
+import com.febs.purchase.vo.resp.PurchaseRkmxResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class PurchaseRkmxController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("purchaseRkmx:export")
     public void export(QueryRequest queryRequest, PurchaseRkmx purchaseRkmx, HttpServletResponse response) throws IOException {
-        List<PurchaseRkmx> purchaseRkmxs = this.purchaseRkmxService.findPurchaseRkmxs(queryRequest, purchaseRkmx).getRecords();
-        ExcelUtil.export(purchaseRkmxs, PurchaseRkmx.class,"入库单明细",response);
+        List<PurchaseRkmxResp> purchaseRkmxs = this.purchaseRkmxService.findPurchaseRkmxs(queryRequest, purchaseRkmx).getRecords();
+        ExcelUtil.export(purchaseRkmxs, PurchaseRkmxResp.class,"入库单明细",response);
     }
 }

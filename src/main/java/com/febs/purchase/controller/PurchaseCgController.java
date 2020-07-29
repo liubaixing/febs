@@ -98,7 +98,7 @@ public class PurchaseCgController extends BaseController {
     @GetMapping("/view/{id}")
 //    @RequiresPermissions("purchaseCg:view")
     public FebsResponse view(@PathVariable Long id){
-        return new FebsResponse().data(cgBiz.view(id));
+        return new FebsResponse().success().data(cgBiz.view(id));
     }
 
     @ApiOperation("确认")

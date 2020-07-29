@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class PurchaseRkResp extends PurchaseRk {
@@ -38,4 +39,5 @@ public class PurchaseRkResp extends PurchaseRk {
 
     private Long mxId;
 
+    private List<PurchaseRkmxResp> rkmxlist;
 }

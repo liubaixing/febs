@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.febs.purchase.mapper.PurchaseRkmxMapper">
     <resultMap id="BaseResultMap" type="com.febs.purchase.entity.PurchaseRkmx">
-        <id column="Id" jdbcType="BIGINT" property="id" />
+        <id column="id" jdbcType="BIGINT" property="id" />
         <result column="pid" jdbcType="BIGINT" property="pid" />
         <result column="sp_id" jdbcType="INTEGER" property="spId" />
         <result column="gg1_id" jdbcType="INTEGER" property="gg1Id" />
@@ -79,7 +79,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, pid, sp_id, gg1_id, gg2_id, dj, je, ex1, ex2, ex3, jsjg, jishuije, sku, create_time,
+    id, pid, sp_id, gg1_id, gg2_id, dj, je, ex1, ex2, ex3, jsjg, jishuije, sku, create_time,
     update_time, deleted, cbje
   </sql>
     <select id="selectByExample" parameterType="com.febs.purchase.entity.PurchaseRkmxExample" resultMap="BaseResultMap">
@@ -100,11 +100,11 @@
         select
         <include refid="Base_Column_List" />
         from purchase_rkmx
-        where Id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from purchase_rkmx
-    where Id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
     <delete id="deleteByExample" parameterType="com.febs.purchase.entity.PurchaseRkmxExample">
         delete from purchase_rkmx
@@ -112,7 +112,7 @@
             <include refid="Example_Where_Clause" />
         </if>
     </delete>
-    <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.purchase.entity.PurchaseRkmx" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.febs.purchase.entity.PurchaseRkmx" useGeneratedKeys="true">
     insert into purchase_rkmx (pid, sp_id, gg1_id,
       gg2_id, dj, je, ex1,
       ex2, ex3, jsjg, jishuije,
@@ -124,7 +124,7 @@
       #{sku,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=INTEGER}, #{cbje,jdbcType=DECIMAL})
   </insert>
-    <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.purchase.entity.PurchaseRkmx" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.febs.purchase.entity.PurchaseRkmx" useGeneratedKeys="true">
         insert into purchase_rkmx
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pid != null">
@@ -237,7 +237,7 @@
         update purchase_rkmx
         <set>
             <if test="record.id != null">
-                Id = #{record.id,jdbcType=BIGINT},
+                id = #{record.id,jdbcType=BIGINT},
             </if>
             <if test="record.pid != null">
                 pid = #{record.pid,jdbcType=BIGINT},
@@ -294,7 +294,7 @@
     </update>
     <update id="updateByExample" parameterType="map">
         update purchase_rkmx
-        set Id = #{record.id,jdbcType=BIGINT},
+        set id = #{record.id,jdbcType=BIGINT},
         pid = #{record.pid,jdbcType=BIGINT},
         sp_id = #{record.spId,jdbcType=INTEGER},
         gg1_id = #{record.gg1Id,jdbcType=INTEGER},
@@ -367,7 +367,7 @@
                 cbje = #{cbje,jdbcType=DECIMAL},
             </if>
         </set>
-        where Id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.febs.purchase.entity.PurchaseRkmx">
     update purchase_rkmx
@@ -387,6 +387,47 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=INTEGER},
       cbje = #{cbje,jdbcType=DECIMAL}
-    where Id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <sql id="Page_Column_List">
+       mx.id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.dj, mx.je, mx.ex1, mx.ex2, mx.ex3, mx.jsjg,
+        mx.jishuije, mx.sku,mx.cbje
+    </sql>
+
+    <select id="selectPageByQuery" parameterType="com.febs.purchase.entity.PurchaseRkmx" resultType="com.febs.purchase.vo.resp.PurchaseRkmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_rkmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="mx.id != null">
+                and mx.id = #{mx.id}
+            </if>
+            <if test="mx.pid != null">
+                and mx.pid = #{mx.pid}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectByQuery" parameterType="com.febs.purchase.entity.PurchaseRkmx" resultType="com.febs.purchase.vo.resp.PurchaseRkmxResp">
+        SELECT
+        <include refid="Page_Column_List" />
+        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_cgfkmx mx
+        LEFT JOIN shangpin sp ON mx.sp_id = sp.id
+        LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
+        <where>
+            <if test="id != null">
+                and mx.id = #{id}
+            </if>
+            <if test="pid != null">
+                and mx.pid = #{pid}
+            </if>
+        </where>
+    </select>
+
 </mapper>

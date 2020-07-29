@@ -22,7 +22,7 @@ public class PurchaseRkmx {
     /**
      * 
      */
-    @TableId(value = "Id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**

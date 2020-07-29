@@ -140,7 +140,7 @@ public class OrderXsfpController extends BaseController {
     @GetMapping("/view/{id}")
 //    @RequiresPermissions("orderXsfp:view")
     public FebsResponse view(@PathVariable Long id ){
-        return new FebsResponse().data(xsfpBiz.view(id));
+        return new FebsResponse().success().data(xsfpBiz.view(id));
     }
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")

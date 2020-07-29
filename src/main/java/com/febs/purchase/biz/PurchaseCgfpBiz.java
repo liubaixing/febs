@@ -3,6 +3,7 @@ package com.febs.purchase.biz;
 import com.febs.purchase.entity.PurchaseCgfpmx;
 import com.febs.purchase.service.IPurchaseCgfpService;
 import com.febs.purchase.service.IPurchaseCgfpmxService;
+import com.febs.purchase.vo.req.CgfpCreateReq;
 import com.febs.purchase.vo.resp.PurchaseCgfpResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,8 @@ public class PurchaseCgfpBiz {
         cgfpmx.setPid(cgfpResp.getId());
         cgfpResp.setCgfpmxListl(cgfpmxService.findPurchaseCgfpmxs(cgfpmx));
         return cgfpResp;
+    }
+
+    public void kssc(CgfpCreateReq req) {
     }
 }

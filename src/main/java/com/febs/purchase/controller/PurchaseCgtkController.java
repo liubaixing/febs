@@ -10,6 +10,7 @@ import com.febs.purchase.biz.PurchaseCgtkBiz;
 import com.febs.purchase.entity.PurchaseCgtk;
 import com.febs.purchase.service.IPurchaseCgtkService;
 
+import com.febs.purchase.vo.req.CgtkCreateReq;
 import com.febs.purchase.vo.req.PurchaseCgtkReq;
 import com.febs.purchase.vo.resp.PurchaseCgtkResp;
 import com.febs.system.entity.User;
@@ -152,15 +153,16 @@ public class PurchaseCgtkController extends BaseController {
     @GetMapping("/view/{id}")
     @RequiresPermissions("purchaseCgtk:view")
     public FebsResponse view(@PathVariable Long id){
-        return new FebsResponse().data(cgtkBiz.view(id));
+        return new FebsResponse().success().data(cgtkBiz.view(id));
     }
 
     @ApiOperation("开始生成")
     @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("/kssc")
     @RequiresPermissions("purchaseCgtk:kssc")
-    public FebsResponse kssc(Long id){
+    public FebsResponse kssc(CgtkCreateReq req){
         User user = getCurrentUser();
+        cgtkBiz.kssc(req);
         return new FebsResponse().success();
     }
 

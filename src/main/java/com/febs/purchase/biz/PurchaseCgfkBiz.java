@@ -4,6 +4,7 @@ import com.febs.purchase.entity.PurchaseCgfk;
 import com.febs.purchase.entity.PurchaseCgfkmx;
 import com.febs.purchase.service.IPurchaseCgfkService;
 import com.febs.purchase.service.IPurchaseCgfkmxService;
+import com.febs.purchase.vo.req.CgfkCreateReq;
 import com.febs.purchase.vo.resp.PurchaseCgfkResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,6 @@ public class PurchaseCgfkBiz {
         return  cgfkResp;
     }
 
+    public void kssc(CgfkCreateReq req) {
+    }
 }

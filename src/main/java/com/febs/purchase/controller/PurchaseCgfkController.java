@@ -10,6 +10,7 @@ import com.febs.purchase.biz.PurchaseCgfkBiz;
 import com.febs.purchase.entity.PurchaseCgfk;
 import com.febs.purchase.service.IPurchaseCgfkService;
 
+import com.febs.purchase.vo.req.CgfkCreateReq;
 import com.febs.purchase.vo.req.PurchaseCgfkReq;
 import com.febs.purchase.vo.resp.PurchaseCgfkResp;
 import com.febs.system.entity.User;
@@ -155,15 +156,16 @@ public class PurchaseCgfkController extends BaseController {
     @GetMapping("/view/{id}")
     @RequiresPermissions("purchaseCgfk:view")
     public FebsResponse view(@PathVariable Long id){
-        return new FebsResponse().data(cgfkBiz.view(id));
+        return new FebsResponse().success().data(cgfkBiz.view(id));
     }
 
     @ApiOperation("开始生成")
     @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("/kssc")
     @RequiresPermissions("purchaseCgfk:kssc")
-    public FebsResponse kssc( Long id){
+    public FebsResponse kssc(CgfkCreateReq req){
         User user = getCurrentUser();
+        cgfkBiz.kssc(req);
         return new FebsResponse().success();
     }
 
