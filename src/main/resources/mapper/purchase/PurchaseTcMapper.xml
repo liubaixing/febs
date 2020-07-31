@@ -1165,6 +1165,7 @@
         tc.fkje, tc.tkje, tc.fj, tc.address, tc.tel, tc.contact, tc.zdr, tc.zdrq, tc.qr, tc.qrr, tc.qrrq, tc.sh, tc.auditor, tc.shrq, tc.kssh,
         tc.ksshr, tc.ksshrq, tc.shqr, tc.shqrr, tc.shqrrq, tc.kstc, tc.kstcr, tc.kstcrq, tc.tcfh, tc.tcfhr, tc.tcfhrq, tc.yflr,
         tc.yflrr, tc.yflrrq, tc.ysflr, tc.ysflrr, tc.ysflrrq, tc.zs, tc.zsr, tc.zsrq, tc.zf, tc.zfr, tc.zfrq, tc.ex1, tc.ex2, tc.ex3
+        , 'cg' as orderType
     </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseTcReq" resultType="com.febs.purchase.vo.resp.PurchaseTcResp">

@@ -44,16 +44,15 @@ public class PurchaseCgServiceImpl extends ServiceImpl<PurchaseCgMapper, Purchas
     }
 
     @Override
-    public List<PurchaseCg> findPurchaseCgs(PurchaseCg purchaseCg) {
-	    LambdaQueryWrapper<PurchaseCg> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<PurchaseCgResp> findPurchaseCgs(PurchaseCgReq purchaseCg) {
+		return this.purchaseCgMapper.selectByQuery(purchaseCg);
     }
 
     @Override
     public PurchaseCgResp findById(Long id){
         PurchaseCgReq req = new PurchaseCgReq();
-        List<PurchaseCgResp> resp = this.purchaseCgMapper.selectByQuery(req);
+        req.setId(id);
+        List<PurchaseCgResp> resp = findPurchaseCgs(req);
         return CollectionUtils.isEmpty(resp)? null : resp.get(0);
     }
 

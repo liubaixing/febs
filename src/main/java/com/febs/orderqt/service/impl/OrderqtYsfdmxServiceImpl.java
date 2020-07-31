@@ -32,39 +32,25 @@ public class OrderqtYsfdmxServiceImpl extends ServiceImpl<OrderqtYsfdmxMapper, O
 
     @Override
     public IPage<OrderqtYsfdmx> findOrderqtYsfdmxs(QueryRequest request, OrderqtYsfdmx orderqtYsfdmx) {
-        LambdaQueryWrapper<OrderqtYsfdmx> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
         Page<OrderqtYsfdmx> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.orderqtYsfdmxMapper.selectPageByQuery(page, orderqtYsfdmx);
     }
 
     @Override
     public List<OrderqtYsfdmx> findOrderqtYsfdmxs(OrderqtYsfdmx orderqtYsfdmx) {
-	    LambdaQueryWrapper<OrderqtYsfdmx> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+		return this.orderqtYsfdmxMapper.selectByQuery(orderqtYsfdmx);
     }
 
     @Override
     @Transactional
     public void createOrderqtYsfdmx(OrderqtYsfdmx orderqtYsfdmx) {
-        LambdaQueryWrapper<OrderqtYsfdmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-        throw new FebsException("数据已存在，添加失败");
-        }
-        this.save(orderqtYsfdmx);
+        this.orderqtYsfdmxMapper.insertSelective(orderqtYsfdmx);
     }
 
     @Override
     @Transactional
     public void updateOrderqtYsfdmx(OrderqtYsfdmx orderqtYsfdmx) {
-        LambdaQueryWrapper<OrderqtYsfdmx> queryWrapper = new LambdaQueryWrapper<>();
-        Integer count = this.baseMapper.selectCount(queryWrapper);
-        if (count>0) {
-            throw new FebsException("数据已存在，添加失败");
-        }
-        this.saveOrUpdate(orderqtYsfdmx);
+        this.orderqtYsfdmxMapper.updateByPrimaryKeySelective(orderqtYsfdmx);
     }
 
     @Override

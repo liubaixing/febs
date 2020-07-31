@@ -32,7 +32,7 @@ public interface IPurchaseCgService extends IService<PurchaseCg> {
      * @param purchaseCg purchaseCg
      * @return List<PurchaseCg>
      */
-    List<PurchaseCg> findPurchaseCgs(PurchaseCg purchaseCg);
+    List<PurchaseCgResp> findPurchaseCgs(PurchaseCgReq purchaseCg);
 
     PurchaseCgResp findById(Long id);
 

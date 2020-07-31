@@ -10,6 +10,7 @@
         <result column="sl" jdbcType="INTEGER" property="sl" />
         <result column="dj" jdbcType="DECIMAL" property="dj" />
         <result column="je" jdbcType="DECIMAL" property="je" />
+        <result column="tzsl" jdbcType="INTEGER" property="tzsl" />
         <result column="kpsl" jdbcType="INTEGER" property="kpsl" />
         <result column="fksl" jdbcType="INTEGER" property="fksl" />
         <result column="tksl" jdbcType="INTEGER" property="tksl" />
@@ -80,7 +81,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, pid, sp_id, gg1_id, gg2_id, sl, dj, je, kpsl, fksl, tksl, kpje, fkje, tkje, ex1,
+    Id, pid, sp_id, gg1_id, gg2_id, sl, dj, je, tzsl, kpsl, fksl, tksl, kpje, fkje, tkje, ex1,
     ex2, ex3, sku
   </sql>
     <select id="selectByExample" parameterType="com.febs.purchase.entity.PurchaseTcmxExample" resultMap="BaseResultMap">
@@ -149,6 +150,9 @@
             <if test="je != null">
                 je,
             </if>
+            <if test="tzsl != null">
+                tzsl,
+            </if>
             <if test="kpsl != null">
                 kpsl,
             </if>
@@ -201,6 +205,9 @@
             </if>
             <if test="je != null">
                 #{je,jdbcType=DECIMAL},
+            </if>
+            <if test="tzsl != null">
+                #{tzsl,jdbcType=INTEGER},
             </if>
             <if test="kpsl != null">
                 #{kpsl,jdbcType=INTEGER},
@@ -350,6 +357,9 @@
             <if test="je != null">
                 je = #{je,jdbcType=DECIMAL},
             </if>
+            <if test="tzsl != null">
+                tzsl = #{tzsl,jdbcType=INTEGER},
+            </if>
             <if test="kpsl != null">
                 kpsl = #{kpsl,jdbcType=INTEGER},
             </if>
@@ -406,7 +416,7 @@
   </update>
 
     <sql id="Page_Column_List">
-        mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.dj, mx.je, mx.kpsl, mx.fksl, mx.tksl, mx.kpje, mx.fkje, mx.tkje, mx.ex1,
+        mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.dj, mx.je, mx.tzsl, mx.kpsl, mx.fksl, mx.tksl, mx.kpje, mx.fkje, mx.tkje, mx.ex1,
         mx.ex2, mx.ex3, mx.sku
     </sql>
 

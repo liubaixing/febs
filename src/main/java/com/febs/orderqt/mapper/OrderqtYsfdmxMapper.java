@@ -2,6 +2,8 @@ package com.febs.orderqt.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.febs.orderqt.entity.OrderqtYsfdmx;
 import com.febs.orderqt.entity.OrderqtYsfdmxExample;
 import org.apache.ibatis.annotations.Param;
@@ -36,4 +38,9 @@ public interface OrderqtYsfdmxMapper extends BaseMapper<OrderqtYsfdmx> {
     int updateByPrimaryKeySelective(OrderqtYsfdmx record);
 
     int updateByPrimaryKey(OrderqtYsfdmx record);
+
+    IPage<OrderqtYsfdmx> selectPageByQuery(Page<OrderqtYsfdmx> page, @Param("mx") OrderqtYsfdmx req);
+
+    List<OrderqtYsfdmx> selectByQuery(OrderqtYsfdmx req);
+
 }

@@ -64,6 +64,13 @@ public class PurchaseTcmx {
      */
     @TableField("je")
     private BigDecimal je;
+
+    /**
+     * 通知数量
+     */
+    @TableField("tzsl")
+    private Integer tzsl;
+
     /**
      * 开票数量
      */

@@ -42,6 +42,8 @@ public class PurchaseTcResp extends PurchaseTc {
     @ApiModelProperty("计量单位")
     private String jldwmc;
 
+    @ApiModelProperty("订单类型")
+    private String orderType;
 
     List<PurchaseTcmxResp> tcmxList;
 }

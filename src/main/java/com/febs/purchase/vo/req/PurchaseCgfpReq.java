@@ -23,4 +23,6 @@ public class PurchaseCgfpReq extends PurchaseCgfp {
 
     @ApiModelProperty("商品名称")
     private String spmc;
+
+    private String orderType;
 }

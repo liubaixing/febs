@@ -407,19 +407,60 @@
 
 
   <sql id="Page_Column_List">
-    yf.Id, yf.djbh, yf.djrq, yf.gys_id, yf.je, yf.bz, yf.fj, yf.zdr, yf.zdrq,
-    yf.sh, yf.shr, yf.shrq, yf.zf, yf.zfr, yf.zfrq, yf.ex1, yf.ex2, yf.ex3
+    yf.Id, yf.djbh, yf.djrq, yf.gys_id, yf.bz, yf.fj, yf.zdr, yf.zdrq,
+    yf.sh, yf.shr, yf.shrq, yf.zf, yf.zfr, yf.zfrq, yf.ex1, yf.ex2, yf.ex3 , 'yf' as orderType
   </sql>
 
   <select id="selectPageByQuery" parameterType="com.febs.orderqt.vo.req.YfdReq" resultType="com.febs.orderqt.vo.resp.YfdResp">
     SELECT
     <include refid="Page_Column_List" />
+    ,gysmc,mx.id mxId, mx.sl,mx.je,mx.kpsl,mx.sksl,mx.tksl,mx.kpje,mx.skje,mx.tkje
     FROM orderqt_yfd yf
+    LEFT JOIN system_gys gys ON yf.gys_id = gys.id
+    LEFT JOIN orderqt_yfdmx mx on yf.id = mx.pid
+    <where>
+      <if test="yf.djbh != null and yf.djbh != ''">
+        and yf.djbh like CONCAT('%',#{yf.djbh},'%')
+      </if>
+      <if test="yf.startTime != null and yf.endTime != null">
+        and yf.djrq between #{yf.startTime} and #{yf.endTime}
+      </if>
+      <if test="yf.sh != null">
+        and yf.sh = #{yf.sh}
+      </if>
+      <if test="yf.gysId != null">
+        and yf.gysId = #{yf.gysId}
+      </if>
+      <if test="yf.gysmc != null and yf.gysmc != ''">
+        and gys.gysmc like CONCAT('%',#{yf.gysmc},'%')
+      </if>
+    </where>
   </select>
 
   <select id="selectByQuery" parameterType="com.febs.orderqt.vo.req.YfdReq" resultType="com.febs.orderqt.vo.resp.YfdResp">
     SELECT
     <include refid="Page_Column_List" />
+    ,gysmc,mx.id mxId, mx.sl,mx.je,mx.kpsl,mx.sksl,mx.tksl,mx.kpje,mx.skje,mx.tkje
     FROM orderqt_yfd yf
+    LEFT JOIN system_gys gys ON yf.gys_id = gys.id
+    LEFT JOIN orderqt_yfdmx mx on yf.id = mx.pid
+    <where>
+      <if test="yf.djbh != null and yf.djbh != ''">
+        and yf.djbh like CONCAT('%',#{yf.djbh},'%')
+      </if>
+      <if test="yf.startTime != null and yf.endTime != null">
+        and yf.djrq between #{yf.startTime} and #{yf.endTime}
+      </if>
+      <if test="yf.sh != null">
+        and yf.sh = #{yf.sh}
+      </if>
+      <if test="yf.gysId != null">
+        and yf.gysId = #{yf.gysId}
+      </if>
+      <if test="yf.gysmc != null and yf.gysmc != ''">
+        and gys.gysmc like CONCAT('%',#{yf.gysmc},'%')
+      </if>
+    </where>
   </select>
+
 </mapper>

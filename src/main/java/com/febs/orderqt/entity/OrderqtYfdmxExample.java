@@ -655,63 +655,63 @@ public class OrderqtYfdmxExample {
             return (Criteria) this;
         }
 
-        public Criteria andSkslIsNull() {
-            addCriterion("sksl is null");
+        public Criteria andFkslIsNull() {
+            addCriterion("fksl is null");
             return (Criteria) this;
         }
 
-        public Criteria andSkslIsNotNull() {
-            addCriterion("sksl is not null");
+        public Criteria andFkslIsNotNull() {
+            addCriterion("fksl is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSkslEqualTo(Integer value) {
-            addCriterion("sksl =", value, "sksl");
+        public Criteria andFkslEqualTo(Integer value) {
+            addCriterion("fksl =", value, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslNotEqualTo(Integer value) {
-            addCriterion("sksl <>", value, "sksl");
+        public Criteria andFkslNotEqualTo(Integer value) {
+            addCriterion("fksl <>", value, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslGreaterThan(Integer value) {
-            addCriterion("sksl >", value, "sksl");
+        public Criteria andFkslGreaterThan(Integer value) {
+            addCriterion("fksl >", value, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslGreaterThanOrEqualTo(Integer value) {
-            addCriterion("sksl >=", value, "sksl");
+        public Criteria andFkslGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fksl >=", value, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslLessThan(Integer value) {
-            addCriterion("sksl <", value, "sksl");
+        public Criteria andFkslLessThan(Integer value) {
+            addCriterion("fksl <", value, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslLessThanOrEqualTo(Integer value) {
-            addCriterion("sksl <=", value, "sksl");
+        public Criteria andFkslLessThanOrEqualTo(Integer value) {
+            addCriterion("fksl <=", value, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslIn(List<Integer> values) {
-            addCriterion("sksl in", values, "sksl");
+        public Criteria andFkslIn(List<Integer> values) {
+            addCriterion("fksl in", values, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslNotIn(List<Integer> values) {
-            addCriterion("sksl not in", values, "sksl");
+        public Criteria andFkslNotIn(List<Integer> values) {
+            addCriterion("fksl not in", values, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslBetween(Integer value1, Integer value2) {
-            addCriterion("sksl between", value1, value2, "sksl");
+        public Criteria andFkslBetween(Integer value1, Integer value2) {
+            addCriterion("fksl between", value1, value2, "fksl");
             return (Criteria) this;
         }
 
-        public Criteria andSkslNotBetween(Integer value1, Integer value2) {
-            addCriterion("sksl not between", value1, value2, "sksl");
+        public Criteria andFkslNotBetween(Integer value1, Integer value2) {
+            addCriterion("fksl not between", value1, value2, "fksl");
             return (Criteria) this;
         }
 

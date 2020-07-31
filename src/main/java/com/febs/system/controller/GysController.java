@@ -42,13 +42,13 @@ public class GysController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("gys:list")
+//    @RequiresPermissions("gys:list")
     public FebsResponse getAllGyss(Gys gys) {
         return new FebsResponse().success().data(gysService.findGyss(gys));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("gys:list")
+//    @RequiresPermissions("gys:list")
     public FebsResponse gysList(QueryRequest request, Gys gys) {
         Map<String, Object> dataTable = getDataTable(this.gysService.findGyss(request, gys));
         return new FebsResponse().success().data(dataTable);

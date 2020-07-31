@@ -21,7 +21,18 @@ public class PurchaseCgfkReq extends PurchaseCgfk {
     @ApiModelProperty("供应商")
     private String gysmc;
 
+    @ApiModelProperty("付款数量")
+    private Integer sl;
+
+    @ApiModelProperty("原单号")
+    private String ydjh;
+
+    @ApiModelProperty("商品id")
+    private Integer spId;
+
     @ApiModelProperty("商品名称")
     private String spmc;
+
+    private String orderType;
 
 }

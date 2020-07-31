@@ -407,7 +407,7 @@
 
   <sql id="Page_Column_List">
     ysf.Id, ysf.djbh, ysf.djrq, ysf.gys_id, ysf.je, ysf.bz, ysf.fj, ysf.zdr, ysf.zdrq,
-    ysf.sh, ysf.shr, ysf.shrq, ysf.zf, ysf.zfr, ysf.zfrq, ysf.ex1, ysf.ex2, ysf.ex3
+    ysf.sh, ysf.shr, ysf.shrq, ysf.zf, ysf.zfr, ysf.zfrq, ysf.ex1, ysf.ex2, ysf.ex3, 'ys' as orderType
   </sql>
 
   <select id="selectPageByQuery" parameterType="com.febs.orderqt.vo.req.YsfdReq" resultType="com.febs.orderqt.vo.resp.YsfdResp">

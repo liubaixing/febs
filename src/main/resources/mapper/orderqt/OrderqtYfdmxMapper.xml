@@ -10,11 +10,12 @@
     <result column="gg2_id" jdbcType="INTEGER" property="gg2Id" />
     <result column="sl" jdbcType="INTEGER" property="sl" />
     <result column="je" jdbcType="DECIMAL" property="je" />
+    <result column="tzsl" jdbcType="INTEGER" property="tzsl" />
     <result column="kpsl" jdbcType="INTEGER" property="kpsl" />
-    <result column="sksl" jdbcType="INTEGER" property="sksl" />
+    <result column="fksl" jdbcType="INTEGER" property="fksl" />
     <result column="tksl" jdbcType="INTEGER" property="tksl" />
     <result column="kpje" jdbcType="DECIMAL" property="kpje" />
-    <result column="skje" jdbcType="DECIMAL" property="skje" />
+    <result column="fkje" jdbcType="DECIMAL" property="fkje" />
     <result column="tkje" jdbcType="DECIMAL" property="tkje" />
     <result column="ex1" jdbcType="VARCHAR" property="ex1" />
     <result column="ex2" jdbcType="VARCHAR" property="ex2" />
@@ -79,7 +80,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, pid, ydjh, sp_id, gg1_id, gg2_id, sl, je, kpsl, sksl, tksl, kpje, skje, tkje, 
+    Id, pid, ydjh, sp_id, gg1_id, gg2_id, sl, je,tzsl, kpsl, fksl, tksl, kpje, fkje, tkje,
     ex1, ex2, ex3
   </sql>
   <select id="selectByExample" parameterType="com.febs.orderqt.entity.OrderqtYfdmxExample" resultMap="BaseResultMap">
@@ -115,13 +116,13 @@
   <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.orderqt.entity.OrderqtYfdmx" useGeneratedKeys="true">
     insert into orderqt_yfdmx (pid, ydjh, sp_id, 
       gg1_id, gg2_id, sl, je, 
-      kpsl, sksl, tksl, kpje, 
-      skje, tkje, ex1, ex2, 
+      kpsl, fksl, tksl, kpje, 
+      fkje, tkje, ex1, ex2, 
       ex3)
     values (#{pid,jdbcType=BIGINT}, #{ydjh,jdbcType=VARCHAR}, #{spId,jdbcType=INTEGER}, 
       #{gg1Id,jdbcType=INTEGER}, #{gg2Id,jdbcType=INTEGER}, #{sl,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, 
-      #{kpsl,jdbcType=INTEGER}, #{sksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER}, #{kpje,jdbcType=DECIMAL}, 
-      #{skje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, 
+      #{kpsl,jdbcType=INTEGER}, #{fksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER}, #{kpje,jdbcType=DECIMAL}, 
+      #{fkje,jdbcType=DECIMAL}, #{tkje,jdbcType=DECIMAL}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, 
       #{ex3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.orderqt.entity.OrderqtYfdmx" useGeneratedKeys="true">
@@ -148,11 +149,14 @@
       <if test="je != null">
         je,
       </if>
+      <if test="tzsl != null">
+        tzsl,
+      </if>
       <if test="kpsl != null">
         kpsl,
       </if>
-      <if test="sksl != null">
-        sksl,
+      <if test="fksl != null">
+        fksl,
       </if>
       <if test="tksl != null">
         tksl,
@@ -160,8 +164,8 @@
       <if test="kpje != null">
         kpje,
       </if>
-      <if test="skje != null">
-        skje,
+      <if test="fkje != null">
+        fkje,
       </if>
       <if test="tkje != null">
         tkje,
@@ -198,11 +202,14 @@
       <if test="je != null">
         #{je,jdbcType=DECIMAL},
       </if>
+      <if test="tzsl != null">
+        #{tzsl,jdbcType=INTEGER},
+      </if>
       <if test="kpsl != null">
         #{kpsl,jdbcType=INTEGER},
       </if>
-      <if test="sksl != null">
-        #{sksl,jdbcType=INTEGER},
+      <if test="fksl != null">
+        #{fksl,jdbcType=INTEGER},
       </if>
       <if test="tksl != null">
         #{tksl,jdbcType=INTEGER},
@@ -210,8 +217,8 @@
       <if test="kpje != null">
         #{kpje,jdbcType=DECIMAL},
       </if>
-      <if test="skje != null">
-        #{skje,jdbcType=DECIMAL},
+      <if test="fkje != null">
+        #{fkje,jdbcType=DECIMAL},
       </if>
       <if test="tkje != null">
         #{tkje,jdbcType=DECIMAL},
@@ -263,8 +270,8 @@
       <if test="record.kpsl != null">
         kpsl = #{record.kpsl,jdbcType=INTEGER},
       </if>
-      <if test="record.sksl != null">
-        sksl = #{record.sksl,jdbcType=INTEGER},
+      <if test="record.fksl != null">
+        fksl = #{record.fksl,jdbcType=INTEGER},
       </if>
       <if test="record.tksl != null">
         tksl = #{record.tksl,jdbcType=INTEGER},
@@ -272,8 +279,8 @@
       <if test="record.kpje != null">
         kpje = #{record.kpje,jdbcType=DECIMAL},
       </if>
-      <if test="record.skje != null">
-        skje = #{record.skje,jdbcType=DECIMAL},
+      <if test="record.fkje != null">
+        fkje = #{record.fkje,jdbcType=DECIMAL},
       </if>
       <if test="record.tkje != null">
         tkje = #{record.tkje,jdbcType=DECIMAL},
@@ -303,10 +310,10 @@
       sl = #{record.sl,jdbcType=INTEGER},
       je = #{record.je,jdbcType=DECIMAL},
       kpsl = #{record.kpsl,jdbcType=INTEGER},
-      sksl = #{record.sksl,jdbcType=INTEGER},
+      fksl = #{record.fksl,jdbcType=INTEGER},
       tksl = #{record.tksl,jdbcType=INTEGER},
       kpje = #{record.kpje,jdbcType=DECIMAL},
-      skje = #{record.skje,jdbcType=DECIMAL},
+      fkje = #{record.fkje,jdbcType=DECIMAL},
       tkje = #{record.tkje,jdbcType=DECIMAL},
       ex1 = #{record.ex1,jdbcType=VARCHAR},
       ex2 = #{record.ex2,jdbcType=VARCHAR},
@@ -339,11 +346,14 @@
       <if test="je != null">
         je = #{je,jdbcType=DECIMAL},
       </if>
+      <if test="tzsl != null">
+        tzsl = #{tzsl,jdbcType=INTEGER},
+      </if>
       <if test="kpsl != null">
         kpsl = #{kpsl,jdbcType=INTEGER},
       </if>
-      <if test="sksl != null">
-        sksl = #{sksl,jdbcType=INTEGER},
+      <if test="fksl != null">
+        fksl = #{fksl,jdbcType=INTEGER},
       </if>
       <if test="tksl != null">
         tksl = #{tksl,jdbcType=INTEGER},
@@ -351,8 +361,8 @@
       <if test="kpje != null">
         kpje = #{kpje,jdbcType=DECIMAL},
       </if>
-      <if test="skje != null">
-        skje = #{skje,jdbcType=DECIMAL},
+      <if test="fkje != null">
+        fkje = #{fkje,jdbcType=DECIMAL},
       </if>
       <if test="tkje != null">
         tkje = #{tkje,jdbcType=DECIMAL},
@@ -379,14 +389,56 @@
       sl = #{sl,jdbcType=INTEGER},
       je = #{je,jdbcType=DECIMAL},
       kpsl = #{kpsl,jdbcType=INTEGER},
-      sksl = #{sksl,jdbcType=INTEGER},
+      fksl = #{fksl,jdbcType=INTEGER},
       tksl = #{tksl,jdbcType=INTEGER},
       kpje = #{kpje,jdbcType=DECIMAL},
-      skje = #{skje,jdbcType=DECIMAL},
+      fkje = #{fkje,jdbcType=DECIMAL},
       tkje = #{tkje,jdbcType=DECIMAL},
       ex1 = #{ex1,jdbcType=VARCHAR},
       ex2 = #{ex2,jdbcType=VARCHAR},
       ex3 = #{ex3,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+  <sql id="Page_Column_List">
+       mx.Id, mx.pid, mx.ydjh, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.je, mx.tzsl, mx.kpsl, mx.fksl,
+       mx.tksl, mx.kpje, mx.fkje, mx.tkje, mx.ex1, mx.ex2, mx.ex3
+    </sql>
+
+  <select id="selectPageByQuery" parameterType="com.febs.orderqt.entity.OrderqtYfdmx" resultType="com.febs.orderqt.entity.OrderqtYfdmx">
+    SELECT
+    <include refid="Page_Column_List" />
+    FROM orderqt_yfdmx
+    <where>
+      <if test="mx.id != null">
+        and id = #{mx.id}
+      </if>
+      <if test="mx.pid != null">
+        and pid = #{mx.pid}
+      </if>
+      <if test="mx.spId != null">
+        and spId = #{mx.spId}
+      </if>
+    </where>
+  </select>
+
+
+  <select id="selectByQuery" parameterType="com.febs.orderqt.entity.OrderqtYfdmx" resultType="com.febs.orderqt.entity.OrderqtYfdmx">
+    SELECT
+    <include refid="Page_Column_List" />
+    FROM orderqt_yfdmx
+    <where>
+      <if test="mx.id != null">
+        and id = #{mx.id}
+      </if>
+      <if test="mx.pid != null">
+        and pid = #{mx.pid}
+      </if>
+      <if test="mx.spId != null">
+        and spId = #{mx.spId}
+      </if>
+    </where>
+  </select>
+
+
 </mapper>

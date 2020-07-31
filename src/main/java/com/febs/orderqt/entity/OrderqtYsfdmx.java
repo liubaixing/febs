@@ -65,6 +65,13 @@ public class OrderqtYsfdmx {
      */
     @TableField("je")
     private BigDecimal je;
+
+    /**
+     * 通知数量
+     */
+    @TableField("tzsl")
+    private Integer tzsl;
+
     /**
      * 开票数量
      */
@@ -74,8 +81,8 @@ public class OrderqtYsfdmx {
     /**
      * 付款数量
      */
-    @TableField("sksl")
-    private Integer sksl;
+    @TableField("fksl")
+    private Integer fksl;
 
     /**
      * 退款数量
@@ -91,8 +98,8 @@ public class OrderqtYsfdmx {
     /**
      * 付款金额
      */
-    @TableField("skje")
-    private BigDecimal skje;
+    @TableField("fkje")
+    private BigDecimal fkje;
     /**
      * 退款金额
      */

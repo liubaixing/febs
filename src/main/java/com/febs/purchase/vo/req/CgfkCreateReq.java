@@ -11,6 +11,9 @@ public class CgfkCreateReq {
     @ApiModelProperty("摘要")
     private String bz;
 
+    @ApiModelProperty("供应商")
+    private Integer gysId;
+
     private List<PurchaseCgfkReq> cgfkList;
 
 }
