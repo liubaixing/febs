@@ -119,6 +119,20 @@ public class OrderXsfpController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("作废")
+    @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
+    @GetMapping("/zf/{id}")
+//    @RequiresPermissions("orderXsfp:zf")
+    public FebsResponse zf(@PathVariable Long id ){
+        User user = getCurrentUser();
+        OrderXsfp xsfp = new OrderXsfp();
+        xsfp.setId(id);
+        xsfp.setZf((byte)1);
+        xsfp.setZfr(user.getUsername());
+        xsfp.setZfrq(new Date());
+        xsfpBiz.update(xsfp);
+        return new FebsResponse().success();
+    }
 
     @ApiOperation("开票")
     @ControllerEndpoint(operation = "开票", exceptionMessage = "开票失败")

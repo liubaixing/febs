@@ -107,7 +107,7 @@ public class OrderXsskController extends BaseController {
     @ControllerEndpoint(operation = "审核", exceptionMessage = "审核失败")
     @GetMapping("/check/{id}")
 //    @RequiresPermissions("orderXssk:check")
-    public FebsResponse orderXsskCheck(@PathVariable Long id ){
+    public FebsResponse orderXsskCheck(@PathVariable Long id){
         User user = getCurrentUser();
         OrderXssk xssk = new OrderXssk();
         xssk.setId(id);
@@ -140,6 +140,21 @@ public class OrderXsskController extends BaseController {
         xssk.setSkr(user.getUsername());
         xssk.setSkrq(new Date());
         xsskBiz.sk(xssk);
+        return new FebsResponse().success();
+    }
+
+    @ApiOperation("作废(收款单号)")
+    @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
+    @GetMapping("/zf/{id}")
+//    @RequiresPermissions("orderXssk:kp")
+    public FebsResponse zf(@PathVariable Long id){
+        User user = getCurrentUser();
+        OrderXssk xssk = new OrderXssk();
+        xssk.setId(id);
+        xssk.setZf((byte)1);
+        xssk.setZfr(user.getUsername());
+        xssk.setZfrq(new Date());
+        xsskBiz.update(xssk);
         return new FebsResponse().success();
     }
 

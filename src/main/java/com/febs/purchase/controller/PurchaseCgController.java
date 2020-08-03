@@ -49,7 +49,7 @@ public class PurchaseCgController extends BaseController {
 
     @GetMapping("")
     //@RequiresPermissions("purchaseCg:list")
-    public FebsResponse getAllPurchaseCgs(PurchaseCg purchaseCg) {
+    public FebsResponse getAllPurchaseCgs(PurchaseCgReq purchaseCg) {
         return new FebsResponse().success().data(purchaseCgService.findPurchaseCgs(purchaseCg));
     }
 

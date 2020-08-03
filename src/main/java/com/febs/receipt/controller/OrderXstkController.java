@@ -118,6 +118,21 @@ public class OrderXstkController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("作废")
+    @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
+    @GetMapping("/zf/{id}")
+//    @RequiresPermissions("orderXssk:check")
+    public FebsResponse zf(@PathVariable Long id ){
+        User user = getCurrentUser();
+        OrderXstk xstk = new OrderXstk();
+        xstk.setId(id);
+        xstk.setZf((byte)1);
+        xstk.setZfr(user.getUsername());
+        xstk.setZfrq(new Date());
+        xstkBiz.update(xstk);
+        return new FebsResponse().success();
+    }
+
     @ApiOperation("生成")
     @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
     @PostMapping("/create")

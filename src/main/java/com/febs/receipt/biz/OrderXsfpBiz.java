@@ -15,6 +15,7 @@ import com.febs.system.entity.User;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -52,6 +53,7 @@ public class OrderXsfpBiz {
         xsfpService.updateOrderXsfp(xsfp);
     }
 
+    @Transactional
     public void createOrderXsfp(XsfpCreateReq req, User user){
 
         if (CollectionUtils.isEmpty(req.getXsfpReqs())) throw new FebsException("开票单据不能为空");
