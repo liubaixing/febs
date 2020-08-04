@@ -12,10 +12,7 @@ import com.febs.orderqt.vo.req.YfdReq;
 import com.febs.orderqt.vo.req.YsfdReq;
 import com.febs.orderqt.vo.resp.YfdResp;
 import com.febs.orderqt.vo.resp.YsfdResp;
-import com.febs.purchase.entity.PurchaseCg;
-import com.febs.purchase.entity.PurchaseCgfk;
-import com.febs.purchase.entity.PurchaseCgfkmx;
-import com.febs.purchase.entity.PurchaseCgmx;
+import com.febs.purchase.entity.*;
 import com.febs.purchase.service.IPurchaseCgService;
 import com.febs.purchase.service.IPurchaseCgfkService;
 import com.febs.purchase.service.IPurchaseCgfkmxService;
@@ -161,30 +158,14 @@ public class PurchaseCgfkBiz {
 
     }
 
-    public void fk(String djbh) {
-        PurchaseCgfkReq purchaseCgfk = new PurchaseCgfkReq();
-        purchaseCgfk.setDjbh(djbh);
-        PurchaseCgfkResp purchaseCgfkResp = cgfkService.findPurchaseCgfks(purchaseCgfk).get(0);
-        if (purchaseCgfkResp == null) {
-            throw new FebsException("付款单不存在");
-        }
-        PurchaseCgfkmx purchaseCgfkmx = new PurchaseCgfkmx();
-        purchaseCgfkmx.setPid(purchaseCgfkResp.getId());
-        List<PurchaseCgfkmxResp> cgfkmxList = cgfkmxService.findPurchaseCgfkmxs(purchaseCgfkmx);
-        if (CollectionUtils.isEmpty(cgfkmxList))
-            throw new FebsException("付款单明细不存在");
+    public void fk(String djbh,User user) {
+        PurchaseCgfk cgfk = new PurchaseCgfk();
+        cgfk.setFk((byte)1);
+        cgfk.setFkr(user.getUsername());
+        cgfk.setFkrq(new Date());
 
-        for (PurchaseCgfkmxResp cgfkmx : cgfkmxList){
-            String orderType = cgfkmx.getYdjh().substring(0,2);
-
-            if ("cg".equals(orderType)) {
-
-
-            } else if ("yf".equals(orderType)) {
-
-            } else if ("ys".equals(orderType)) {
-
-            }
-        }
+        PurchaseCgfkExample example = new PurchaseCgfkExample();
+        example.createCriteria().andDjbhEqualTo(djbh);
+        cgfkService.updateByExample(cgfk,example);
     }
 }

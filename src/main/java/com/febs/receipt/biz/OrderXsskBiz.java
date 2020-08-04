@@ -17,6 +17,7 @@ import com.febs.system.entity.User;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -86,8 +87,18 @@ public class OrderXsskBiz {
         return xsskResp;
     }
 
-    public void sk(OrderXssk xssk) {
-        OrderXsskReq orderXssk = new OrderXsskReq();
+    public void sk(String djbh,User user) {
+
+        OrderXssk orderXssk = new OrderXssk();
+        orderXssk.setSk((byte)1);
+        orderXssk.setSkr(user.getUsername());
+        orderXssk.setSkrq(new Date());
+
+        OrderXsskExample example = new OrderXsskExample();
+        example.createCriteria().andDjbhEqualTo(djbh);
+        xsskService.updateByExample(orderXssk,example);
+
+        /*OrderXsskReq orderXssk = new OrderXsskReq();
         orderXssk.setDjbh(xssk.getDjbh());
         List<OrderXsskResp> orderXsskList = xsskService.findOrderXssks(orderXssk);
         if (CollectionUtils.isEmpty(orderXsskList))throw new FebsException("收款单不存在");
@@ -109,10 +120,11 @@ public class OrderXsskBiz {
 
         OrderXsskExample example = new OrderXsskExample();
         example.createCriteria().andDjbhEqualTo(xssk.getDjbh());
-        xsskService.updateByExample(xssk,example);
+        xsskService.updateByExample(xssk,example);*/
 
     }
 
+    @Transactional
     public void create(XsskCreateReq req, User user) {
         if (CollectionUtils.isEmpty(req.getXsskList())) {
             throw new FebsException("单据不能为空");

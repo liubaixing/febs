@@ -138,14 +138,9 @@ public class OrderXsfpController extends BaseController {
     @ControllerEndpoint(operation = "开票", exceptionMessage = "开票失败")
     @GetMapping("/kp/{djbh}")
 //    @RequiresPermissions("orderXsfp:kp")
-    public FebsResponse kp(@PathVariable String djbh ){
+    public FebsResponse kp(@PathVariable String djbh){
         User user = getCurrentUser();
-        OrderXsfp xsfp = new OrderXsfp();
-        xsfp.setDjbh(djbh);
-        xsfp.setKp((byte)1);
-        xsfp.setKpr(user.getUsername());
-        xsfp.setKprq(new Date());
-        xsfpBiz.kp(xsfp);
+        xsfpBiz.kp(djbh,user);
         return new FebsResponse().success();
     }
 

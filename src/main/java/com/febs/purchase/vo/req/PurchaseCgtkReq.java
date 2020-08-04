@@ -24,6 +24,11 @@ public class PurchaseCgtkReq extends PurchaseCgtk {
     @ApiModelProperty("商品名称")
     private String spmc;
 
-    private String orderType;
+    @ApiModelProperty("商品id")
+    private Integer spId;
+    @ApiModelProperty("开票数量")
+    private Integer sl;
+    @ApiModelProperty("原单号")
+    private String ydjh;
 
 }

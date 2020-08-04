@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,7 @@ public class OrderXsfpBiz {
     @Autowired
     private IOrderXsService xsService;
 
-    @Autowired
+    @Resource
     private OrderXsMapper xsMapper;
 
     @Autowired
@@ -43,7 +44,7 @@ public class OrderXsfpBiz {
     @Autowired
     private IOrderXtService xtService;
 
-    @Autowired
+    @Resource
     private OrderXtMapper xtMapper;
 
     @Autowired
@@ -144,8 +145,17 @@ public class OrderXsfpBiz {
         return xsfpResp;
     }
 
-    public void kp(OrderXsfp xsfp) {
-        OrderXsfpReq xsfpReq = new OrderXsfpReq();
+    public void kp(String djbh,User user) {
+
+        OrderXsfp orderXsfp = new OrderXsfp();
+        orderXsfp.setKp((byte)1);
+        orderXsfp.setKpr(user.getUsername());
+        orderXsfp.setKprq(new Date());
+
+        OrderXsfpExample example = new OrderXsfpExample();
+        example.createCriteria().andDjbhEqualTo(djbh);
+        xsfpService.updateByExample(orderXsfp,example);
+        /*OrderXsfpReq xsfpReq = new OrderXsfpReq();
         xsfpReq.setDjbh(xsfp.getDjbh());
         List<OrderXsfpResp> xsfpRespList = xsfpService.findOrderXsfps(xsfpReq);
 
@@ -182,7 +192,7 @@ public class OrderXsfpBiz {
         }
         OrderXsfpExample example = new OrderXsfpExample();
         example.createCriteria().andDjbhEqualTo(xsfp.getDjbh());
-        xsfpService.updateByExample(xsfp,example);
+        xsfpService.updateByExample(xsfp,example);*/
 
     }
 }

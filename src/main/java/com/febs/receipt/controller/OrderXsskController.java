@@ -134,12 +134,7 @@ public class OrderXsskController extends BaseController {
 //    @RequiresPermissions("orderXssk:kp")
     public FebsResponse sk(@PathVariable String djbh ){
         User user = getCurrentUser();
-        OrderXssk xssk = new OrderXssk();
-        xssk.setDjbh(djbh);
-        xssk.setSk((byte)1);
-        xssk.setSkr(user.getUsername());
-        xssk.setSkrq(new Date());
-        xsskBiz.sk(xssk);
+        xsskBiz.sk(djbh,user);
         return new FebsResponse().success();
     }
 

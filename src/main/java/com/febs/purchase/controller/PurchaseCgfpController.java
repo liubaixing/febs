@@ -141,12 +141,13 @@ public class PurchaseCgfpController extends BaseController {
     }
 
 
-    @ApiOperation("付款")
-    @ControllerEndpoint(operation = "付款", exceptionMessage = "付款失败")
-    @GetMapping("/fk/{id}")
-    @RequiresPermissions("purchaseCgfp:fk")
-    public FebsResponse fk(@PathVariable Long id){
+    @ApiOperation("开票")
+    @ControllerEndpoint(operation = "开票", exceptionMessage = "开票失败")
+    @GetMapping("/kp/{djbh}")
+//    @RequiresPermissions("purchaseCgfp:kp")
+    public FebsResponse kp(@PathVariable String djbh){
         User user = getCurrentUser();
+        cgfpBiz.kp(djbh,user);
         return new FebsResponse().success();
     }
 
@@ -164,7 +165,7 @@ public class PurchaseCgfpController extends BaseController {
     @RequiresPermissions("purchaseCgfp:kssc")
     public FebsResponse kssc(CgfpCreateReq req){
         User user = getCurrentUser();
-        cgfpBiz.kssc(req);
+        cgfpBiz.kssc(req,user);
         return new FebsResponse().success();
     }
 

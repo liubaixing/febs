@@ -549,7 +549,7 @@
 
     <sql id="Page_Column_List">
         sk.Id, sk.djbh, sk.djrq, sk.ghdw_id, sk.bz, sk.fj, sk.zdr, sk.zdrq, sk.sh, sk.auditor, sk.shrq, sk.zf, sk.zfr, sk.zfrq, sk.ex1,
-        sk.ex2, sk.ex3, sk.create_time, sk.update_time, sk.deleted
+        sk.ex2, sk.ex3, sk.create_time, sk.update_time, sk.deleted, sk.qr, sk.qrr, sk.qrrq, sk.sk, sk.skr, sk.skrq
     </sql>
 
 
@@ -573,7 +573,7 @@
                 and sk.djrq between #{sk.startTime} and #{sk.endTime}
             </if>
             <if test="sk.djbh != null and sk.djbh != ''">
-                sk.djbh like CONCAT('%',#{sk.djbh},'%')
+                and sk.djbh like CONCAT('%',#{sk.djbh},'%')
             </if>
             <if test="sk.qr != null">
                 and sk.qr = #{sk.qr}
@@ -587,11 +587,11 @@
             <if test="sk.auditor != null and sk.auditor != ''">
                 and sk.auditor = #{sk.auditor}
             </if>
-            <if test="sk.kp != null">
-                and fp.kp = #{sk.kp}
+            <if test="sk.sk != null">
+                and sk.sk = #{sk.sk}
             </if>
-            <if test="sk.kpr != null and sk.kpr != ''">
-                and fp.kpr = #{sk.kpr}
+            <if test="sk.skr != null and sk.skr != ''">
+                and sk.skr = #{sk.skr}
             </if>
             <if test="sk.zdr != null and sk.zdr != ''">
                 and sk.zdr = #{sk.zdr}
@@ -625,7 +625,7 @@
                 and sk.djrq between #{startTime} and #{endTime}
             </if>
             <if test="djbh != null and djbh != ''">
-                sk.djbh like CONCAT('%',#{djbh},'%')
+                and sk.djbh like CONCAT('%',#{djbh},'%')
             </if>
             <if test="qr != null">
                 and sk.qr = #{qr}
@@ -639,11 +639,11 @@
             <if test="auditor != null and auditor != ''">
                 and sk.auditor = #{auditor}
             </if>
-            <if test="kp != null">
-                and fp.kp = #{kp}
+            <if test="sk.sk != null">
+                and sk.sk = #{sk.sk}
             </if>
-            <if test="kpr != null and kpr != ''">
-                and fp.kpr = #{kpr}
+            <if test="sk.skr != null and sk.skr != ''">
+                and sk.skr = #{sk.skr}
             </if>
             <if test="zdr != null and zdr != ''">
                 and sk.zdr = #{zdr}

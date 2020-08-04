@@ -139,12 +139,13 @@ public class PurchaseCgtkController extends BaseController {
     }
 
 
-    @ApiOperation("付款")
-    @ControllerEndpoint(operation = "付款", exceptionMessage = "付款失败")
-    @GetMapping("/fk/{id}")
-    @RequiresPermissions("purchaseCgtk:fk")
-    public FebsResponse fk(@PathVariable Long id){
+    @ApiOperation("退款")
+    @ControllerEndpoint(operation = "退款", exceptionMessage = "退款失败")
+    @GetMapping("/tk/{djbh}")
+//    @RequiresPermissions("purchaseCgtk:tk")
+    public FebsResponse tk(@PathVariable String djbh){
         User user = getCurrentUser();
+        cgtkBiz.tk(djbh,user);
         return new FebsResponse().success();
     }
 
@@ -162,7 +163,7 @@ public class PurchaseCgtkController extends BaseController {
     @RequiresPermissions("purchaseCgtk:kssc")
     public FebsResponse kssc(CgtkCreateReq req){
         User user = getCurrentUser();
-        cgtkBiz.kssc(req);
+        cgtkBiz.kssc(req,user);
         return new FebsResponse().success();
     }
 

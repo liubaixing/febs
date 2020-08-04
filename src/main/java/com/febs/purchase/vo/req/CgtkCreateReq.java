@@ -11,6 +11,9 @@ public class CgtkCreateReq {
     @ApiModelProperty("摘要")
     private String bz;
 
+    @ApiModelProperty("供应商")
+    private Integer gysId;
+
     private List<PurchaseCgtkReq> cgtkList;
 
 }

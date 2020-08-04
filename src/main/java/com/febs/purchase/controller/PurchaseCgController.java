@@ -13,6 +13,8 @@ import com.febs.purchase.service.IPurchaseCgService;
 import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.receipt.entity.OrderXs;
+import com.febs.receipt.entity.OrderXsExample;
+import com.febs.receipt.service.IOrderXsService;
 import com.febs.system.entity.User;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +48,9 @@ public class PurchaseCgController extends BaseController {
 
     @Autowired
     private PurchaseCgBiz cgBiz;
+
+    @Autowired
+    private IOrderXsService xsService;
 
     @GetMapping("")
     //@RequiresPermissions("purchaseCg:list")
@@ -280,13 +285,22 @@ public class PurchaseCgController extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ApiOperation("反分配下单")
+    @ApiOperation("反分配下单(销售单号)")
     @ControllerEndpoint(operation = "反分配下单", exceptionMessage = "反分配下单失败")
-    @GetMapping("/unFpxd")
+    @GetMapping("/unFpxd{xsdh}")
 //    @RequiresPermissions("purchaseCg:unFpxd")
-    public FebsResponse unFpxd(PurchaseCgReq purchaseCg){
+    public FebsResponse unFpxd(@PathVariable("xsdh")String xsdh){
         User user = getCurrentUser();
-        //???
+
+        OrderXs orderXs = new OrderXs();
+        orderXs.setGb((byte)1);
+        orderXs.setGbr(user.getUsername());
+        orderXs.setGbrq(new Date());
+        
+        OrderXsExample example = new OrderXsExample();
+        example.createCriteria().andDjbhEqualTo(xsdh);
+
+        xsService.updateByExample(orderXs,example);
         return new FebsResponse().success();
     }
 

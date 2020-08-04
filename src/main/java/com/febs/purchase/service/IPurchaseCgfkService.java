@@ -5,6 +5,7 @@ import com.febs.purchase.entity.PurchaseCgfk;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.entity.PurchaseCgfkExample;
 import com.febs.purchase.vo.req.PurchaseCgfkReq;
 import com.febs.purchase.vo.resp.PurchaseCgfkResp;
 
@@ -49,6 +50,8 @@ public interface IPurchaseCgfkService extends IService<PurchaseCgfk> {
      * @param purchaseCgfk purchaseCgfk
      */
     void updatePurchaseCgfk(PurchaseCgfk purchaseCgfk);
+
+    void updateByExample(PurchaseCgfk record, PurchaseCgfkExample example);
 
     /**
      * 删除

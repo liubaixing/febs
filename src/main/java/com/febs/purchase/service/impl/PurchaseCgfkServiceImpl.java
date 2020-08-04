@@ -6,6 +6,7 @@ import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.purchase.entity.PurchaseCgfk;
+import com.febs.purchase.entity.PurchaseCgfkExample;
 import com.febs.purchase.mapper.PurchaseCgfkMapper;
 import com.febs.purchase.service.IPurchaseCgfkService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -71,6 +72,11 @@ public class PurchaseCgfkServiceImpl extends ServiceImpl<PurchaseCgfkMapper, Pur
         this.purchaseCgfkMapper.updateByPrimaryKeySelective(purchaseCgfk);
     }
 
+    @Override
+    @Transactional
+    public void updateByExample(PurchaseCgfk record, PurchaseCgfkExample example){
+        this.purchaseCgfkMapper.updateByExampleSelective(record,example);
+    }
     @Override
     @Transactional
     public void deletePurchaseCgfk(String[] ids) {

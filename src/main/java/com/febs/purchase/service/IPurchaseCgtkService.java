@@ -5,6 +5,7 @@ import com.febs.purchase.entity.PurchaseCgtk;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.entity.PurchaseCgtkExample;
 import com.febs.purchase.vo.req.PurchaseCgtkReq;
 import com.febs.purchase.vo.resp.PurchaseCgtkResp;
 
@@ -49,6 +50,8 @@ public interface IPurchaseCgtkService extends IService<PurchaseCgtk> {
      * @param purchaseCgtk purchaseCgtk
      */
     void updatePurchaseCgtk(PurchaseCgtk purchaseCgtk);
+
+    void updateByExample(PurchaseCgtk record, PurchaseCgtkExample example);
 
     /**
      * 删除

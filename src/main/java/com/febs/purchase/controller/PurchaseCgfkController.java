@@ -147,7 +147,8 @@ public class PurchaseCgfkController extends BaseController {
     @GetMapping("/fk/{djbh}")
     @RequiresPermissions("purchaseCgfk:fk")
     public FebsResponse fk(@PathVariable String djbh){
-        cgfkBiz.fk(djbh);
+        User user = getCurrentUser();
+        cgfkBiz.fk(djbh,user);
         return new FebsResponse().success();
     }
 

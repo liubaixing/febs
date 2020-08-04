@@ -6,6 +6,7 @@ import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.purchase.entity.PurchaseCgtk;
+import com.febs.purchase.entity.PurchaseCgtkExample;
 import com.febs.purchase.mapper.PurchaseCgtkMapper;
 import com.febs.purchase.service.IPurchaseCgtkService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -15,6 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.purchase.vo.req.PurchaseCgtkReq;
 import com.febs.purchase.vo.resp.PurchaseCgtkResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -70,6 +72,12 @@ public class PurchaseCgtkServiceImpl extends ServiceImpl<PurchaseCgtkMapper, Pur
     @Transactional
     public void updatePurchaseCgtk(PurchaseCgtk purchaseCgtk) {
         this.purchaseCgtkMapper.updateByPrimaryKeySelective(purchaseCgtk);
+    }
+
+    @Override
+    @Transactional
+    public void updateByExample(PurchaseCgtk record,PurchaseCgtkExample example){
+        this.purchaseCgtkMapper.updateByExampleSelective(record,example);
     }
 
     @Override

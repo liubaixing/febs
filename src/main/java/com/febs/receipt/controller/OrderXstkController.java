@@ -149,12 +149,7 @@ public class OrderXstkController extends BaseController {
 //    @RequiresPermissions("orderXssk:tk")
     public FebsResponse tk(@PathVariable String djbh ){
         User user = getCurrentUser();
-        OrderXstk xstk = new OrderXstk();
-        xstk.setDjbh(djbh);
-        xstk.setTk((byte)1);
-        xstk.setTkr(user.getUsername());
-        xstk.setTkrq(new Date());
-        xstkBiz.tk(xstk);
+        xstkBiz.tk(djbh,user);
         return new FebsResponse().success();
     }
 

@@ -142,7 +142,7 @@ public class OrderXs {
     @ApiModelProperty("要求到货时间")
     @ExcelProperty(value = "要求到货时间",index = 11)
     @TableField("yqdhrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date yqdhrq;
 
     /**

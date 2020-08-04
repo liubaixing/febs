@@ -23,6 +23,14 @@ public class PurchaseCgfpReq extends PurchaseCgfp {
 
     @ApiModelProperty("商品名称")
     private String spmc;
+    @ApiModelProperty("商品id")
+    private Integer spId;
+    @ApiModelProperty("开票数量")
+    private Integer sl;
+    @ApiModelProperty("原单号")
+    private String ydjh;
 
+
+    @ApiModelProperty("单据类型")
     private String orderType;
 }

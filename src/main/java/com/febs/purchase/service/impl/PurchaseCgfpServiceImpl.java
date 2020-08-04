@@ -6,6 +6,7 @@ import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.purchase.entity.PurchaseCgfp;
+import com.febs.purchase.entity.PurchaseCgfpExample;
 import com.febs.purchase.mapper.PurchaseCgfpMapper;
 import com.febs.purchase.service.IPurchaseCgfpService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -15,6 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.purchase.vo.req.PurchaseCgfpReq;
 import com.febs.purchase.vo.resp.PurchaseCgfpResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -70,6 +72,12 @@ public class PurchaseCgfpServiceImpl extends ServiceImpl<PurchaseCgfpMapper, Pur
     @Transactional
     public void updatePurchaseCgfp(PurchaseCgfp purchaseCgfp) {
         this.purchaseCgfpMapper.updateByPrimaryKeySelective(purchaseCgfp);
+    }
+
+    @Override
+    @Transactional
+    public void updateByExample(PurchaseCgfp record,PurchaseCgfpExample example){
+        this.purchaseCgfpMapper.updateByExampleSelective(record,example);
     }
 
     @Override

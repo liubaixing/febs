@@ -1380,10 +1380,9 @@
             <if test="cg.yqdhrq != null">
                 and cg.yqdhrq = #{cg.yqdhrq}
             </if>
-            <if test="cg.spdm != null and cg.spdm != ''">
-                and sp.spdm like CONCAT('%',#{cg.spdm},'%')
+            <if test="cg.spmc != null and cg.spmc != ''">
+                and sp.spmc like CONCAT('%',#{cg.spmc},'%')
             </if>
-
             <if test="cg.contact != null and cg.contact != ''">
                 and cg.contact like CONCAT('%',#{cg.contact},'%')
             </if>
@@ -1511,10 +1510,9 @@
             <if test="yqdhrq != null">
                 and cg.yqdhrq = #{yqdhrq}
             </if>
-            <if test="spdm != null and spdm != ''">
-                and sp.spdm like CONCAT('%',#{spdm},'%')
+            <if test="cg.spmc != null and cg.spmc != ''">
+                and sp.spmc like CONCAT('%',#{cg.spmc},'%')
             </if>
-
             <if test="contact != null and contact != ''">
                 and cg.contact like CONCAT('%',#{contact},'%')
             </if>

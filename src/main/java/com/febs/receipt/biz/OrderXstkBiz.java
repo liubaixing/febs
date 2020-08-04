@@ -17,6 +17,7 @@ import com.febs.system.entity.User;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -87,8 +88,16 @@ public class OrderXstkBiz {
         return  xstkResp;
     }
 
-    public void tk(OrderXstk xstk) {
-        OrderXstkReq xstkReq = new OrderXstkReq();
+    public void tk(String djbh,User user) {
+        OrderXstk orderXstk = new OrderXstk();
+        orderXstk.setTk((byte)1);
+        orderXstk.setTkr(user.getUsername());
+        orderXstk.setTkrq(new Date());
+
+        OrderXstkExample example = new OrderXstkExample();
+        example.createCriteria().andDjbhEqualTo(djbh);
+        xstkService.updateByExample(orderXstk,example);
+        /*OrderXstkReq xstkReq = new OrderXstkReq();
         xstkReq.setDjbh(xstk.getDjbh());
         List<OrderXstkResp> xstkRespList = xstkService.findOrderXstks(xstkReq);
 
@@ -108,10 +117,11 @@ public class OrderXstkBiz {
 
         OrderXstkExample example = new OrderXstkExample();
         example.createCriteria().andDjbhEqualTo(xstk.getDjbh());
-        xstkService.updateByExample(xstk,example);
+        xstkService.updateByExample(xstk,example);*/
 
     }
 
+    @Transactional
     public void create(XstkCreateReq req, User user) {
 
         if (CollectionUtils.isEmpty(req.getXstkList())) {

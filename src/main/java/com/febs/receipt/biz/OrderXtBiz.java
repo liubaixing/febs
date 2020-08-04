@@ -64,6 +64,7 @@ public class OrderXtBiz {
         return orderXt;
     }
 
+    @Transactional
     public void create(OrderXtReq orderXtReq) {
         //保存商品明细
         if(CollectionUtils.isEmpty(orderXtReq.getOrderXtmxList())){

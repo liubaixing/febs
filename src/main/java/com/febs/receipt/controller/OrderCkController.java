@@ -156,16 +156,11 @@ public class OrderCkController extends BaseController {
 
     @ApiOperation("备货发货")
     @ControllerEndpoint(operation = "备货发货", exceptionMessage = "备货发货失败")
-    @PostMapping("/bhfh")
+    @PostMapping("/bhfh/{id}")
 //    @RequiresPermissions("orderCk:bhfh")
     public FebsResponse bhfh(OrderCkReq req){
         User user = getCurrentUser();
-        OrderCk ck = new OrderCk();
-        ck.setId(req.getId());
-        ck.setBhfh((byte)1);
-        ck.setBhfhr(user.getUsername());
-        ck.setBhfhrq(new Date());
-        orderCkService.updateOrderCk(ck);
+        ckBiz.bhfh(req,user);
         return new FebsResponse().success();
     }
 
