@@ -74,7 +74,7 @@ public class OrderCkBiz {
     @Transactional
     public void bhfh(OrderCkReq req, User user) {
         OrderXsReq orderXs = new OrderXsReq();
-        orderXs.setDjbh(req.getYdjh());
+        orderXs.setDjbh(req.getYdbh());
         OrderXsResp orderXsResp = xsService.findOrderXss(orderXs).get(0);
 
         if (orderXsResp == null) {
@@ -94,6 +94,7 @@ public class OrderCkBiz {
 
         OrderCk ck = new OrderCk();
         ck.setId(req.getId());
+        ck.setBz(req.getBz());
         ck.setBhfh((byte)1);
         ck.setBhfhr(user.getUsername());
         ck.setBhfhrq(new Date());

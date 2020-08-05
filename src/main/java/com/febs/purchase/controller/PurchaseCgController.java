@@ -296,7 +296,7 @@ public class PurchaseCgController extends BaseController {
         orderXs.setGb((byte)1);
         orderXs.setGbr(user.getUsername());
         orderXs.setGbrq(new Date());
-        
+
         OrderXsExample example = new OrderXsExample();
         example.createCriteria().andDjbhEqualTo(xsdh);
 

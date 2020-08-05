@@ -655,7 +655,7 @@
         ,mx.sl
         ,mx.dj
         ,mx.je
-        ,mx.sp_id
+        ,mx.sp_id spId
         ,mx.jsjg
         ,mx.jishuije
         ,mx.cbje
@@ -732,7 +732,7 @@
         ,mx.id mxId
         ,mx.dj
         ,mx.je
-        ,mx.sp_id
+        ,mx.sp_id spId
         ,mx.jsjg
         ,mx.jishuije
         ,mx.cbje

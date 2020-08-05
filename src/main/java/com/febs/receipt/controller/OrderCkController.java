@@ -1,10 +1,14 @@
 package com.febs.receipt.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CkExcel;
+import com.febs.common.listener.UploadDataListener;
+import com.febs.common.utils.BeanUtils;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderCkBiz;
 import com.febs.receipt.entity.OrderCk;
@@ -21,11 +25,13 @@ import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -102,11 +108,20 @@ public class OrderCkController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
 //    @RequiresPermissions("orderCk:export")
-    public void export(QueryRequest queryRequest, OrderCkReq orderCk, HttpServletResponse response) throws IOException {
+    public FebsResponse export(QueryRequest queryRequest, OrderCkReq orderCk, HttpServletResponse response) throws IOException {
         List<OrderCkResp> orderCks = this.orderCkService.findOrderCks(queryRequest, orderCk).getRecords();
-        ExcelUtil.export(orderCks, OrderCkResp.class,"出库单",response);
+        List<CkExcel> data = BeanUtils.transformFromInBatch(orderCks,CkExcel.class);
+        ExcelUtil.export(data, CkExcel.class,"出库单",response);
+        return new FebsResponse().success().data("导出成功");
     }
 
+    @ApiOperation("导入")
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    @PostMapping("upload")
+    public FebsResponse upload(MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), CkExcel.class, new UploadDataListener(orderCkService)).sheet().doRead();
+        return new FebsResponse().success().data("导入成功");
+    }
 
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认销售收款单", exceptionMessage = "确认销售收款单失败")

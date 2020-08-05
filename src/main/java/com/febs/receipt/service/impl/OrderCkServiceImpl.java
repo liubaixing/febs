@@ -2,6 +2,7 @@ package com.febs.receipt.service.impl;
 
 import com.febs.common.constant.OrderConstant;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CkExcel;
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -78,4 +80,13 @@ public class OrderCkServiceImpl extends ServiceImpl<OrderCkMapper, OrderCk> impl
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    @Override
+    public boolean upload(Collection<CkExcel> data) {
+
+        data.stream().forEach(one->{
+            System.out.println(one);
+        });
+        return false;
+    }
 }

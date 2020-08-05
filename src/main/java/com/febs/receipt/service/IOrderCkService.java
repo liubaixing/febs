@@ -1,6 +1,8 @@
 package com.febs.receipt.service;
 
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CkExcel;
+import com.febs.common.service.IExportService;
 import com.febs.receipt.entity.OrderCk;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -16,7 +18,7 @@ import java.util.List;
  * @author liubaixing
  * @date 2020-07-03 22:44:01
  */
-public interface IOrderCkService extends IService<OrderCk> {
+public interface IOrderCkService extends IService<OrderCk> , IExportService<CkExcel> {
     /**
      * 查询（分页）
      *

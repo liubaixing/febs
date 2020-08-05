@@ -20,8 +20,6 @@ public class OrderCkReq extends OrderCk {
     private Date endTime;
     @ApiModelProperty("购货单位")
     private String ptdamc;
-    @ApiModelProperty("原单号 (销售单号)")
-    private String ydjh;
     @ApiModelProperty("仓库名称")
     private String ckmc;
     @ApiModelProperty("客户名称")

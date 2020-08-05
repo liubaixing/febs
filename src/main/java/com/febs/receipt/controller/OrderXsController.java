@@ -254,8 +254,8 @@ public class OrderXsController extends BaseController {
 
     @ApiOperation("导入")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
-//    @PostMapping("import")
-    public void excelImport(@RequestParam MultipartFile file) throws IOException{
+    @PostMapping("upload")
+    public void upload(@RequestParam MultipartFile file) throws IOException{
         EasyExcel.read(file.getInputStream(), OrderXsResp.class, new OrderXslistener(orderXsBiz)).sheet().doRead();
     }
 

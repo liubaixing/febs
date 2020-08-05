@@ -23,6 +23,8 @@ public class OrderCkResp extends OrderCk {
 
     @ApiModelProperty("单据类型")
     private String djlxmc;
+    @ApiModelProperty("商品id")
+    private Integer spId;
     @ApiModelProperty("商品代码")
     private String spdm;
     @ApiModelProperty("商品名称")
