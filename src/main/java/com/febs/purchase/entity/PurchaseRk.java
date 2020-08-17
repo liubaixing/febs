@@ -52,7 +52,7 @@ public class PurchaseRk {
      * 订单日期
      */
     @ApiModelProperty("订单日期")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @TableField("xdrq")
     private Date xdrq;
 

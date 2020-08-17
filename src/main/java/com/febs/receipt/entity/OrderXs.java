@@ -45,7 +45,7 @@ public class OrderXs {
     @ApiModelProperty("下单日期")
     @ExcelProperty(value = "下单日期",index = 1)
     @TableField("xdrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date xdrq;
 
     /**

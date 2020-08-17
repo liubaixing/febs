@@ -1,5 +1,6 @@
 package com.febs.purchase.vo.req;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.febs.purchase.entity.PurchaseCg;
 import com.febs.purchase.entity.PurchaseCgmx;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,6 +54,10 @@ public class PurchaseCgReq extends PurchaseCg {
 
     @ApiModelProperty("服务费（运费、印刷费）")
     private BigDecimal serviceFee;
+    @ApiModelProperty("单价")
+    private BigDecimal dj;
+    @ApiModelProperty("商品Id")
+    private Integer spId;
 
     @ApiModelProperty("明细集合")
     List<PurchaseCgmx> cgmxList;

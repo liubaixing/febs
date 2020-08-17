@@ -8,8 +8,11 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.purchase.biz.PurchaseCgBiz;
 import com.febs.purchase.entity.PurchaseCg;
+import com.febs.purchase.entity.PurchaseCgmx;
+import com.febs.purchase.entity.PurchaseCgmxExample;
 import com.febs.purchase.service.IPurchaseCgService;
 
+import com.febs.purchase.service.IPurchaseCgmxService;
 import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.receipt.entity.OrderXs;
@@ -45,6 +48,9 @@ public class PurchaseCgController extends BaseController {
 
     @Autowired
     private IPurchaseCgService purchaseCgService;
+
+    @Autowired
+    private IPurchaseCgmxService cgmxService;
 
     @Autowired
     private PurchaseCgBiz cgBiz;
@@ -279,9 +285,14 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "分配下单", exceptionMessage = "分配下单失败")
     @PostMapping("/fpxd")
 //    @RequiresPermissions("purchaseCg:fpxd")
-    public FebsResponse fpxd(PurchaseCgReq purchaseCg){
-        User user = getCurrentUser();
+    public FebsResponse fpxd(PurchaseCgReq req){
 
+        PurchaseCgmx record = new PurchaseCgmx();
+        record.setDj(req.getDj());
+
+        PurchaseCgmxExample example = new PurchaseCgmxExample();
+        example.createCriteria().andIdEqualTo(req.getMxId()).andSpIdEqualTo(req.getSpId());
+        cgmxService.updateByExample(record,example);
         return new FebsResponse().success();
     }
 

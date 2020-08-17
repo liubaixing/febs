@@ -5,6 +5,7 @@ import com.febs.purchase.entity.PurchaseCgmx;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.entity.PurchaseCgmxExample;
 import com.febs.purchase.vo.resp.PurchaseCgmxResp;
 
 import java.util.List;
@@ -48,6 +49,8 @@ public interface IPurchaseCgmxService extends IService<PurchaseCgmx> {
      * @param purchaseCgmx purchaseCgmx
      */
     void updatePurchaseCgmx(PurchaseCgmx purchaseCgmx);
+
+    void updateByExample(PurchaseCgmx record, PurchaseCgmxExample example);
 
     /**
      * 删除

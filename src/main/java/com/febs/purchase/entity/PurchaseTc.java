@@ -38,7 +38,7 @@ public class PurchaseTc {
      * 下单日期
      */
     @TableField("xdrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date xdrq;
 
     /**

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.common.entity.QueryRequest;
 import com.febs.purchase.entity.PurchaseCgmx;
+import com.febs.purchase.entity.PurchaseCgmxExample;
 import com.febs.purchase.mapper.PurchaseCgmxMapper;
 import com.febs.purchase.service.IPurchaseCgmxService;
 import com.febs.purchase.vo.resp.PurchaseCgmxResp;
@@ -62,6 +63,12 @@ public class PurchaseCgmxServiceImpl extends ServiceImpl<PurchaseCgmxMapper, Pur
     @Transactional
     public void updatePurchaseCgmx(PurchaseCgmx purchaseCgmx) {
         this.purchaseCgmxMapper.updateByPrimaryKeySelective(purchaseCgmx);
+    }
+
+    @Override
+    @Transactional
+    public void updateByExample(PurchaseCgmx record, PurchaseCgmxExample example) {
+        this.purchaseCgmxMapper.updateByExampleSelective(record,example);
     }
 
     @Override
