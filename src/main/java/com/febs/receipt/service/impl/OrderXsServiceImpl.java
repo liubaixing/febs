@@ -74,7 +74,12 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     @Transactional
     public Long createOrderXs(OrderXs orderXs) {
         this.orderXsMapper.insertSelective(orderXs);
-        String orderXsNo = OrderConstant.ORDER_XS_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
+        String orderXsNo = "";
+        if (StringUtils.isEmpty(orderXs.getDjbh())){
+            orderXsNo = OrderConstant.ORDER_XT_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
+        }else{
+            orderXsNo = orderXs.getDjbh() + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
+        }
         orderXs.setDjbh(orderXsNo);
         orderXsMapper.updateByPrimaryKeySelective(orderXs);
         return orderXs.getId();
@@ -86,9 +91,6 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         OrderXs order = this.orderXsMapper.selectByPrimaryKey(orderXs.getId());
         if(order == null){
             throw new FebsException("订单不存在");
-        }
-        if(order.getQr() == 1 || order.getSh() == 1){
-            throw new FebsException("订单已确定或已审核");
         }
         this.orderXsMapper.updateByPrimaryKeySelective(orderXs);
         OrderXsReq req = new OrderXsReq();

@@ -50,13 +50,13 @@ public class PurchaseCgfkController extends BaseController {
     private PurchaseCgfkBiz cgfkBiz;
 
     @GetMapping("")
-    @RequiresPermissions("purchaseCgfk:list")
+//    @RequiresPermissions("purchaseCgfk:list")
     public FebsResponse getAllPurchaseCgfks(PurchaseCgfkReq purchaseCgfk) {
         return new FebsResponse().success().data(purchaseCgfkService.findPurchaseCgfks(purchaseCgfk));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("purchaseCgfk:list")
+//    @RequiresPermissions("purchaseCgfk:list")
     public FebsResponse purchaseCgfkList(QueryRequest request, PurchaseCgfkReq purchaseCgfk) {
         Map<String, Object> dataTable = getDataTable(this.purchaseCgfkService.findPurchaseCgfks(request, purchaseCgfk));
         return new FebsResponse().success().data(dataTable);
@@ -64,7 +64,7 @@ public class PurchaseCgfkController extends BaseController {
 
     @ControllerEndpoint(operation = "新增采购付款", exceptionMessage = "新增采购付款失败")
     @PostMapping("")
-    @RequiresPermissions("purchaseCgfk:add")
+//    @RequiresPermissions("purchaseCgfk:add")
     public FebsResponse addPurchaseCgfk(@Valid PurchaseCgfk purchaseCgfk) {
         this.purchaseCgfkService.createPurchaseCgfk(purchaseCgfk);
         return new FebsResponse().success();
@@ -72,7 +72,7 @@ public class PurchaseCgfkController extends BaseController {
 
     @ControllerEndpoint(operation = "删除采购付款", exceptionMessage = "删除采购付款失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("purchaseCgfk:delete")
+//    @RequiresPermissions("purchaseCgfk:delete")
     public FebsResponse deletePurchaseCgfk(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.purchaseCgfkService.deletePurchaseCgfk(id);
@@ -81,7 +81,7 @@ public class PurchaseCgfkController extends BaseController {
 
     @ControllerEndpoint(operation = "修改采购付款", exceptionMessage = "修改采购付款失败")
     @PostMapping("/update")
-    @RequiresPermissions("purchaseCgfk:update")
+//    @RequiresPermissions("purchaseCgfk:update")
     public FebsResponse updatePurchaseCgfk(PurchaseCgfk purchaseCgfk) {
         this.purchaseCgfkService.updatePurchaseCgfk(purchaseCgfk);
         return new FebsResponse().success();
@@ -89,7 +89,7 @@ public class PurchaseCgfkController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("purchaseCgfk:export")
+//    @RequiresPermissions("purchaseCgfk:export")
     public void export(QueryRequest queryRequest, PurchaseCgfkReq purchaseCgfk, HttpServletResponse response) throws IOException {
         List<PurchaseCgfkResp> purchaseCgfks = this.purchaseCgfkService.findPurchaseCgfks(queryRequest, purchaseCgfk).getRecords();
         ExcelUtil.export(purchaseCgfks, PurchaseCgfkResp.class,"采购付款",response);
@@ -99,7 +99,7 @@ public class PurchaseCgfkController extends BaseController {
     @ApiOperation("作废")
     @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
     @GetMapping("/zf/{id}")
-    @RequiresPermissions("purchaseCgfk:zf")
+//    @RequiresPermissions("purchaseCgfk:zf")
     public FebsResponse zf(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseCgfk purchaseFk = new PurchaseCgfk();
@@ -114,7 +114,7 @@ public class PurchaseCgfkController extends BaseController {
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认", exceptionMessage = "确认失败")
     @GetMapping("/qr/{id}")
-    @RequiresPermissions("purchaseCgfk:qr")
+//    @RequiresPermissions("purchaseCgfk:qr")
     public FebsResponse qr(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseCgfk purchaseFk = new PurchaseCgfk();
@@ -129,7 +129,7 @@ public class PurchaseCgfkController extends BaseController {
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核", exceptionMessage = "审核失败")
     @GetMapping("/sh/{id}")
-    @RequiresPermissions("purchaseCgfk:sh")
+//    @RequiresPermissions("purchaseCgfk:sh")
     public FebsResponse sh(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseCgfk purchaseFk = new PurchaseCgfk();
@@ -145,7 +145,7 @@ public class PurchaseCgfkController extends BaseController {
     @ApiOperation("付款")
     @ControllerEndpoint(operation = "付款", exceptionMessage = "付款失败")
     @GetMapping("/fk/{djbh}")
-    @RequiresPermissions("purchaseCgfk:fk")
+//    @RequiresPermissions("purchaseCgfk:fk")
     public FebsResponse fk(@PathVariable String djbh){
         User user = getCurrentUser();
         cgfkBiz.fk(djbh,user);
@@ -155,7 +155,7 @@ public class PurchaseCgfkController extends BaseController {
     @ApiOperation("查看")
     @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
     @GetMapping("/view/{id}")
-    @RequiresPermissions("purchaseCgfk:view")
+//    @RequiresPermissions("purchaseCgfk:view")
     public FebsResponse view(@PathVariable Long id){
         return new FebsResponse().success().data(cgfkBiz.view(id));
     }
@@ -163,7 +163,7 @@ public class PurchaseCgfkController extends BaseController {
     @ApiOperation("开始生成")
     @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("/kssc")
-    @RequiresPermissions("purchaseCgfk:kssc")
+//    @RequiresPermissions("purchaseCgfk:kssc")
     public FebsResponse kssc(CgfkCreateReq req){
         User user = getCurrentUser();
         cgfkBiz.kssc(req,user);

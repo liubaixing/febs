@@ -1173,7 +1173,7 @@
         <include refid="Page_Column_List" />
         ,u.USERNAME userName,bm.bmmc,gys.gysmc,ck.ckmc,fpsd.fpsdmc,fplx.fplxmc,djlx.djlxmc,cu.USERNAME cgfzrmc,xu.USERNAME xdfzrmc
         ,mx.id mxId,mx.sl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
-        FROM purchase_cg tc
+        FROM purchase_tc tc
         LEFT JOIN t_user u ON tc.user_id = u.USER_ID
         LEFT JOIN system_bumeng bm on tc.bm_id = bm.id
         LEFT JOIN system_gys gys on tc.gys_id = gys.id
@@ -1227,74 +1227,59 @@
                 and xu.USERNAME like CONCAT('%',#{tc.xdfzrmc},'%')
             </if>
             <if test="tc.sfdz != null ">
-                and cg.sfdz = #{tc.sfdz}
+                and tc.sfdz = #{tc.sfdz}
             </if>
             <if test="tc.sfjj != null ">
-                and cg.sfjj = #{tc.sfjj}
+                and tc.sfjj = #{tc.sfjj}
             </if>
             <if test="tc.wldh != null and tc.wldh != ''">
-                and cg.wldh like CONCAT('%',#{tc.wldh},'%')
+                and tc.wldh like CONCAT('%',#{tc.wldh},'%')
             </if>
             <if test="tc.yqdhrq != null">
-                and cg.yqdhrq = #{tc.yqdhrq}
+                and tc.yqdhrq = #{tc.yqdhrq}
             </if>
             <if test="tc.spdm != null and tc.spdm != ''">
                 and sp.spdm like CONCAT('%',#{tc.spdm},'%')
             </if>
 
             <if test="tc.contact != null and tc.contact != ''">
-                and cg.contact like CONCAT('%',#{tc.contact},'%')
+                and tc.contact like CONCAT('%',#{tc.contact},'%')
             </if>
             <if test="tc.qr != null">
-                and cg.qr = #{tc.qr}
+                and tc.qr = #{tc.qr}
             </if>
             <if test="tc.qrr != null and tc.qrr != ''">
-                and cg.qrr like CONCAT('%',#{tc.qrr},'%')
+                and tc.qrr like CONCAT('%',#{tc.qrr},'%')
             </if>
             <if test="tc.sh != null">
-                and cg.sh = #{tc.sh}
+                and tc.sh = #{tc.sh}
             </if>
             <if test="tc.auditor != null and tc.auditor != ''">
-                and cg.auditor like CONCAT('%',#{tc.auditor},'%')
+                and tc.auditor like CONCAT('%',#{tc.auditor},'%')
             </if>
             <if test="tc.kssh != null">
-                and cg.kssh = #{tc.kssh}
+                and tc.kssh = #{tc.kssh}
             </if>
             <if test="tc.ksshr != null and tc.ksshr != ''">
-                and cg.ksshr like CONCAT('%',#{tc.ksshr},'%')
+                and tc.ksshr like CONCAT('%',#{tc.ksshr},'%')
             </if>
             <if test="tc.shqr != null">
-                and cg.shqr = #{tc.shqr}
+                and tc.shqr = #{tc.shqr}
             </if>
             <if test="tc.shqrr != null and tc.shqrr != ''">
-                and cg.shqrr like CONCAT('%',#{tc.shqrr},'%')
-            </if>
-            <if test="tc.cgfh != null">
-                and cg.cgfh = #{tc.cgfh}
-            </if>
-            <if test="tc.cgfhr != null and tc.cgfhr != ''">
-                and cg.cgfhr like CONCAT('%',#{tc.cgfhr},'%')
+                and tc.shqrr like CONCAT('%',#{tc.shqrr},'%')
             </if>
             <if test="tc.zs != null">
-                and cg.zs = #{tc.zs}
+                and tc.zs = #{tc.zs}
             </if>
             <if test="tc.zsr != null and tc.zsr != ''">
-                and cg.zsr like CONCAT('%',#{tc.zsr},'%')
-            </if>
-            <if test="tc.ksfh != null">
-                and cg.ksfh = #{tc.ksfh}
-            </if>
-            <if test="tc.ksph != null">
-                and cg.ksph = #{tc.ksph}
+                and tc.zsr like CONCAT('%',#{tc.zsr},'%')
             </if>
             <if test="tc.yflr != null">
-                and cg.yflr = #{tc.yflr}
-            </if>
-            <if test="tc.ecshr != null and tc.ecshr != ''">
-                and cg.ecshr like CONCAT('%',#{tc.ecshr},'%')
+                and tc.yflr = #{tc.yflr}
             </if>
             <if test="tc.ysflr != null">
-                and cg.ysflr = #{tc.ysflr}
+                and tc.ysflr = #{tc.ysflr}
             </if>
         </where>
     </select>
@@ -1304,7 +1289,7 @@
         <include refid="Page_Column_List" />
         ,u.USERNAME userName,bm.bmmc,gys.gysmc,ck.ckmc,fpsd.fpsdmc,fplx.fplxmc,djlx.djlxmc,cu.USERNAME cgfzrmc,xu.USERNAME xdfzrmc
         ,mx.id mxId,mx.sl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
-        FROM purchase_cg tc
+        FROM purchase_tc tc
         LEFT JOIN t_user u ON tc.user_id = u.USER_ID
         LEFT JOIN system_bumeng bm on tc.bm_id = bm.id
         LEFT JOIN system_gys gys on tc.gys_id = gys.id
@@ -1358,74 +1343,59 @@
                 and xu.USERNAME like CONCAT('%',#{xdfzrmc},'%')
             </if>
             <if test="sfdz != null ">
-                and cg.sfdz = #{sfdz}
+                and tc.sfdz = #{sfdz}
             </if>
             <if test="sfjj != null ">
-                and cg.sfjj = #{sfjj}
+                and tc.sfjj = #{sfjj}
             </if>
             <if test="wldh != null and wldh != ''">
-                and cg.wldh like CONCAT('%',#{wldh},'%')
+                and tc.wldh like CONCAT('%',#{wldh},'%')
             </if>
             <if test="yqdhrq != null">
-                and cg.yqdhrq = #{yqdhrq}
+                and tc.yqdhrq = #{yqdhrq}
             </if>
             <if test="spdm != null and spdm != ''">
                 and sp.spdm like CONCAT('%',#{spdm},'%')
             </if>
 
             <if test="contact != null and contact != ''">
-                and cg.contact like CONCAT('%',#{contact},'%')
+                and tc.contact like CONCAT('%',#{contact},'%')
             </if>
             <if test="qr != null">
-                and cg.qr = #{qr}
+                and tc.qr = #{qr}
             </if>
             <if test="qrr != null and qrr != ''">
-                and cg.qrr like CONCAT('%',#{qrr},'%')
+                and tc.qrr like CONCAT('%',#{qrr},'%')
             </if>
             <if test="sh != null">
-                and cg.sh = #{sh}
+                and tc.sh = #{sh}
             </if>
             <if test="auditor != null and auditor != ''">
-                and cg.auditor like CONCAT('%',#{auditor},'%')
+                and tc.auditor like CONCAT('%',#{auditor},'%')
             </if>
             <if test="kssh != null">
-                and cg.kssh = #{kssh}
+                and tc.kssh = #{kssh}
             </if>
             <if test="ksshr != null and ksshr != ''">
-                and cg.ksshr like CONCAT('%',#{ksshr},'%')
+                and tc.ksshr like CONCAT('%',#{ksshr},'%')
             </if>
             <if test="shqr != null">
-                and cg.shqr = #{shqr}
+                and tc.shqr = #{shqr}
             </if>
             <if test="shqrr != null and shqrr != ''">
-                and cg.shqrr like CONCAT('%',#{shqrr},'%')
-            </if>
-            <if test="cgfh != null">
-                and cg.cgfh = #{cgfh}
-            </if>
-            <if test="cgfhr != null and cgfhr != ''">
-                and cg.cgfhr like CONCAT('%',#{cgfhr},'%')
+                and tc.shqrr like CONCAT('%',#{shqrr},'%')
             </if>
             <if test="zs != null">
-                and cg.zs = #{zs}
+                and tc.zs = #{zs}
             </if>
             <if test="zsr != null and zsr != ''">
-                and cg.zsr like CONCAT('%',#{zsr},'%')
-            </if>
-            <if test="ksfh != null">
-                and cg.ksfh = #{ksfh}
-            </if>
-            <if test="ksph != null">
-                and cg.ksph = #{ksph}
+                and tc.zsr like CONCAT('%',#{zsr},'%')
             </if>
             <if test="yflr != null">
-                and cg.yflr = #{yflr}
-            </if>
-            <if test="ecshr != null and ecshr != ''">
-                and cg.ecshr like CONCAT('%',#{ecshr},'%')
+                and tc.yflr = #{yflr}
             </if>
             <if test="ysflr != null">
-                and cg.ysflr = #{ysflr}
+                and tc.ysflr = #{ysflr}
             </if>
         </where>
     </select>

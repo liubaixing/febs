@@ -40,13 +40,13 @@ public class PurchaseCgfpmxController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("purchaseCgfpmx:list")
+//    @RequiresPermissions("purchaseCgfpmx:list")
     public FebsResponse getAllPurchaseCgfpmxs(PurchaseCgfpmx purchaseCgfpmx) {
         return new FebsResponse().success().data(purchaseCgfpmxService.findPurchaseCgfpmxs(purchaseCgfpmx));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("purchaseCgfpmx:list")
+//    @RequiresPermissions("purchaseCgfpmx:list")
     public FebsResponse purchaseCgfpmxList(QueryRequest request, PurchaseCgfpmx purchaseCgfpmx) {
         Map<String, Object> dataTable = getDataTable(this.purchaseCgfpmxService.findPurchaseCgfpmxs(request, purchaseCgfpmx));
         return new FebsResponse().success().data(dataTable);
@@ -54,7 +54,7 @@ public class PurchaseCgfpmxController extends BaseController {
 
     @ControllerEndpoint(operation = "新增采购发票明细", exceptionMessage = "新增采购发票明细失败")
     @PostMapping("")
-    @RequiresPermissions("purchaseCgfpmx:add")
+//    @RequiresPermissions("purchaseCgfpmx:add")
     public FebsResponse addPurchaseCgfpmx(@Valid PurchaseCgfpmx purchaseCgfpmx) {
         this.purchaseCgfpmxService.createPurchaseCgfpmx(purchaseCgfpmx);
         return new FebsResponse().success();
@@ -62,7 +62,7 @@ public class PurchaseCgfpmxController extends BaseController {
 
     @ControllerEndpoint(operation = "删除采购发票明细", exceptionMessage = "删除采购发票明细失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("purchaseCgfpmx:delete")
+//    @RequiresPermissions("purchaseCgfpmx:delete")
     public FebsResponse deletePurchaseCgfpmx(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.purchaseCgfpmxService.deletePurchaseCgfpmx(id);
@@ -71,7 +71,7 @@ public class PurchaseCgfpmxController extends BaseController {
 
     @ControllerEndpoint(operation = "修改采购发票明细", exceptionMessage = "修改采购发票明细失败")
     @PostMapping("/update")
-    @RequiresPermissions("purchaseCgfpmx:update")
+//    @RequiresPermissions("purchaseCgfpmx:update")
     public FebsResponse updatePurchaseCgfpmx(PurchaseCgfpmx purchaseCgfpmx) {
         this.purchaseCgfpmxService.updatePurchaseCgfpmx(purchaseCgfpmx);
         return new FebsResponse().success();
@@ -79,7 +79,7 @@ public class PurchaseCgfpmxController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("purchaseCgfpmx:export")
+//    @RequiresPermissions("purchaseCgfpmx:export")
     public void export(QueryRequest queryRequest, PurchaseCgfpmx purchaseCgfpmx, HttpServletResponse response) throws IOException {
         List<PurchaseCgfpmxResp> purchaseCgfpmxs = this.purchaseCgfpmxService.findPurchaseCgfpmxs(queryRequest, purchaseCgfpmx).getRecords();
         ExcelUtil.export(purchaseCgfpmxs, PurchaseCgfpmxResp.class,"采购发票明细",response);

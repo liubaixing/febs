@@ -1510,7 +1510,7 @@
             <if test="yqdhrq != null">
                 and cg.yqdhrq = #{yqdhrq}
             </if>
-            <if test="cg.spmc != null and cg.spmc != ''">
+            <if test="spmc != null and spmc != ''">
                 and sp.spmc like CONCAT('%',#{cg.spmc},'%')
             </if>
             <if test="contact != null and contact != ''">
@@ -1567,7 +1567,6 @@
             <if test="ysflr != null">
                 and cg.ysflr = #{ysflr}
             </if>
-            <!-- 分配下单 ？？ -->
         </where>
     </select>
 

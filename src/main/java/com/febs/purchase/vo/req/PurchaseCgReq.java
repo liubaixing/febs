@@ -45,7 +45,8 @@ public class PurchaseCgReq extends PurchaseCg {
     private Long mxId;
     @ApiModelProperty("商品名称")
     private String spmc;
-
+    @ApiModelProperty("商品代码")
+    private String spdm;
     @ApiModelProperty("快递单号")
     private String kuaidiNo;
 

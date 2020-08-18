@@ -40,13 +40,13 @@ public class PurchaseRkmxController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("purchaseRkmx:list")
+//    @RequiresPermissions("purchaseRkmx:list")
     public FebsResponse getAllPurchaseRkmxs(PurchaseRkmx purchaseRkmx) {
         return new FebsResponse().success().data(purchaseRkmxService.findPurchaseRkmxs(purchaseRkmx));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("purchaseRkmx:list")
+//    @RequiresPermissions("purchaseRkmx:list")
     public FebsResponse purchaseRkmxList(QueryRequest request, PurchaseRkmx purchaseRkmx) {
         Map<String, Object> dataTable = getDataTable(this.purchaseRkmxService.findPurchaseRkmxs(request, purchaseRkmx));
         return new FebsResponse().success().data(dataTable);
@@ -54,7 +54,7 @@ public class PurchaseRkmxController extends BaseController {
 
     @ControllerEndpoint(operation = "新增入库单明细", exceptionMessage = "新增入库单明细失败")
     @PostMapping("")
-    @RequiresPermissions("purchaseRkmx:add")
+//    @RequiresPermissions("purchaseRkmx:add")
     public FebsResponse addPurchaseRkmx(@Valid PurchaseRkmx purchaseRkmx) {
         this.purchaseRkmxService.createPurchaseRkmx(purchaseRkmx);
         return new FebsResponse().success();
@@ -62,7 +62,7 @@ public class PurchaseRkmxController extends BaseController {
 
     @ControllerEndpoint(operation = "删除入库单明细", exceptionMessage = "删除入库单明细失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("purchaseRkmx:delete")
+//    @RequiresPermissions("purchaseRkmx:delete")
     public FebsResponse deletePurchaseRkmx(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.purchaseRkmxService.deletePurchaseRkmx(id);
@@ -71,7 +71,7 @@ public class PurchaseRkmxController extends BaseController {
 
     @ControllerEndpoint(operation = "修改入库单明细", exceptionMessage = "修改入库单明细失败")
     @PostMapping("/update")
-    @RequiresPermissions("purchaseRkmx:update")
+//    @RequiresPermissions("purchaseRkmx:update")
     public FebsResponse updatePurchaseRkmx(PurchaseRkmx purchaseRkmx) {
         this.purchaseRkmxService.updatePurchaseRkmx(purchaseRkmx);
         return new FebsResponse().success();
@@ -79,7 +79,7 @@ public class PurchaseRkmxController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("purchaseRkmx:export")
+//    @RequiresPermissions("purchaseRkmx:export")
     public void export(QueryRequest queryRequest, PurchaseRkmx purchaseRkmx, HttpServletResponse response) throws IOException {
         List<PurchaseRkmxResp> purchaseRkmxs = this.purchaseRkmxService.findPurchaseRkmxs(queryRequest, purchaseRkmx).getRecords();
         ExcelUtil.export(purchaseRkmxs, PurchaseRkmxResp.class,"入库单明细",response);

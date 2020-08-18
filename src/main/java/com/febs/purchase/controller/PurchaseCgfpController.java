@@ -49,13 +49,13 @@ public class PurchaseCgfpController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("purchaseCgfp:list")
+//    @RequiresPermissions("purchaseCgfp:list")
     public FebsResponse getAllPurchaseCgfps(PurchaseCgfpReq purchaseCgfp) {
         return new FebsResponse().success().data(purchaseCgfpService.findPurchaseCgfps(purchaseCgfp));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("purchaseCgfp:list")
+//    @RequiresPermissions("purchaseCgfp:list")
     public FebsResponse purchaseCgfpList(QueryRequest request, PurchaseCgfpReq purchaseCgfp) {
         Map<String, Object> dataTable = getDataTable(this.purchaseCgfpService.findPurchaseCgfps(request, purchaseCgfp));
         return new FebsResponse().success().data(dataTable);
@@ -63,7 +63,7 @@ public class PurchaseCgfpController extends BaseController {
 
     @ControllerEndpoint(operation = "新增采购发票", exceptionMessage = "新增采购发票失败")
     @PostMapping("")
-    @RequiresPermissions("purchaseCgfp:add")
+//    @RequiresPermissions("purchaseCgfp:add")
     public FebsResponse addPurchaseCgfp(@Valid PurchaseCgfp purchaseCgfp) {
         this.purchaseCgfpService.createPurchaseCgfp(purchaseCgfp);
         return new FebsResponse().success();
@@ -71,7 +71,7 @@ public class PurchaseCgfpController extends BaseController {
 
     @ControllerEndpoint(operation = "删除采购发票", exceptionMessage = "删除采购发票失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("purchaseCgfp:delete")
+//    @RequiresPermissions("purchaseCgfp:delete")
     public FebsResponse deletePurchaseCgfp(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.purchaseCgfpService.deletePurchaseCgfp(id);
@@ -80,7 +80,7 @@ public class PurchaseCgfpController extends BaseController {
 
     @ControllerEndpoint(operation = "修改采购发票", exceptionMessage = "修改采购发票失败")
     @PostMapping("/update")
-    @RequiresPermissions("purchaseCgfp:update")
+//    @RequiresPermissions("purchaseCgfp:update")
     public FebsResponse updatePurchaseCgfp(PurchaseCgfp purchaseCgfp) {
         this.purchaseCgfpService.updatePurchaseCgfp(purchaseCgfp);
         return new FebsResponse().success();
@@ -88,7 +88,7 @@ public class PurchaseCgfpController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("purchaseCgfp:export")
+//    @RequiresPermissions("purchaseCgfp:export")
     public void export(QueryRequest queryRequest, PurchaseCgfpReq purchaseCgfp, HttpServletResponse response) throws IOException {
         List<PurchaseCgfpResp> purchaseCgfps = this.purchaseCgfpService.findPurchaseCgfps(queryRequest, purchaseCgfp).getRecords();
         ExcelUtil.export(purchaseCgfps, PurchaseCgfpResp.class,"采购发票",response);
@@ -128,7 +128,7 @@ public class PurchaseCgfpController extends BaseController {
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核", exceptionMessage = "审核失败")
     @GetMapping("/sh/{id}")
-    @RequiresPermissions("purchaseCgfp:sh")
+//    @RequiresPermissions("purchaseCgfp:sh")
     public FebsResponse sh(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseCgfp purchasefp = new PurchaseCgfp();
@@ -154,7 +154,7 @@ public class PurchaseCgfpController extends BaseController {
     @ApiOperation("查看")
     @ControllerEndpoint(operation = "查看", exceptionMessage = "查看失败")
     @GetMapping("/view/{id}")
-    @RequiresPermissions("purchaseCgfp:view")
+//    @RequiresPermissions("purchaseCgfp:view")
     public FebsResponse view(@PathVariable Long id){
         return new FebsResponse().success().data(cgfpBiz.view(id));
     }
@@ -162,7 +162,7 @@ public class PurchaseCgfpController extends BaseController {
     @ApiOperation("开始生成")
     @ControllerEndpoint(operation = "生成", exceptionMessage = "生成失败")
     @PostMapping("/kssc")
-    @RequiresPermissions("purchaseCgfp:kssc")
+//    @RequiresPermissions("purchaseCgfp:kssc")
     public FebsResponse kssc(CgfpCreateReq req){
         User user = getCurrentUser();
         cgfpBiz.kssc(req,user);

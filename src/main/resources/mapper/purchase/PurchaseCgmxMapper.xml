@@ -447,7 +447,7 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
-            <if test="Id != null ">
+            <if test="id != null ">
                 mx.id = #{id}
             </if>
             <if test="pid != null ">

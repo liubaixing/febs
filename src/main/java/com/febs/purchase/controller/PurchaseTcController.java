@@ -47,13 +47,13 @@ public class PurchaseTcController extends BaseController {
     private PurchaseTcBiz tcBiz;
 
     @GetMapping("")
-    @RequiresPermissions("purchaseTc:list")
+//    @RequiresPermissions("purchaseTc:list")
     public FebsResponse getAllPurchaseTcs(PurchaseTcReq purchaseTc) {
         return new FebsResponse().success().data(purchaseTcService.findPurchaseTcs(purchaseTc));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("purchaseTc:list")
+//    @RequiresPermissions("purchaseTc:list")
     public FebsResponse purchaseTcList(QueryRequest request, PurchaseTcReq purchaseTc) {
         Map<String, Object> dataTable = getDataTable(this.purchaseTcService.findPurchaseTcs(request, purchaseTc));
         return new FebsResponse().success().data(dataTable);
@@ -61,7 +61,7 @@ public class PurchaseTcController extends BaseController {
 
     @ControllerEndpoint(operation = "新增退仓单", exceptionMessage = "新增退仓单失败")
     @PostMapping("")
-    @RequiresPermissions("purchaseTc:add")
+//    @RequiresPermissions("purchaseTc:add")
     public FebsResponse addPurchaseTc(@Valid PurchaseTc purchaseTc) {
         this.purchaseTcService.createPurchaseTc(purchaseTc);
         return new FebsResponse().success();
@@ -69,7 +69,7 @@ public class PurchaseTcController extends BaseController {
 
     @ControllerEndpoint(operation = "删除退仓单", exceptionMessage = "删除退仓单失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("purchaseTc:delete")
+//    @RequiresPermissions("purchaseTc:delete")
     public FebsResponse deletePurchaseTc(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.purchaseTcService.deletePurchaseTc(id);
@@ -78,7 +78,7 @@ public class PurchaseTcController extends BaseController {
 
     @ControllerEndpoint(operation = "修改退仓单", exceptionMessage = "修改退仓单失败")
     @PostMapping("/update")
-    @RequiresPermissions("purchaseTc:update")
+//    @RequiresPermissions("purchaseTc:update")
     public FebsResponse updatePurchaseTc(PurchaseTc purchaseTc) {
         this.purchaseTcService.updatePurchaseTc(purchaseTc);
         return new FebsResponse().success();
@@ -86,7 +86,7 @@ public class PurchaseTcController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("purchaseTc:export")
+//    @RequiresPermissions("purchaseTc:export")
     public void export(QueryRequest queryRequest, PurchaseTcReq purchaseTc, HttpServletResponse response) throws IOException {
         List<PurchaseTcResp> purchaseTcs = this.purchaseTcService.findPurchaseTcs(queryRequest, purchaseTc).getRecords();
         ExcelUtil.export(purchaseTcs, PurchaseTcResp.class,"退仓单",response);
@@ -95,7 +95,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("查看")
     @ControllerEndpoint(operation = "查看退仓单", exceptionMessage = "查看退仓单失败")
     @GetMapping("/view/{id}")
-    @RequiresPermissions("purchaseTc:view")
+//    @RequiresPermissions("purchaseTc:view")
     public FebsResponse view(@PathVariable Long id){
         return new FebsResponse().success().data(tcBiz.view(id));
     }
@@ -104,7 +104,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认退仓单", exceptionMessage = "确认退仓单失败")
     @GetMapping("/confirm/{id}")
-    @RequiresPermissions("purchaseTc:confirm")
+//    @RequiresPermissions("purchaseTc:confirm")
     public FebsResponse confirm(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
@@ -119,7 +119,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("审核")
     @ControllerEndpoint(operation = "审核退仓单", exceptionMessage = "审核退仓单失败")
     @GetMapping("/check/{id}")
-    @RequiresPermissions("purchaseTc:check")
+//    @RequiresPermissions("purchaseTc:check")
     public FebsResponse check(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
@@ -135,7 +135,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("关闭")
     @ControllerEndpoint(operation = "关闭退仓单", exceptionMessage = "关闭退仓单失败")
     @GetMapping("/close/{id}")
-    @RequiresPermissions("purchaseTc:close")
+//    @RequiresPermissions("purchaseTc:close")
     public FebsResponse close(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
@@ -151,7 +151,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("开始退仓")
     @ControllerEndpoint(operation = "开始退仓", exceptionMessage = "开始退仓失败")
     @GetMapping("/kstc/{id}")
-    @RequiresPermissions("purchaseTc:kstc")
+//    @RequiresPermissions("purchaseTc:kstc")
     public FebsResponse kstc(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
@@ -166,7 +166,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("退仓发货")
     @ControllerEndpoint(operation = "退仓发货", exceptionMessage = "退仓发货失败")
     @PostMapping("/tcfh/{id}")
-    @RequiresPermissions("purchaseTc:tcfh")
+//    @RequiresPermissions("purchaseTc:tcfh")
     public FebsResponse tcfh(PurchaseTc purchaseTc){
         User user = getCurrentUser();
         purchaseTc.setTcfh((byte)1);
@@ -180,7 +180,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("运费录入")
     @ControllerEndpoint(operation = "运费录入", exceptionMessage = "运费录入失败")
     @PostMapping("/yflr")
-    @RequiresPermissions("purchaseTc:yflr")
+//    @RequiresPermissions("purchaseTc:yflr")
     public FebsResponse yflr(PurchaseTcReq req){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
@@ -194,7 +194,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("印刷费录入")
     @ControllerEndpoint(operation = "印刷费录入", exceptionMessage = "印刷费录入失败")
     @PostMapping("/ysflr")
-    @RequiresPermissions("purchaseTc:ysflr")
+//    @RequiresPermissions("purchaseTc:ysflr")
     public FebsResponse ysflr(PurchaseTcReq req){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
@@ -209,7 +209,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("开始收货")
     @ControllerEndpoint(operation = "开始收货", exceptionMessage = "开始收货失败")
     @GetMapping("/kssh/{id}")
-    @RequiresPermissions("purchaseTc:kssh")
+//    @RequiresPermissions("purchaseTc:kssh")
     public FebsResponse kssh(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();
@@ -224,7 +224,7 @@ public class PurchaseTcController extends BaseController {
     @ApiOperation("收货确认")
     @ControllerEndpoint(operation = "收货确认", exceptionMessage = "收货确认失败")
     @GetMapping("/shqr/{id}")
-    @RequiresPermissions("purchaseTc:shqr")
+//    @RequiresPermissions("purchaseTc:shqr")
     public FebsResponse shqr(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseTc purchaseTc = new PurchaseTc();

@@ -41,6 +41,8 @@ public class PurchaseTcReq extends PurchaseTc {
     private Long mxId;
     @ApiModelProperty("商品名称")
     private String spmc;
+    @ApiModelProperty("商品代码")
+    private String spdm;
 
 
     @ApiModelProperty("服务费（运费、印刷费）")

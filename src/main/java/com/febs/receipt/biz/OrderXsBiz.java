@@ -132,7 +132,7 @@ public class OrderXsBiz {
 
     }
 
-    @Transactional
+//    @Transactional
     public void update(OrderXsReq orderXsReq) {
         xsService.deleteByPrimaryKey(orderXsReq.getId());
         OrderXsmxExample example = new OrderXsmxExample();
@@ -379,6 +379,7 @@ public class OrderXsBiz {
 
     }
 
+    @Transactional
     public void returnOrderXs(OrderXsReq req){
         OrderXsmx mx = xsmxService.findById(req.getMxId());
         if (mx == null) {
@@ -408,8 +409,8 @@ public class OrderXsBiz {
         OrderXtmx orderXtmx = new OrderXtmx();
         orderXtmx.setPid(orderXtId);
         orderXtmx.setSpId(req.getSpId());
-        orderXtmx.setJe(req.getJe());
-        orderXtmx.setDj(req.getJe().divide(new BigDecimal(req.getSl())));
+        orderXtmx.setJe(req.getTkje());
+        orderXtmx.setDj(req.getTkje().divide(new BigDecimal(req.getTksl())));
         xtmxService.createOrderXtmx(orderXtmx);
 
     }

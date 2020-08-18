@@ -12,9 +12,11 @@ import com.febs.purchase.service.IPurchaseTcmxService;
 import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.purchase.vo.resp.PurchaseCgmxResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -96,5 +98,21 @@ public class PurchaseCgBiz {
     }
 
     public void create(PurchaseCgReq req) {
+
+        if (CollectionUtils.isEmpty(req.getCgmxList())) {
+            throw new FebsException("未选择采购单");
+        }
+
+        Integer total = 0;
+        BigDecimal totalAmount = new BigDecimal(0);
+
+        List<PurchaseCgmx> cgmxList = req.getCgmxList();
+
+        for (PurchaseCgmx mx : cgmxList){
+//            total += mx.getJhsl();
+//            totalAmount = totalAmount.add(mx.getJe());
+//            mx.setXsje(mx.getJe().multiply(mx.getZk()));
+        }
+
     }
 }
