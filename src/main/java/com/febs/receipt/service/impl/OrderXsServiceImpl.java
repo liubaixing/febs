@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,12 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     @Override
     public List<OrderXsResp> findOrderXss(OrderXsReq orderXs) {
 		return this.orderXsMapper.selectByQuery(orderXs);
+    }
+
+    @Override
+    public OrderXs findOrderXs(OrderXsExample example){
+        List<OrderXs> orderXs = this.orderXsMapper.selectByExample(example);
+        return CollectionUtils.isNotEmpty(orderXs) ? orderXs.get(0) : null;
     }
 
     public OrderXsResp selectOneByQuery(OrderXsReq req){
@@ -101,6 +108,12 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    @Override
+    @Transactional
+	public void deleteByPrimaryKey(Long id){
+        orderXsMapper.deleteByPrimaryKey(id);
+    }
 
     private OrderXsExample buildQueryExample(OrderXsReq query) {
         OrderXsExample example = new OrderXsExample();

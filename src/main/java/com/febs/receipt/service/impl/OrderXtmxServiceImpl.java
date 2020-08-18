@@ -3,6 +3,7 @@ package com.febs.receipt.service.impl;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
 import com.febs.receipt.entity.OrderXtmx;
+import com.febs.receipt.entity.OrderXtmxExample;
 import com.febs.receipt.mapper.OrderXtmxMapper;
 import com.febs.receipt.service.IOrderXtmxService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -70,4 +71,11 @@ public class OrderXtmxServiceImpl extends ServiceImpl<OrderXtmxMapper, OrderXtmx
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    @Override
+    @Transactional
+    public void deleteByExample(OrderXtmxExample example) {
+        orderXtmxMapper.deleteByExample(example);
+    }
+
 }

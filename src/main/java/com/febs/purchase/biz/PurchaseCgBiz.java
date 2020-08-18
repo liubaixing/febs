@@ -95,4 +95,6 @@ public class PurchaseCgBiz {
         tcmxService.createPurchaseTcmx(tcmx);
     }
 
+    public void create(PurchaseCgReq req) {
+    }
 }

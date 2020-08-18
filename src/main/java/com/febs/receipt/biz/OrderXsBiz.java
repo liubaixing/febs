@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -131,8 +132,13 @@ public class OrderXsBiz {
 
     }
 
-    public void update(OrderXs orderXs) {
-        xsService.updateOrderXs(orderXs);
+    @Transactional
+    public void update(OrderXsReq orderXsReq) {
+        xsService.deleteByPrimaryKey(orderXsReq.getId());
+        OrderXsmxExample example = new OrderXsmxExample();
+        example.createCriteria().andPidEqualTo(orderXsReq.getId());
+        xsmxService.deleteByExample(example);
+        create(orderXsReq);
     }
 
     public void delete(String[] ids) {

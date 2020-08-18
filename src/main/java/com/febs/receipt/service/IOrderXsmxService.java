@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderXsmx;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.receipt.entity.OrderXsmxExample;
 import com.febs.receipt.vo.resp.OrderXsmxResp;
 
 import java.util.List;
@@ -53,4 +54,8 @@ public interface IOrderXsmxService extends IService<OrderXsmx> {
      * 删除
      */
     void deleteOrderXsmx(String[] ids);
+
+    void deleteByPrimaryKey(Long id);
+
+    void deleteByExample(OrderXsmxExample example);
 }

@@ -102,8 +102,9 @@ public class OrderXsController extends BaseController {
     @ControllerEndpoint(operation = "修改销售单", exceptionMessage = "修改销售单失败")
     @PostMapping("/update")
 //    @RequiresPermissions("orderXs:update")
-    public FebsResponse updateOrderXs(OrderXs orderXs) {
-        this.orderXsBiz.update(orderXs);
+    public FebsResponse updateOrderXs(OrderXsReq orderXsReq) {
+        orderXsReq.setUpdateTime(new Date());
+        this.orderXsBiz.update(orderXsReq);
         return new FebsResponse().success();
     }
 
@@ -201,7 +202,7 @@ public class OrderXsController extends BaseController {
         orderXs.setZf((byte)1);
         orderXs.setZfr(user.getUsername());
         orderXs.setZfrq(new Date());
-        orderXsBiz.update(orderXs);
+        orderXsService.updateOrderXs(orderXs);
         return new FebsResponse().success();
     }
 

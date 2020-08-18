@@ -90,6 +90,18 @@ public class OrderXtBiz {
 
     }
 
+    @Transactional
+    public void update(OrderXtReq orderXtReq) {
+        xtService.deleteByPrimaryKey(orderXtReq.getId());
+
+        OrderXtmxExample example = new OrderXtmxExample();
+        example.createCriteria().andPidEqualTo(orderXtReq.getId());
+        xtmxService.deleteByExample(example);
+
+        create(orderXtReq);
+    }
+
+
     public void delete(String[] ids) {
         OrderXt orderXt = new OrderXt();
         for (String id : ids) {

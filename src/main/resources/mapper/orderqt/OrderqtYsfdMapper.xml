@@ -4,19 +4,19 @@
   <resultMap id="BaseResultMap" type="com.febs.orderqt.entity.OrderqtYsfd">
     <id column="Id" jdbcType="BIGINT" property="id" />
     <result column="djbh" jdbcType="VARCHAR" property="djbh" />
-    <result column="djrq" jdbcType="INTEGER" property="djrq" />
+    <result column="djrq" jdbcType="TIMESTAMP" property="djrq" />
     <result column="gys_id" jdbcType="INTEGER" property="gysId" />
     <result column="je" jdbcType="DECIMAL" property="je" />
     <result column="bz" jdbcType="VARCHAR" property="bz" />
     <result column="fj" jdbcType="VARCHAR" property="fj" />
     <result column="zdr" jdbcType="VARCHAR" property="zdr" />
-    <result column="zdrq" jdbcType="INTEGER" property="zdrq" />
+    <result column="zdrq" jdbcType="TIMESTAMP" property="zdrq" />
     <result column="sh" jdbcType="TINYINT" property="sh" />
-    <result column="shr" jdbcType="VARCHAR" property="shr" />
-    <result column="shrq" jdbcType="INTEGER" property="shrq" />
+    <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
     <result column="zf" jdbcType="TINYINT" property="zf" />
     <result column="zfr" jdbcType="VARCHAR" property="zfr" />
-    <result column="zfrq" jdbcType="INTEGER" property="zfrq" />
+    <result column="zfrq" jdbcType="TIMESTAMP" property="zfrq" />
     <result column="ex1" jdbcType="VARCHAR" property="ex1" />
     <result column="ex2" jdbcType="VARCHAR" property="ex2" />
     <result column="ex3" jdbcType="VARCHAR" property="ex3" />
@@ -80,7 +80,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, djbh, djrq, gys_id, je, bz, fj, zdr, zdrq, sh, shr, shrq, zf, zfr, zfrq, ex1, 
+    Id, djbh, djrq, gys_id, je, bz, fj, zdr, zdrq, sh, auditor, shrq, zf, zfr, zfrq, ex1, 
     ex2, ex3
   </sql>
   <select id="selectByExample" parameterType="com.febs.orderqt.entity.OrderqtYsfdExample" resultMap="BaseResultMap">
@@ -116,13 +116,13 @@
   <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.orderqt.entity.OrderqtYsfd" useGeneratedKeys="true">
     insert into orderqt_ysfd (djbh, djrq, gys_id, 
       je, bz, fj, zdr, 
-      zdrq, sh, shr, shrq, 
+      zdrq, sh, auditor, shrq, 
       zf, zfr, zfrq, ex1, 
       ex2, ex3)
-    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=INTEGER}, #{gysId,jdbcType=INTEGER}, 
+    values (#{djbh,jdbcType=VARCHAR}, #{djrq,jdbcType=TIMESTAMP}, #{gysId,jdbcType=INTEGER},
       #{je,jdbcType=DECIMAL}, #{bz,jdbcType=VARCHAR}, #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, 
-      #{zdrq,jdbcType=INTEGER}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=INTEGER}, 
-      #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR}, 
+      #{zdrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{auditor,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
+      #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR},
       #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.orderqt.entity.OrderqtYsfd" useGeneratedKeys="true">
@@ -155,8 +155,8 @@
       <if test="sh != null">
         sh,
       </if>
-      <if test="shr != null">
-        shr,
+      <if test="auditor != null">
+        auditor,
       </if>
       <if test="shrq != null">
         shrq,
@@ -185,7 +185,7 @@
         #{djbh,jdbcType=VARCHAR},
       </if>
       <if test="djrq != null">
-        #{djrq,jdbcType=INTEGER},
+        #{djrq,jdbcType=TIMESTAMP},
       </if>
       <if test="gysId != null">
         #{gysId,jdbcType=INTEGER},
@@ -203,16 +203,16 @@
         #{zdr,jdbcType=VARCHAR},
       </if>
       <if test="zdrq != null">
-        #{zdrq,jdbcType=INTEGER},
+        #{zdrq,jdbcType=TIMESTAMP},
       </if>
       <if test="sh != null">
         #{sh,jdbcType=TINYINT},
       </if>
-      <if test="shr != null">
-        #{shr,jdbcType=VARCHAR},
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
       </if>
       <if test="shrq != null">
-        #{shrq,jdbcType=INTEGER},
+        #{shrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zf != null">
         #{zf,jdbcType=TINYINT},
@@ -221,7 +221,7 @@
         #{zfr,jdbcType=VARCHAR},
       </if>
       <if test="zfrq != null">
-        #{zfrq,jdbcType=INTEGER},
+        #{zfrq,jdbcType=TIMESTAMP},
       </if>
       <if test="ex1 != null">
         #{ex1,jdbcType=VARCHAR},
@@ -250,7 +250,7 @@
         djbh = #{record.djbh,jdbcType=VARCHAR},
       </if>
       <if test="record.djrq != null">
-        djrq = #{record.djrq,jdbcType=INTEGER},
+        djrq = #{record.djrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.gysId != null">
         gys_id = #{record.gysId,jdbcType=INTEGER},
@@ -268,16 +268,16 @@
         zdr = #{record.zdr,jdbcType=VARCHAR},
       </if>
       <if test="record.zdrq != null">
-        zdrq = #{record.zdrq,jdbcType=INTEGER},
+        zdrq = #{record.zdrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.sh != null">
         sh = #{record.sh,jdbcType=TINYINT},
       </if>
-      <if test="record.shr != null">
-        shr = #{record.shr,jdbcType=VARCHAR},
+      <if test="record.auditor != null">
+        auditor = #{record.auditor,jdbcType=VARCHAR},
       </if>
       <if test="record.shrq != null">
-        shrq = #{record.shrq,jdbcType=INTEGER},
+        shrq = #{record.shrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.zf != null">
         zf = #{record.zf,jdbcType=TINYINT},
@@ -286,7 +286,7 @@
         zfr = #{record.zfr,jdbcType=VARCHAR},
       </if>
       <if test="record.zfrq != null">
-        zfrq = #{record.zfrq,jdbcType=INTEGER},
+        zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ex1 != null">
         ex1 = #{record.ex1,jdbcType=VARCHAR},
@@ -306,19 +306,19 @@
     update orderqt_ysfd
     set Id = #{record.id,jdbcType=BIGINT},
       djbh = #{record.djbh,jdbcType=VARCHAR},
-      djrq = #{record.djrq,jdbcType=INTEGER},
+      djrq = #{record.djrq,jdbcType=TIMESTAMP},
       gys_id = #{record.gysId,jdbcType=INTEGER},
       je = #{record.je,jdbcType=DECIMAL},
       bz = #{record.bz,jdbcType=VARCHAR},
       fj = #{record.fj,jdbcType=VARCHAR},
       zdr = #{record.zdr,jdbcType=VARCHAR},
-      zdrq = #{record.zdrq,jdbcType=INTEGER},
+      zdrq = #{record.zdrq,jdbcType=TIMESTAMP},
       sh = #{record.sh,jdbcType=TINYINT},
-      shr = #{record.shr,jdbcType=VARCHAR},
-      shrq = #{record.shrq,jdbcType=INTEGER},
+      auditor = #{record.auditor,jdbcType=VARCHAR},
+      shrq = #{record.shrq,jdbcType=TIMESTAMP},
       zf = #{record.zf,jdbcType=TINYINT},
       zfr = #{record.zfr,jdbcType=VARCHAR},
-      zfrq = #{record.zfrq,jdbcType=INTEGER},
+      zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
       ex1 = #{record.ex1,jdbcType=VARCHAR},
       ex2 = #{record.ex2,jdbcType=VARCHAR},
       ex3 = #{record.ex3,jdbcType=VARCHAR}
@@ -333,7 +333,7 @@
         djbh = #{djbh,jdbcType=VARCHAR},
       </if>
       <if test="djrq != null">
-        djrq = #{djrq,jdbcType=INTEGER},
+        djrq = #{djrq,jdbcType=TIMESTAMP},
       </if>
       <if test="gysId != null">
         gys_id = #{gysId,jdbcType=INTEGER},
@@ -351,16 +351,16 @@
         zdr = #{zdr,jdbcType=VARCHAR},
       </if>
       <if test="zdrq != null">
-        zdrq = #{zdrq,jdbcType=INTEGER},
+        zdrq = #{zdrq,jdbcType=TIMESTAMP},
       </if>
       <if test="sh != null">
         sh = #{sh,jdbcType=TINYINT},
       </if>
-      <if test="shr != null">
-        shr = #{shr,jdbcType=VARCHAR},
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=VARCHAR},
       </if>
       <if test="shrq != null">
-        shrq = #{shrq,jdbcType=INTEGER},
+        shrq = #{shrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zf != null">
         zf = #{zf,jdbcType=TINYINT},
@@ -369,7 +369,7 @@
         zfr = #{zfr,jdbcType=VARCHAR},
       </if>
       <if test="zfrq != null">
-        zfrq = #{zfrq,jdbcType=INTEGER},
+        zfrq = #{zfrq,jdbcType=TIMESTAMP},
       </if>
       <if test="ex1 != null">
         ex1 = #{ex1,jdbcType=VARCHAR},
@@ -386,19 +386,19 @@
   <update id="updateByPrimaryKey" parameterType="com.febs.orderqt.entity.OrderqtYsfd">
     update orderqt_ysfd
     set djbh = #{djbh,jdbcType=VARCHAR},
-      djrq = #{djrq,jdbcType=INTEGER},
+      djrq = #{djrq,jdbcType=TIMESTAMP},
       gys_id = #{gysId,jdbcType=INTEGER},
       je = #{je,jdbcType=DECIMAL},
       bz = #{bz,jdbcType=VARCHAR},
       fj = #{fj,jdbcType=VARCHAR},
       zdr = #{zdr,jdbcType=VARCHAR},
-      zdrq = #{zdrq,jdbcType=INTEGER},
+      zdrq = #{zdrq,jdbcType=TIMESTAMP},
       sh = #{sh,jdbcType=TINYINT},
-      shr = #{shr,jdbcType=VARCHAR},
-      shrq = #{shrq,jdbcType=INTEGER},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      shrq = #{shrq,jdbcType=TIMESTAMP},
       zf = #{zf,jdbcType=TINYINT},
       zfr = #{zfr,jdbcType=VARCHAR},
-      zfrq = #{zfrq,jdbcType=INTEGER},
+      zfrq = #{zfrq,jdbcType=TIMESTAMP},
       ex1 = #{ex1,jdbcType=VARCHAR},
       ex2 = #{ex2,jdbcType=VARCHAR},
       ex3 = #{ex3,jdbcType=VARCHAR}
@@ -407,7 +407,7 @@
 
   <sql id="Page_Column_List">
     ysf.Id, ysf.djbh, ysf.djrq, ysf.gys_id, ysf.je, ysf.bz, ysf.fj, ysf.zdr, ysf.zdrq,
-    ysf.sh, ysf.shr, ysf.shrq, ysf.zf, ysf.zfr, ysf.zfrq, ysf.ex1, ysf.ex2, ysf.ex3, 'ys' as orderType
+    ysf.sh, ysf.auditor, ysf.shrq, ysf.zf, ysf.zfr, ysf.zfrq, ysf.ex1, ysf.ex2, ysf.ex3, 'ys' as orderType
   </sql>
 
   <select id="selectPageByQuery" parameterType="com.febs.orderqt.vo.req.YsfdReq" resultType="com.febs.orderqt.vo.resp.YsfdResp">

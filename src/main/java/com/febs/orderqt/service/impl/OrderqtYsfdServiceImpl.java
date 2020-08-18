@@ -54,8 +54,9 @@ public class OrderqtYsfdServiceImpl extends ServiceImpl<OrderqtYsfdMapper, Order
 
     @Override
     @Transactional
-    public void createOrderqtYsfd(OrderqtYsfd orderqtYsfd) {
+    public Long createOrderqtYsfd(OrderqtYsfd orderqtYsfd) {
         this.orderqtYsfdMapper.insertSelective(orderqtYsfd);
+        return orderqtYsfd.getId();
     }
 
     @Override

@@ -41,7 +41,7 @@ public interface IOrderqtYfdService extends IService<OrderqtYfd> {
      *
      * @param orderqtYfd orderqtYfd
      */
-    void createOrderqtYfd(OrderqtYfd orderqtYfd);
+    Long createOrderqtYfd(OrderqtYfd orderqtYfd);
 
     /**
      * 修改

@@ -5,7 +5,16 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.exception.FebsException;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.orderqt.entity.OrderqtYfd;
+import com.febs.orderqt.entity.OrderqtYfdmx;
+import com.febs.orderqt.entity.OrderqtYsfd;
+import com.febs.orderqt.entity.OrderqtYsfdmx;
+import com.febs.orderqt.service.IOrderqtYfdService;
+import com.febs.orderqt.service.IOrderqtYfdmxService;
+import com.febs.orderqt.service.IOrderqtYsfdService;
+import com.febs.orderqt.service.IOrderqtYsfdmxService;
 import com.febs.purchase.biz.PurchaseCgBiz;
 import com.febs.purchase.entity.PurchaseCg;
 import com.febs.purchase.entity.PurchaseCgmx;
@@ -58,6 +67,15 @@ public class PurchaseCgController extends BaseController {
     @Autowired
     private IOrderXsService xsService;
 
+    @Autowired
+    private IOrderqtYfdService yfdService;
+    @Autowired
+    private IOrderqtYfdmxService yfdmxService;
+    @Autowired
+    private IOrderqtYsfdService ysfdService;
+    @Autowired
+    private IOrderqtYsfdmxService ysfdmxService;
+
     @GetMapping("")
     //@RequiresPermissions("purchaseCg:list")
     public FebsResponse getAllPurchaseCgs(PurchaseCgReq purchaseCg) {
@@ -74,8 +92,8 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "新增采购单", exceptionMessage = "新增采购单失败")
     @PostMapping("")
     //@RequiresPermissions("purchaseCg:add")
-    public FebsResponse addPurchaseCg(@Valid PurchaseCg purchaseCg) {
-        this.purchaseCgService.createPurchaseCg(purchaseCg);
+    public FebsResponse addPurchaseCg(@Valid PurchaseCgReq req) {
+        cgBiz.create(req);
         return new FebsResponse().success();
     }
 
@@ -108,7 +126,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "查看采购单", exceptionMessage = "查看采购单失败")
     @GetMapping("/view/{id}")
 //    @RequiresPermissions("purchaseCg:view")
-    public FebsResponse view(@PathVariable Long id){
+    public FebsResponse view(@PathVariable("id") Long id){
         return new FebsResponse().success().data(cgBiz.view(id));
     }
 
@@ -116,7 +134,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "确认采购单", exceptionMessage = "确认采购单失败")
     @GetMapping("/confirm/{id}")
 //    @RequiresPermissions("purchaseCg:confirm")
-    public FebsResponse confirm(@PathVariable Long id){
+    public FebsResponse confirm(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -131,7 +149,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "反确认采购单", exceptionMessage = "反确认采购单失败")
     @GetMapping("/unConfirm/{id}")
 //    @RequiresPermissions("purchaseCg:unConfirm")
-    public FebsResponse unConfirm(@PathVariable Long id){
+    public FebsResponse unConfirm(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -146,7 +164,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "审核采购单", exceptionMessage = "审核采购单失败")
     @GetMapping("/check/{id}")
 //    @RequiresPermissions("purchaseCg:check")
-    public FebsResponse check(@PathVariable Long id){
+    public FebsResponse check(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -161,7 +179,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "反审核采购单", exceptionMessage = "反审核采购单失败")
     @GetMapping("/unCheck/{id}")
 //    @RequiresPermissions("purchaseCg:unCheck")
-    public FebsResponse unCheck(@PathVariable Long id){
+    public FebsResponse unCheck(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -193,7 +211,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "反开始收货", exceptionMessage = "反开始收货失败")
     @GetMapping("/unKssh/{id}")
 //    @RequiresPermissions("purchaseCg:unKssh")
-    public FebsResponse unKssh(@PathVariable Long id){
+    public FebsResponse unKssh(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -208,7 +226,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "收货确认", exceptionMessage = "收货确认失败")
     @GetMapping("/shqr/{id}")
 //    @RequiresPermissions("purchaseCg:shqr")
-    public FebsResponse shqr(@PathVariable Long id){
+    public FebsResponse shqr(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -224,7 +242,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "反收货确认", exceptionMessage = "反收货确认失败")
     @GetMapping("/unShqr/{id}")
 //    @RequiresPermissions("purchaseCg:unShqr")
-    public FebsResponse unShqr(@PathVariable Long id){
+    public FebsResponse unShqr(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -239,7 +257,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
     @GetMapping("/zf/{id}")
 //    @RequiresPermissions("purchaseCg:zf")
-    public FebsResponse zf(@PathVariable Long id){
+    public FebsResponse zf(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -254,7 +272,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "关闭", exceptionMessage = "关闭失败")
     @GetMapping("/close/{id}")
 //    @RequiresPermissions("purchaseCg:close")
-    public FebsResponse close(@PathVariable Long id){
+    public FebsResponse close(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -270,7 +288,7 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "反关闭", exceptionMessage = "反关闭失败")
     @GetMapping("/unClose/{id}")
 //    @RequiresPermissions("purchaseCg:unClose")
-    public FebsResponse unClose(@PathVariable Long id){
+    public FebsResponse unClose(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -311,15 +329,19 @@ public class PurchaseCgController extends BaseController {
         OrderXsExample example = new OrderXsExample();
         example.createCriteria().andDjbhEqualTo(xsdh);
 
+        OrderXs xs = xsService.findOrderXs(example);
+        if (xs.getGb() == 1){
+            throw new FebsException("销售单已关闭");
+        }
         xsService.updateByExample(orderXs,example);
         return new FebsResponse().success();
     }
 
     @ApiOperation("开始发货")
     @ControllerEndpoint(operation = "开始发货", exceptionMessage = "开始发货失败")
-    @GetMapping("/ksfh")
+    @GetMapping("/ksfh/{id}")
 //    @RequiresPermissions("purchaseCg:ksfh")
-    public FebsResponse ksfh(@PathVariable Long id){
+    public FebsResponse ksfh(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -333,9 +355,9 @@ public class PurchaseCgController extends BaseController {
 
     @ApiOperation("开始配货")
     @ControllerEndpoint(operation = "开始配货", exceptionMessage = "开始配货失败")
-    @GetMapping("/ksph")
+    @GetMapping("/ksph/{id}")
 //    @RequiresPermissions("purchaseCg:ksph")
-    public FebsResponse ksph(@PathVariable Long id){
+    public FebsResponse ksph(@PathVariable("id") Long id){
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(id);
@@ -371,6 +393,20 @@ public class PurchaseCgController extends BaseController {
         purchaseCg.setYflrr(user.getUsername());
         purchaseCg.setYflrrq(new Date());
         this.purchaseCgService.updatePurchaseCg(purchaseCg);
+
+        OrderqtYfd orderqtYfd = new OrderqtYfd();
+        orderqtYfd.setDjrq(new Date());
+        orderqtYfd.setJe(req.getJe());
+        orderqtYfd.setGysId(req.getGysId());
+        orderqtYfd.setZdr(user.getUsername());
+        orderqtYfd.setZdrq(new Date());
+        Long pid = yfdService.createOrderqtYfd(orderqtYfd);
+
+        OrderqtYfdmx orderqtYfdmx = new OrderqtYfdmx();
+        orderqtYfdmx.setPid(pid);
+        orderqtYfdmx.setYdjh(req.getDjbh());
+        yfdmxService.createOrderqtYfdmx(orderqtYfdmx);
+
         return new FebsResponse().success();
     }
     @ApiOperation("印刷费录入")
@@ -385,8 +421,23 @@ public class PurchaseCgController extends BaseController {
         purchaseCg.setYsflrr(user.getUsername());
         purchaseCg.setYsflrrq(new Date());
         this.purchaseCgService.updatePurchaseCg(purchaseCg);
+
+        OrderqtYsfd orderqtYsfd = new OrderqtYsfd();
+        orderqtYsfd.setDjrq(new Date());
+        orderqtYsfd.setJe(req.getJe());
+        orderqtYsfd.setGysId(req.getGysId());
+        orderqtYsfd.setZdr(user.getUsername());
+        orderqtYsfd.setZdrq(new Date());
+        Long pid = ysfdService.createOrderqtYsfd(orderqtYsfd);
+
+        OrderqtYsfdmx orderqtYsfdmx = new OrderqtYsfdmx();
+        orderqtYsfdmx.setPid(pid);
+        orderqtYsfdmx.setYdjh(req.getDjbh());
+        ysfdmxService.createOrderqtYsfdmx(orderqtYsfdmx);
+
         return new FebsResponse().success();
     }
+
     @ApiOperation("生成退仓")
     @ControllerEndpoint(operation = "生成退仓", exceptionMessage = "生成退仓失败")
     @PostMapping("/sctc")

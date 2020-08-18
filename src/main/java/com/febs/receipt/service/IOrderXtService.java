@@ -54,4 +54,6 @@ public interface IOrderXtService extends IService<OrderXt> {
      * 删除
      */
     void deleteOrderXt(String[] ids);
+
+    void deleteByPrimaryKey(Long id);
 }

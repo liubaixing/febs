@@ -67,6 +67,19 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
         this.removeByIds(list);
 	}
 
+    @Override
+    @Transactional
+    public void deleteByPrimaryKey(Long id){
+        orderXsmxMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByExample(OrderXsmxExample example){
+        orderXsmxMapper.deleteByExample(example);
+    }
+
+
     private OrderXsmxExample buildQueryExample(OrderXsmx query) {
         OrderXsmxExample example = new OrderXsmxExample();
         OrderXsmxExample.Criteria criteria = example.createCriteria();

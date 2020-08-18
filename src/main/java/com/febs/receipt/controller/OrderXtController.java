@@ -87,8 +87,9 @@ public class OrderXtController extends BaseController {
     @ControllerEndpoint(operation = "修改销退单", exceptionMessage = "修改销退单失败")
     @PostMapping("/update")
 //    @RequiresPermissions("orderXt:update")
-    public FebsResponse updateOrderXt(OrderXt orderXt) {
-        this.orderXtService.updateOrderXt(orderXt);
+    public FebsResponse updateOrderXt(OrderXtReq orderXt) {
+        orderXt.setUpdateTime(new Date());
+        this.xtBiz.update(orderXt);
         return new FebsResponse().success();
     }
 

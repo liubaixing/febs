@@ -78,4 +78,10 @@ public class OrderXtServiceImpl extends ServiceImpl<OrderXtMapper, OrderXt> impl
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    @Override
+    @Transactional
+    public void deleteByPrimaryKey(Long id) {
+        orderXtMapper.deleteByPrimaryKey(id);
+    }
 }

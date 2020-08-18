@@ -35,6 +35,8 @@ public interface IOrderXsService extends IService<OrderXs> {
      */
     List<OrderXsResp> findOrderXss(OrderXsReq orderXs);
 
+    OrderXs findOrderXs(OrderXsExample example);
+
     OrderXsResp findOrderXsDetail(OrderXsReq orderXs);
 
     OrderXsResp selectOneByQuery(OrderXsReq orderXs);
@@ -61,4 +63,7 @@ public interface IOrderXsService extends IService<OrderXs> {
      * 删除
      */
     void deleteOrderXs(String[] ids);
+
+    void deleteByPrimaryKey(Long id);
+
 }

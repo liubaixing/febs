@@ -1,12 +1,14 @@
 package com.febs.orderqt.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 运费单 Entity
@@ -33,8 +35,9 @@ public class OrderqtYfd {
     /**
      * 单据日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @TableField("djrq")
-    private Integer djrq;
+    private Date djrq;
 
     /**
      * 供应商ID 供应商
@@ -69,7 +72,7 @@ public class OrderqtYfd {
      * 制单日期
      */
     @TableField("zdrq")
-    private Integer zdrq;
+    private Date zdrq;
 
     /**
      * 0-未审核 1-已审核
@@ -80,14 +83,14 @@ public class OrderqtYfd {
     /**
      * 审核人
      */
-    @TableField("shr")
-    private String shr;
+    @TableField("auditor")
+    private String auditor;
 
     /**
      * 审核日期
      */
     @TableField("shrq")
-    private Integer shrq;
+    private Date shrq;
 
     /**
      * 0-未作废 1-已作废
@@ -105,7 +108,7 @@ public class OrderqtYfd {
      * 作废日期
      */
     @TableField("zfrq")
-    private Integer zfrq;
+    private Date zfrq;
 
     /**
      * 备用1
