@@ -1,11 +1,13 @@
 package com.febs.orderqt.vo.req;
 
 import com.febs.orderqt.entity.OrderqtYfd;
+import com.febs.orderqt.entity.OrderqtYfdmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class YfdReq extends OrderqtYfd {
@@ -19,5 +21,7 @@ public class YfdReq extends OrderqtYfd {
     private Date endTime;
 
     private String gysmc;
+
+    private List<OrderqtYfdmx> yfdmxeList;
 
 }
