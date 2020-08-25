@@ -74,13 +74,15 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     @Transactional
     public Long createOrderXs(OrderXs orderXs) {
         this.orderXsMapper.insertSelective(orderXs);
+
         String orderXsNo = "";
         if (StringUtils.isEmpty(orderXs.getDjbh())){
-            orderXsNo = OrderConstant.ORDER_XT_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
+            orderXsNo = OrderConstant.ORDER_XS_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
         }else{
             orderXsNo = orderXs.getDjbh() + DateUtil.getYear() + StringUtil.padStart(orderXs.getId());
         }
         orderXs.setDjbh(orderXsNo);
+
         orderXsMapper.updateByPrimaryKeySelective(orderXs);
         return orderXs.getId();
     }

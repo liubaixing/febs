@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
 import com.febs.orderqt.entity.OrderqtYfdmx;
+import com.febs.orderqt.entity.OrderqtYfdmxExample;
 import com.febs.orderqt.mapper.OrderqtYfdmxMapper;
 import com.febs.orderqt.service.IOrderqtYfdmxService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,10 @@ public class OrderqtYfdmxServiceImpl extends ServiceImpl<OrderqtYfdmxMapper, Ord
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    @Override
+    @Transactional
+	public void deleteByExample(OrderqtYfdmxExample example){
+        this.orderqtYfdmxMapper.deleteByExample(example);
+    }
 }

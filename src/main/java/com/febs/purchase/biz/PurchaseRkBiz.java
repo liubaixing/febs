@@ -1,10 +1,12 @@
 package com.febs.purchase.biz;
 
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.BeanUtils;
 import com.febs.purchase.entity.PurchaseRk;
 import com.febs.purchase.entity.PurchaseRkmx;
 import com.febs.purchase.service.IPurchaseRkService;
 import com.febs.purchase.service.IPurchaseRkmxService;
+import com.febs.purchase.vo.req.PurchaseRkReq;
 import com.febs.purchase.vo.resp.PurchaseRkResp;
 import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.service.IOrderXtService;
@@ -14,6 +16,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -68,4 +71,26 @@ public class PurchaseRkBiz {
         rkService.updatePurchaseRk(purchaseRk);
     }
 
+    public void create(PurchaseRkReq req) {
+
+        if (CollectionUtils.isEmpty(req.getRkmxList())) {
+            throw new FebsException("入库单明细不能为空");
+        }
+
+        List<PurchaseRkmx> rkmxList = req.getRkmxList();
+
+//        Integer sl = rkmxList.get(0).getJe().divideToIntegralValue(rkmxList.get(0).getDj()).intValue();
+
+        BigDecimal zje = rkmxList.stream().map(PurchaseRkmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+
+        PurchaseRk rk = BeanUtils.transformFrom(req,PurchaseRk.class);
+        rk.setJe(zje);
+
+        Long pid = rkService.createPurchaseRk(rk);
+
+        for (PurchaseRkmx rkmx : rkmxList){
+            rkmx.setPid(pid);
+            rkmxService.createPurchaseRkmx(rkmx);
+        }
+    }
 }

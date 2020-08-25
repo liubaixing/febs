@@ -639,10 +639,10 @@
             <if test="auditor != null and auditor != ''">
                 and sk.auditor = #{auditor}
             </if>
-            <if test="sk.sk != null">
+            <if test="sk != null">
                 and sk.sk = #{sk.sk}
             </if>
-            <if test="sk.skr != null and sk.skr != ''">
+            <if test="skr != null and skr != ''">
                 and sk.skr = #{sk.skr}
             </if>
             <if test="zdr != null and zdr != ''">

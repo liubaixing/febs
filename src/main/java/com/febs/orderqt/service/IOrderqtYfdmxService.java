@@ -5,6 +5,7 @@ import com.febs.orderqt.entity.OrderqtYfdmx;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.orderqt.entity.OrderqtYfdmxExample;
 
 import java.util.List;
 
@@ -50,4 +51,6 @@ public interface IOrderqtYfdmxService extends IService<OrderqtYfdmx> {
      * 删除
      */
     void deleteOrderqtYfdmx(String[] ids);
+
+    void deleteByExample(OrderqtYfdmxExample example);
 }

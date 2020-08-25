@@ -1,10 +1,10 @@
 package com.febs.purchase.biz;
 
 import com.febs.common.exception.FebsException;
-import com.febs.purchase.entity.PurchaseCg;
-import com.febs.purchase.entity.PurchaseCgmx;
-import com.febs.purchase.entity.PurchaseTc;
-import com.febs.purchase.entity.PurchaseTcmx;
+import com.febs.common.utils.BeanUtils;
+import com.febs.purchase.entity.*;
+import com.febs.purchase.mapper.PurchaseCgMapper;
+import com.febs.purchase.mapper.PurchaseCgmxMapper;
 import com.febs.purchase.service.IPurchaseCgService;
 import com.febs.purchase.service.IPurchaseCgmxService;
 import com.febs.purchase.service.IPurchaseTcService;
@@ -16,6 +16,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,10 @@ public class PurchaseCgBiz {
     @Autowired
     private IPurchaseTcmxService tcmxService;
 
+    @Resource
+    private PurchaseCgMapper cgMapper;
+    @Resource
+    private PurchaseCgmxMapper cgmxMapper;
 
     public PurchaseCgResp view(Long id){
         PurchaseCgResp cgResp = cgService.findById(id);
@@ -103,16 +108,34 @@ public class PurchaseCgBiz {
             throw new FebsException("未选择采购单");
         }
 
-        Integer total = 0;
-        BigDecimal totalAmount = new BigDecimal(0);
-
         List<PurchaseCgmx> cgmxList = req.getCgmxList();
 
-        for (PurchaseCgmx mx : cgmxList){
-//            total += mx.getJhsl();
-//            totalAmount = totalAmount.add(mx.getJe());
-//            mx.setXsje(mx.getJe().multiply(mx.getZk()));
+        Integer zsl = cgmxList.stream().mapToInt(PurchaseCgmx::getSl).sum();
+        BigDecimal zje = cgmxList.stream().map(PurchaseCgmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+
+        PurchaseCg cg = BeanUtils.transformFrom(req,PurchaseCg.class);
+        cg.setSl(zsl);
+        cg.setJe(zje);
+
+        Long pid = cgService.createPurchaseCg(cg);
+
+        for (PurchaseCgmx cgmx : cgmxList){
+            cgmx.setPid(pid);
+            cgmxService.createPurchaseCgmx(cgmx);
         }
+    }
+
+    public void update(PurchaseCgReq req){
+        PurchaseCgExample example = new PurchaseCgExample();
+        example.createCriteria().andIdEqualTo(req.getId());
+        cgMapper.deleteByExample(example);
+
+        PurchaseCgmxExample cgmxExample = new PurchaseCgmxExample();
+        cgmxExample.createCriteria().andPidEqualTo(req.getId());
+        cgmxMapper.deleteByExample(cgmxExample);
+
+        create(req);
 
     }
+
 }

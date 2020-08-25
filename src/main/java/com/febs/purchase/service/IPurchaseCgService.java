@@ -54,4 +54,6 @@ public interface IPurchaseCgService extends IService<PurchaseCg> {
      * 删除
      */
     void deletePurchaseCg(String[] ids);
+
+
 }

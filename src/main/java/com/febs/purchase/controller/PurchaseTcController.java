@@ -62,8 +62,12 @@ public class PurchaseTcController extends BaseController {
     @ControllerEndpoint(operation = "新增退仓单", exceptionMessage = "新增退仓单失败")
     @PostMapping("")
 //    @RequiresPermissions("purchaseTc:add")
-    public FebsResponse addPurchaseTc(@Valid PurchaseTc purchaseTc) {
-        this.purchaseTcService.createPurchaseTc(purchaseTc);
+    public FebsResponse addPurchaseTc(PurchaseTcReq req) {
+//        this.purchaseTcService.createPurchaseTc(purchaseTc);
+        User user = getCurrentUser();
+        req.setZdr(user.getUsername());
+        req.setZdrq(new Date());
+        tcBiz.create(req);
         return new FebsResponse().success();
     }
 

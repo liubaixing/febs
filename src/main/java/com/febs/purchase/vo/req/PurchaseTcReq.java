@@ -1,12 +1,14 @@
 package com.febs.purchase.vo.req;
 
 import com.febs.purchase.entity.PurchaseTc;
+import com.febs.purchase.entity.PurchaseTcmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class PurchaseTcReq extends PurchaseTc {
@@ -47,4 +49,7 @@ public class PurchaseTcReq extends PurchaseTc {
 
     @ApiModelProperty("服务费（运费、印刷费）")
     private BigDecimal serviceFee;
+
+
+    private List<PurchaseTcmx> tcmxList;
 }

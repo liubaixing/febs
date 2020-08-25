@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.resp.PurchaseCgResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -60,8 +61,15 @@ public class PurchaseCgServiceImpl extends ServiceImpl<PurchaseCgMapper, Purchas
     @Transactional
     public Long createPurchaseCg(PurchaseCg purchaseCg) {
         this.purchaseCgMapper.insertSelective(purchaseCg);
-        String bh = PurchaseConstant.PURCHASE_CG_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseCg.getId());
+
+        String bh = "";
+        if (StringUtils.isNotBlank(purchaseCg.getDjbh())){
+            bh = purchaseCg.getDjbh() + DateUtil.getYear() + StringUtil.padStart(purchaseCg.getId());
+        }else{
+            bh = PurchaseConstant.PURCHASE_CG_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseCg.getId());
+        }
         purchaseCg.setDjbh(bh);
+
         this.purchaseCgMapper.updateByPrimaryKeySelective(purchaseCg);
         return purchaseCg.getId();
     }

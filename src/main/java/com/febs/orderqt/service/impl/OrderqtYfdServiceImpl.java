@@ -4,14 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.common.constant.OrderConstant;
+import com.febs.common.constant.OrderqtConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
 import com.febs.orderqt.entity.OrderqtYfd;
+import com.febs.orderqt.entity.OrderqtYfdExample;
 import com.febs.orderqt.mapper.OrderqtYfdMapper;
 import com.febs.orderqt.service.IOrderqtYfdService;
 import com.febs.orderqt.vo.req.YfdReq;
 import com.febs.orderqt.vo.resp.YfdResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -55,7 +61,19 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
     @Override
     @Transactional
     public Long createOrderqtYfd(OrderqtYfd orderqtYfd) {
+
         this.orderqtYfdMapper.insertSelective(orderqtYfd);
+
+        String orderXsNo = "";
+        if (StringUtils.isNotBlank(orderqtYfd.getDjbh())) {
+            orderXsNo = orderqtYfd.getDjbh() + DateUtil.getYear() + StringUtil.padStart(orderqtYfd.getId());
+        }else{
+            orderXsNo = OrderqtConstant.ORDERQT_YF_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderqtYfd.getId());
+        }
+        orderqtYfd.setDjbh(orderXsNo);
+
+        this.orderqtYfdMapper.updateByPrimaryKeySelective(orderqtYfd);
+
         return orderqtYfd.getId();
     }
 
@@ -71,4 +89,10 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    @Override
+    @Transactional
+	public void deleteByExample(OrderqtYfdExample example){
+        this.orderqtYfdMapper.deleteByExample(example);
+    }
 }

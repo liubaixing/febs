@@ -62,8 +62,15 @@ public class OrderCkServiceImpl extends ServiceImpl<OrderCkMapper, OrderCk> impl
     @Transactional
     public Long createOrderCk(OrderCk orderCk) {
         this.orderCkMapper.insertSelective(orderCk);
-        String orderXsNo = OrderConstant.ORDER_CK_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderCk.getId());
+
+        String orderXsNo = "";
+        if (StringUtils.isEmpty(orderCk.getDjbh())){
+            orderXsNo = OrderConstant.ORDER_CK_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderCk.getId());
+        }else{
+            orderXsNo = orderCk.getDjbh() + DateUtil.getYear() + StringUtil.padStart(orderCk.getId());
+        }
         orderCk.setDjbh(orderXsNo);
+
         this.orderCkMapper.updateByPrimaryKeySelective(orderCk);
         return orderCk.getId();
     }

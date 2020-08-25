@@ -1,11 +1,13 @@
 package com.febs.purchase.vo.req;
 
 import com.febs.purchase.entity.PurchaseRk;
+import com.febs.purchase.entity.PurchaseRkmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class PurchaseRkReq extends PurchaseRk {
@@ -29,4 +31,7 @@ public class PurchaseRkReq extends PurchaseRk {
 
     @ApiModelProperty("商品")
     private String spmc;
+
+    private List<PurchaseRkmx> rkmxList;
+
 }

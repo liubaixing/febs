@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.purchase.vo.req.PurchaseTcReq;
 import com.febs.purchase.vo.resp.PurchaseTcResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -59,8 +60,15 @@ public class PurchaseTcServiceImpl extends ServiceImpl<PurchaseTcMapper, Purchas
     @Transactional
     public Long createPurchaseTc(PurchaseTc purchaseTc) {
         this.purchaseTcMapper.insertSelective(purchaseTc);
-        String bh = PurchaseConstant.PURCHASE_TC_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseTc.getId());
+
+        String bh = "";
+        if (StringUtils.isNotBlank(purchaseTc.getDjbh())){
+            bh = purchaseTc.getDjbh() + DateUtil.getYear() + StringUtil.padStart(purchaseTc.getId());
+        }else{
+            bh = PurchaseConstant.PURCHASE_TC_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseTc.getId());
+        }
         purchaseTc.setDjbh(bh);
+
         this.purchaseTcMapper.updateByPrimaryKeySelective(purchaseTc);
         return purchaseTc.getId();
     }

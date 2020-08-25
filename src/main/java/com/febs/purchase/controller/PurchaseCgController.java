@@ -92,7 +92,10 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "新增采购单", exceptionMessage = "新增采购单失败")
     @PostMapping("")
     //@RequiresPermissions("purchaseCg:add")
-    public FebsResponse addPurchaseCg(@Valid PurchaseCgReq req) {
+    public FebsResponse addPurchaseCg(PurchaseCgReq req) {
+        User user = getCurrentUser();
+        req.setZdr(user.getUsername());
+        req.setZdrq(new Date());
         cgBiz.create(req);
         return new FebsResponse().success();
     }
@@ -109,8 +112,8 @@ public class PurchaseCgController extends BaseController {
     @ControllerEndpoint(operation = "修改采购单", exceptionMessage = "修改采购单失败")
     @PostMapping("/update")
 //    @RequiresPermissions("purchaseCg:update")
-    public FebsResponse updatePurchaseCg(PurchaseCg purchaseCg) {
-        this.purchaseCgService.updatePurchaseCg(purchaseCg);
+    public FebsResponse updatePurchaseCg(PurchaseCgReq req) {
+        cgBiz.update(req);
         return new FebsResponse().success();
     }
 

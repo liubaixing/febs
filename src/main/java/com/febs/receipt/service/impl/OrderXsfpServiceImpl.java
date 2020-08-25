@@ -16,6 +16,7 @@ import com.febs.receipt.service.IOrderXsfpService;
 import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.resp.OrderXsfpResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -60,8 +61,15 @@ public class OrderXsfpServiceImpl extends ServiceImpl<OrderXsfpMapper, OrderXsfp
     @Transactional
     public Long createOrderXsfp(OrderXsfp orderXsfp) {
         this.orderXsfpMapper.insertSelective(orderXsfp);
-        String orderXsNo = OrderConstant.ORDER_FP_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXsfp.getId());
+
+        String orderXsNo = "";
+        if (StringUtils.isEmpty(orderXsfp.getDjbh())){
+            orderXsNo = OrderConstant.ORDER_FP_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXsfp.getId());
+        }else{
+            orderXsNo = orderXsfp.getDjbh() + DateUtil.getYear() + StringUtil.padStart(orderXsfp.getId());
+        }
         orderXsfp.setDjbh(orderXsNo);
+
         orderXsfpMapper.updateByPrimaryKeySelective(orderXsfp);
         return orderXsfp.getId();
     }

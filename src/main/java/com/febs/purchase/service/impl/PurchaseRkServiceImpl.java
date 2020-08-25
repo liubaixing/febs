@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.purchase.vo.req.PurchaseRkReq;
 import com.febs.purchase.vo.resp.PurchaseRkResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -59,8 +60,15 @@ public class PurchaseRkServiceImpl extends ServiceImpl<PurchaseRkMapper, Purchas
     @Transactional
     public Long createPurchaseRk(PurchaseRk purchaseRk) {
         this.purchaseRkMapper.insertSelective(purchaseRk);
-        String bh = PurchaseConstant.PURCHASE_RK_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseRk.getId());
+
+        String bh = "";
+        if (StringUtils.isNotBlank(purchaseRk.getDjbh())){
+            bh = purchaseRk.getDjbh() + DateUtil.getYear() + StringUtil.padStart(purchaseRk.getId());
+        }else{
+            bh = PurchaseConstant.PURCHASE_RK_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseRk.getId());
+        }
         purchaseRk.setDjbh(bh);
+
         this.purchaseRkMapper.updateByPrimaryKeySelective(purchaseRk);
         return purchaseRk.getId();
     }

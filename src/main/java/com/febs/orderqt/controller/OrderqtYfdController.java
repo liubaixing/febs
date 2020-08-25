@@ -62,8 +62,10 @@ public class OrderqtYfdController extends BaseController {
     @PostMapping("")
 //    @RequiresPermissions("orderqtYfd:add")
     public FebsResponse addOrderqtYfd(YfdReq req) {
-        yfdBiz.add(req);
-//        this.orderqtYfdService.createOrderqtYfd(orderqtYfd);
+        User user = getCurrentUser();
+        req.setZdr(user.getUsername());
+        req.setZdrq(new Date());
+        yfdBiz.create(req);
         return new FebsResponse().success();
     }
 
@@ -79,8 +81,8 @@ public class OrderqtYfdController extends BaseController {
     @ControllerEndpoint(operation = "修改运费单", exceptionMessage = "修改运费单失败")
     @PostMapping("/update")
 //    @RequiresPermissions("orderqtYfd:update")
-    public FebsResponse updateOrderqtYfd(OrderqtYfd orderqtYfd) {
-        this.orderqtYfdService.updateOrderqtYfd(orderqtYfd);
+    public FebsResponse updateOrderqtYfd(YfdReq req) {
+        yfdBiz.update(req);
         return new FebsResponse().success();
     }
 

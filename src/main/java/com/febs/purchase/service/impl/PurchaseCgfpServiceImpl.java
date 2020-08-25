@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.purchase.vo.req.PurchaseCgfpReq;
 import com.febs.purchase.vo.resp.PurchaseCgfpResp;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,8 +63,15 @@ public class PurchaseCgfpServiceImpl extends ServiceImpl<PurchaseCgfpMapper, Pur
     @Transactional
     public Long createPurchaseCgfp(PurchaseCgfp purchaseCgfp) {
         this.purchaseCgfpMapper.insertSelective(purchaseCgfp);
-        String bh = PurchaseConstant.PURCHASE_RK_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseCgfp.getId());
+
+        String bh = "";
+        if (StringUtils.isNotBlank(purchaseCgfp.getDjbh())){
+            bh = purchaseCgfp.getDjbh() + DateUtil.getYear() + StringUtil.padStart(purchaseCgfp.getId());
+        }else{
+            bh = PurchaseConstant.PURCHASE_FP_PREFIX + DateUtil.getYear() + StringUtil.padStart(purchaseCgfp.getId());
+        }
         purchaseCgfp.setDjbh(bh);
+
         this.purchaseCgfpMapper.updateByPrimaryKeySelective(purchaseCgfp);
         return purchaseCgfp.getId();
     }

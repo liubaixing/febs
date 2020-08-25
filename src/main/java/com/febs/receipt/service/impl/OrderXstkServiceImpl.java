@@ -61,8 +61,15 @@ public class OrderXstkServiceImpl extends ServiceImpl<OrderXstkMapper, OrderXstk
     @Transactional
     public Long createOrderXstk(OrderXstk orderXstk) {
         this.orderXstkMapper.insertSelective(orderXstk);
-        String orderXsNo = OrderConstant.ORDER_TK_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXstk.getId());
+
+        String orderXsNo = "";
+        if (StringUtils.isEmpty(orderXstk.getDjbh())){
+            orderXsNo = OrderConstant.ORDER_TK_PREFIX + DateUtil.getYear() + StringUtil.padStart(orderXstk.getId());
+        }else{
+            orderXsNo = orderXstk.getDjbh() + DateUtil.getYear() + StringUtil.padStart(orderXstk.getId());
+        }
         orderXstk.setDjbh(orderXsNo);
+
         orderXstkMapper.updateByPrimaryKeySelective(orderXstk);
         return orderXstk.getId();
     }

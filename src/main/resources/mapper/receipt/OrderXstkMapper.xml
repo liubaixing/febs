@@ -621,34 +621,34 @@
                 and tk.Id = #{id}
             </if>
             <if test="deleted != null">
-                and sk.deleted = #{deleted}
+                and tk.deleted = #{deleted}
             </if>
             <if test="startTime != null and endTime != null">
-                and sk.djrq between #{startTime} and #{endTime}
+                and tk.djrq between #{startTime} and #{endTime}
             </if>
             <if test="djbh != null and djbh != ''">
-                sk.djbh like CONCAT('%',#{djbh},'%')
+                and tk.djbh like CONCAT('%',#{djbh},'%')
             </if>
             <if test="qr != null">
-                and sk.qr = #{qr}
+                and tk.qr = #{qr}
             </if>
             <if test="qrr != null and qrr != ''">
-                and sk.qrr = #{qrr}
+                and tk.qrr = #{qrr}
             </if>
             <if test="sh != null">
-                and sk.sh = #{sh}
+                and tk.sh = #{sh}
             </if>
             <if test="auditor != null and auditor != ''">
-                and sk.auditor = #{auditor}
+                and tk.auditor1 like CONCAT('%',#{auditor},'%')
             </if>
-            <if test="kp != null">
-                and fp.kp = #{kp}
+            <if test="tk != null">
+                and tk.tk = #{tk}
             </if>
-            <if test="kpr != null and kpr != ''">
-                and fp.kpr = #{kpr}
+            <if test="tkr != null and tkr != ''">
+                and tk.tkr like CONCAT('%',#{tkr},'%')
             </if>
             <if test="zdr != null and zdr != ''">
-                and sk.zdr = #{zdr}
+                and tk.zdr = #{zdr}
             </if>
             <if test="ptdamc != null and ptdamc != ''">
                 and da.ptdamc like CONCAT('%',#{ptdamc},'%')
