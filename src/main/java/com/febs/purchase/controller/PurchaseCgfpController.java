@@ -98,7 +98,7 @@ public class PurchaseCgfpController extends BaseController {
     @ApiOperation("作废")
     @ControllerEndpoint(operation = "作废", exceptionMessage = "作废失败")
     @GetMapping("/zf/{id}")
-    @RequiresPermissions("purchaseCgfp:zf")
+//    @RequiresPermissions("purchaseCgfp:zf")
     public FebsResponse zf(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseCgfp purchasefp = new PurchaseCgfp();
@@ -113,7 +113,7 @@ public class PurchaseCgfpController extends BaseController {
     @ApiOperation("确认")
     @ControllerEndpoint(operation = "确认", exceptionMessage = "确认失败")
     @GetMapping("/qr/{id}")
-    @RequiresPermissions("purchaseCgfp:qr")
+//    @RequiresPermissions("purchaseCgfp:qr")
     public FebsResponse qr(@PathVariable Long id){
         User user = getCurrentUser();
         PurchaseCgfp purchasefp = new PurchaseCgfp();

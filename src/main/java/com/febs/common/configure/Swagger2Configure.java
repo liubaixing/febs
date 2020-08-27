@@ -68,6 +68,17 @@ public class Swagger2Configure {
                 .build();
     }
 
+    @Bean
+    public Docket restApi5() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("其他单据")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.febs.orderqt"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("FEBS系统Restful API")

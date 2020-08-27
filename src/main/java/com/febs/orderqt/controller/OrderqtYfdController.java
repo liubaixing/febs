@@ -12,6 +12,7 @@ import com.febs.orderqt.service.IOrderqtYfdService;
 import com.febs.orderqt.vo.req.YfdReq;
 import com.febs.orderqt.vo.resp.YfdResp;
 import com.febs.system.entity.User;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ import java.util.Map;
  * @date 2020-07-29 14:14:12
  */
 @Slf4j
+@Api("运费单")
 @Validated
 @RestController
 @RequestMapping("orderqtYfd")
