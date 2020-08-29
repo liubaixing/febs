@@ -132,7 +132,7 @@ public class OrderXsBiz {
 
     }
 
-//    @Transactional
+    @Transactional
     public void update(OrderXsReq orderXsReq) {
         xsService.deleteByPrimaryKey(orderXsReq.getId());
         OrderXsmxExample example = new OrderXsmxExample();

@@ -12,6 +12,8 @@ import com.febs.orderqt.service.IOrderqtYsfdService;
 import com.febs.orderqt.vo.req.YsfdReq;
 import com.febs.orderqt.vo.resp.YsfdResp;
 import com.febs.system.entity.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import java.util.Map;
  * @date 2020-07-29 14:14:23
  */
 @Slf4j
+@Api(tags = "印刷费单")
 @Validated
 @RestController
 @RequestMapping("orderqtYsfd")
@@ -57,6 +60,7 @@ public class OrderqtYsfdController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
+    @ApiOperation("新增")
     @ControllerEndpoint(operation = "新增印刷费单", exceptionMessage = "新增印刷费单失败")
     @PostMapping("")
 //    @RequiresPermissions("orderqtYsfd:add")
@@ -74,6 +78,7 @@ public class OrderqtYsfdController extends BaseController {
         return new FebsResponse().success();
     }
 
+    @ApiOperation("修改")
     @ControllerEndpoint(operation = "修改印刷费单", exceptionMessage = "修改印刷费单失败")
     @PostMapping("/update")
 //    @RequiresPermissions("orderqtYsfd:update")
