@@ -26,7 +26,6 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author MrBird
  */
 @Configuration
-//@EnableSwagger2
 @RequiredArgsConstructor
 public class FebsConfigure {
 

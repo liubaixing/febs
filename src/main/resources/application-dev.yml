@@ -32,9 +32,9 @@ spring:
     # Redis服务器地址
     host: 101.201.252.232
     # Redis服务器连接端口
-    port: 6379
+    port: 5268
     # Redis 密码
-    password:
+    password: Qwer1234567890
     lettuce:
       pool:
         # 连接池中的最小空闲连接

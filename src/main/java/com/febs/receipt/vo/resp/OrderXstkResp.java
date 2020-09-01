@@ -1,5 +1,6 @@
 package com.febs.receipt.vo.resp;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.febs.receipt.entity.OrderXstk;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,6 +29,8 @@ public class OrderXstkResp extends OrderXstk {
     private String memo;
     @ApiModelProperty("计量单位")
     private String jldwmc;
+    @ApiModelProperty("通知数")
+    private Integer tzsl;
 
     List<OrderXstkmxResp> xstkmxList;
 

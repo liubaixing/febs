@@ -413,13 +413,53 @@
   <select id="selectPageByQuery" parameterType="com.febs.orderqt.vo.req.YsfdReq" resultType="com.febs.orderqt.vo.resp.YsfdResp">
     SELECT
     <include refid="Page_Column_List" />
+    ,gysmc,mx.id mxId, mx.sl,mx.je,mx.kpsl,mx.fksl,mx.tksl,mx.kpje,mx.fkje,mx.tkje
     FROM orderqt_ysfd ysf
+    LEFT JOIN system_gys gys ON ysf.gys_id = gys.id
+    LEFT JOIN orderqt_ysfdmx mx on ysf.id = mx.pid
+    <where>
+      <if test="ysf.djbh != null and ysf.djbh != ''">
+        and ysf.djbh like CONCAT('%',#{ysf.djbh},'%')
+      </if>
+      <if test="ysf.startTime != null and ysf.endTime != null">
+        and ysf.djrq between #{ysf.startTime} and #{ysf.ysf.endTime}
+      </if>
+      <if test="ysf.sh != null">
+        and ysf.sh = #{ysf.sh}
+      </if>
+      <if test="ysf.gysId != null">
+        and yf.gysId = #{ysf.gysId}
+      </if>
+      <if test="ysf.gysmc != null and ysf.gysmc != ''">
+        and gys.gysmc like CONCAT('%',#{ysf.gysmc},'%')
+      </if>
+    </where>
   </select>
 
   <select id="selectByQuery" parameterType="com.febs.orderqt.vo.req.YsfdReq" resultType="com.febs.orderqt.vo.resp.YsfdResp">
     SELECT
     <include refid="Page_Column_List" />
+    ,gysmc,mx.id mxId, mx.sl,mx.je,mx.kpsl,mx.fksl,mx.tksl,mx.kpje,mx.fkje,mx.tkje
     FROM orderqt_ysfd ysf
+    LEFT JOIN system_gys gys ON ysf.gys_id = gys.id
+    LEFT JOIN orderqt_ysfdmx mx on ysf.id = mx.pid
+    <where>
+      <if test="djbh != null and djbh != ''">
+        and djbh like CONCAT('%',#{djbh},'%')
+      </if>
+      <if test="startTime != null and endTime != null">
+        and djrq between #{startTime} and #{endTime}
+      </if>
+      <if test="sh != null">
+        and sh = #{sh}
+      </if>
+      <if test="gysId != null">
+        and yf.gysId = #{gysId}
+      </if>
+      <if test="gysmc != null and gysmc != ''">
+        and gys.gysmc like CONCAT('%',#{gysmc},'%')
+      </if>
+    </where>
   </select>
 
 </mapper>

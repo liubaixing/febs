@@ -52,6 +52,14 @@ public class UserController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
+    @GetMapping("")
+    @RequiresPermissions("user:view")
+    public FebsResponse userList(User user) {
+        QueryRequest request = new QueryRequest();
+        request.setPageSize(Integer.MAX_VALUE);
+        return new FebsResponse().success().data(this.userService.findUserDetailList(user, request).getRecords());
+    }
+
     @PostMapping
     @RequiresPermissions("user:add")
     @ControllerEndpoint(operation = "新增用户", exceptionMessage = "新增用户失败")
