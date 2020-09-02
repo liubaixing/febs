@@ -39,5 +39,5 @@ public class PurchaseRkResp extends PurchaseRk {
 
     private Long mxId;
 
-    private List<PurchaseRkmxResp> rkmxlist;
+    private List<PurchaseRkmxResp> rkmxList;
 }

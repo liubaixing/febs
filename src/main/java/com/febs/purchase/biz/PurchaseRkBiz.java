@@ -40,7 +40,7 @@ public class PurchaseRkBiz {
         }
 
         PurchaseRkmx purchaseRkmx = new PurchaseRkmx();
-        rkResp.setRkmxlist(rkmxService.findPurchaseRkmxs(purchaseRkmx));
+        rkResp.setRkmxList(rkmxService.findPurchaseRkmxs(purchaseRkmx));
 
         return rkResp;
     }
