@@ -303,7 +303,7 @@
     <select id="selectPageByQuery" parameterType="com.febs.purchase.entity.PurchaseCgfpmx" resultType="com.febs.purchase.vo.resp.PurchaseCgfpmxResp">
         SELECT
         <include refid="Page_Column_List" />
-        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
         FROM purchase_cgfkmx mx
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
@@ -321,7 +321,7 @@
     <select id="selectByQuery" parameterType="com.febs.purchase.entity.PurchaseCgfpmx" resultType="com.febs.purchase.vo.resp.PurchaseCgfpmxResp">
         SELECT
         <include refid="Page_Column_List" />
-        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
         FROM purchase_cgfkmx mx
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id

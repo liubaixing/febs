@@ -642,15 +642,15 @@
   </update>
 
     <sql id="Page_Column_List">
-    rk.Id, rk.djbh, rk.ydbh, rk.ydjh, rk.xdrq, rk.cangku_id, rk.kehu_id, rk.org_id, rk.djlx_id, rk.bz, rk.fj, rk.sl,
-    rk.je,rk.zdr, rk.zdrq, rk.qr, rk.qrr, rk.qrrq, rk.shrk, rk.shrkr, rk.shrkrq, rk.gb, rk.gbr, rk.gbrq, rk.zf,
+    rk.Id, rk.djbh, rk.ydbh, rk.ydjh, rk.xdrq, rk.cangku_id, rk.kehu_id, rk.org_id, rk.djlx_id, rk.bz, rk.fj,
+    rk.zdr, rk.zdrq, rk.qr, rk.qrr, rk.qrrq, rk.shrk, rk.shrkr, rk.shrkrq, rk.gb, rk.gbr, rk.gbrq, rk.zf,
     rk.zfr, rk.zfrq, rk.ex1,rk.ex2, rk.ex3, rk.create_time, rk.update_time, rk.deleted
     </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.purchase.vo.req.PurchaseRkReq" resultType="com.febs.purchase.vo.resp.PurchaseRkResp">
         SELECT
         <include refid="Page_Column_List" />
-        ,ck.ckmc,kh.khmc,ptda.ptdamc,djlx.djlxmc,sp.spdm,sp.spmc,sp.memo,jldw.jldwmc,mx.cbje,mx.id mxId
+        ,ck.ckmc,kh.khmc,ptda.ptdamc,djlx.djlxmc,sp.spdm,sp.spmc,sp.memo,jldw.jldwmc,mx.cbje,mx.id mxId,mx.dj,mx.je,mx.sl
         FROM purchase_rk rk
         LEFT JOIN system_cangku ck ON rk.cangku_id = ck.id
         LEFT JOIN system_kehu kh ON rk.kehu_id = kh.id
@@ -714,7 +714,7 @@
     <select id="selectByQuery" parameterType="com.febs.purchase.vo.req.PurchaseRkReq" resultType="com.febs.purchase.vo.resp.PurchaseRkResp">
         SELECT
         <include refid="Page_Column_List" />
-        ,ck.ckmc,kh.khmc,ptda.ptdamc,djlx.djlxmc,sp.spdm,sp.spmc,sp.memo,jldw.jldwmc,mx.cbje,mx.id mxId
+        ,ck.ckmc,kh.khmc,ptda.ptdamc,djlx.djlxmc,sp.spdm,sp.spmc,sp.memo,jldw.jldwmc,mx.cbje,mx.id mxId,mx.dj,mx.je,mx.sl
         FROM purchase_rk rk
         LEFT JOIN system_cangku ck ON rk.cangku_id = ck.id
         LEFT JOIN system_kehu kh ON rk.kehu_id = kh.id
@@ -727,53 +727,53 @@
             <if test="id != null">
                 and rk.Id = #{id}
             </if>
-            <if test="rk.djbh != null and rk.djbh != ''">
-                and rk.djbh like CONCAT('%',#{rk.djbh},'%')
+            <if test="djbh != null and djbh != ''">
+                and rk.djbh like CONCAT('%',#{djbh},'%')
             </if>
-            <if test="rk.startTime != null and rk.endTime != null">
-                and rk.djrq between #{rk.startTime} and #{rk.endTime}
+            <if test="startTime != null and endTime != null">
+                and djrq between #{startTime} and #{endTime}
             </if>
-            <if test="rk.ptdamc != null and rk.ptdamc != ''">
-                and ptda.ptdamc like CONCAT('%',#{rk.ptdamc},'%')
+            <if test="ptdamc != null and ptdamc != ''">
+                and ptda.ptdamc like CONCAT('%',#{ptdamc},'%')
             </if>
-            <if test="rk.ckmc != null and rk.ckmc != ''">
-                and ck.ckmc like CONCAT('%',#{rk.ckmc},'%')
+            <if test="ckmc != null and ckmc != ''">
+                and ck.ckmc like CONCAT('%',#{ckmc},'%')
             </if>
-            <if test="rk.spmc != null and rk.spmc != ''">
-                and sp.spmc like CONCAT('%',#{rk.spmc},'%')
+            <if test="spmc != null and spmc != ''">
+                and sp.spmc like CONCAT('%',#{spmc},'%')
             </if>
-            <if test="rk.khmc != null and rk.khmc != ''">
-                and kh.khmc like CONCAT('%',#{rk.khmc},'%')
+            <if test="khmc != null and khmc != ''">
+                and kh.khmc like CONCAT('%',#{khmc},'%')
             </if>
-            <if test="rk.ydbh != null and rk.ydbh != ''">
-                and rk.ydbh like CONCAT('%',#{rk.ydbh},'%')
+            <if test="ydbh != null and ydbh != ''">
+                and rk.ydbh like CONCAT('%',#{ydbh},'%')
             </if>
-            <if test="rk.ydjh != null and rk.ydjh != ''">
-                and rk.ydjh like CONCAT('%',#{rk.ydjh},'%')
+            <if test="ydjh != null and ydjh != ''">
+                and rk.ydjh like CONCAT('%',#{ydjh},'%')
             </if>
-            <if test="rk.qr != null">
-                and rk.qr = #{rk.qr}
+            <if test="qr != null">
+                and rk.qr = #{qr}
             </if>
-            <if test="rk.qrr != null and rk.qrr != ''">
-                and rk.qrr like CONCAT('%',#{rk.qrr},'%')
+            <if test="qrr != null and qrr != ''">
+                and rk.qrr like CONCAT('%',#{qrr},'%')
             </if>
-            <if test="rk.gb != null">
-                and rk.gb = #{rk.gb}
+            <if test="gb != null">
+                and rk.gb = #{gb}
             </if>
-            <if test="rk.gbr != null and rk.gbr != ''">
-                and rk.gbr like CONCAT('%',#{rk.gbr},'%')
+            <if test="gbr != null and gbr != ''">
+                and rk.gbr like CONCAT('%',#{gbr},'%')
             </if>
-            <if test="rk.shrk != null">
-                and rk.shrk = #{rk.shrk}
+            <if test="shrk != null">
+                and rk.shrk = #{shrk}
             </if>
-            <if test="rk.shrkr != null and rk.shrkr != ''">
-                and rk.shrkr like CONCAT('%',#{rk.shrkr},'%')
+            <if test="shrkr != null and shrkr != ''">
+                and rk.shrkr like CONCAT('%',#{shrkr},'%')
             </if>
-            <if test="rk.zf != null">
-                and rk.zf = #{rk.zf}
+            <if test="zf != null">
+                and rk.zf = #{zf}
             </if>
-            <if test="rk.zfr != null and rk.zfr != ''">
-                and rk.zfr like CONCAT('%',#{rk.zfr},'%')
+            <if test="zfr != null and rk.zfr != ''">
+                and rk.zfr like CONCAT('%',#{zfr},'%')
             </if>
         </where>
 

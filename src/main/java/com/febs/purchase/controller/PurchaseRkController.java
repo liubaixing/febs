@@ -62,11 +62,12 @@ public class PurchaseRkController extends BaseController {
     @ControllerEndpoint(operation = "新增入库单", exceptionMessage = "新增入库单失败")
     @PostMapping("")
 //    @RequiresPermissions("purchaseRk:add")
-    public FebsResponse addPurchaseRk(@Valid PurchaseRkReq req) {
+    public FebsResponse addPurchaseRk(PurchaseRkReq req) {
 //        this.purchaseRkService.createPurchaseRk(purchaseRk);
         User user = getCurrentUser();
         req.setZdr(user.getUsername());
         req.setZdrq(new Date());
+        req.setCreateTime(new Date());
         purchaseRkBiz.create(req);
         return new FebsResponse().success();
     }

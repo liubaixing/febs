@@ -42,5 +42,5 @@ public interface PurchaseRkMapper extends BaseMapper<PurchaseRk> {
 
     IPage<PurchaseRkResp> selectPageByQuery(Page<PurchaseRk> page,@Param("rk") PurchaseRkReq req);
 
-    List<PurchaseRkResp> selectByQuery(@Param("rk") PurchaseRkReq req);
+    List<PurchaseRkResp> selectByQuery(PurchaseRkReq req);
 }

@@ -7,6 +7,7 @@
         <result column="sp_id" jdbcType="INTEGER" property="spId" />
         <result column="gg1_id" jdbcType="INTEGER" property="gg1Id" />
         <result column="gg2_id" jdbcType="INTEGER" property="gg2Id" />
+        <result column="sl" jdbcType="INTEGER" property="sl" />
         <result column="dj" jdbcType="DECIMAL" property="dj" />
         <result column="je" jdbcType="DECIMAL" property="je" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
@@ -79,7 +80,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, pid, sp_id, gg1_id, gg2_id, dj, je, ex1, ex2, ex3, jsjg, jishuije, sku, create_time,
+    id, pid, sp_id, gg1_id, gg2_id, sl,dj, je, ex1, ex2, ex3, jsjg, jishuije, sku, create_time,
     update_time, deleted, cbje
   </sql>
     <select id="selectByExample" parameterType="com.febs.purchase.entity.PurchaseRkmxExample" resultMap="BaseResultMap">
@@ -139,6 +140,9 @@
             <if test="gg2Id != null">
                 gg2_id,
             </if>
+            <if test="sl != null">
+                sl,
+            </if>
             <if test="dj != null">
                 dj,
             </if>
@@ -188,6 +192,9 @@
             </if>
             <if test="gg2Id != null">
                 #{gg2Id,jdbcType=INTEGER},
+            </if>
+            <if test="sl != null">
+                #{sl,jdbcType=INTEGER},
             </if>
             <if test="dj != null">
                 #{dj,jdbcType=DECIMAL},
@@ -251,6 +258,9 @@
             <if test="record.gg2Id != null">
                 gg2_id = #{record.gg2Id,jdbcType=INTEGER},
             </if>
+            <if test="record.sl != null">
+                sl = #{record.sl,jdbcType=INTEGER},
+            </if>
             <if test="record.dj != null">
                 dj = #{record.dj,jdbcType=DECIMAL},
             </if>
@@ -299,6 +309,7 @@
         sp_id = #{record.spId,jdbcType=INTEGER},
         gg1_id = #{record.gg1Id,jdbcType=INTEGER},
         gg2_id = #{record.gg2Id,jdbcType=INTEGER},
+        sl = #{record.sl,jdbcType=INTEGER},
         dj = #{record.dj,jdbcType=DECIMAL},
         je = #{record.je,jdbcType=DECIMAL},
         ex1 = #{record.ex1,jdbcType=VARCHAR},
@@ -326,6 +337,9 @@
             </if>
             <if test="gg1Id != null">
                 gg1_id = #{gg1Id,jdbcType=INTEGER},
+            </if>
+            <if test="sl != null">
+                sl = #{sl,jdbcType=INTEGER},
             </if>
             <if test="gg2Id != null">
                 gg2_id = #{gg2Id,jdbcType=INTEGER},
@@ -391,14 +405,14 @@
   </update>
 
     <sql id="Page_Column_List">
-       mx.id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.dj, mx.je, mx.ex1, mx.ex2, mx.ex3, mx.jsjg,
+       mx.id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.sl, mx.dj, mx.je, mx.ex1, mx.ex2, mx.ex3, mx.jsjg,
         mx.jishuije, mx.sku,mx.cbje
     </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.purchase.entity.PurchaseRkmx" resultType="com.febs.purchase.vo.resp.PurchaseRkmxResp">
         SELECT
         <include refid="Page_Column_List" />
-        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
         FROM purchase_rkmx mx
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
@@ -416,8 +430,8 @@
     <select id="selectByQuery" parameterType="com.febs.purchase.entity.PurchaseRkmx" resultType="com.febs.purchase.vo.resp.PurchaseRkmxResp">
         SELECT
         <include refid="Page_Column_List" />
-        sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
-        FROM purchase_cgfkmx mx
+        ,sp.spdm, sp.spmc ,sp.memo ,dw.jldwmc
+        FROM purchase_rkmx mx
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>

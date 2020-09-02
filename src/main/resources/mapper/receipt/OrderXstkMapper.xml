@@ -610,7 +610,7 @@
     <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXstkReq" resultType="com.febs.receipt.vo.resp.OrderXstkResp">
         SELECT
         <include refid="Page_Column_List" />
-        ,mx.id mxId,mx.ydjh,mx.sp_id,mx.je,mx.tzsl,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
+        ,mx.id mxId,mx.ydjh,mx.sp_id,mx.je,mx.sl,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
         FROM order_xstk tk
         LEFT JOIN order_xsskmx mx on mx.pid = tk.id
         LEFT JOIN basic_ptda da on tk.ghdw_id = da.id

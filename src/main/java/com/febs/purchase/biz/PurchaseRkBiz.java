@@ -79,13 +79,13 @@ public class PurchaseRkBiz {
 
         List<PurchaseRkmx> rkmxList = req.getRkmxList();
 
-//        Integer sl = rkmxList.get(0).getJe().divideToIntegralValue(rkmxList.get(0).getDj()).intValue();
+        Integer zsl = rkmxList.stream().mapToInt(PurchaseRkmx::getSl).sum();
 
         BigDecimal zje = rkmxList.stream().map(PurchaseRkmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
 
         PurchaseRk rk = BeanUtils.transformFrom(req,PurchaseRk.class);
         rk.setJe(zje);
-
+        rk.setSl(zsl);
         Long pid = rkService.createPurchaseRk(rk);
 
         for (PurchaseRkmx rkmx : rkmxList){

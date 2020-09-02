@@ -42,5 +42,5 @@ public interface PurchaseCgtkMapper extends BaseMapper<PurchaseCgtk> {
 
     IPage<PurchaseCgtkResp> selectPageByQuery(Page<PurchaseCgtk> page,@Param("tk") PurchaseCgtkReq req);
 
-    List<PurchaseCgtkResp> selectByQuery(@Param("tk") PurchaseCgtkReq req);
+    List<PurchaseCgtkResp> selectByQuery(PurchaseCgtkReq req);
 }
