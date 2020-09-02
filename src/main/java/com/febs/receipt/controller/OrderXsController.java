@@ -103,7 +103,6 @@ public class OrderXsController extends BaseController {
     @PostMapping("/update")
 //    @RequiresPermissions("orderXs:update")
     public FebsResponse updateOrderXs(OrderXsReq orderXsReq) {
-        orderXsReq.setUpdateTime(new Date());
         this.orderXsBiz.update(orderXsReq);
         return new FebsResponse().success();
     }

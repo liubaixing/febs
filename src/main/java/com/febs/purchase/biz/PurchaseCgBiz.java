@@ -43,7 +43,7 @@ public class PurchaseCgBiz {
     public PurchaseCgResp view(Long id){
         PurchaseCgResp cgResp = cgService.findById(id);
         PurchaseCgmx purchaseCgmx = new PurchaseCgmx();
-        purchaseCgmx.setPid(purchaseCgmx.getId());
+        purchaseCgmx.setPid(cgResp.getId());
         List<PurchaseCgmxResp> cgmxList = cgmxService.findPurchaseCgmxs(purchaseCgmx);
         cgResp.setCgmxList(cgmxList);
         return cgResp;
@@ -126,15 +126,36 @@ public class PurchaseCgBiz {
     }
 
     public void update(PurchaseCgReq req){
-        PurchaseCgExample example = new PurchaseCgExample();
-        example.createCriteria().andIdEqualTo(req.getId());
-        cgMapper.deleteByExample(example);
+
+        PurchaseCgmxResp resp = cgmxService.findById(req.getId());
+
+        if (resp == null) {
+            throw new FebsException("采购但不存在");
+        }
+
+        if (CollectionUtils.isEmpty(req.getCgmxList())) {
+            throw new FebsException("未选择采购单");
+        }
+
+        List<PurchaseCgmx> cgmxList = req.getCgmxList();
+
+        Integer zsl = cgmxList.stream().mapToInt(PurchaseCgmx::getSl).sum();
+        BigDecimal zje = cgmxList.stream().map(PurchaseCgmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+
+        PurchaseCg cg = new PurchaseCg();
+        cg.setId(req.getId());
+        cg.setSl(zsl);
+        cg.setJe(zje);
+        cgService.updatePurchaseCg(cg);
 
         PurchaseCgmxExample cgmxExample = new PurchaseCgmxExample();
         cgmxExample.createCriteria().andPidEqualTo(req.getId());
         cgmxMapper.deleteByExample(cgmxExample);
 
-        create(req);
+        for (PurchaseCgmx cgmx : cgmxList){
+            cgmx.setPid(req.getId());
+            cgmxService.createPurchaseCgmx(cgmx);
+        }
 
     }
 

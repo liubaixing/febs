@@ -134,11 +134,37 @@ public class OrderXsBiz {
 
     @Transactional
     public void update(OrderXsReq orderXsReq) {
-        xsService.deleteByPrimaryKey(orderXsReq.getId());
+
+        if(CollectionUtils.isEmpty(orderXsReq.getOrderXsmxList())){
+            throw new FebsException("商品明细不能为空");
+        }
+
+        Integer total = 0;
+        BigDecimal totalAmount = new BigDecimal(0);
+        List<OrderXsmx> mxList = orderXsReq.getOrderXsmxList();
+
+        for (OrderXsmx mx : mxList){
+            total += mx.getJhsl();
+            totalAmount = totalAmount.add(mx.getJe());
+            mx.setXsje(mx.getJe().multiply(mx.getZk()));
+        }
+
+        OrderXs orderXs = new OrderXs();
+        orderXs.setId(orderXsReq.getId());
+        orderXs.setSl(total);
+        orderXs.setJe(totalAmount);
+        orderXs.setUpdateTime(new Date());
+        xsService.updateOrderXs(orderXs);
+
         OrderXsmxExample example = new OrderXsmxExample();
         example.createCriteria().andPidEqualTo(orderXsReq.getId());
         xsmxService.deleteByExample(example);
-        create(orderXsReq);
+
+        for(OrderXsmx mx : orderXsReq.getOrderXsmxList()){
+            mx.setPid(orderXsReq.getId());
+            xsmxService.createOrderXsmx(mx);
+        }
+
     }
 
     public void delete(String[] ids) {

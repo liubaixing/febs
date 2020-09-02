@@ -92,13 +92,39 @@ public class OrderXtBiz {
 
     @Transactional
     public void update(OrderXtReq orderXtReq) {
-        xtService.deleteByPrimaryKey(orderXtReq.getId());
+
+        OrderXtResp resp = xtService.findById(orderXtReq.getId());
+
+        if (resp == null) {
+            throw new FebsException("销退单不存在");
+        }
+
+        //保存商品明细
+        if(CollectionUtils.isEmpty(orderXtReq.getOrderXtmxList())){
+            throw new FebsException("销退单明细不能为空");
+        }
+
+        List<OrderXtmx> xtmxeList = orderXtReq.getOrderXtmxList();
+
+        Integer zsl = xtmxeList.stream().mapToInt(OrderXtmx::getJhsl).sum();
+        BigDecimal zje = xtmxeList.stream().map(OrderXtmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+
+        OrderXt xt = new OrderXt();
+        xt.setId(orderXtReq.getId());
+        xt.setSl(zsl);
+        xt.setJe(zje);
+        xt.setUpdateTime(new Date());
+        xtService.updateOrderXt(orderXtReq);
 
         OrderXtmxExample example = new OrderXtmxExample();
         example.createCriteria().andPidEqualTo(orderXtReq.getId());
         xtmxService.deleteByExample(example);
 
-        create(orderXtReq);
+        for (OrderXtmx mx : orderXtReq.getOrderXtmxList()){
+            mx.setPid(orderXtReq.getId());
+            xtmxService.createOrderXtmx(mx);
+        }
+
     }
 
 

@@ -1329,6 +1329,9 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
+            <if test="cg.id != null and cg.id != ''">
+                and cg.Id = #{cg.id}
+            </if>
             <if test="cg.djbh != null and cg.djbh != ''">
                 and cg.djbh like CONCAT('%',#{cg.djbh},'%')
             </if>
@@ -1459,6 +1462,9 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
+            <if test="id != null">
+                and cg.Id = #{id}
+            </if>
             <if test="djbh != null and djbh != ''">
                 and cg.djbh like CONCAT('%',#{djbh},'%')
             </if>

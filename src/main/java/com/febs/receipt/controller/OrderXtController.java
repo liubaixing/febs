@@ -88,7 +88,6 @@ public class OrderXtController extends BaseController {
     @PostMapping("/update")
 //    @RequiresPermissions("orderXt:update")
     public FebsResponse updateOrderXt(OrderXtReq orderXt) {
-        orderXt.setUpdateTime(new Date());
         this.xtBiz.update(orderXt);
         return new FebsResponse().success();
     }

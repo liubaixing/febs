@@ -724,6 +724,9 @@
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw jldw ON sp.jldw_id = jldw.id
         <where>
+            <if test="id != null">
+                and rk.Id = #{id}
+            </if>
             <if test="rk.djbh != null and rk.djbh != ''">
                 and rk.djbh like CONCAT('%',#{rk.djbh},'%')
             </if>

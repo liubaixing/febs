@@ -291,6 +291,9 @@
         LEFT JOIN shangpin sp on xsmx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
         <where>
+            <if test="id != null">
+                and xs.Id = #{id}
+            </if>
             <if test="deleted != null">
                 and xs.deleted = #{deleted}
             </if>

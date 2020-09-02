@@ -142,7 +142,7 @@ public class PurchaseTc {
      */
     @ApiModelProperty("要求到货时间")
     @TableField("yqdhrq")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date yqdhrq;
 
     /**
