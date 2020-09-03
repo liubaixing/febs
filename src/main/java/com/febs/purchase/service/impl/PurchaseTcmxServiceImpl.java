@@ -3,6 +3,7 @@ package com.febs.purchase.service.impl;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.exception.FebsException;
 import com.febs.purchase.entity.PurchaseTcmx;
+import com.febs.purchase.entity.PurchaseTcmxExample;
 import com.febs.purchase.mapper.PurchaseTcmxMapper;
 import com.febs.purchase.service.IPurchaseTcmxService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -61,4 +62,10 @@ public class PurchaseTcmxServiceImpl extends ServiceImpl<PurchaseTcmxMapper, Pur
         List<String> list = Arrays.asList(ids);
         this.removeByIds(list);
 	}
+
+    @Override
+    @Transactional
+    public void deleteByExample(PurchaseTcmxExample example){
+        this.purchaseTcmxMapper.deleteByExample(example);
+    }
 }

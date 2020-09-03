@@ -110,7 +110,7 @@ public class OrderXtBiz {
         BigDecimal zje = xtmxeList.stream().map(OrderXtmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
 
         OrderXt xt = new OrderXt();
-        xt.setId(orderXtReq.getId());
+        BeanUtils.copyProperties(orderXtReq,xt);
         xt.setSl(zsl);
         xt.setJe(zje);
         xt.setUpdateTime(new Date());
@@ -167,42 +167,21 @@ public class OrderXtBiz {
     }
 
     public void executeOrderXt(OrderXtReq req){
-        OrderXtResp xtResp = xtService.findById(req.getId());
         OrderXtmxResp xtmx = xtmxService.findById(req.getMxId());
+
         if (xtmx == null) {
             throw new FebsException("销售单不存在");
         }
 
-        OrderXtmxResp xtmxResp = xtmxService.findById(req.getMxId());
-        if(xtmxResp.getTzsl()+xtmxResp.getCksl()+req.getSl() > xtmxResp.getJhsl()) throw new FebsException("执行数量大于计划数量");
+        OrderXtResp xtResp = xtService.findById(xtmx.getPid());
 
-        xtmxResp.setTzsl(xtmxResp.getTzsl()+req.getSl());
-        xtmxResp.setCbje(xtmxResp.getCbje().add(req.getJe()));
-        xtmxService.updateOrderXtmx(xtmxResp);
+        if(xtmx.getTzsl()+xtmx.getCksl()+req.getTzsl() > xtmx.getJhsl()) throw new FebsException("执行数量大于计划数量");
 
-        if(req.getCkxz() == 0){
-            //自发，生成退仓单
-            PurchaseTc tc = new PurchaseTc();
-            tc.setXdrq(new Date());
-            tc.setXtdh(xtResp.getDjbh());
-            tc.setUserId(xtResp.getUserId());
-            tc.setBmId(xtResp.getBumengId());
-            tc.setCangkuId(xtResp.getCangkuId());
-            tc.setDjlxId(xtResp.getDjlxId());
-            tc.setSl(req.getSl());
-            tc.setJe(req.getJe());
-            tc.setZdr(req.getZxr());
-            tc.setZdrq(new Date());
-            Long id = tcService.createPurchaseTc(tc);
-            PurchaseTcmx tcmx = new PurchaseTcmx();
-            tcmx.setPid(id);
-            tcmx.setSpId(req.getSpId());
-            tcmx.setSl(req.getSl());
-            tcmx.setJe(req.getJe());
-            tcmx.setDj(req.getDj());
-            tcmxService.createPurchaseTcmx(tcmx);
-        }else if(req.getCkxz() == 1){
-            //直发，生成入库单
+        xtmx.setTzsl(xtmx.getTzsl()+req.getTzsl());
+        xtmxService.updateOrderXtmx(xtmx);
+
+        if(req.getZxfs() == 0){
+            //直发，生成退仓单
             PurchaseRk rk = new PurchaseRk();
             rk.setYdbh(xtResp.getDjbh());
             rk.setXdrq(new Date());
@@ -222,6 +201,27 @@ public class OrderXtBiz {
             rkmx.setDj(req.getDj());
             rkmx.setJe(req.getJe());
             rkmxService.createPurchaseRkmx(rkmx);
+        }else if(req.getZxfs() == 1){
+            //自发，生成入库单
+            PurchaseTc tc = new PurchaseTc();
+            tc.setXdrq(new Date());
+            tc.setXtdh(xtResp.getDjbh());
+            tc.setUserId(xtResp.getUserId());
+            tc.setBmId(xtResp.getBumengId());
+            tc.setCangkuId(xtResp.getCangkuId());
+            tc.setDjlxId(xtResp.getDjlxId());
+            tc.setSl(req.getSl());
+            tc.setJe(req.getJe());
+            tc.setZdr(req.getZxr());
+            tc.setZdrq(new Date());
+            Long id = tcService.createPurchaseTc(tc);
+            PurchaseTcmx tcmx = new PurchaseTcmx();
+            tcmx.setPid(id);
+            tcmx.setSpId(req.getSpId());
+            tcmx.setSl(req.getSl());
+            tcmx.setJe(req.getJe());
+            tcmx.setDj(req.getDj());
+            tcmxService.createPurchaseTcmx(tcmx);
         }
 
     }

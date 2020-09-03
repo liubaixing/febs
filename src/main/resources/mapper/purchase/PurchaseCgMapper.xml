@@ -1314,7 +1314,7 @@
         SELECT
         <include refid="Page_Column_List" />
         ,u.USERNAME userName,bm.bmmc,gys.gysmc,ck.ckmc,fpsd.fpsdmc,fplx.fplxmc,djlx.djlxmc,cu.USERNAME cgfzrmc,xu.USERNAME xdfzrmc
-        ,mx.id mxId,mx.sl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        ,mx.id mxId,mx.sl,mx.sl jhsl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
         FROM purchase_cg cg
         LEFT JOIN t_user u ON cg.user_id = u.USER_ID
         LEFT JOIN system_bumeng bm on cg.bm_id = bm.id
@@ -1447,7 +1447,7 @@
         SELECT
         <include refid="Page_Column_List" />
         ,u.USERNAME userName,bm.bmmc,gys.gysmc,ck.ckmc,fpsd.fpsdmc,fplx.fplxmc,djlx.djlxmc,cu.USERNAME cgfzrmc,xu.USERNAME xdfzrmc
-        ,mx.id mxId,mx.sl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
+        ,mx.id mxId,mx.sl,mx.sl jhsl,mx.dj,mx.je,sp.spdm,sp.spmc,sp.memo,dw.jldwmc
         FROM purchase_cg cg
         LEFT JOIN t_user u ON cg.user_id = u.USER_ID
         LEFT JOIN system_bumeng bm on cg.bm_id = bm.id

@@ -5,6 +5,7 @@ import com.febs.purchase.entity.PurchaseTc;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.entity.PurchaseTcExample;
 import com.febs.purchase.vo.req.PurchaseTcReq;
 import com.febs.purchase.vo.resp.PurchaseTcResp;
 
@@ -54,4 +55,6 @@ public interface IPurchaseTcService extends IService<PurchaseTc> {
      * 删除
      */
     void deletePurchaseTc(String[] ids);
+
+    void deleteByExample(PurchaseTcExample example);
 }

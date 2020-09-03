@@ -83,8 +83,8 @@ public class PurchaseTcController extends BaseController {
     @ControllerEndpoint(operation = "修改退仓单", exceptionMessage = "修改退仓单失败")
     @PostMapping("/update")
 //    @RequiresPermissions("purchaseTc:update")
-    public FebsResponse updatePurchaseTc(PurchaseTc purchaseTc) {
-        this.purchaseTcService.updatePurchaseTc(purchaseTc);
+    public FebsResponse updatePurchaseTc(PurchaseTcReq req) {
+        this.tcBiz.update(req);
         return new FebsResponse().success();
     }
 

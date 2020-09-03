@@ -5,6 +5,7 @@ import com.febs.purchase.entity.PurchaseTcmx;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.purchase.entity.PurchaseTcmxExample;
 import com.febs.purchase.vo.resp.PurchaseTcmxResp;
 
 import java.util.List;
@@ -51,4 +52,6 @@ public interface IPurchaseTcmxService extends IService<PurchaseTcmx> {
      * 删除
      */
     void deletePurchaseTcmx(String[] ids);
+
+    void deleteByExample(PurchaseTcmxExample example);
 }

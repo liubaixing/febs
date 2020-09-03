@@ -103,7 +103,7 @@ public class OrderqtYfdController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "审核失败")
     @GetMapping("/sh/{id}")
 //    @RequiresPermissions("orderqtYfd:export")
-    public void sh(@PathVariable("id")Long id) throws IOException {
+    public FebsResponse sh(@PathVariable("id")Long id) throws IOException {
         User user = getCurrentUser();
         OrderqtYfd orderqtYfd = new OrderqtYfd();
         orderqtYfd.setId(id);
@@ -111,12 +111,13 @@ public class OrderqtYfdController extends BaseController {
         orderqtYfd.setAuditor(user.getUsername());
         orderqtYfd.setShrq(new Date());
         this.orderqtYfdService.updateOrderqtYfd(orderqtYfd);
+        return new FebsResponse().success();
     }
 
     @ControllerEndpoint(exceptionMessage = "作废失败")
     @GetMapping("/zf/{id}")
 //    @RequiresPermissions("orderqtYfd:export")
-    public void zf(@PathVariable("id")Long id) throws IOException {
+    public FebsResponse zf(@PathVariable("id")Long id) throws IOException {
         User user = getCurrentUser();
         OrderqtYfd orderqtYfd = new OrderqtYfd();
         orderqtYfd.setId(id);
@@ -124,6 +125,7 @@ public class OrderqtYfdController extends BaseController {
         orderqtYfd.setZfr(user.getUsername());
         orderqtYfd.setZfrq(new Date());
         this.orderqtYfdService.updateOrderqtYfd(orderqtYfd);
+        return new FebsResponse().success();
     }
 
 }

@@ -455,7 +455,7 @@
         and yf.sh = #{sh}
       </if>
       <if test="gysId != null">
-        and yf.gysId = #{gysId}
+        and yf.gys_id = #{gysId}
       </if>
       <if test="gysmc != null and gysmc != ''">
         and gys.gysmc like CONCAT('%',#{gysmc},'%')

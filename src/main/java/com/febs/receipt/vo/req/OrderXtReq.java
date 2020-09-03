@@ -57,8 +57,11 @@ public class OrderXtReq extends OrderXt {
     @ApiModelProperty("商品名称")
     private String spmc;
 
-    @ApiModelProperty("仓库性质 0:自发 1:直发")
-    private Integer ckxz;
+    @ApiModelProperty("通知数")
+    private Integer tzsl;
+
+    @ApiModelProperty("执行方式 0:自发,1:直发")
+    private Integer zxfs;
 
     private List<OrderXtmx> orderXtmxList;
 

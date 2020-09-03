@@ -16,6 +16,10 @@ public class YfdResp extends OrderqtYfd {
     @ApiModelProperty("供应商名称")
     private String gysmc;
 
+    private Integer sl;
+
+    private Long mxId;
+
     private Integer kpsl;
     private Integer sksl;
     private Integer tksl;

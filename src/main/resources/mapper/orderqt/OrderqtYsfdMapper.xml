@@ -428,7 +428,7 @@
         and ysf.sh = #{ysf.sh}
       </if>
       <if test="ysf.gysId != null">
-        and yf.gysId = #{ysf.gysId}
+        and ysf.gys_id = #{ysf.gysId}
       </if>
       <if test="ysf.gysmc != null and ysf.gysmc != ''">
         and gys.gysmc like CONCAT('%',#{ysf.gysmc},'%')
@@ -454,7 +454,7 @@
         and sh = #{sh}
       </if>
       <if test="gysId != null">
-        and yf.gysId = #{gysId}
+        and ysf.gys_id = #{gysId}
       </if>
       <if test="gysmc != null and gysmc != ''">
         and gys.gysmc like CONCAT('%',#{gysmc},'%')

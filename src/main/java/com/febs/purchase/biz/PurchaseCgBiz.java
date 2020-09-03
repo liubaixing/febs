@@ -142,8 +142,7 @@ public class PurchaseCgBiz {
         Integer zsl = cgmxList.stream().mapToInt(PurchaseCgmx::getSl).sum();
         BigDecimal zje = cgmxList.stream().map(PurchaseCgmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
 
-        PurchaseCg cg = new PurchaseCg();
-        cg.setId(req.getId());
+        PurchaseCg cg = BeanUtils.transformFrom(req,PurchaseCg.class);
         cg.setSl(zsl);
         cg.setJe(zje);
         cgService.updatePurchaseCg(cg);

@@ -2,10 +2,7 @@ package com.febs.purchase.biz;
 
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.BeanUtils;
-import com.febs.purchase.entity.PurchaseCg;
-import com.febs.purchase.entity.PurchaseCgmx;
-import com.febs.purchase.entity.PurchaseTc;
-import com.febs.purchase.entity.PurchaseTcmx;
+import com.febs.purchase.entity.*;
 import com.febs.purchase.service.IPurchaseTcService;
 import com.febs.purchase.service.IPurchaseTcmxService;
 import com.febs.purchase.vo.req.PurchaseTcReq;
@@ -32,6 +29,39 @@ public class PurchaseTcBiz {
         purchaseTcmx.setPid(tcResp.getId());
         tcResp.setTcmxList(tcmxService.findPurchaseTcmxs(purchaseTcmx));
         return tcResp;
+    }
+
+    public void update(PurchaseTcReq req){
+
+        PurchaseTcResp resp = tcService.findById(req.getId());
+
+        if (resp == null) {
+            throw new FebsException("退仓单不存在");
+        }
+
+        //保存商品明细
+        if(CollectionUtils.isEmpty(req.getTcmxList())){
+            throw new FebsException("销退单明细不能为空");
+        }
+
+        List<PurchaseTcmx> tcmxList = req.getTcmxList();
+
+        Integer zsl = tcmxList.stream().mapToInt(PurchaseTcmx::getSl).sum();
+        BigDecimal zje = tcmxList.stream().map(PurchaseTcmx::getJe).reduce(BigDecimal.ZERO,BigDecimal::add);
+
+        PurchaseTc tc = BeanUtils.transformFrom(req,PurchaseTc.class);
+        tc.setSl(zsl);
+        tc.setJe(zje);
+        tcService.updatePurchaseTc(tc);
+
+        PurchaseTcmxExample example = new PurchaseTcmxExample();
+        example.createCriteria().andPidEqualTo(tc.getId());
+        tcmxService.deleteByExample(example);
+
+        for (PurchaseTcmx tcmx : tcmxList){
+            tcmx.setPid(tc.getId());
+            tcmxService.createPurchaseTcmx(tcmx);
+        }
     }
 
     public void create(PurchaseTcReq req) {

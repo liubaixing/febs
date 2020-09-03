@@ -150,7 +150,7 @@ public class OrderXsBiz {
         }
 
         OrderXs orderXs = new OrderXs();
-        orderXs.setId(orderXsReq.getId());
+        BeanUtils.copyProperties(orderXsReq,orderXs);
         orderXs.setSl(total);
         orderXs.setJe(totalAmount);
         orderXs.setUpdateTime(new Date());
@@ -322,11 +322,11 @@ public class OrderXsBiz {
         }
 
         //计划数为销售单总数量
-        if ((xsmx.getTzsl() +xsmx.getCksl()) > xsmx.getJhsl() ) {
+        if ((xsmx.getTzsl() +xsmx.getCksl()+req.getTzsl()) > xsmx.getJhsl() ) {
             throw new FebsException("执行数量超出销售单数量");
         }
 
-        xsmx.setTzsl(xsmx.getJhsl());
+        xsmx.setTzsl(xsmx.getTzsl()+req.getTzsl());
         OrderXsmx orderXsmx = xsmxService.updateOrderXsmx(xsmx);
 
         OrderXs orderXs = xsService.findById(orderXsmx.getPid());
@@ -435,6 +435,7 @@ public class OrderXsBiz {
         OrderXtmx orderXtmx = new OrderXtmx();
         orderXtmx.setPid(orderXtId);
         orderXtmx.setSpId(req.getSpId());
+        orderXtmx.setJhsl(req.getTksl());
         orderXtmx.setJe(req.getTkje());
         orderXtmx.setDj(req.getTkje().divide(new BigDecimal(req.getTksl())));
         xtmxService.createOrderXtmx(orderXtmx);
