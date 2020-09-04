@@ -10,6 +10,7 @@ import com.febs.common.listener.system.CangkuDataListener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.system.entity.Cangku;
 import com.febs.system.service.ICangkuService;
+import com.febs.system.vo.resp.CangkuResp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,8 +84,8 @@ public class CangkuController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("cangku:export")
     public void export(QueryRequest queryRequest, Cangku cangku, HttpServletResponse response) throws IOException {
-        List<Cangku> cangkus = this.cangkuService.findCangkus(queryRequest, cangku).getRecords();
-        ExcelUtil.export(cangkus,Cangku.class,"仓库管理",response);
+        List<CangkuResp> cangkus = this.cangkuService.findCangkus(queryRequest, cangku).getRecords();
+        ExcelUtil.export(cangkus,CangkuResp.class,"仓库管理",response);
     }
 
     @PostMapping("upload")

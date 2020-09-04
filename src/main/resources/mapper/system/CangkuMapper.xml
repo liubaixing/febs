@@ -376,12 +376,38 @@
   </update>
 
 
-    <select id="selectPage" resultType="com.febs.system.entity.Cangku">
-        SELECT c.*,lb.cklbmc cklxmc
-        FROM system_cangku c
-        LEFT JOIN basic_cklb lb ON c.cklx_id = lb.id
+    <select id="selectPageByQuery" parameterType="com.febs.system.entity.Cangku" resultType="com.febs.system.vo.resp.CangkuResp">
+        SELECT ck.*,lb.cklbmc cklxmc
+        FROM system_cangku ck
+        LEFT JOIN basic_cklb lb ON ck.cklx_id = lb.id
         <where>
-            ${ew.sqlSegment}
+            <if test="ck.ckmc!=null and ck.ckmc!=''">
+                and ck.ckmc like CONCAT('%',#{ck.ckmc},'%')
+            </if>
+            <if test="ck.contact!=null and ck.contact!=''">
+                and ck.contact like CONCAT('%',#{ck.contact},'%')
+            </if>
+            <if test="ck.address!=null and ck.address!=''">
+                and ck.address like CONCAT('%',#{ck.address},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectByQuery"  resultType="com.febs.system.vo.resp.CangkuResp">
+        SELECT ck.*,lb.cklbmc cklxmc
+        FROM system_cangku ck
+        LEFT JOIN basic_cklb lb ON ck.cklx_id = lb.id
+        <where>
+            <if test="ckmc!=null and ckmc!=''">
+                and ck.ckmc like CONCAT('%',#{ckmc},'%')
+            </if>
+            <if test="contact!=null and contact!=''">
+                and ck.contact like CONCAT('%',#{contact},'%')
+            </if>
+            <if test="address!=null and address!=''">
+                and ck.address like CONCAT('%',#{address},'%')
+            </if>
         </where>
     </select>
 

@@ -33,6 +33,9 @@ public class QiniuController {
     @Value("${qiniu.bucket}")
     private String bucket;
 
+    @Value("${qiniu.baseUrl}")
+    private String baseUrl;
+
     @ApiOperation("上传")
     @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file){
@@ -50,7 +53,7 @@ public class QiniuController {
             log.info(e.getMessage());
             return "fail";
         }
-        String imgUrl = "http://qaw1abrqx.bkt.clouddn.com/" + set.hash;
+        String imgUrl = baseUrl + set.hash;
         return imgUrl;
     }
 

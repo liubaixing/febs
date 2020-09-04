@@ -13,6 +13,7 @@ import com.febs.system.entity.Cangku;
 import com.febs.system.entity.CangkuExample;
 import com.febs.system.mapper.CangkuMapper;
 import com.febs.system.service.ICangkuService;
+import com.febs.system.vo.resp.CangkuResp;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,42 +41,14 @@ public class CangkuServiceImpl extends ServiceImpl<CangkuMapper, Cangku> impleme
     private BasicCklbMapper cklbMapper;
 
     @Override
-    public IPage<Cangku> findCangkus(QueryRequest request, Cangku cangku) {
-        LambdaQueryWrapper<Cangku> queryWrapper = new LambdaQueryWrapper<>();
-        // TODO 设置查询条件
-        if(StringUtils.isNotBlank(cangku.getCkdm())){
-            queryWrapper.like(Cangku::getCkdm,cangku.getCkdm());
-        }
-        if(StringUtils.isNotBlank(cangku.getCkmc())){
-            queryWrapper.like(Cangku::getCkmc,cangku.getCkmc());
-        }
-        if(cangku.getCklxId()!=null){
-            queryWrapper.eq(Cangku::getCklxId,cangku.getCklxId());
-        }
-        if(cangku.getCkxz()!=null){
-            queryWrapper.like(Cangku::getCkxz,cangku.getCkxz());
-        }
-        if(StringUtils.isNotBlank(cangku.getTel())){
-            queryWrapper.like(Cangku::getTel,cangku.getTel());
-        }
-        if(StringUtils.isNotBlank(cangku.getContact())){
-            queryWrapper.like(Cangku::getContact,cangku.getContact());
-        }
-        if(cangku.getStatus()!=null){
-            queryWrapper.eq(Cangku::getContact,cangku.getContact());
-        }
-        if(cangku.getDeleted() != null){
-            queryWrapper.eq(Cangku::getDeleted,cangku.getDeleted());
-        }
+    public IPage<CangkuResp> findCangkus(QueryRequest request, Cangku cangku) {
         Page<Cangku> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.page(page, queryWrapper);
+        return this.cangkuMapper.selectPageByQuery(page,cangku);
     }
 
     @Override
-    public List<Cangku> findCangkus(Cangku cangku) {
-	    LambdaQueryWrapper<Cangku> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
-		return this.baseMapper.selectList(queryWrapper);
+    public List<CangkuResp> findCangkus(Cangku cangku) {
+		return this.cangkuMapper.selectByQuery(cangku);
     }
 
     @Override

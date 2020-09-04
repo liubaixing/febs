@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.febs.common.entity.QueryRequest;
 import com.febs.system.entity.Cangku;
+import com.febs.system.vo.resp.CangkuResp;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface ICangkuService extends IService<Cangku> {
      * @param cangku cangku
      * @return IPage<Cangku>
      */
-    IPage<Cangku> findCangkus(QueryRequest request, Cangku cangku);
+    IPage<CangkuResp> findCangkus(QueryRequest request, Cangku cangku);
 
     /**
      * 查询（所有）
@@ -29,7 +30,7 @@ public interface ICangkuService extends IService<Cangku> {
      * @param cangku cangku
      * @return List<Cangku>
      */
-    List<Cangku> findCangkus(Cangku cangku);
+    List<CangkuResp> findCangkus(Cangku cangku);
 
     /**
      * 新增

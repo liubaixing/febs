@@ -1,12 +1,12 @@
 package com.febs.system.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.febs.system.entity.Cangku;
 import com.febs.system.entity.CangkuExample;
-import io.lettuce.core.dynamic.annotation.Param;
+import com.febs.system.vo.resp.CangkuResp;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -40,6 +40,8 @@ public interface CangkuMapper extends BaseMapper<Cangku> {
 
     int updateByPrimaryKey(Cangku record);
 
-    IPage<Cangku> selectPage(Page<Cangku> page, @Param("ew") Wrapper queryWrapper);
+    IPage<CangkuResp> selectPageByQuery(Page<Cangku> page, @Param("ck")Cangku cangku);
+
+    List<CangkuResp> selectByQuery(Cangku cangku);
 
 }

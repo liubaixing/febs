@@ -348,7 +348,7 @@ public class OrderXsBiz {
             orderCk.setKehuId(orderXs.getKehuId());
             orderCk.setOrgId(orderXs.getOrgId());
             orderCk.setDjlxId(orderXs.getDjlxId());
-            orderCk.setSl(xsmx.getTzsl());
+            orderCk.setSl(req.getTzsl());
             orderCk.setJe(xsmx.getJe());
             orderCk.setZdr(req.getZxr());
             orderCk.setZdrq(new Date());
@@ -356,7 +356,7 @@ public class OrderXsBiz {
             OrderCkmx orderCkmx = new OrderCkmx();
             orderCkmx.setPid(orderCkId);
             orderCkmx.setSpId(xsmx.getSpId());
-            orderCkmx.setSl(xsmx.getTzsl());
+            orderCkmx.setSl(req.getTzsl());
             orderCkmx.setDj(xsmx.getDj());
             orderCkmx.setJe(xsmx.getJe());
             ckmxService.createOrderCkmx(orderCkmx);
@@ -374,7 +374,7 @@ public class OrderXsBiz {
 
             cg.setGysId(sp.getGysId());
             cg.setCangkuId(req.getCangkuId());
-            cg.setSl(xsmx.getTzsl());
+            cg.setSl(req.getTzsl());
             cg.setJe(xsmx.getJe());
             cg.setZdr(req.getZxr());
             cg.setZdrq(new Date());
@@ -383,7 +383,7 @@ public class OrderXsBiz {
             PurchaseCgmx cgmx = new PurchaseCgmx();
             cgmx.setPid(cgId);
             cgmx.setSpId(xsmx.getSpId());
-            cgmx.setSl(xsmx.getTzsl());
+            cgmx.setSl(req.getTzsl());
             cgmx.setDj(xsmx.getJe());
             cgmx.setJe(xsmx.getJe());
             cgmxService.createPurchaseCgmx(cgmx);
