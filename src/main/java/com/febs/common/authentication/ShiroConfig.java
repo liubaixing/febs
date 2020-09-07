@@ -22,10 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Shiro 配置类
@@ -89,6 +86,7 @@ public class ShiroConfig {
         String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(febsProperties.getShiro().getAnonUrl(), ",");
         for (String url : anonUrls) {
             filterChainDefinitionMap.put(url, "anon");
+            filterChainDefinitionMap.put("/qiniu/upload", "anon");
         }
         // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
         filterChainDefinitionMap.put(febsProperties.getShiro().getLogoutUrl(), "logout");

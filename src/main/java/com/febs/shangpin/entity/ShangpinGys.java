@@ -46,7 +46,6 @@ public class ShangpinGys {
      */
     @ExcelProperty(value = "商品名称",index = 0)
     @ApiModelProperty("商品名称（必填）")
-    @NotBlank(message = "{required}")
     @TableField("spmc")
     private String spmc;
 
@@ -89,7 +88,6 @@ public class ShangpinGys {
      */
     @ExcelIgnore
     @ApiModelProperty("供应商表id（必填）")
-    @NotNull(message = "供应商不能为空")
     @TableField("gys_id")
     private Integer gysId;
 
@@ -105,7 +103,6 @@ public class ShangpinGys {
      * 计量单位 计量单位id
      */
     @ExcelIgnore
-    @NotNull(message = "计量单位不能为空")
     @ApiModelProperty("计量单位id（必填）")
     @TableField("jldw_id")
     private Integer jldwId;
