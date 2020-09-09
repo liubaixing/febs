@@ -118,6 +118,13 @@ public class Shangpin {
     private String mrtp;
 
     /**
+     * 商品详情图
+     */
+    @ExcelIgnore
+    @ApiModelProperty("商品详情图")
+    @TableField("detail_image")
+    private String detailImage;
+    /**
      * 总类 Shangpin_zl总类id
      */
     @ExcelIgnore

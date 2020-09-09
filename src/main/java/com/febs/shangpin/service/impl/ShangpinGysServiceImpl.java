@@ -189,13 +189,12 @@ public class ShangpinGysServiceImpl extends ServiceImpl<ShangpinGysMapper, Shang
         }else{
             shangpin.setCreateTime(new Date());
             shangpinMapper.insertSelective(shangpin);
-
-            ShangpinGys shangpinGys = new ShangpinGys();
-            shangpinGys.setId(goodsId);
-            shangpinGys.setShangpinId(shangpin.getId());
-            shangpinGys.setLyxt((byte) 2);
-            this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
         }
+        ShangpinGys shangpinGys = new ShangpinGys();
+        shangpinGys.setId(goodsId);
+        shangpinGys.setShangpinId(shangpin.getId());
+        shangpinGys.setLyxt((byte) 2);
+        this.shangpinGysMapper.updateByPrimaryKeySelective(shangpinGys);
         return true;
     }
 

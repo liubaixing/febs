@@ -321,6 +321,9 @@ public class OrderXsBiz {
             throw new FebsException("销售单不存在");
         }
 
+        Shangpin shangpin = shangpinService.findByPrimaryKey(xsmx.getSpId());
+
+
         //计划数为销售单总数量
         if ((xsmx.getTzsl() +xsmx.getCksl()+req.getTzsl()) > xsmx.getJhsl() ) {
             throw new FebsException("执行数量超出销售单数量");
@@ -343,6 +346,7 @@ public class OrderXsBiz {
             //自发，生成出库单
             OrderCk orderCk = new OrderCk();
             orderCk.setYdbh(orderXs.getDjbh());
+            orderCk.setYdjh(orderXs.getYdjh());
             orderCk.setXdrq(new Date());
             orderCk.setCangkuId(orderXs.getCangkuId());
             orderCk.setKehuId(orderXs.getKehuId());
@@ -365,6 +369,7 @@ public class OrderXsBiz {
             PurchaseCg cg = new PurchaseCg();
             cg.setXdrq(new Date());
             cg.setXsdh(orderXs.getDjbh());
+            cg.setYdjh(orderXs.getYdjh());
             cg.setUserId(req.getUserId());
             cg.setBmId(orderXs.getBumengId());
 

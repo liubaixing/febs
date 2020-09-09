@@ -34,6 +34,8 @@ public interface IShangpinService extends IService<Shangpin> {
 
     Shangpin findOneByQuery(Shangpin shangpin);
 
+    Shangpin findByPrimaryKey(Integer id);
+
     /**
      * 新增
      *

@@ -86,6 +86,11 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     }
 
     @Override
+    public Shangpin findByPrimaryKey(Integer id){
+       return this.shangpinMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     @Transactional
     public void createShangpin(Shangpin shangpin) {
         check(shangpin);
