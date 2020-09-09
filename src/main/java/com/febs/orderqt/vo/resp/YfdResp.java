@@ -1,10 +1,12 @@
 package com.febs.orderqt.vo.resp;
 
 import com.febs.orderqt.entity.OrderqtYfd;
+import com.febs.orderqt.entity.OrderqtYfdmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class YfdResp extends OrderqtYfd {
@@ -27,5 +29,7 @@ public class YfdResp extends OrderqtYfd {
     private BigDecimal kpje;
     private BigDecimal skje;
     private BigDecimal tkje;
+
+    List<OrderqtYfdmx> mxList;
 
 }

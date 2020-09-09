@@ -60,6 +60,13 @@ public class OrderqtYsfdController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
+
+    @GetMapping("/view/{id}")
+//    @RequiresPermissions("orderqtYfd:list")
+    public FebsResponse view(@PathVariable("id")Long id) {
+        return new FebsResponse().success().data(ysfdBiz.view(id));
+    }
+
     @ApiOperation("新增")
     @ControllerEndpoint(operation = "新增印刷费单", exceptionMessage = "新增印刷费单失败")
     @PostMapping("")

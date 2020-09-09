@@ -6,8 +6,10 @@ import com.febs.orderqt.entity.*;
 import com.febs.orderqt.service.IOrderqtYsfdService;
 import com.febs.orderqt.service.IOrderqtYsfdmxService;
 import com.febs.orderqt.vo.req.YsfdReq;
+import com.febs.orderqt.vo.resp.YsfdResp;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,6 +29,17 @@ public class OrderqtYsfdBiz {
     private IOrderqtYsfdService orderqtYsfdService;
     @Autowired
     private IOrderqtYsfdmxService ysfdmxService;
+
+
+    public YsfdResp view(Long id){
+        YsfdResp ysfdResp = orderqtYsfdService.findById(id);
+
+        OrderqtYsfdmx ysfdmx = new OrderqtYsfdmx();
+        ysfdmx.setPid(ysfdResp.getId());
+        ysfdResp.setMxList(ysfdmxService.findOrderqtYsfdmxs(ysfdmx));
+
+        return  ysfdResp;
+    }
 
     public void create(YsfdReq req) {
 

@@ -9,6 +9,7 @@ import com.febs.orderqt.entity.OrderqtYfdmxExample;
 import com.febs.orderqt.service.IOrderqtYfdService;
 import com.febs.orderqt.service.IOrderqtYfdmxService;
 import com.febs.orderqt.vo.req.YfdReq;
+import com.febs.orderqt.vo.resp.YfdResp;
 import com.febs.purchase.vo.req.PurchaseCgfpReq;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,15 @@ public class OrderqtYfdBiz {
 
     @Autowired
     private IOrderqtYfdmxService orderqtYfdmxService;
+
+    public YfdResp view(Long id){
+        YfdResp yfdResp = orderqtYfdService.findById(id);
+
+        OrderqtYfdmx yfdmx = new OrderqtYfdmx();
+        yfdmx.setPid(yfdResp.getId());
+        yfdResp.setMxList(orderqtYfdmxService.findOrderqtYfdmxs(yfdmx));
+        return  yfdResp;
+    }
 
     public void create(YfdReq req) {
 

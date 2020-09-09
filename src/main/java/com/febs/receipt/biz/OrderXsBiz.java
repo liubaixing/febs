@@ -353,7 +353,7 @@ public class OrderXsBiz {
             orderCk.setOrgId(orderXs.getOrgId());
             orderCk.setDjlxId(orderXs.getDjlxId());
             orderCk.setSl(req.getTzsl());
-            orderCk.setJe(xsmx.getJe());
+            orderCk.setJe(shangpin.getYsj().multiply(new BigDecimal(req.getTzsl())));
             orderCk.setZdr(req.getZxr());
             orderCk.setZdrq(new Date());
             Long orderCkId = ckService.createOrderCk(orderCk);
@@ -361,8 +361,8 @@ public class OrderXsBiz {
             orderCkmx.setPid(orderCkId);
             orderCkmx.setSpId(xsmx.getSpId());
             orderCkmx.setSl(req.getTzsl());
-            orderCkmx.setDj(xsmx.getDj());
-            orderCkmx.setJe(xsmx.getJe());
+            orderCkmx.setDj(shangpin.getYsj());
+            orderCkmx.setJe(shangpin.getYsj().multiply(new BigDecimal(req.getTzsl())));
             ckmxService.createOrderCkmx(orderCkmx);
         }else if (1 == req.getZxfs()){
             //直发，生成采购单
@@ -380,7 +380,7 @@ public class OrderXsBiz {
             cg.setGysId(sp.getGysId());
             cg.setCangkuId(req.getCangkuId());
             cg.setSl(req.getTzsl());
-            cg.setJe(xsmx.getJe());
+            cg.setJe(shangpin.getCgj().multiply(new BigDecimal(req.getTzsl())));
             cg.setZdr(req.getZxr());
             cg.setZdrq(new Date());
             Long cgId = cgService.createPurchaseCg(cg);
@@ -389,8 +389,8 @@ public class OrderXsBiz {
             cgmx.setPid(cgId);
             cgmx.setSpId(xsmx.getSpId());
             cgmx.setSl(req.getTzsl());
-            cgmx.setDj(xsmx.getJe());
-            cgmx.setJe(xsmx.getJe());
+            cgmx.setDj(shangpin.getCgj());
+            cgmx.setJe(shangpin.getCgj().multiply(new BigDecimal(req.getTzsl())));
             cgmxService.createPurchaseCgmx(cgmx);
         }
 
@@ -422,6 +422,7 @@ public class OrderXsBiz {
         OrderXt orderXt = new OrderXt();
         orderXt.setXdrq(new Date());
         orderXt.setYdbh(orderXs.getDjbh());
+        orderXt.setYdjh(orderXs.getYdjh());
         orderXt.setOrgId(orderXs.getOrgId());
         orderXt.setUserId(req.getUserId());
         orderXt.setBumengId(orderXs.getBumengId());

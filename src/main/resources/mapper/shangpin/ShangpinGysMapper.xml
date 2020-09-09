@@ -15,6 +15,7 @@
         <result column="qdl" jdbcType="INTEGER" property="qdl" />
         <result column="jldw_id" jdbcType="INTEGER" property="jldwId" />
         <result column="mrtp" jdbcType="VARCHAR" property="mrtp" />
+        <result column="detail_image" jdbcType="VARCHAR" property="detailImage" />
         <result column="zl_id" jdbcType="INTEGER" property="zlId" />
         <result column="dl_id" jdbcType="INTEGER" property="dlId" />
         <result column="xl_id" jdbcType="INTEGER" property="xlId" />
@@ -87,7 +88,7 @@
     </sql>
     <sql id="Base_Column_List">
     id, spdm, spmc, xsj, dpj, ysj, shangpin_id, cgj, gys_id, qdl, jldw_id,
-    mrtp, zl_id, dl_id, xl_id, qtlb_id, pp_id, lyxt, `status`, create_time, update_time, 
+    mrtp, detail_image, zl_id, dl_id, xl_id, qtlb_id, pp_id, lyxt, `status`, create_time, update_time,
     deleted
   </sql>
     <select id="selectByExample" parameterType="com.febs.shangpin.entity.ShangpinGysExample" resultMap="BaseResultMap">
@@ -124,14 +125,14 @@
     insert into shangpin_gys (spdm, spmc,
       xsj, dpj, ysj, shangpin_id, 
       cgj, gys_id, qdl, jldw_id, 
-      mrtp, zl_id, dl_id,
+      mrtp, detail_image, zl_id, dl_id,
       xl_id, qtlb_id, pp_id, 
       lyxt, `status`, create_time, 
       update_time, deleted)
     values (#{spdm,jdbcType=VARCHAR}, #{spmc,jdbcType=VARCHAR},
       #{xsj,jdbcType=DECIMAL}, #{dpj,jdbcType=DECIMAL}, #{ysj,jdbcType=DECIMAL}, #{shangpinId,jdbcType=INTEGER}, 
       #{cgj,jdbcType=DECIMAL}, #{gysId,jdbcType=INTEGER}, #{qdl,jdbcType=INTEGER}, #{jldwId,jdbcType=INTEGER}, 
-       #{mrtp,jdbcType=VARCHAR}, #{zlId,jdbcType=INTEGER}, #{dlId,jdbcType=INTEGER},
+       #{mrtp,jdbcType=VARCHAR},#{detailImage,jdbcType=VARCHAR}, #{zlId,jdbcType=INTEGER}, #{dlId,jdbcType=INTEGER},
       #{xlId,jdbcType=INTEGER}, #{qtlbId,jdbcType=INTEGER}, #{ppId,jdbcType=INTEGER}, 
       #{lyxt,jdbcType=TINYINT}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
@@ -145,9 +146,9 @@
             <if test="spmc != null">
                 spmc,
             </if>
-            <!--<if test="memo != null">
+            <if test="memo != null">
                 memo,
-            </if>-->
+            </if>
             <if test="xsj != null">
                 xsj,
             </if>
@@ -174,6 +175,9 @@
             </if>
             <if test="mrtp != null">
                 mrtp,
+            </if>
+            <if test="detailImage != null">
+                detail_image,
             </if>
             <if test="zlId != null">
                 zl_id,
@@ -213,9 +217,9 @@
             <if test="spmc != null">
                 #{spmc,jdbcType=VARCHAR},
             </if>
-            <!--<if test="memo != null">
+            <if test="memo != null">
                 #{memo,jdbcType=VARCHAR},
-            </if>-->
+            </if>
             <if test="xsj != null">
                 #{xsj,jdbcType=DECIMAL},
             </if>
@@ -242,6 +246,9 @@
             </if>
             <if test="mrtp != null">
                 #{mrtp,jdbcType=VARCHAR},
+            </if>
+            <if test="detailImage != null">
+                detailImage,
             </if>
             <if test="zlId != null">
                 #{zlId,jdbcType=INTEGER},
@@ -320,6 +327,9 @@
             <if test="record.mrtp != null">
                 mrtp = #{record.mrtp,jdbcType=VARCHAR},
             </if>
+            <if test="record.detailImage != null">
+                detail_image = #{record.detailImage,jdbcType=VARCHAR},
+            </if>
             <if test="record.zlId != null">
                 zl_id = #{record.zlId,jdbcType=INTEGER},
             </if>
@@ -369,6 +379,7 @@
         qdl = #{record.qdl,jdbcType=INTEGER},
         jldw_id = #{record.jldwId,jdbcType=INTEGER},
         mrtp = #{record.mrtp,jdbcType=VARCHAR},
+        detail_image = #{record.detailImage,jdbcType=VARCHAR},
         zl_id = #{record.zlId,jdbcType=INTEGER},
         dl_id = #{record.dlId,jdbcType=INTEGER},
         xl_id = #{record.xlId,jdbcType=INTEGER},
@@ -422,6 +433,9 @@
             <if test="mrtp != null">
                 mrtp = #{mrtp,jdbcType=VARCHAR},
             </if>
+            <if test="detailImage != null">
+                detail_image = #{detailImage,jdbcType=VARCHAR},
+            </if>
             <if test="zlId != null">
                 zl_id = #{zlId,jdbcType=INTEGER},
             </if>
@@ -468,6 +482,7 @@
       qdl = #{qdl,jdbcType=INTEGER},
       jldw_id = #{jldwId,jdbcType=INTEGER},
       mrtp = #{mrtp,jdbcType=VARCHAR},
+      detail_image = #{detailImage,jdbcType=VARCHAR},
       zl_id = #{zlId,jdbcType=INTEGER},
       dl_id = #{dlId,jdbcType=INTEGER},
       xl_id = #{xlId,jdbcType=INTEGER},
