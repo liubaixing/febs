@@ -100,8 +100,8 @@ public class OrderXsfpBiz {
 
                 OrderXsmx xsmx = new OrderXsmx();
                 xsmx.setId(xsmxResp.getId());
-                xsmx.setSksl(xsmxResp.getKpsl() + xsfpReq.getSl());
-                xsmx.setSkje(xsmxResp.getKpje().add(xsfpReq.getJe()));
+                xsmx.setKpsl(xsmxResp.getKpsl() + xsfpReq.getSl());
+                xsmx.setKpje(xsmxResp.getKpje().add(xsfpReq.getJe()));
                 xsmxService.updateOrderXsmx(xsmx);
 
             } else if ("xt".equals(xsfpReq.getOrderType())) {
@@ -118,8 +118,8 @@ public class OrderXsfpBiz {
                 }
                 OrderXtmx xtmx = new OrderXtmx();
                 xtmx.setId(xtmxResp.getId());
-                xtmx.setTksl(xtmxResp.getKpsl() + xsfpReq.getSl());
-                xtmx.setTkje(xtmxResp.getKpje().add(xsfpReq.getJe()));
+                xtmx.setKpsl(xtmxResp.getKpsl() + xsfpReq.getSl());
+                xtmx.setKpje(xtmxResp.getKpje().add(xsfpReq.getJe()));
                 xtmxService.updateOrderXtmx(xtmx);
 
             }

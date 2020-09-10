@@ -21,7 +21,7 @@ public class YfdResp extends OrderqtYfd {
     private Integer sl;
 
     private Long mxId;
-
+    private Integer spId;
     private Integer kpsl;
     private Integer sksl;
     private Integer tksl;

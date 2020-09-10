@@ -135,7 +135,7 @@ public class OrderXstkController extends BaseController {
 
     @ApiOperation("生成")
     @ControllerEndpoint(operation = "生成销售收款单", exceptionMessage = "生成销售收款单失败")
-    @PostMapping("/create")
+    @PostMapping("")
 //    @RequiresPermissions("orderXssk:create")
     public FebsResponse createorderXssk(XstkCreateReq req){
         User user = getCurrentUser();

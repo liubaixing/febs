@@ -127,14 +127,14 @@ public class PurchaseCgBiz {
 
     public void update(PurchaseCgReq req){
 
-        PurchaseCgmxResp resp = cgmxService.findById(req.getId());
+        PurchaseCgResp resp = cgService.findById(req.getId());
 
         if (resp == null) {
             throw new FebsException("采购但不存在");
         }
 
         if (CollectionUtils.isEmpty(req.getCgmxList())) {
-            throw new FebsException("未选择采购单");
+            throw new FebsException("未选择采购单明细");
         }
 
         List<PurchaseCgmx> cgmxList = req.getCgmxList();

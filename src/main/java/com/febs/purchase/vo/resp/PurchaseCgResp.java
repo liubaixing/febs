@@ -32,6 +32,8 @@ public class PurchaseCgResp extends PurchaseCg {
     private Long mxId;
     @ApiModelProperty("单价")
     private BigDecimal dj;
+    @ApiModelProperty("商品Id")
+    private Integer spId;
     @ApiModelProperty("商品代码")
     private String spdm;
     @ApiModelProperty("商品名称")
@@ -40,6 +42,8 @@ public class PurchaseCgResp extends PurchaseCg {
     private String memo;
     @ApiModelProperty("计量单位")
     private String jldwmc;
+
+    private Integer jhsl;
 
     @ApiModelProperty("订单类型")
     private String orderType;

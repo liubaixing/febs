@@ -33,6 +33,9 @@ public class PurchaseTcResp extends PurchaseTc {
     private Long mxId;
     @ApiModelProperty("单价")
     private BigDecimal dj;
+
+    @ApiModelProperty("商品代码")
+    private Integer spId;
     @ApiModelProperty("商品代码")
     private String spdm;
     @ApiModelProperty("商品名称")

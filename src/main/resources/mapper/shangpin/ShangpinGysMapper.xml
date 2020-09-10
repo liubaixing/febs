@@ -248,7 +248,7 @@
                 #{mrtp,jdbcType=VARCHAR},
             </if>
             <if test="detailImage != null">
-                detailImage,
+                #{detailImage,jdbcType=VARCHAR},
             </if>
             <if test="zlId != null">
                 #{zlId,jdbcType=INTEGER},
