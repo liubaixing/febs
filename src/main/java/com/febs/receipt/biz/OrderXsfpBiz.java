@@ -6,13 +6,13 @@ import com.febs.receipt.entity.*;
 import com.febs.receipt.mapper.OrderXsMapper;
 import com.febs.receipt.mapper.OrderXtMapper;
 import com.febs.receipt.service.*;
+import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXsfpReq;
 import com.febs.receipt.vo.req.XsfpCreateReq;
-import com.febs.receipt.vo.resp.OrderXsfpResp;
-import com.febs.receipt.vo.resp.OrderXsmxResp;
-import com.febs.receipt.vo.resp.OrderXtmxResp;
+import com.febs.receipt.vo.resp.*;
 import com.febs.system.entity.User;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +52,60 @@ public class OrderXsfpBiz {
 
     public void update(OrderXsfp xsfp){
         xsfpService.updateOrderXsfp(xsfp);
+    }
+
+    @Transactional
+    public void zf(OrderXsfp xsfp){
+        xsfpService.updateOrderXsfp(xsfp);
+
+        OrderXsfpmx orderXsfpmx = new OrderXsfpmx();
+        orderXsfpmx.setPid(xsfp.getId());
+        List<OrderXsfpmxResp> xsfpmxResps = xsfpmxService.findOrderXsfpmxs(orderXsfpmx);
+
+        for (OrderXsfpmxResp xsfpmx : xsfpmxResps){
+
+            if (StringUtils.isNotBlank(xsfpmx.getYdjh())){
+
+                String orderType = xsfpmx.getYdjh().substring(0,2);
+
+                if ("xs".equals(orderType)) {
+
+                    OrderXsReq orderXs = new OrderXsReq();
+                    orderXs.setDjbh(xsfpmx.getYdjh());
+                    OrderXsResp xsResp = xsService.findOrderXsDetail(orderXs);
+
+                    OrderXsmx orderXsmx = new OrderXsmx();
+                    orderXsmx.setPid(xsResp.getId());
+                    orderXsmx.setSpId(xsfpmx.getSpId());
+                    List<OrderXsmxResp> xsmxResps = xsmxService.findOrderXsmxs(orderXsmx);
+
+                    OrderXsmxResp xsmx = xsmxResps.get(0);
+                    xsmx.setKpsl(xsmx.getKpsl() - xsfpmx.getSl());
+                    xsmxService.updateOrderXsmx(xsmx);
+
+                } else if ("xt".equals(orderType)) {
+
+                    OrderXtExample example = new OrderXtExample();
+                    example.createCriteria().andDjbhEqualTo(xsfpmx.getYdjh());
+                    List<OrderXt> orderXts = xtService.selectByExample(example);
+
+                    if (CollectionUtils.isEmpty(orderXts)) {
+                        throw new FebsException("销退单查询失败");
+                    }
+                    OrderXt orderXt = orderXts.get(0);
+
+                    OrderXtmx orderXtmx = new OrderXtmx();
+                    orderXtmx.setPid(orderXt.getId());
+                    orderXtmx.setSpId(xsfpmx.getSpId());
+                    List<OrderXtmxResp>  xtmxResps = xtmxService.findOrderXtmxs(orderXtmx);
+
+                    OrderXtmxResp xtmx = xtmxResps.get(0);
+                    xtmx.setKpsl(xtmx.getKpsl() - xsfpmx.getSl());
+                    xtmxService.updateOrderXtmx(xtmx);
+
+                }
+            }
+        }
     }
 
     @Transactional

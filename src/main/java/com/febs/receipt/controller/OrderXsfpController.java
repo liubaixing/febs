@@ -130,7 +130,7 @@ public class OrderXsfpController extends BaseController {
         xsfp.setZf((byte)1);
         xsfp.setZfr(user.getUsername());
         xsfp.setZfrq(new Date());
-        xsfpBiz.update(xsfp);
+        xsfpBiz.zf(xsfp);
         return new FebsResponse().success();
     }
 

@@ -5,6 +5,7 @@ import com.febs.receipt.entity.OrderXt;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.febs.receipt.entity.OrderXtExample;
 import com.febs.receipt.vo.req.OrderXtReq;
 import com.febs.receipt.vo.resp.OrderXtResp;
 
@@ -33,6 +34,8 @@ public interface IOrderXtService extends IService<OrderXt> {
      * @return List<OrderXt>
      */
     List<OrderXtResp> findOrderXts(OrderXtReq orderXt);
+
+    List<OrderXt> selectByExample(OrderXtExample example);
 
     OrderXtResp findById(Long id);
 

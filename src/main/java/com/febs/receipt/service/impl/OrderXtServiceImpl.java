@@ -6,6 +6,7 @@ import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXt;
+import com.febs.receipt.entity.OrderXtExample;
 import com.febs.receipt.mapper.OrderXtMapper;
 import com.febs.receipt.service.IOrderXtService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -46,6 +47,11 @@ public class OrderXtServiceImpl extends ServiceImpl<OrderXtMapper, OrderXt> impl
     @Override
     public List<OrderXtResp> findOrderXts(OrderXtReq orderXt) {
 		return this.orderXtMapper.selectByQuery(orderXt);
+    }
+
+    @Override
+    public List<OrderXt> selectByExample(OrderXtExample example) {
+        return this.orderXtMapper.selectByExample(example);
     }
 
     @Override

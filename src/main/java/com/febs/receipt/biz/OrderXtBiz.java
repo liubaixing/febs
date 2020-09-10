@@ -175,13 +175,17 @@ public class OrderXtBiz {
 
         OrderXtResp xtResp = xtService.findById(xtmx.getPid());
 
-        if(xtmx.getTzsl()+xtmx.getCksl()+req.getTzsl() > xtmx.getJhsl()) throw new FebsException("执行数量大于计划数量");
+        System.out.println("计划数量：" + xtmx.getJhsl());
+        System.out.println("通知数量：" + xtmx.getTzsl());
+        System.out.println("请求通知数量：" + req.getTzsl());
+
+        if(xtmx.getTzsl()+req.getTzsl() > xtmx.getJhsl()) throw new FebsException("执行数量大于计划数量");
 
         xtmx.setTzsl(xtmx.getTzsl()+req.getTzsl());
         xtmxService.updateOrderXtmx(xtmx);
 
-        if(req.getZxfs() == 0){
-            //直发，生成退仓单
+        if(req.getZxfs() == 1){
+            //自发，生成入库单
             PurchaseRk rk = new PurchaseRk();
             rk.setYdbh(xtResp.getDjbh());
             rk.setXdrq(new Date());
@@ -201,8 +205,8 @@ public class OrderXtBiz {
             rkmx.setDj(req.getDj());
             rkmx.setJe(req.getJe());
             rkmxService.createPurchaseRkmx(rkmx);
-        }else if(req.getZxfs() == 1){
-            //自发，生成入库单
+        }else if(req.getZxfs() == 0){
+            //直发，生成退仓单
             PurchaseTc tc = new PurchaseTc();
             tc.setXdrq(new Date());
             tc.setXtdh(xtResp.getDjbh());
