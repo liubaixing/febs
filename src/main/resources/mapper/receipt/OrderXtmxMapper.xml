@@ -603,6 +603,9 @@
             <if test="deleted">
                 and mx.deleted = #{deleted}
             </if>
+            <if test="id != null ">
+                and mx.Id = #{id}
+            </if>
             <if test="pid != null and pid != ''">
                 and mx.pid = #{pid}
             </if>

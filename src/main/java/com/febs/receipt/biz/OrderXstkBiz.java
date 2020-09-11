@@ -145,7 +145,7 @@ public class OrderXstkBiz {
         for (OrderXstkReq orderXstk : xstkList){
             OrderXstkmx tkmx = new OrderXstkmx();
             tkmx.setPid(pid);
-            tkmx.setYdjh(orderXstk.getDjbh());
+            tkmx.setYdjh(orderXstk.getYdjh());
             tkmx.setSpId(orderXstk.getSpId());
             tkmx.setSl(orderXstk.getSl());
             tkmx.setJe(orderXstk.getJe());

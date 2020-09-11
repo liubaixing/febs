@@ -1183,7 +1183,7 @@
         LEFT JOIN basic_djlx djlx ON tc.djlx_id = djlx.id
         LEFT JOIN t_user cu on tc.cgfzr = cu.USER_ID
         LEFT JOIN t_user xu on tc.xdfzr = xu.USER_ID
-        LEFT JOIN purchase_cgmx mx ON tc.id = mx.pid
+        LEFT JOIN purchase_tcmx mx ON tc.id = mx.pid
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>
@@ -1299,7 +1299,7 @@
         LEFT JOIN basic_djlx djlx ON tc.djlx_id = djlx.id
         LEFT JOIN t_user cu on tc.cgfzr = cu.USER_ID
         LEFT JOIN t_user xu on tc.xdfzr = xu.USER_ID
-        LEFT JOIN purchase_cgmx mx ON tc.id = mx.pid
+        LEFT JOIN purchase_tcmx mx ON tc.id = mx.pid
         LEFT JOIN shangpin sp ON mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw ON sp.jldw_id = dw.id
         <where>

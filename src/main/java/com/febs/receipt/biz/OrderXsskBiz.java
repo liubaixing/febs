@@ -147,7 +147,7 @@ public class OrderXsskBiz {
         for (OrderXsskReq xsskReq : xsskList) {
             OrderXsskmx skmx = new OrderXsskmx();
             skmx.setPid(pid);
-            skmx.setYdjh(xsskReq.getDjbh());
+            skmx.setYdjh(xsskReq.getYdjh());
             skmx.setSpId(xsskReq.getSpId());
             skmx.setSl(xsskReq.getSl());
             skmx.setJe(xsskReq.getJe());

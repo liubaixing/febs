@@ -1504,6 +1504,9 @@
             <if test="gysmc != null and gysmc != ''">
                 and gysmc like CONCAT('%',#{gysmc},'%')
             </if>
+            <if test="gysId != null">
+                and cg.gys_id = #{gysId}
+            </if>
             <if test="ckmc != null and ckmc != ''">
                 and ckmc like CONCAT('%',#{ckmc},'%')
             </if>

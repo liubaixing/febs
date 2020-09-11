@@ -175,37 +175,36 @@ public class OrderXtBiz {
 
         OrderXtResp xtResp = xtService.findById(xtmx.getPid());
 
-        System.out.println("计划数量：" + xtmx.getJhsl());
-        System.out.println("通知数量：" + xtmx.getTzsl());
-        System.out.println("请求通知数量：" + req.getTzsl());
-
         if(xtmx.getTzsl()+req.getTzsl() > xtmx.getJhsl()) throw new FebsException("执行数量大于计划数量");
 
         xtmx.setTzsl(xtmx.getTzsl()+req.getTzsl());
         xtmxService.updateOrderXtmx(xtmx);
 
-        if(req.getZxfs() == 1){
+        BigDecimal zje = xtmx.getDj().multiply(new BigDecimal(req.getTzsl()));
+
+        if(req.getZxfs() == 0){
             //自发，生成入库单
             PurchaseRk rk = new PurchaseRk();
             rk.setYdbh(xtResp.getDjbh());
             rk.setXdrq(new Date());
-            rk.setCangkuId(xtResp.getCangkuId());
+            rk.setCangkuId(req.getCangkuId());
             rk.setKehuId(xtResp.getKehuId());
             rk.setOrgId(xtResp.getOrgId());
             rk.setDjlxId(xtResp.getDjlxId());
-            rk.setSl(req.getSl());
-            rk.setJe(req.getJe());
+            rk.setSl(req.getTzsl());
+            rk.setJe(zje);
             rk.setZdr(req.getZxr());
             rk.setZdrq(new Date());
             Long id = rkService.createPurchaseRk(rk);
 
             PurchaseRkmx rkmx = new PurchaseRkmx();
             rkmx.setPid(id);
-            rkmx.setSpId(req.getSpId());
-            rkmx.setDj(req.getDj());
-            rkmx.setJe(req.getJe());
+            rkmx.setSpId(xtmx.getSpId());
+            rkmx.setSl(req.getTzsl());
+            rkmx.setJe(zje);
+            rkmx.setDj(xtmx.getDj());
             rkmxService.createPurchaseRkmx(rkmx);
-        }else if(req.getZxfs() == 0){
+        }else if(req.getZxfs() == 1){
             //直发，生成退仓单
             PurchaseTc tc = new PurchaseTc();
             tc.setXdrq(new Date());
@@ -214,17 +213,18 @@ public class OrderXtBiz {
             tc.setBmId(xtResp.getBumengId());
             tc.setCangkuId(xtResp.getCangkuId());
             tc.setDjlxId(xtResp.getDjlxId());
-            tc.setSl(req.getSl());
-            tc.setJe(req.getJe());
+            tc.setSl(req.getTzsl());
+            tc.setJe(zje);
             tc.setZdr(req.getZxr());
             tc.setZdrq(new Date());
             Long id = tcService.createPurchaseTc(tc);
+
             PurchaseTcmx tcmx = new PurchaseTcmx();
             tcmx.setPid(id);
-            tcmx.setSpId(req.getSpId());
-            tcmx.setSl(req.getSl());
-            tcmx.setJe(req.getJe());
-            tcmx.setDj(req.getDj());
+            tcmx.setSpId(xtmx.getSpId());
+            tcmx.setSl(req.getTzsl());
+            tcmx.setJe(zje);
+            tcmx.setDj(xtmx.getDj());
             tcmxService.createPurchaseTcmx(tcmx);
         }
 
