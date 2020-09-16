@@ -179,7 +179,7 @@ public class OrderXtController extends BaseController {
         orderXt.setZf((byte)1);
         orderXt.setZfr(user.getUsername());
         orderXt.setZfrq(new Date());
-        orderXtService.updateOrderXt(orderXt);
+        xtBiz.zf(orderXt);
         return new FebsResponse().success();
     }
 

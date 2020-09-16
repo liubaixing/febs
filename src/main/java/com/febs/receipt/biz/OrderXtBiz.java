@@ -13,10 +13,13 @@ import com.febs.purchase.service.IPurchaseRkmxService;
 import com.febs.purchase.service.IPurchaseTcService;
 import com.febs.purchase.service.IPurchaseTcmxService;
 import com.febs.receipt.entity.*;
+import com.febs.receipt.service.IOrderXsService;
+import com.febs.receipt.service.IOrderXsmxService;
 import com.febs.receipt.service.IOrderXtService;
 import com.febs.receipt.service.IOrderXtmxService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXtReq;
+import com.febs.receipt.vo.resp.OrderXsmxResp;
 import com.febs.receipt.vo.resp.OrderXtResp;
 import com.febs.receipt.vo.resp.OrderXtmxResp;
 import com.febs.system.entity.Cangku;
@@ -51,6 +54,10 @@ public class OrderXtBiz {
 
     @Autowired
     private IPurchaseRkmxService rkmxService;
+    @Autowired
+    private IOrderXsService xsService;
+    @Autowired
+    private IOrderXsmxService xsmxService;
 
     public IPage<OrderXtResp> findByPage(QueryRequest request, OrderXtReq orderXt){
         return xtService.findOrderXts(request,orderXt);
@@ -231,5 +238,31 @@ public class OrderXtBiz {
     }
 
 
+    public void zf(OrderXt orderXt) {
 
+        OrderXtResp xtResp = xtService.findById(orderXt.getId());
+
+        if (xtResp == null) {
+            throw new FebsException("销退单不存在");
+        }
+
+        OrderXtmx xtmx = new OrderXtmx();
+        xtmx.setPid(orderXt.getId());
+        OrderXtmxResp xtmxResp = xtmxService.findOrderXtmxs(xtmx).get(0);
+
+
+        OrderXsExample example = new OrderXsExample();
+        example.createCriteria().andDjbhEqualTo(xtResp.getYdbh());
+        OrderXs orderXs = xsService.findOrderXs(example);
+
+        OrderXsmx xsmx = new OrderXsmx();
+        xsmx.setPid(orderXs.getId());
+        xsmx.setSpId(xtmxResp.getSpId());
+        OrderXsmxResp xsmxResp = xsmxService.findOrderXsmxs(xsmx).get(0);
+
+        xsmxResp.setXtsl(xsmxResp.getXtsl() - xtmxResp.getJhsl());
+        xsmxService.updateOrderXsmx(xsmxResp);
+
+        xtService.updateOrderXt(orderXt);
+    }
 }

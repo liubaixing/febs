@@ -417,8 +417,13 @@ public class OrderXsBiz {
             throw new FebsException("销售单不存在");
         }
 
-        if((req.getTksl() + mx.getTksl()) > mx.getJhsl()) throw new FebsException("退款数量大于销售单数量");
+        if((req.getTksl() + mx.getXtsl()) > mx.getJhsl()) throw new FebsException("退款数量超过销售单数量");
         OrderXs orderXs = xsService.findById(mx.getPid());
+
+        mx.setXtsl(mx.getXtsl() + req.getTksl());
+        mx.setXtje(mx.getXtje().add(req.getTkje()));
+        xsmxService.updateOrderXsmx(mx);
+
         OrderXt orderXt = new OrderXt();
         orderXt.setXdrq(new Date());
         orderXt.setYdbh(orderXs.getDjbh());
