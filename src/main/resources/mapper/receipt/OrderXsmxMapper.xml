@@ -18,9 +18,11 @@
         <result column="kpsl" jdbcType="INTEGER" property="kpsl" />
         <result column="sksl" jdbcType="INTEGER" property="sksl" />
         <result column="tksl" jdbcType="INTEGER" property="tksl" />
+        <result column="xtsl" jdbcType="INTEGER" property="xtsl" />
         <result column="kpje" jdbcType="DECIMAL" property="kpje" />
         <result column="skje" jdbcType="DECIMAL" property="skje" />
         <result column="tkje" jdbcType="DECIMAL" property="tkje" />
+        <result column="xtje" jdbcType="DECIMAL" property="tkje" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
         <result column="ex2" jdbcType="VARCHAR" property="ex2" />
         <result column="ex3" jdbcType="VARCHAR" property="ex3" />
@@ -91,8 +93,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    Id, pid, sp_id, gg1_id, gg2_id, jhsl, tzsl, cksl, dj, je, zk, xsje, kpsl, sksl, tksl,
-    kpje, skje, tkje, ex1, ex2, ex3, jsjg, jishuije, sku, create_time, update_time, deleted,
+    Id, pid, sp_id, gg1_id, gg2_id, jhsl, tzsl, cksl, dj, je, zk, xsje, kpsl, sksl, tksl,xtsl,
+    kpje, skje, tkje,xtje, ex1, ex2, ex3, jsjg, jishuije, sku, create_time, update_time, deleted,
     cbje
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsmxExample" resultMap="BaseResultMap">
@@ -189,6 +191,9 @@
             <if test="tksl != null">
                 tksl,
             </if>
+            <if test="xtsl != null">
+                xtsl,
+            </if>
             <if test="kpje != null">
                 kpje,
             </if>
@@ -197,6 +202,9 @@
             </if>
             <if test="tkje != null">
                 tkje,
+            </if>
+            <if test="xtje != null">
+                xtje,
             </if>
             <if test="ex1 != null">
                 ex1,
@@ -272,6 +280,9 @@
             <if test="tksl != null">
                 #{tksl,jdbcType=INTEGER},
             </if>
+            <if test="xtsl != null">
+                #{xtsl,jdbcType=INTEGER},
+            </if>
             <if test="kpje != null">
                 #{kpje,jdbcType=DECIMAL},
             </if>
@@ -280,6 +291,9 @@
             </if>
             <if test="tkje != null">
                 #{tkje,jdbcType=DECIMAL},
+            </if>
+            <if test="xtje != null">
+                #{xtje,jdbcType=DECIMAL},
             </if>
             <if test="ex1 != null">
                 #{ex1,jdbcType=VARCHAR},
@@ -367,6 +381,9 @@
             <if test="record.tksl != null">
                 tksl = #{record.tksl,jdbcType=INTEGER},
             </if>
+            <if test="record.xtsl != null">
+                xtsl = #{record.xtsl,jdbcType=INTEGER},
+            </if>
             <if test="record.kpje != null">
                 kpje = #{record.kpje,jdbcType=DECIMAL},
             </if>
@@ -375,6 +392,9 @@
             </if>
             <if test="record.tkje != null">
                 tkje = #{record.tkje,jdbcType=DECIMAL},
+            </if>
+            <if test="record.xtje != null">
+                xtje = #{record.xtje,jdbcType=DECIMAL},
             </if>
             <if test="record.ex1 != null">
                 ex1 = #{record.ex1,jdbcType=VARCHAR},
@@ -490,6 +510,9 @@
             <if test="tksl != null">
                 tksl = #{tksl,jdbcType=INTEGER},
             </if>
+            <if test="xtsl != null">
+                xtsl = #{xtsl,jdbcType=INTEGER},
+            </if>
             <if test="kpje != null">
                 kpje = #{kpje,jdbcType=DECIMAL},
             </if>
@@ -498,6 +521,9 @@
             </if>
             <if test="tkje != null">
                 tkje = #{tkje,jdbcType=DECIMAL},
+            </if>
+            <if test="xtje != null">
+                xtje = #{xtje,jdbcType=DECIMAL},
             </if>
             <if test="ex1 != null">
                 ex1 = #{ex1,jdbcType=VARCHAR},
@@ -566,7 +592,7 @@
 
     <sql id="Page_Column_List">
     mx.Id, mx.pid, mx.sp_id, mx.gg1_id, mx.gg2_id, mx.jhsl, mx.tzsl, mx.cksl, mx.dj, mx.je, mx.zk,
-     mx.xsje,mx.kpsl, mx.sksl, mx.tksl, mx.kpje, mx.skje, mx.tkje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
+     mx.xsje,mx.kpsl, mx.sksl, mx.tksl, mx.kpje, mx.skje, mx.tkje,mx.xtsl,mx.xtje, mx.ex1, mx.ex2, mx.ex3, mx.jsjg, mx.jishuije, mx.sku, mx.create_time, mx.update_time, mx.deleted, mx.cbje
     </sql>
 
     <select id="selectPageByQuery" parameterType="com.febs.receipt.entity.OrderXsmx" resultType="com.febs.receipt.vo.resp.OrderXsmxResp">

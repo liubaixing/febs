@@ -82,8 +82,6 @@ public class OrderXsController extends BaseController {
     @PostMapping("")
 //    @RequiresPermissions("orderXs:add")
     public FebsResponse addOrderXs(OrderXsReq orderXs) {
-        User user = getCurrentUser();
-        orderXs.setUserId(user.getUserId());
         this.orderXsBiz.create(orderXs);
         return new FebsResponse().success();
     }

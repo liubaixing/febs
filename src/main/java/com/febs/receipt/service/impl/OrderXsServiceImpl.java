@@ -66,6 +66,11 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     }
 
     @Override
+    public List<OrderXs> selectByExample(OrderXsExample example) {
+        return this.orderXsMapper.selectByExample(example);
+    }
+
+    @Override
     public OrderXs findById(Long id){
         return this.orderXsMapper.selectByPrimaryKey(id);
     }

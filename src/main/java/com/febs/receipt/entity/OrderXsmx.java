@@ -113,6 +113,11 @@ public class OrderXsmx {
     private Integer tksl;
 
     /**
+     * 销退数量
+     */
+    private Integer xtsl;
+
+    /**
      * 开票金额
      */
     private BigDecimal kpje;
@@ -127,6 +132,10 @@ public class OrderXsmx {
      */
     private BigDecimal tkje;
 
+    /**
+     * 销退金额
+     */
+    private BigDecimal xtje;
 
     /**
      * 备用1

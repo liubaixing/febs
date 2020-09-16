@@ -101,6 +101,20 @@ public class OrderXsResp extends OrderXs {
     @ExcelProperty(value = "计量单位",index = 28)
     private String jldwmc;
 
+    /**
+     * 销退数量
+     */
+    @ApiModelProperty("销退数量")
+    @ExcelIgnore
+    private Integer xtsl;
+
+    /**
+     * 销退金额
+     */
+    @ApiModelProperty("销退金额")
+    @ExcelIgnore
+    private BigDecimal xtje;
+
     @ExcelIgnore
     private String orderType;
 

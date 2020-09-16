@@ -163,7 +163,7 @@
             kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
             xsmx.id mxId , xsmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
             ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje,dw.jldwmc
-            ,xsmx.kpsl,xsmx.sksl,xsmx.tksl,xsmx.kpje,xsmx.skje,xsmx.tkje
+            ,xsmx.kpsl,xsmx.sksl,xsmx.tksl,xsmx.kpje,xsmx.skje,xsmx.tkje,xsmx.xtsl,xsmx.xtje
         FROM order_xs xs
         LEFT JOIN basic_ptda pt on xs.org_id = pt.id
         LEFT JOIN t_user u on xs.user_id = u.USER_ID
@@ -276,7 +276,7 @@
         kly.khlymc , lly.lllymc , dlx.djlxmc ,qy.khqymc,
         xsmx.id mxId , xsmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
         ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje,dw.jldwmc
-        ,xsmx.kpsl,xsmx.sksl,xsmx.tksl,xsmx.kpje,xsmx.skje,xsmx.tkje
+        ,xsmx.kpsl,xsmx.sksl,xsmx.tksl,xsmx.kpje,xsmx.skje,xsmx.tkje,xsmx.xtsl,xsmx.xtje
         FROM order_xs xs
         LEFT JOIN basic_ptda pt on xs.org_id = pt.id
         LEFT JOIN t_user u on xs.user_id = u.USER_ID

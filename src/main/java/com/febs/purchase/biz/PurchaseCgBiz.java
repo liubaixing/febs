@@ -12,9 +12,13 @@ import com.febs.purchase.service.IPurchaseTcmxService;
 import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.purchase.vo.resp.PurchaseCgmxResp;
+import com.febs.receipt.entity.OrderXs;
+import com.febs.receipt.entity.OrderXsExample;
+import com.febs.receipt.service.IOrderXsService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -23,6 +27,9 @@ import java.util.List;
 
 @Service
 public class PurchaseCgBiz {
+
+    @Autowired
+    private IOrderXsService xsService;
 
     @Autowired
     private IPurchaseCgService cgService;
@@ -53,6 +60,7 @@ public class PurchaseCgBiz {
         cgService.updatePurchaseCg(cg);
     }
 
+    @Transactional
     public void sctc(PurchaseCgReq req){
         PurchaseCgResp cgResp = cgService.findById(req.getId());
         PurchaseCgmxResp cgmxResp = cgmxService.findById(req.getMxId());
@@ -102,6 +110,7 @@ public class PurchaseCgBiz {
         tcmxService.createPurchaseTcmx(tcmx);
     }
 
+    @Transactional
     public void create(PurchaseCgReq req) {
 
         if (CollectionUtils.isEmpty(req.getCgmxList())) {
@@ -125,6 +134,7 @@ public class PurchaseCgBiz {
         }
     }
 
+    @Transactional
     public void update(PurchaseCgReq req){
 
         PurchaseCgResp resp = cgService.findById(req.getId());
@@ -155,6 +165,21 @@ public class PurchaseCgBiz {
             cgmx.setPid(req.getId());
             cgmxService.createPurchaseCgmx(cgmx);
         }
+
+    }
+
+    @Transactional
+    public void cgfh(PurchaseCg purchaseCg){
+        PurchaseCgResp cgResp = cgService.findById(purchaseCg.getId());
+
+        cgService.updatePurchaseCg(purchaseCg);
+
+        OrderXsExample example = new OrderXsExample();
+        example.createCriteria().andDjbhEqualTo(cgResp.getXsdh());
+        OrderXs xs = xsService.selectByExample(example).get(0);
+        xs.setWldh(purchaseCg.getWldh());
+
+        xsService.updateOrderXs(xs);
 
     }
 

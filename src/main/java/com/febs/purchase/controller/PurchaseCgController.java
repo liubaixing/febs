@@ -380,7 +380,7 @@ public class PurchaseCgController extends BaseController {
         purchaseCg.setCgfh((byte)1);
         purchaseCg.setCgfhr(user.getUsername());
         purchaseCg.setCgfhrq(new Date());
-        this.purchaseCgService.updatePurchaseCg(purchaseCg);
+        cgBiz.cgfh(purchaseCg);
         return new FebsResponse().success();
     }
 

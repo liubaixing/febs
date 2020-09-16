@@ -560,7 +560,7 @@
         <include refid="Page_Column_List" />
         ,mx.id mxId,mx.ydjh,mx.sp_id,mx.je,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
         FROM order_xstk tk
-        LEFT JOIN order_xsskmx mx on mx.pid = tk.id
+        LEFT JOIN order_xstkmx mx on mx.pid = tk.id
         LEFT JOIN basic_ptda da on tk.ghdw_id = da.id
         LEFT JOIN shangpin sp on mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id
@@ -612,7 +612,7 @@
         <include refid="Page_Column_List" />
         ,mx.id mxId,mx.ydjh,mx.sp_id,mx.je,mx.sl,da.ptdamc,sp.spmc,sp.spdm,sp.memo,dw.jldwmc
         FROM order_xstk tk
-        LEFT JOIN order_xsskmx mx on mx.pid = tk.id
+        LEFT JOIN order_xstkmx mx on mx.pid = tk.id
         LEFT JOIN basic_ptda da on tk.ghdw_id = da.id
         LEFT JOIN shangpin sp on mx.sp_id = sp.id
         LEFT JOIN basic_jldw dw on sp.jldw_id = dw.id

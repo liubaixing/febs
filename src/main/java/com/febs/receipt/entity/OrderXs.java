@@ -91,7 +91,7 @@ public class OrderXs {
     /**
      * 用户ID 业务员
      */
-    @ApiModelProperty("用户ID（登录用户）")
+    @ApiModelProperty("业务员")
     @ExcelIgnore
     @TableField("user_id")
     private Long userId;
