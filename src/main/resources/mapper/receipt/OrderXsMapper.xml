@@ -130,7 +130,7 @@
     Id, djbh, xdrq, ydbh, ydjh, sfjj, sfdz, org_id, user_id, bumeng_id, kehu_id, cangku_id, 
     khly_id, llly_id, yqdhrq, djlx_id, khqy_id, wldh, bz, fj, sl, je, kpsl, sksl, tksl,
     kpje, skje, tkje, address, tel, contact, zdr, zdrq, qr, qrr, qrrq, sh, auditor, shrq, zf,
-    zfr, zfrq, sk, skr, skrq, zfrq, kp, kpr, kprq, ex1, ex2, ex3, create_time, update_time, deleted
+    zfr, zfrq, sk, skr, skrq, kp, kpr, kprq, ex1, ex2, ex3, create_time, update_time, deleted
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsExample" resultMap="BaseResultMap">
         select

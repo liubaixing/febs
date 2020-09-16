@@ -22,7 +22,7 @@
         <result column="kpje" jdbcType="DECIMAL" property="kpje" />
         <result column="skje" jdbcType="DECIMAL" property="skje" />
         <result column="tkje" jdbcType="DECIMAL" property="tkje" />
-        <result column="xtje" jdbcType="DECIMAL" property="tkje" />
+        <result column="xtje" jdbcType="DECIMAL" property="xtje" />
         <result column="ex1" jdbcType="VARCHAR" property="ex1" />
         <result column="ex2" jdbcType="VARCHAR" property="ex2" />
         <result column="ex3" jdbcType="VARCHAR" property="ex3" />
