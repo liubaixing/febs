@@ -5,6 +5,7 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.enums.orderqt.GoodsCodeEnum;
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.orderqt.entity.OrderqtYfd;
@@ -27,6 +28,9 @@ import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsExample;
 import com.febs.receipt.service.IOrderXsService;
+import com.febs.shangpin.entity.Shangpin;
+import com.febs.shangpin.entity.ShangpinExample;
+import com.febs.shangpin.service.IShangpinService;
 import com.febs.system.entity.User;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +80,8 @@ public class PurchaseCgController extends BaseController {
     @Autowired
     private IOrderqtYsfdmxService ysfdmxService;
 
+    @Autowired
+    private IShangpinService shangpinService;
     @GetMapping("")
     //@RequiresPermissions("purchaseCg:list")
     public FebsResponse getAllPurchaseCgs(PurchaseCgReq purchaseCg) {
@@ -389,6 +395,17 @@ public class PurchaseCgController extends BaseController {
     @PostMapping("/yflr")
 //    @RequiresPermissions("purchaseCg:yflr")
     public FebsResponse yflr(PurchaseCgReq req){
+
+        PurchaseCgResp resp = purchaseCgService.findById(req.getId());
+
+        if (resp == null) {
+            throw new FebsException("采购单不存在");
+        }
+
+        if (resp.getYflr() == 1) {
+            throw new FebsException("运费已录入");
+        }
+
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(req.getId());
@@ -396,6 +413,10 @@ public class PurchaseCgController extends BaseController {
         purchaseCg.setYflrr(user.getUsername());
         purchaseCg.setYflrrq(new Date());
         this.purchaseCgService.updatePurchaseCg(purchaseCg);
+
+        ShangpinExample example = new ShangpinExample();
+        example.createCriteria().andSpdmEqualTo(GoodsCodeEnum.YF.getCode());
+        Shangpin shangpin = shangpinService.findByExample(example).get(0);
 
         OrderqtYfd orderqtYfd = new OrderqtYfd();
         orderqtYfd.setDjrq(new Date());
@@ -407,7 +428,9 @@ public class PurchaseCgController extends BaseController {
 
         OrderqtYfdmx orderqtYfdmx = new OrderqtYfdmx();
         orderqtYfdmx.setPid(pid);
-        orderqtYfdmx.setYdjh(req.getDjbh());
+        orderqtYfdmx.setSpId(shangpin.getId());
+        orderqtYfdmx.setJe(req.getJe());
+        orderqtYfdmx.setYdjh(resp.getDjbh());
         yfdmxService.createOrderqtYfdmx(orderqtYfdmx);
 
         return new FebsResponse().success();
@@ -417,6 +440,17 @@ public class PurchaseCgController extends BaseController {
     @PostMapping("/ysflr")
 //    @RequiresPermissions("purchaseCg:ysflr")
     public FebsResponse ysflr(PurchaseCgReq req){
+
+        PurchaseCgResp resp = purchaseCgService.findById(req.getId());
+
+        if (resp == null) {
+            throw new FebsException("采购单不存在");
+        }
+
+        if (resp.getYsflr() == 1) {
+            throw new FebsException("印刷费已录入");
+        }
+
         User user = getCurrentUser();
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(req.getId());
@@ -424,6 +458,10 @@ public class PurchaseCgController extends BaseController {
         purchaseCg.setYsflrr(user.getUsername());
         purchaseCg.setYsflrrq(new Date());
         this.purchaseCgService.updatePurchaseCg(purchaseCg);
+
+        ShangpinExample example = new ShangpinExample();
+        example.createCriteria().andSpdmEqualTo(GoodsCodeEnum.YSF.getCode());
+        Shangpin shangpin = shangpinService.findByExample(example).get(0);
 
         OrderqtYsfd orderqtYsfd = new OrderqtYsfd();
         orderqtYsfd.setDjrq(new Date());
@@ -435,7 +473,9 @@ public class PurchaseCgController extends BaseController {
 
         OrderqtYsfdmx orderqtYsfdmx = new OrderqtYsfdmx();
         orderqtYsfdmx.setPid(pid);
-        orderqtYsfdmx.setYdjh(req.getDjbh());
+        orderqtYsfdmx.setSpId(shangpin.getId());
+        orderqtYsfdmx.setJe(req.getJe());
+        orderqtYsfdmx.setYdjh(resp.getDjbh());
         ysfdmxService.createOrderqtYsfdmx(orderqtYsfdmx);
 
         return new FebsResponse().success();

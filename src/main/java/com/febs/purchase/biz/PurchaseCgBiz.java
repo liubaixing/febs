@@ -67,13 +67,12 @@ public class PurchaseCgBiz {
         if(cgResp == null) throw new FebsException("采购单不存在");
         if (cgmxResp == null) throw new FebsException("采购详情单不存在");
 
-        if(req.getTkje().add(cgResp.getTkje()).compareTo(cgResp.getJe()) == 1)throw new FebsException("退仓金额不能大于采购金额！");
-        if(req.getTkje().add(cgmxResp.getTkje()).compareTo(cgmxResp.getJe()) == 1)throw new FebsException("退仓金额不能大于采购金额！");
+        if (req.getTksl() + cgmxResp.getTzsl() > cgmxResp.getSl()) {
+            throw new FebsException("退仓数量大于采购单数量");
+        }
 
         PurchaseCg purchaseCg = new PurchaseCg();
         purchaseCg.setId(req.getId());
-        purchaseCg.setTksl(req.getTksl() + cgResp.getTksl());
-        purchaseCg.setTkje(req.getTkje().add(cgResp.getTkje()));
         purchaseCg.setSctc((byte)1);
         purchaseCg.setSctcr(req.getSctcr());
         purchaseCg.setSctcrq(new Date());
@@ -81,8 +80,7 @@ public class PurchaseCgBiz {
 
         PurchaseCgmx purchaseCgmx = new PurchaseCgmx();
         purchaseCgmx.setId(req.getMxId());
-        purchaseCgmx.setTksl(req.getTksl() + cgmxResp.getTksl());
-        purchaseCgmx.setTkje(req.getTkje().add(cgmxResp.getTkje()));
+        purchaseCgmx.setTzsl(req.getTksl() + cgmxResp.getTzsl());
         cgmxService.updatePurchaseCgmx(purchaseCgmx);
 
         PurchaseTc tc = new PurchaseTc();

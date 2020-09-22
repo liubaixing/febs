@@ -91,6 +91,12 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     }
 
     @Override
+    public List<Shangpin> findByExample(ShangpinExample example){
+        return this.shangpinMapper.selectByExample(example);
+    }
+
+
+    @Override
     @Transactional
     public void createShangpin(Shangpin shangpin) {
         check(shangpin);

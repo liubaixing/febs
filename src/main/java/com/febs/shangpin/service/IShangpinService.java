@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.febs.common.entity.QueryRequest;
 import com.febs.shangpin.entity.Shangpin;
+import com.febs.shangpin.entity.ShangpinExample;
 import com.febs.shangpin.vo.resp.ShangpinResp;
 
 import java.util.List;
@@ -35,6 +36,8 @@ public interface IShangpinService extends IService<Shangpin> {
     Shangpin findOneByQuery(Shangpin shangpin);
 
     Shangpin findByPrimaryKey(Integer id);
+
+    List<Shangpin> findByExample(ShangpinExample example);
 
     /**
      * 新增
