@@ -49,6 +49,10 @@ public class UserPowerBiz {
         List<Map<String,Object>> checkMap = new ArrayList<>();
         List<Map<String,Object>> unCheckMap = new ArrayList<>();
         Map<String,Object> temp = new HashMap<>();
+
+        map.put("checkMap",checkMap);
+        map.put("unCheckMap",unCheckMap);
+
         if ("userOrg".equals(req.getPowerType())){
 
             List<Long> userOrgId = userOrgService.getUserOrg(req.getUserId());
