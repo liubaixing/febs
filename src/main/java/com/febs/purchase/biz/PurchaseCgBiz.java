@@ -14,7 +14,10 @@ import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.purchase.vo.resp.PurchaseCgmxResp;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsExample;
+import com.febs.receipt.entity.OrderXsmx;
+import com.febs.receipt.entity.OrderXsmxExample;
 import com.febs.receipt.service.IOrderXsService;
+import com.febs.receipt.service.IOrderXsmxService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,8 @@ public class PurchaseCgBiz {
 
     @Autowired
     private IOrderXsService xsService;
+    @Autowired
+    private IOrderXsmxService xsmxService;
 
     @Autowired
     private IPurchaseCgService cgService;
@@ -42,8 +47,6 @@ public class PurchaseCgBiz {
     @Autowired
     private IPurchaseTcmxService tcmxService;
 
-    @Resource
-    private PurchaseCgMapper cgMapper;
     @Resource
     private PurchaseCgmxMapper cgmxMapper;
 
@@ -179,6 +182,32 @@ public class PurchaseCgBiz {
 
         xsService.updateOrderXs(xs);
 
+    }
+
+    @Transactional
+    public void zf(PurchaseCg purchaseCg) {
+
+        PurchaseCgResp cgResp = cgService.findById(purchaseCg.getId());
+        if (cgResp == null) {
+            throw new FebsException("采购单不存在");
+        }
+
+        PurchaseCgmxExample cgmxExample = new PurchaseCgmxExample();
+        cgmxExample.createCriteria().andPidEqualTo(cgResp.getId());
+        PurchaseCgmx cgmx = cgmxMapper.selectByExample(cgmxExample).get(0);
+
+        OrderXsExample xsExample = new OrderXsExample();
+        xsExample.createCriteria().andDjbhEqualTo(cgResp.getXsdh());
+        OrderXs xs = xsService.findOrderXs(xsExample);
+
+        OrderXsmxExample xsmxExample = new OrderXsmxExample();
+        xsmxExample.createCriteria().andPidEqualTo(xs.getId()).andSpIdEqualTo(cgmx.getSpId());
+        OrderXsmx xsmx = xsmxService.findByExample(xsmxExample).get(0);
+
+        xsmx.setTzsl(xsmx.getTzsl() - cgmx.getSl());
+        xsmxService.updateOrderXsmx(xsmx);
+
+        cgService.updatePurchaseCg(purchaseCg);
     }
 
 }

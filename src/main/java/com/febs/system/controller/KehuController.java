@@ -42,13 +42,13 @@ public class KehuController extends BaseController {
     @Autowired
     private IKehuService kehuService;
     @GetMapping("")
-    @RequiresPermissions("kehu:list")
+//    @RequiresPermissions("kehu:list")
     public FebsResponse getAllKehus(KehuResp kehu) {
         return new FebsResponse().success().data(kehuService.findKehus(kehu));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("kehu:list")
+//    @RequiresPermissions("kehu:list")
     public FebsResponse kehuList(QueryRequest request, KehuResp kehu) {
         Map<String, Object> dataTable = getDataTable(this.kehuService.findKehus(request, kehu));
         return new FebsResponse().success().data(dataTable);
@@ -56,7 +56,7 @@ public class KehuController extends BaseController {
 
     @ControllerEndpoint(operation = "新增客户", exceptionMessage = "新增客户失败")
     @PostMapping("")
-    @RequiresPermissions("kehu:add")
+//    @RequiresPermissions("kehu:add")
     public FebsResponse addKehu(@Valid Kehu kehu) {
         this.kehuService.createKehu(kehu);
         return new FebsResponse().success();
@@ -64,7 +64,7 @@ public class KehuController extends BaseController {
 
     @ControllerEndpoint(operation = "删除客户", exceptionMessage = "删除客户失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("kehu:delete")
+//    @RequiresPermissions("kehu:delete")
     public FebsResponse deleteKehu(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.kehuService.deleteKehu(id);
@@ -73,7 +73,7 @@ public class KehuController extends BaseController {
 
     @ControllerEndpoint(operation = "修改客户", exceptionMessage = "修改客户失败")
     @PostMapping("/update")
-    @RequiresPermissions("kehu:update")
+//    @RequiresPermissions("kehu:update")
     public FebsResponse updateKehu(Kehu kehu) {
         this.kehuService.updateKehu(kehu);
         return new FebsResponse().success();

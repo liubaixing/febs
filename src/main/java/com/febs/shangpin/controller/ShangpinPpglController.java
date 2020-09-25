@@ -44,14 +44,14 @@ public class ShangpinPpglController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("shangpinPpgl:list")
+//    @RequiresPermissions("shangpinPpgl:list")
     public FebsResponse getAllShangpinPpgls(ShangpinPpgl shangpinPpgl) {
         return new FebsResponse().success().data(shangpinPpglService.findShangpinPpgls(shangpinPpgl));
     }
 
     @ApiOperation("查询品牌")
     @GetMapping("/list")
-    @RequiresPermissions("shangpinPpgl:list")
+//    @RequiresPermissions("shangpinPpgl:list")
     public FebsResponse shangpinPpglList(QueryRequest request, ShangpinPpgl shangpinPpgl) {
         Map<String, Object> dataTable = getDataTable(this.shangpinPpglService.findShangpinPpgls(request, shangpinPpgl));
         return new FebsResponse().success().data(dataTable);
@@ -60,7 +60,7 @@ public class ShangpinPpglController extends BaseController {
     @ApiOperation("添加品牌")
     @ControllerEndpoint(operation = "新增ShangpinPpgl", exceptionMessage = "新增ShangpinPpgl失败")
     @PostMapping("")
-    @RequiresPermissions("shangpinPpgl:add")
+//    @RequiresPermissions("shangpinPpgl:add")
     public FebsResponse addShangpinPpgl(@Valid ShangpinPpgl shangpinPpgl) {
         this.shangpinPpglService.createShangpinPpgl(shangpinPpgl);
         return new FebsResponse().success();
@@ -69,7 +69,7 @@ public class ShangpinPpglController extends BaseController {
     @ApiOperation("删除品牌")
     @ControllerEndpoint(operation = "删除ShangpinPpgl", exceptionMessage = "删除ShangpinPpgl失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("shangpinPpgl:delete")
+//    @RequiresPermissions("shangpinPpgl:delete")
     public FebsResponse deleteShangpinPpgl(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.shangpinPpglService.deleteShangpinPpgl(id);
@@ -79,7 +79,7 @@ public class ShangpinPpglController extends BaseController {
     @ApiOperation("修改品牌")
     @ControllerEndpoint(operation = "修改ShangpinPpgl", exceptionMessage = "修改ShangpinPpgl失败")
     @PostMapping("/update")
-    @RequiresPermissions("shangpinPpgl:update")
+//    @RequiresPermissions("shangpinPpgl:update")
     public FebsResponse updateShangpinPpgl(ShangpinPpgl shangpinPpgl) {
         this.shangpinPpglService.updateShangpinPpgl(shangpinPpgl);
         return new FebsResponse().success();
@@ -88,7 +88,7 @@ public class ShangpinPpglController extends BaseController {
     @ApiOperation("导出")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("shangpinPpgl:export")
+//    @RequiresPermissions("shangpinPpgl:export")
     public void export(QueryRequest queryRequest, ShangpinPpgl shangpinPpgl, HttpServletResponse response) throws IOException {
         List<ShangpinPpgl> shangpinPpgls = this.shangpinPpglService.findShangpinPpgls(queryRequest, shangpinPpgl).getRecords();
         ExcelUtil.export(shangpinPpgls,ShangpinPpgl.class,"品牌",response);

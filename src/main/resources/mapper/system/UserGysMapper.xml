@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.system.mapper.UserGysMapper">
+  <resultMap id="BaseResultMap" type="com.febs.system.entity.UserGys">
+    <id column="user_gys_id" jdbcType="BIGINT" property="userGysId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="gys_id" jdbcType="BIGINT" property="gysId" />
+    <result column="control_status" jdbcType="VARCHAR" property="controlStatus" />
+    <result column="extras" jdbcType="VARCHAR" property="extras" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_gys_id, user_id, gys_id, control_status, extras, version
+  </sql>
+  <select id="selectByExample" parameterType="com.febs.system.entity.UserGysExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_gys
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_gys
+    where user_gys_id = #{userGysId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_gys
+    where user_gys_id = #{userGysId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.febs.system.entity.UserGysExample">
+    delete from user_gys
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="user_gys_id" keyProperty="userGysId" parameterType="com.febs.system.entity.UserGys" useGeneratedKeys="true">
+    insert into user_gys (user_id, gys_id, control_status, 
+      extras, version)
+    values (#{userId,jdbcType=BIGINT}, #{gysId,jdbcType=BIGINT}, #{controlStatus,jdbcType=VARCHAR}, 
+      #{extras,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="user_gys_id" keyProperty="userGysId" parameterType="com.febs.system.entity.UserGys" useGeneratedKeys="true">
+    insert into user_gys
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="gysId != null">
+        gys_id,
+      </if>
+      <if test="controlStatus != null">
+        control_status,
+      </if>
+      <if test="extras != null">
+        extras,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="gysId != null">
+        #{gysId,jdbcType=BIGINT},
+      </if>
+      <if test="controlStatus != null">
+        #{controlStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="extras != null">
+        #{extras,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.febs.system.entity.UserGysExample" resultType="java.lang.Long">
+    select count(*) from user_gys
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_gys
+    <set>
+      <if test="record.userGysId != null">
+        user_gys_id = #{record.userGysId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.gysId != null">
+        gys_id = #{record.gysId,jdbcType=BIGINT},
+      </if>
+      <if test="record.controlStatus != null">
+        control_status = #{record.controlStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extras != null">
+        extras = #{record.extras,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_gys
+    set user_gys_id = #{record.userGysId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      gys_id = #{record.gysId,jdbcType=BIGINT},
+      control_status = #{record.controlStatus,jdbcType=VARCHAR},
+      extras = #{record.extras,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.febs.system.entity.UserGys">
+    update user_gys
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="gysId != null">
+        gys_id = #{gysId,jdbcType=BIGINT},
+      </if>
+      <if test="controlStatus != null">
+        control_status = #{controlStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="extras != null">
+        extras = #{extras,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_gys_id = #{userGysId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.febs.system.entity.UserGys">
+    update user_gys
+    set user_id = #{userId,jdbcType=BIGINT},
+      gys_id = #{gysId,jdbcType=BIGINT},
+      control_status = #{controlStatus,jdbcType=VARCHAR},
+      extras = #{extras,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER}
+    where user_gys_id = #{userGysId,jdbcType=BIGINT}
+  </update>
+</mapper>

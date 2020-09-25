@@ -42,13 +42,13 @@ public class ShangpinDlController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("shangpinDl:list")
+//    @RequiresPermissions("shangpinDl:list")
     public FebsResponse getAllShangpinDls(ShangpinDl shangpinDl) {
         return new FebsResponse().success().data(shangpinDlService.findShangpinDls(shangpinDl));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("shangpinDl:list")
+//    @RequiresPermissions("shangpinDl:list")
     public FebsResponse shangpinDlList(QueryRequest request, ShangpinDl shangpinDl) {
         Map<String, Object> dataTable = getDataTable(this.shangpinDlService.findShangpinDls(request, shangpinDl));
         return new FebsResponse().success().data(dataTable);
@@ -56,7 +56,7 @@ public class ShangpinDlController extends BaseController {
 
     @ControllerEndpoint(operation = "新增大类", exceptionMessage = "新增大类失败")
     @PostMapping("")
-    @RequiresPermissions("shangpinDl:add")
+//    @RequiresPermissions("shangpinDl:add")
     public FebsResponse addShangpinDl(@Valid ShangpinDl shangpinDl) {
         this.shangpinDlService.createShangpinDl(shangpinDl);
         return new FebsResponse().success();
@@ -64,7 +64,7 @@ public class ShangpinDlController extends BaseController {
 
     @ControllerEndpoint(operation = "删除大类", exceptionMessage = "删除大类失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("shangpinDl:delete")
+//    @RequiresPermissions("shangpinDl:delete")
     public FebsResponse deleteShangpinDl(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.shangpinDlService.deleteShangpinDl(id);
@@ -73,7 +73,7 @@ public class ShangpinDlController extends BaseController {
 
     @ControllerEndpoint(operation = "修改大类", exceptionMessage = "修改大类失败")
     @PostMapping("/update")
-    @RequiresPermissions("shangpinDl:update")
+//    @RequiresPermissions("shangpinDl:update")
     public FebsResponse updateShangpinDl(ShangpinDl shangpinDl) {
         this.shangpinDlService.updateShangpinDl(shangpinDl);
         return new FebsResponse().success();

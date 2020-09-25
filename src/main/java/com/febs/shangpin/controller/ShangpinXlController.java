@@ -42,13 +42,13 @@ public class ShangpinXlController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("shangpinXl:list")
+//    @RequiresPermissions("shangpinXl:list")
     public FebsResponse getAllShangpinXls(ShangpinXl shangpinXl) {
         return new FebsResponse().success().data(shangpinXlService.findShangpinXls(shangpinXl));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("shangpinXl:list")
+//    @RequiresPermissions("shangpinXl:list")
     public FebsResponse shangpinXlList(QueryRequest request, ShangpinXl shangpinXl) {
         Map<String, Object> dataTable = getDataTable(this.shangpinXlService.findShangpinXls(request, shangpinXl));
         return new FebsResponse().success().data(dataTable);
@@ -56,7 +56,7 @@ public class ShangpinXlController extends BaseController {
 
     @ControllerEndpoint(operation = "新增ShangpinXl", exceptionMessage = "新增ShangpinXl失败")
     @PostMapping("")
-    @RequiresPermissions("shangpinXl:add")
+//    @RequiresPermissions("shangpinXl:add")
     public FebsResponse addShangpinXl(@Valid ShangpinXl shangpinXl) {
         this.shangpinXlService.createShangpinXl(shangpinXl);
         return new FebsResponse().success();
@@ -64,7 +64,7 @@ public class ShangpinXlController extends BaseController {
 
     @ControllerEndpoint(operation = "删除ShangpinXl", exceptionMessage = "删除ShangpinXl失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("shangpinXl:delete")
+//    @RequiresPermissions("shangpinXl:delete")
     public FebsResponse deleteShangpinXl(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.shangpinXlService.deleteShangpinXl(id);
@@ -73,7 +73,7 @@ public class ShangpinXlController extends BaseController {
 
     @ControllerEndpoint(operation = "修改ShangpinXl", exceptionMessage = "修改ShangpinXl失败")
     @PostMapping("/update")
-    @RequiresPermissions("shangpinXl:update")
+//    @RequiresPermissions("shangpinXl:update")
     public FebsResponse updateShangpinXl(ShangpinXl shangpinXl) {
         this.shangpinXlService.updateShangpinXl(shangpinXl);
         return new FebsResponse().success();

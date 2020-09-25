@@ -45,14 +45,14 @@ public class ShangpinController extends BaseController {
 
     @ApiOperation("全部查询")
     @GetMapping("")
-    @RequiresPermissions("shangpin:list")
+//    @RequiresPermissions("shangpin:list")
     public FebsResponse getAllShangpins(ShangpinResp shangpin) {
         return new FebsResponse().success().data(shangpinService.findShangpins(shangpin));
     }
 
     @ApiOperation("分页查询")
     @GetMapping("/list")
-    @RequiresPermissions("shangpin:list")
+//    @RequiresPermissions("shangpin:list")
     public FebsResponse shangpinList(QueryRequest request, ShangpinResp shangpin) {
         Map<String, Object> dataTable = getDataTable(this.shangpinService.findShangpins(request, shangpin));
         return new FebsResponse().success().data(dataTable);
@@ -61,7 +61,7 @@ public class ShangpinController extends BaseController {
     @ApiOperation("添加商品")
     @ControllerEndpoint(operation = "新增Shangpin", exceptionMessage = "新增Shangpin失败")
     @PostMapping("")
-    @RequiresPermissions("shangpin:add")
+//    @RequiresPermissions("shangpin:add")
     public FebsResponse addShangpin(@Valid Shangpin shangpin) {
         this.shangpinService.createShangpin(shangpin);
         return new FebsResponse().success();

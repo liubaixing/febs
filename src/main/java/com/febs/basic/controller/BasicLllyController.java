@@ -37,13 +37,13 @@ public class BasicLllyController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("basicLlly:list")
+//    @RequiresPermissions("basicLlly:list")
     public FebsResponse getAllBasicLllys(BasicLlly basicLlly) {
         return new FebsResponse().success().data(basicLllyService.findBasicLllys(basicLlly));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("basicLlly:list")
+//    @RequiresPermissions("basicLlly:list")
     public FebsResponse basicLllyList(QueryRequest request, BasicLlly basicLlly) {
         Map<String, Object> dataTable = getDataTable(this.basicLllyService.findBasicLllys(request, basicLlly));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class BasicLllyController extends BaseController {
 
     @ControllerEndpoint(operation = "新增流量来源", exceptionMessage = "新增流量来源失败")
     @PostMapping("")
-    @RequiresPermissions("basicLlly:add")
+//    @RequiresPermissions("basicLlly:add")
     public FebsResponse addBasicLlly(@Valid BasicLlly basicLlly) {
         this.basicLllyService.createBasicLlly(basicLlly);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class BasicLllyController extends BaseController {
 
     @ControllerEndpoint(operation = "删除流量来源", exceptionMessage = "删除流量来源失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("basicLlly:delete")
+//    @RequiresPermissions("basicLlly:delete")
     public FebsResponse deleteBasicLlly(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.basicLllyService.deleteBasicLlly(id);
@@ -68,7 +68,7 @@ public class BasicLllyController extends BaseController {
 
     @ControllerEndpoint(operation = "修改流量来源", exceptionMessage = "修改流量来源失败")
     @PostMapping("/update")
-    @RequiresPermissions("basicLlly:update")
+//    @RequiresPermissions("basicLlly:update")
     public FebsResponse updateBasicLlly(BasicLlly basicLlly) {
         this.basicLllyService.updateBasicLlly(basicLlly);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class BasicLllyController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("basicLlly:export")
+//    @RequiresPermissions("basicLlly:export")
     public void export(QueryRequest queryRequest, BasicLlly basicLlly, HttpServletResponse response) {
         List<BasicLlly> basicLllys = this.basicLllyService.findBasicLllys(queryRequest, basicLlly).getRecords();
         ExcelKit.$Export(BasicLlly.class, response).downXlsx(basicLllys, false);

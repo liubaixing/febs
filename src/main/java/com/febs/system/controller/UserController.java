@@ -46,14 +46,14 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("list")
-    @RequiresPermissions("user:view")
+//    @RequiresPermissions("user:view")
     public FebsResponse userList(User user, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.userService.findUserDetailList(user, request));
         return new FebsResponse().success().data(dataTable);
     }
 
     @GetMapping("")
-    @RequiresPermissions("user:view")
+//    @RequiresPermissions("user:view")
     public FebsResponse userList(User user) {
         QueryRequest request = new QueryRequest();
         request.setPageSize(Integer.MAX_VALUE);
@@ -61,7 +61,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping
-    @RequiresPermissions("user:add")
+//    @RequiresPermissions("user:add")
     @ControllerEndpoint(operation = "新增用户", exceptionMessage = "新增用户失败")
     public FebsResponse addUser(@Valid User user) {
         this.userService.createUser(user);
@@ -69,7 +69,7 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("delete/{userIds}")
-    @RequiresPermissions("user:delete")
+//    @RequiresPermissions("user:delete")
     @ControllerEndpoint(operation = "删除用户", exceptionMessage = "删除用户失败")
     public FebsResponse deleteUsers(@NotBlank(message = "{required}") @PathVariable String userIds) {
         String[] ids = userIds.split(StringPool.COMMA);
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("update")
-    @RequiresPermissions("user:update")
+//    @RequiresPermissions("user:update")
     @ControllerEndpoint(operation = "修改用户", exceptionMessage = "修改用户失败")
     public FebsResponse updateUser(@Valid User user) {
         if (user.getUserId() == null) {
@@ -89,7 +89,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("password/reset/{usernames}")
-    @RequiresPermissions("user:password:reset")
+//    @RequiresPermissions("user:password:reset")
     @ControllerEndpoint(exceptionMessage = "重置用户密码失败")
     public FebsResponse resetPassword(@NotBlank(message = "{required}") @PathVariable String usernames) {
         String[] usernameArr = usernames.split(StringPool.COMMA);
@@ -136,7 +136,7 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("excel")
-    @RequiresPermissions("user:export")
+//    @RequiresPermissions("user:export")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     public void export(QueryRequest queryRequest, User user, HttpServletResponse response) {
         List<User> users = this.userService.findUserDetailList(user, queryRequest).getRecords();

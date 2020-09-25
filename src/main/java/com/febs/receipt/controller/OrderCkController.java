@@ -165,7 +165,7 @@ public class OrderCkController extends BaseController {
         ck.setZf((byte)1);
         ck.setZfr(user.getUsername());
         ck.setZfrq(new Date());
-        orderCkService.updateOrderCk(ck);
+        ckBiz.zf(ck);
         return new FebsResponse().success();
     }
 

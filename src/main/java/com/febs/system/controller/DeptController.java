@@ -45,7 +45,7 @@ public class DeptController {
     }
 
     @PostMapping
-    @RequiresPermissions("dept:add")
+//    @RequiresPermissions("dept:add")
     @ControllerEndpoint(operation = "新增部门", exceptionMessage = "新增部门失败")
     public FebsResponse addDept(@Valid Dept dept) {
         this.deptService.createDept(dept);
@@ -53,7 +53,7 @@ public class DeptController {
     }
 
     @GetMapping("delete/{deptIds}")
-    @RequiresPermissions("dept:delete")
+//    @RequiresPermissions("dept:delete")
     @ControllerEndpoint(operation = "删除部门", exceptionMessage = "删除部门失败")
     public FebsResponse deleteDepts(@NotBlank(message = "{required}") @PathVariable String deptIds) throws FebsException {
         String[] ids = deptIds.split(StringPool.COMMA);
@@ -62,7 +62,7 @@ public class DeptController {
     }
 
     @PostMapping("update")
-    @RequiresPermissions("dept:update")
+//    @RequiresPermissions("dept:update")
     @ControllerEndpoint(operation = "修改部门", exceptionMessage = "修改部门失败")
     public FebsResponse updateDept(@Valid Dept dept) throws FebsException {
         this.deptService.updateDept(dept);
@@ -70,7 +70,7 @@ public class DeptController {
     }
 
     @GetMapping("excel")
-    @RequiresPermissions("dept:export")
+//    @RequiresPermissions("dept:export")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     public void export(Dept dept, QueryRequest request, HttpServletResponse response) throws FebsException {
         List<Dept> depts = this.deptService.findDepts(dept, request);

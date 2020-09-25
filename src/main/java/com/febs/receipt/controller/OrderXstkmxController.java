@@ -40,13 +40,13 @@ public class OrderXstkmxController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("orderXstkmx:list")
+//    @RequiresPermissions("orderXstkmx:list")
     public FebsResponse getAllOrderXstkmxs(OrderXstkmx orderXstkmx) {
         return new FebsResponse().success().data(orderXstkmxService.findOrderXstkmxs(orderXstkmx));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("orderXstkmx:list")
+//    @RequiresPermissions("orderXstkmx:list")
     public FebsResponse orderXstkmxList(QueryRequest request, OrderXstkmx orderXstkmx) {
         Map<String, Object> dataTable = getDataTable(this.orderXstkmxService.findOrderXstkmxs(request, orderXstkmx));
         return new FebsResponse().success().data(dataTable);
@@ -54,7 +54,7 @@ public class OrderXstkmxController extends BaseController {
 
     @ControllerEndpoint(operation = "新增销售退款明细", exceptionMessage = "新增销售退款明细失败")
     @PostMapping("")
-    @RequiresPermissions("orderXstkmx:add")
+//    @RequiresPermissions("orderXstkmx:add")
     public FebsResponse addOrderXstkmx(@Valid OrderXstkmx orderXstkmx) {
         this.orderXstkmxService.createOrderXstkmx(orderXstkmx);
         return new FebsResponse().success();
@@ -62,7 +62,7 @@ public class OrderXstkmxController extends BaseController {
 
     @ControllerEndpoint(operation = "删除销售退款明细", exceptionMessage = "删除销售退款明细失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("orderXstkmx:delete")
+//    @RequiresPermissions("orderXstkmx:delete")
     public FebsResponse deleteOrderXstkmx(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.orderXstkmxService.deleteOrderXstkmx(id);
@@ -71,7 +71,7 @@ public class OrderXstkmxController extends BaseController {
 
     @ControllerEndpoint(operation = "修改销售退款明细", exceptionMessage = "修改销售退款明细失败")
     @PostMapping("/update")
-    @RequiresPermissions("orderXstkmx:update")
+//    @RequiresPermissions("orderXstkmx:update")
     public FebsResponse updateOrderXstkmx(OrderXstkmx orderXstkmx) {
         this.orderXstkmxService.updateOrderXstkmx(orderXstkmx);
         return new FebsResponse().success();
@@ -79,7 +79,7 @@ public class OrderXstkmxController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("orderXstkmx:export")
+//    @RequiresPermissions("orderXstkmx:export")
     public void export(QueryRequest queryRequest, OrderXstkmx orderXstkmx, HttpServletResponse response) throws IOException {
         List<OrderXstkmxResp> orderXstkmxs = this.orderXstkmxService.findOrderXstkmxs(queryRequest, orderXstkmx).getRecords();
         ExcelUtil.export(orderXstkmxs, OrderXstkmxResp.class,"销售退款明细",response);

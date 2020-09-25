@@ -37,13 +37,13 @@ public class ShangpinSkuController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("shangpinSku:list")
+//    @RequiresPermissions("shangpinSku:list")
     public FebsResponse getAllShangpinSkus(ShangpinSku shangpinSku) {
         return new FebsResponse().success().data(shangpinSkuService.findShangpinSkus(shangpinSku));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("shangpinSku:list")
+//    @RequiresPermissions("shangpinSku:list")
     public FebsResponse shangpinSkuList(QueryRequest request, ShangpinSku shangpinSku) {
         Map<String, Object> dataTable = getDataTable(this.shangpinSkuService.findShangpinSkus(request, shangpinSku));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class ShangpinSkuController extends BaseController {
 
     @ControllerEndpoint(operation = "新增ShangpinSku", exceptionMessage = "新增ShangpinSku失败")
     @PostMapping("")
-    @RequiresPermissions("shangpinSku:add")
+//    @RequiresPermissions("shangpinSku:add")
     public FebsResponse addShangpinSku(@Valid ShangpinSku shangpinSku) {
         this.shangpinSkuService.createShangpinSku(shangpinSku);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class ShangpinSkuController extends BaseController {
 
     @ControllerEndpoint(operation = "删除ShangpinSku", exceptionMessage = "删除ShangpinSku失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("shangpinSku:delete")
+//    @RequiresPermissions("shangpinSku:delete")
     public FebsResponse deleteShangpinSku(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.shangpinSkuService.deleteShangpinSku(id);
@@ -76,7 +76,7 @@ public class ShangpinSkuController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("shangpinSku:export")
+//    @RequiresPermissions("shangpinSku:export")
     public void export(QueryRequest queryRequest, ShangpinSku shangpinSku, HttpServletResponse response) {
         List<ShangpinSku> shangpinSkus = this.shangpinSkuService.findShangpinSkus(queryRequest, shangpinSku).getRecords();
         ExcelKit.$Export(ShangpinSku.class, response).downXlsx(shangpinSkus, false);

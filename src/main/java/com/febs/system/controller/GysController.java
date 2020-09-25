@@ -56,7 +56,7 @@ public class GysController extends BaseController {
 
     @ControllerEndpoint(operation = "新增供应商", exceptionMessage = "新增供应商失败")
     @PostMapping("")
-    @RequiresPermissions("gys:add")
+//    @RequiresPermissions("gys:add")
     public FebsResponse addGys(@Valid Gys gys) {
         this.gysService.createGys(gys);
         return new FebsResponse().success();
@@ -64,7 +64,7 @@ public class GysController extends BaseController {
 
     @ControllerEndpoint(operation = "删除供应商", exceptionMessage = "删除供应商失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("gys:delete")
+//    @RequiresPermissions("gys:delete")
     public FebsResponse deleteGys(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.gysService.deleteGys(id);
@@ -73,7 +73,7 @@ public class GysController extends BaseController {
 
     @ControllerEndpoint(operation = "修改供应商", exceptionMessage = "修改供应商失败")
     @PostMapping("/update")
-    @RequiresPermissions("gys:update")
+//    @RequiresPermissions("gys:update")
     public FebsResponse updateGys(Gys gys) {
         this.gysService.updateGys(gys);
         return new FebsResponse().success();
@@ -81,7 +81,7 @@ public class GysController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("gys:export")
+//    @RequiresPermissions("gys:export")
     public void export(QueryRequest queryRequest, Gys gys, HttpServletResponse response) throws IOException {
         List<Gys> gyss = this.gysService.findGyss(queryRequest, gys).getRecords();
         ExcelUtil.export(gyss,Gys.class,"供应商管理",response);

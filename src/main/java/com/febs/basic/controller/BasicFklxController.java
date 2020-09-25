@@ -37,13 +37,13 @@ public class BasicFklxController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("basicFklx:list")
+//    @RequiresPermissions("basicFklx:list")
     public FebsResponse getAllBasicFklxs(BasicFklx basicFklx) {
         return new FebsResponse().success().data(basicFklxService.findBasicFklxs(basicFklx));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("basicFklx:list")
+//    @RequiresPermissions("basicFklx:list")
     public FebsResponse basicFklxList(QueryRequest request, BasicFklx basicFklx) {
         Map<String, Object> dataTable = getDataTable(this.basicFklxService.findBasicFklxs(request, basicFklx));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class BasicFklxController extends BaseController {
 
     @ControllerEndpoint(operation = "新增付款类型", exceptionMessage = "新增付款类型失败")
     @PostMapping("")
-    @RequiresPermissions("basicFklx:add")
+//    @RequiresPermissions("basicFklx:add")
     public FebsResponse addBasicFklx(@Valid BasicFklx basicFklx) {
         this.basicFklxService.createBasicFklx(basicFklx);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class BasicFklxController extends BaseController {
 
     @ControllerEndpoint(operation = "删除付款类型", exceptionMessage = "删除付款类型失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("basicFklx:delete")
+//    @RequiresPermissions("basicFklx:delete")
     public FebsResponse deleteBasicFklx(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.basicFklxService.deleteBasicFklx(id);
@@ -68,7 +68,7 @@ public class BasicFklxController extends BaseController {
 
     @ControllerEndpoint(operation = "修改付款类型", exceptionMessage = "修改付款类型失败")
     @PostMapping("/update")
-    @RequiresPermissions("basicFklx:update")
+//    @RequiresPermissions("basicFklx:update")
     public FebsResponse updateBasicFklx(BasicFklx basicFklx) {
         this.basicFklxService.updateBasicFklx(basicFklx);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class BasicFklxController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("basicFklx:export")
+//    @RequiresPermissions("basicFklx:export")
     public void export(QueryRequest queryRequest, BasicFklx basicFklx, HttpServletResponse response) {
         List<BasicFklx> basicFklxs = this.basicFklxService.findBasicFklxs(queryRequest, basicFklx).getRecords();
         ExcelKit.$Export(BasicFklx.class, response).downXlsx(basicFklxs, false);

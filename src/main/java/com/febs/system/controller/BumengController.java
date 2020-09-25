@@ -44,13 +44,13 @@ public class BumengController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("bumeng:list")
+//    @RequiresPermissions("bumeng:list")
     public FebsResponse getAllBumengs(Bumeng bumeng) {
         return new FebsResponse().success().data(bumengService.findBumengs(bumeng));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("bumeng:list")
+//    @RequiresPermissions("bumeng:list")
     public FebsResponse bumengList(QueryRequest request, Bumeng bumeng) {
         Map<String, Object> dataTable = getDataTable(this.bumengService.findBumengs(request, bumeng));
         return new FebsResponse().success().data(dataTable);

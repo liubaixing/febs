@@ -43,13 +43,13 @@ public class CangkuController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("cangku:list")
+//    @RequiresPermissions("cangku:list")
     public FebsResponse getAllCangkus(Cangku cangku) {
         return new FebsResponse().success().data(cangkuService.findCangkus(cangku));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("cangku:list")
+//    @RequiresPermissions("cangku:list")
     public FebsResponse cangkuList(QueryRequest request, Cangku cangku) {
         Map<String, Object> dataTable = getDataTable(this.cangkuService.findCangkus(request, cangku));
         return new FebsResponse().success().data(dataTable);
@@ -57,7 +57,7 @@ public class CangkuController extends BaseController {
 
     @ControllerEndpoint( exceptionMessage = "新增仓库失败")
     @PostMapping("")
-    @RequiresPermissions("cangku:add")
+//    @RequiresPermissions("cangku:add")
     public FebsResponse addCangku(@Valid Cangku cangku) {
         this.cangkuService.createCangku(cangku);
         return new FebsResponse().success();
@@ -65,7 +65,7 @@ public class CangkuController extends BaseController {
 
     @ControllerEndpoint(operation = "删除仓库", exceptionMessage = "删除仓库失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("cangku:delete")
+//    @RequiresPermissions("cangku:delete")
     public FebsResponse deleteCangku(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.cangkuService.deleteCangku(id);
@@ -74,7 +74,7 @@ public class CangkuController extends BaseController {
 
     @ControllerEndpoint(operation = "修改仓库", exceptionMessage = "修改仓库失败")
     @PostMapping("/update")
-    @RequiresPermissions("cangku:update")
+//    @RequiresPermissions("cangku:update")
     public FebsResponse updateCangku(Cangku cangku) {
         this.cangkuService.updateCangku(cangku);
         return new FebsResponse().success();
@@ -82,7 +82,7 @@ public class CangkuController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("cangku:export")
+//    @RequiresPermissions("cangku:export")
     public void export(QueryRequest queryRequest, Cangku cangku, HttpServletResponse response) throws IOException {
         List<CangkuResp> cangkus = this.cangkuService.findCangkus(queryRequest, cangku).getRecords();
         ExcelUtil.export(cangkus,CangkuResp.class,"仓库管理",response);

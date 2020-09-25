@@ -38,13 +38,13 @@ public class OrderqtYsfdmxController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("orderqtYsfdmx:list")
+//    @RequiresPermissions("orderqtYsfdmx:list")
     public FebsResponse getAllOrderqtYsfdmxs(OrderqtYsfdmx orderqtYsfdmx) {
         return new FebsResponse().success().data(orderqtYsfdmxService.findOrderqtYsfdmxs(orderqtYsfdmx));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("orderqtYsfdmx:list")
+//    @RequiresPermissions("orderqtYsfdmx:list")
     public FebsResponse orderqtYsfdmxList(QueryRequest request, OrderqtYsfdmx orderqtYsfdmx) {
         Map<String, Object> dataTable = getDataTable(this.orderqtYsfdmxService.findOrderqtYsfdmxs(request, orderqtYsfdmx));
         return new FebsResponse().success().data(dataTable);
@@ -52,7 +52,7 @@ public class OrderqtYsfdmxController extends BaseController {
 
     @ControllerEndpoint(operation = "新增印刷费单明细", exceptionMessage = "新增印刷费单明细失败")
     @PostMapping("")
-    @RequiresPermissions("orderqtYsfdmx:add")
+//    @RequiresPermissions("orderqtYsfdmx:add")
     public FebsResponse addOrderqtYsfdmx(@Valid OrderqtYsfdmx orderqtYsfdmx) {
         this.orderqtYsfdmxService.createOrderqtYsfdmx(orderqtYsfdmx);
         return new FebsResponse().success();
@@ -60,7 +60,7 @@ public class OrderqtYsfdmxController extends BaseController {
 
     @ControllerEndpoint(operation = "删除印刷费单明细", exceptionMessage = "删除印刷费单明细失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("orderqtYsfdmx:delete")
+//    @RequiresPermissions("orderqtYsfdmx:delete")
     public FebsResponse deleteOrderqtYsfdmx(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.orderqtYsfdmxService.deleteOrderqtYsfdmx(id);
@@ -69,7 +69,7 @@ public class OrderqtYsfdmxController extends BaseController {
 
     @ControllerEndpoint(operation = "修改印刷费单明细", exceptionMessage = "修改印刷费单明细失败")
     @PostMapping("/update")
-    @RequiresPermissions("orderqtYsfdmx:update")
+//    @RequiresPermissions("orderqtYsfdmx:update")
     public FebsResponse updateOrderqtYsfdmx(OrderqtYsfdmx orderqtYsfdmx) {
         this.orderqtYsfdmxService.updateOrderqtYsfdmx(orderqtYsfdmx);
         return new FebsResponse().success();
@@ -77,7 +77,7 @@ public class OrderqtYsfdmxController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("orderqtYsfdmx:export")
+//    @RequiresPermissions("orderqtYsfdmx:export")
     public void export(QueryRequest queryRequest, OrderqtYsfdmx orderqtYsfdmx, HttpServletResponse response) throws IOException {
         List<OrderqtYsfdmx> orderqtYsfdmxs = this.orderqtYsfdmxService.findOrderqtYsfdmxs(queryRequest, orderqtYsfdmx).getRecords();
         ExcelUtil.export(orderqtYsfdmxs, OrderqtYsfdmx.class,"印刷费单明细",response);

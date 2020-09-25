@@ -89,7 +89,7 @@ public class OrderXsController extends BaseController {
     @ApiOperation("删除销售单")
     @ControllerEndpoint(operation = "删除销售单", exceptionMessage = "删除销售单失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("orderXs:delete")
+//    @RequiresPermissions("orderXs:delete")
     public FebsResponse deleteOrderXs(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.orderXsBiz.delete(id);

@@ -37,13 +37,13 @@ public class ShangpinSizeController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("shangpinSize:list")
+//    @RequiresPermissions("shangpinSize:list")
     public FebsResponse getAllShangpinSizes(ShangpinSize shangpinSize) {
         return new FebsResponse().success().data(shangpinSizeService.findShangpinSizes(shangpinSize));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("shangpinSize:list")
+//    @RequiresPermissions("shangpinSize:list")
     public FebsResponse shangpinSizeList(QueryRequest request, ShangpinSize shangpinSize) {
         Map<String, Object> dataTable = getDataTable(this.shangpinSizeService.findShangpinSizes(request, shangpinSize));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class ShangpinSizeController extends BaseController {
 
     @ControllerEndpoint(operation = "新增ShangpinSize", exceptionMessage = "新增ShangpinSize失败")
     @PostMapping("")
-    @RequiresPermissions("shangpinSize:add")
+//    @RequiresPermissions("shangpinSize:add")
     public FebsResponse addShangpinSize(@Valid ShangpinSize shangpinSize) {
         this.shangpinSizeService.createShangpinSize(shangpinSize);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class ShangpinSizeController extends BaseController {
 
     @ControllerEndpoint(operation = "删除ShangpinSize", exceptionMessage = "删除ShangpinSize失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("shangpinSize:delete")
+//    @RequiresPermissions("shangpinSize:delete")
     public FebsResponse deleteShangpinSize(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.shangpinSizeService.deleteShangpinSize(id);
@@ -68,7 +68,7 @@ public class ShangpinSizeController extends BaseController {
 
     @ControllerEndpoint(operation = "修改ShangpinSize", exceptionMessage = "修改ShangpinSize失败")
     @PostMapping("/update")
-    @RequiresPermissions("shangpinSize:update")
+//    @RequiresPermissions("shangpinSize:update")
     public FebsResponse updateShangpinSize(ShangpinSize shangpinSize) {
         this.shangpinSizeService.updateShangpinSize(shangpinSize);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class ShangpinSizeController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("shangpinSize:export")
+//    @RequiresPermissions("shangpinSize:export")
     public void export(QueryRequest queryRequest, ShangpinSize shangpinSize, HttpServletResponse response) {
         List<ShangpinSize> shangpinSizes = this.shangpinSizeService.findShangpinSizes(queryRequest, shangpinSize).getRecords();
         ExcelKit.$Export(ShangpinSize.class, response).downXlsx(shangpinSizes, false);

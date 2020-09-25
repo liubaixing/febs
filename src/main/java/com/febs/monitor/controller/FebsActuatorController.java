@@ -31,7 +31,7 @@ public class FebsActuatorController {
     private final FebsHttpTraceEndpoint httpTraceEndpoint;
 
     @GetMapping("httptrace")
-    @RequiresPermissions("httptrace:view")
+//    @RequiresPermissions("httptrace:view")
     @ControllerEndpoint(exceptionMessage = "请求追踪失败")
     public FebsResponse httpTraces(String method, String url) {
         FebsHttpTraceEndpoint.FebsHttpTraceDescriptor traces = httpTraceEndpoint.traces();

@@ -37,13 +37,13 @@ public class BasicKhyhController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("basicKhyh:list")
+//    @RequiresPermissions("basicKhyh:list")
     public FebsResponse getAllBasicKhyhs(BasicKhyh basicKhyh) {
         return new FebsResponse().success().data(basicKhyhService.findBasicKhyhs(basicKhyh));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("basicKhyh:list")
+//    @RequiresPermissions("basicKhyh:list")
     public FebsResponse basicKhyhList(QueryRequest request, BasicKhyh basicKhyh) {
         Map<String, Object> dataTable = getDataTable(this.basicKhyhService.findBasicKhyhs(request, basicKhyh));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class BasicKhyhController extends BaseController {
 
     @ControllerEndpoint(operation = "新增开户银行", exceptionMessage = "新增开户银行失败")
     @PostMapping("")
-    @RequiresPermissions("basicKhyh:add")
+//    @RequiresPermissions("basicKhyh:add")
     public FebsResponse addBasicKhyh(@Valid BasicKhyh basicKhyh) {
         this.basicKhyhService.createBasicKhyh(basicKhyh);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class BasicKhyhController extends BaseController {
 
     @ControllerEndpoint(operation = "删除开户银行", exceptionMessage = "删除开户银行失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("basicKhyh:delete")
+//    @RequiresPermissions("basicKhyh:delete")
     public FebsResponse deleteBasicKhyh(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.basicKhyhService.deleteBasicKhyh(id);
@@ -68,7 +68,7 @@ public class BasicKhyhController extends BaseController {
 
     @ControllerEndpoint(operation = "修改开户银行", exceptionMessage = "修改开户银行失败")
     @PostMapping("/update")
-    @RequiresPermissions("basicKhyh:update")
+//    @RequiresPermissions("basicKhyh:update")
     public FebsResponse updateBasicKhyh(BasicKhyh basicKhyh) {
         this.basicKhyhService.updateBasicKhyh(basicKhyh);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class BasicKhyhController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("basicKhyh:export")
+//    @RequiresPermissions("basicKhyh:export")
     public void export(QueryRequest queryRequest, BasicKhyh basicKhyh, HttpServletResponse response) {
         List<BasicKhyh> basicKhyhs = this.basicKhyhService.findBasicKhyhs(queryRequest, basicKhyh).getRecords();
         ExcelKit.$Export(BasicKhyh.class, response).downXlsx(basicKhyhs, false);

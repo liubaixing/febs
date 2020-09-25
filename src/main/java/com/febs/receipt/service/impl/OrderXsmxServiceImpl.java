@@ -48,6 +48,11 @@ public class OrderXsmxServiceImpl extends ServiceImpl<OrderXsmxMapper, OrderXsmx
     }
 
     @Override
+    public List<OrderXsmx> findByExample(OrderXsmxExample example){
+        return this.orderXsmxMapper.selectByExample(example);
+    }
+
+    @Override
     @Transactional
     public void createOrderXsmx(OrderXsmx orderXsmx) {
         this.orderXsmxMapper.insertSelective(orderXsmx);

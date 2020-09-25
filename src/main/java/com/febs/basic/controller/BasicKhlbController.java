@@ -37,13 +37,13 @@ public class BasicKhlbController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("basicKhlb:list")
+//    @RequiresPermissions("basicKhlb:list")
     public FebsResponse getAllBasicKhlbs(BasicKhlb basicKhlb) {
         return new FebsResponse().success().data(basicKhlbService.findBasicKhlbs(basicKhlb));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("basicKhlb:list")
+//    @RequiresPermissions("basicKhlb:list")
     public FebsResponse basicKhlbList(QueryRequest request, BasicKhlb basicKhlb) {
         Map<String, Object> dataTable = getDataTable(this.basicKhlbService.findBasicKhlbs(request, basicKhlb));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class BasicKhlbController extends BaseController {
 
     @ControllerEndpoint(operation = "新增客户类别", exceptionMessage = "新增客户类别失败")
     @PostMapping("")
-    @RequiresPermissions("basicKhlb:add")
+//    @RequiresPermissions("basicKhlb:add")
     public FebsResponse addBasicKhlb(@Valid BasicKhlb basicKhlb) {
         this.basicKhlbService.createBasicKhlb(basicKhlb);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class BasicKhlbController extends BaseController {
 
     @ControllerEndpoint(operation = "删除客户类别", exceptionMessage = "删除客户类别失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("basicKhlb:delete")
+//    @RequiresPermissions("basicKhlb:delete")
     public FebsResponse deleteBasicKhlb(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.basicKhlbService.deleteBasicKhlb(id);
@@ -68,7 +68,7 @@ public class BasicKhlbController extends BaseController {
 
     @ControllerEndpoint(operation = "修改客户类别", exceptionMessage = "修改客户类别失败")
     @PostMapping("/update")
-    @RequiresPermissions("basicKhlb:update")
+//    @RequiresPermissions("basicKhlb:update")
     public FebsResponse updateBasicKhlb(BasicKhlb basicKhlb) {
         this.basicKhlbService.updateBasicKhlb(basicKhlb);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class BasicKhlbController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("basicKhlb:export")
+//    @RequiresPermissions("basicKhlb:export")
     public void export(QueryRequest queryRequest, BasicKhlb basicKhlb, HttpServletResponse response) {
         List<BasicKhlb> basicKhlbs = this.basicKhlbService.findBasicKhlbs(queryRequest, basicKhlb).getRecords();
         ExcelKit.$Export(BasicKhlb.class, response).downXlsx(basicKhlbs, false);

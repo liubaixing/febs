@@ -37,13 +37,13 @@ public class SizeController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("size:list")
+//    @RequiresPermissions("size:list")
     public FebsResponse getAllSizes(Size size) {
         return new FebsResponse().success().data(sizeService.findSizes(size));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("size:list")
+//    @RequiresPermissions("size:list")
     public FebsResponse sizeList(QueryRequest request, Size size) {
         Map<String, Object> dataTable = getDataTable(this.sizeService.findSizes(request, size));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class SizeController extends BaseController {
 
     @ControllerEndpoint(operation = "新增Size", exceptionMessage = "新增Size失败")
     @PostMapping("")
-    @RequiresPermissions("size:add")
+//    @RequiresPermissions("size:add")
     public FebsResponse addSize(@Valid Size size) {
         this.sizeService.createSize(size);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class SizeController extends BaseController {
 
     @ControllerEndpoint(operation = "删除Size", exceptionMessage = "删除Size失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("size:delete")
+//    @RequiresPermissions("size:delete")
     public FebsResponse deleteSize(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.sizeService.deleteSize(id);
@@ -68,7 +68,7 @@ public class SizeController extends BaseController {
 
     @ControllerEndpoint(operation = "修改Size", exceptionMessage = "修改Size失败")
     @PostMapping("/update")
-    @RequiresPermissions("size:update")
+//    @RequiresPermissions("size:update")
     public FebsResponse updateSize(Size size) {
         this.sizeService.updateSize(size);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class SizeController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("size:export")
+//    @RequiresPermissions("size:export")
     public void export(QueryRequest queryRequest, Size size, HttpServletResponse response) {
         List<Size> sizes = this.sizeService.findSizes(queryRequest, size).getRecords();
         ExcelKit.$Export(Size.class, response).downXlsx(sizes, false);

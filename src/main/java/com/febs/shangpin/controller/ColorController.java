@@ -37,13 +37,13 @@ public class ColorController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("color:list")
+//    @RequiresPermissions("color:list")
     public FebsResponse getAllColors(Color color) {
         return new FebsResponse().success().data(colorService.findColors(color));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("color:list")
+//    @RequiresPermissions("color:list")
     public FebsResponse colorList(QueryRequest request, Color color) {
         Map<String, Object> dataTable = getDataTable(this.colorService.findColors(request, color));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class ColorController extends BaseController {
 
     @ControllerEndpoint(operation = "新增Color", exceptionMessage = "新增Color失败")
     @PostMapping("")
-    @RequiresPermissions("color:add")
+//    @RequiresPermissions("color:add")
     public FebsResponse addColor(@Valid Color color) {
         this.colorService.createColor(color);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class ColorController extends BaseController {
 
     @ControllerEndpoint(operation = "删除Color", exceptionMessage = "删除Color失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("color:delete")
+//    @RequiresPermissions("color:delete")
     public FebsResponse deleteColor(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.colorService.deleteColor(id);
@@ -68,7 +68,7 @@ public class ColorController extends BaseController {
 
     @ControllerEndpoint(operation = "修改Color", exceptionMessage = "修改Color失败")
     @PostMapping("/update")
-    @RequiresPermissions("color:update")
+//    @RequiresPermissions("color:update")
     public FebsResponse updateColor(Color color) {
         this.colorService.updateColor(color);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class ColorController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("color:export")
+//    @RequiresPermissions("color:export")
     public void export(QueryRequest queryRequest, Color color, HttpServletResponse response) {
         List<Color> colors = this.colorService.findColors(queryRequest, color).getRecords();
         ExcelKit.$Export(Color.class, response).downXlsx(colors, false);

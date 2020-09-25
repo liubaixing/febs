@@ -42,13 +42,13 @@ public class ShangpinZlController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("shangpinZl:list")
+//    @RequiresPermissions("shangpinZl:list")
     public FebsResponse getAllShangpinZls(ShangpinZl shangpinZl) {
         return new FebsResponse().success().data(shangpinZlService.findShangpinZls(shangpinZl));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("shangpinZl:list")
+//    @RequiresPermissions("shangpinZl:list")
     public FebsResponse shangpinZlList(QueryRequest request, ShangpinZl shangpinZl) {
         Map<String, Object> dataTable = getDataTable(this.shangpinZlService.findShangpinZls(request, shangpinZl));
         return new FebsResponse().success().data(dataTable);
@@ -56,7 +56,7 @@ public class ShangpinZlController extends BaseController {
 
     @ControllerEndpoint(operation = "新增ShangpinZl", exceptionMessage = "新增ShangpinZl失败")
     @PostMapping("")
-    @RequiresPermissions("shangpinZl:add")
+//    @RequiresPermissions("shangpinZl:add")
     public FebsResponse addShangpinZl(@Valid ShangpinZl shangpinZl) {
         this.shangpinZlService.createShangpinZl(shangpinZl);
         return new FebsResponse().success();
@@ -64,7 +64,7 @@ public class ShangpinZlController extends BaseController {
 
     @ControllerEndpoint(operation = "删除ShangpinZl", exceptionMessage = "删除ShangpinZl失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("shangpinZl:delete")
+//    @RequiresPermissions("shangpinZl:delete")
     public FebsResponse deleteShangpinZl(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.shangpinZlService.deleteShangpinZl(id);
@@ -73,7 +73,7 @@ public class ShangpinZlController extends BaseController {
 
     @ControllerEndpoint(operation = "修改ShangpinZl", exceptionMessage = "修改ShangpinZl失败")
     @PostMapping("/update")
-    @RequiresPermissions("shangpinZl:update")
+//    @RequiresPermissions("shangpinZl:update")
     public FebsResponse updateShangpinZl(ShangpinZl shangpinZl) {
         this.shangpinZlService.updateShangpinZl(shangpinZl);
         return new FebsResponse().success();

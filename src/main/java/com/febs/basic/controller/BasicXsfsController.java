@@ -37,13 +37,13 @@ public class BasicXsfsController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("basicXsfs:list")
+//    @RequiresPermissions("basicXsfs:list")
     public FebsResponse getAllBasicXsfss(BasicXsfs basicXsfs) {
         return new FebsResponse().success().data(basicXsfsService.findBasicXsfss(basicXsfs));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("basicXsfs:list")
+//    @RequiresPermissions("basicXsfs:list")
     public FebsResponse basicXsfsList(QueryRequest request, BasicXsfs basicXsfs) {
         Map<String, Object> dataTable = getDataTable(this.basicXsfsService.findBasicXsfss(request, basicXsfs));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class BasicXsfsController extends BaseController {
 
     @ControllerEndpoint(operation = "新增销售方式", exceptionMessage = "新增销售方式失败")
     @PostMapping("")
-    @RequiresPermissions("basicXsfs:add")
+//    @RequiresPermissions("basicXsfs:add")
     public FebsResponse addBasicXsfs(@Valid BasicXsfs basicXsfs) {
         this.basicXsfsService.createBasicXsfs(basicXsfs);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class BasicXsfsController extends BaseController {
 
     @ControllerEndpoint(operation = "删除销售方式", exceptionMessage = "删除销售方式失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("basicXsfs:delete")
+//    @RequiresPermissions("basicXsfs:delete")
     public FebsResponse deleteBasicXsfs(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.basicXsfsService.deleteBasicXsfs(id);

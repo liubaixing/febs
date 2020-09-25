@@ -37,13 +37,13 @@ public class BasicDjlxController extends BaseController {
 
 
     @GetMapping("")
-    @RequiresPermissions("basicDjlx:list")
+//    @RequiresPermissions("basicDjlx:list")
     public FebsResponse getAllBasicDjlxs(BasicDjlx basicDjlx) {
         return new FebsResponse().success().data(basicDjlxService.findBasicDjlxs(basicDjlx));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("basicDjlx:list")
+//    @RequiresPermissions("basicDjlx:list")
     public FebsResponse basicDjlxList(QueryRequest request, BasicDjlx basicDjlx) {
         Map<String, Object> dataTable = getDataTable(this.basicDjlxService.findBasicDjlxs(request, basicDjlx));
         return new FebsResponse().success().data(dataTable);
@@ -51,7 +51,7 @@ public class BasicDjlxController extends BaseController {
 
     @ControllerEndpoint(operation = "新增单据类型", exceptionMessage = "新增单据类型失败")
     @PostMapping("")
-    @RequiresPermissions("basicDjlx:add")
+//    @RequiresPermissions("basicDjlx:add")
     public FebsResponse addBasicDjlx(@Valid BasicDjlx basicDjlx) {
         this.basicDjlxService.createBasicDjlx(basicDjlx);
         return new FebsResponse().success();
@@ -59,7 +59,7 @@ public class BasicDjlxController extends BaseController {
 
     @ControllerEndpoint(operation = "删除单据类型", exceptionMessage = "删除单据类型失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("basicDjlx:delete")
+//    @RequiresPermissions("basicDjlx:delete")
     public FebsResponse deleteBasicDjlx(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.basicDjlxService.deleteBasicDjlx(id);
@@ -68,7 +68,7 @@ public class BasicDjlxController extends BaseController {
 
     @ControllerEndpoint(operation = "修改单据类型", exceptionMessage = "修改单据类型失败")
     @PostMapping("/update")
-    @RequiresPermissions("basicDjlx:update")
+//    @RequiresPermissions("basicDjlx:update")
     public FebsResponse updateBasicDjlx(BasicDjlx basicDjlx) {
         this.basicDjlxService.updateBasicDjlx(basicDjlx);
         return new FebsResponse().success();
@@ -76,7 +76,7 @@ public class BasicDjlxController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("basicDjlx:export")
+//    @RequiresPermissions("basicDjlx:export")
     public void export(QueryRequest queryRequest, BasicDjlx basicDjlx, HttpServletResponse response) {
         List<BasicDjlx> basicDjlxs = this.basicDjlxService.findBasicDjlxs(queryRequest, basicDjlx).getRecords();
         ExcelKit.$Export(BasicDjlx.class, response).downXlsx(basicDjlxs, false);

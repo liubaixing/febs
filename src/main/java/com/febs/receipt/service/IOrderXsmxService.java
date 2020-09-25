@@ -36,6 +36,8 @@ public interface IOrderXsmxService extends IService<OrderXsmx> {
 
     OrderXsmx findById(Long id);
 
+    List<OrderXsmx> findByExample(OrderXsmxExample example);
+
     /**
      * 新增
      *

@@ -2,9 +2,7 @@ package com.febs.receipt.biz;
 
 
 import com.febs.common.exception.FebsException;
-import com.febs.receipt.entity.OrderCk;
-import com.febs.receipt.entity.OrderCkmx;
-import com.febs.receipt.entity.OrderXsmx;
+import com.febs.receipt.entity.*;
 import com.febs.receipt.service.IOrderCkService;
 import com.febs.receipt.service.IOrderCkmxService;
 import com.febs.receipt.service.IOrderXsService;
@@ -12,6 +10,7 @@ import com.febs.receipt.service.IOrderXsmxService;
 import com.febs.receipt.vo.req.OrderCkReq;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderCkResp;
+import com.febs.receipt.vo.resp.OrderCkmxResp;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.receipt.vo.resp.OrderXsmxResp;
 import com.febs.system.entity.User;
@@ -100,5 +99,34 @@ public class OrderCkBiz {
         ck.setBhfhrq(new Date());
         ckService.updateOrderCk(ck);
 
+    }
+
+    @Transactional
+    public void zf(OrderCk ck) {
+        OrderCkResp ckResp = ckService.findById(ck.getId());
+
+        if (ckResp == null) {
+            throw new FebsException("出库单不存在");
+        }
+
+        OrderCkmx ckmx = new OrderCkmx();
+        ckmx.setPid(ckResp.getId());
+        List<OrderCkmxResp> ckmxRespList = ckmxService.findOrderCkmxs(ckmx);
+
+
+        OrderXsExample example = new OrderXsExample();
+        example.createCriteria().andDjbhEqualTo(ckResp.getYdbh());
+        OrderXs orderXs = xsService.findOrderXs(example);
+
+        OrderXsmxExample xsExample = new OrderXsmxExample();
+        xsExample.createCriteria().andPidEqualTo(orderXs.getId()).andSpIdEqualTo(ckmxRespList.get(0).getSpId());
+        List<OrderXsmx> xsmxList = xsmxService.findByExample(xsExample);
+
+        OrderXsmx xsmx = xsmxList.get(0);
+
+        xsmx.setCksl(xsmx.getCksl() - ckmxRespList.get(0).getSl());
+        xsmxService.updateOrderXsmx(xsmx);
+
+        ckService.updateOrderCk(ck);
     }
 }

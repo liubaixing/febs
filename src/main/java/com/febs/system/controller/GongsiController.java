@@ -41,13 +41,13 @@ public class GongsiController extends BaseController {
     private IGongsiService gongsiService;
 
     @GetMapping("")
-    @RequiresPermissions("gongsi:list")
+//    @RequiresPermissions("gongsi:list")
     public FebsResponse getAllGongsis(Gongsi gongsi) {
         return new FebsResponse().success().data(gongsiService.findGongsis(gongsi));
     }
 
     @GetMapping("/list")
-    @RequiresPermissions("gongsi:list")
+//    @RequiresPermissions("gongsi:list")
     public FebsResponse gongsiList(QueryRequest request, Gongsi gongsi) {
         Map<String, Object> dataTable = getDataTable(this.gongsiService.findGongsis(request, gongsi));
         return new FebsResponse().success().data(dataTable);
@@ -55,7 +55,7 @@ public class GongsiController extends BaseController {
 
     @ControllerEndpoint(operation = "新增公司", exceptionMessage = "新增公司失败")
     @PostMapping("")
-    @RequiresPermissions("gongsi:add")
+//    @RequiresPermissions("gongsi:add")
     public FebsResponse addGongsi(@Valid Gongsi gongsi) {
         this.gongsiService.createGongsi(gongsi);
         return new FebsResponse().success();
@@ -63,7 +63,7 @@ public class GongsiController extends BaseController {
 
     @ControllerEndpoint(operation = "删除公司", exceptionMessage = "删除公司失败")
     @GetMapping("delete/{ids}")
-    @RequiresPermissions("gongsi:delete")
+//    @RequiresPermissions("gongsi:delete")
     public FebsResponse deleteGongsi(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] id = ids.split(StringPool.COMMA);
         this.gongsiService.deleteGongsi(id);
@@ -72,7 +72,7 @@ public class GongsiController extends BaseController {
 
     @ControllerEndpoint(operation = "修改公司", exceptionMessage = "修改公司失败")
     @PostMapping("/update")
-    @RequiresPermissions("gongsi:update")
+//    @RequiresPermissions("gongsi:update")
     public FebsResponse updateGongsi(Gongsi gongsi) {
         this.gongsiService.updateGongsi(gongsi);
         return new FebsResponse().success();
@@ -80,7 +80,7 @@ public class GongsiController extends BaseController {
 
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
-    @RequiresPermissions("gongsi:export")
+//    @RequiresPermissions("gongsi:export")
     public void export(QueryRequest queryRequest, Gongsi gongsi, HttpServletResponse response) throws IOException {
         List<Gongsi> gongsis = this.gongsiService.findGongsis(queryRequest, gongsi).getRecords();
         ExcelUtil.export(gongsis,Gongsi.class,"公司管理",response);
