@@ -1356,6 +1356,9 @@
             <if test="cg.xsdh != null and cg.xsdh != ''">
                 and cg.xsdh like CONCAT('%',#{cg.xsdh},'%')
             </if>
+            <if test="cg.gysId != null">
+                and cg.gys_id = #{cg.gysId}
+            </if>
             <if test="cg.ydjh != null and cg.ydjh != ''">
                 and cg.ydjh like CONCAT('%',#{cg.ydjh},'%')
             </if>
@@ -1494,6 +1497,9 @@
             </if>
             <if test="ydjh != null and ydjh != ''">
                 and cg.ydjh like CONCAT('%',#{ydjh},'%')
+            </if>
+            <if test="gysId != null">
+                and cg.gys_id = #{gysId}
             </if>
             <if test="userName != null and userName != ''">
                 and u.USERNAME like CONCAT('%',#{userName},'%')

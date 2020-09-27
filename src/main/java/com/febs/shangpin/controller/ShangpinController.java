@@ -11,6 +11,7 @@ import com.febs.common.utils.ExcelUtil;
 import com.febs.shangpin.entity.Shangpin;
 import com.febs.shangpin.service.IShangpinService;
 import com.febs.shangpin.vo.resp.ShangpinResp;
+import com.febs.system.service.IUserGysService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -42,11 +43,14 @@ public class ShangpinController extends BaseController {
 
     @Autowired
     private IShangpinService shangpinService;
+    @Autowired
+    private IUserGysService userGysService;
 
     @ApiOperation("全部查询")
     @GetMapping("")
 //    @RequiresPermissions("shangpin:list")
     public FebsResponse getAllShangpins(ShangpinResp shangpin) {
+        shangpin.setGysList(userGysService.getUserGys(getCurrentUser().getUserId()));
         return new FebsResponse().success().data(shangpinService.findShangpins(shangpin));
     }
 
@@ -54,6 +58,7 @@ public class ShangpinController extends BaseController {
     @GetMapping("/list")
 //    @RequiresPermissions("shangpin:list")
     public FebsResponse shangpinList(QueryRequest request, ShangpinResp shangpin) {
+        shangpin.setGysList(userGysService.getUserGys(getCurrentUser().getUserId()));
         Map<String, Object> dataTable = getDataTable(this.shangpinService.findShangpins(request, shangpin));
         return new FebsResponse().success().data(dataTable);
     }
