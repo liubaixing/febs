@@ -240,6 +240,13 @@
             <version>2.8.5</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>alibaba-dingtalk-service-sdk</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

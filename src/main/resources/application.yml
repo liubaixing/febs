@@ -30,3 +30,7 @@ mybatis-plus:
     banner: false
     db-config:
       select-strategy: not_empty
+
+dingtalk:
+  appkey: dingleemfjcnobu98wys
+  appsecret: yuNTOzAcTvX0XgKhlESc-1Eu78N3uY0A-F5gXmErc2_7MQPU7lO_oN0-0Nb_RKsg
