@@ -1,10 +1,13 @@
 package com.febs.shangpin.vo.resp;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.febs.shangpin.entity.Shangpin;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @TableName("shangpin")
@@ -39,5 +42,8 @@ public class ShangpinResp extends Shangpin {
     @ExcelProperty(value = "品牌名称",index = 1)
     @TableField("ppglmc")
     private String ppglmc;
+
+    @ExcelIgnore
+    private List<Long> gysList;
 
 }

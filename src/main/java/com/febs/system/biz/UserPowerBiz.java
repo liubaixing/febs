@@ -43,30 +43,32 @@ public class UserPowerBiz {
     @Resource
     private BasicPtdaMapper ptdaMapper;
 
-    public Map<String,Object> getUserPower(UserPowerReq req){
+    public List<Map<String,Object>> getUserPower(UserPowerReq req){
 
-        Map<String,Object> map = new HashMap<>();
-        List<Map<String,Object>> checkMap = new ArrayList<>();
-        List<Map<String,Object>> unCheckMap = new ArrayList<>();
-        Map<String,Object> temp = new HashMap<>();
+//        Map<String,Object> map = new HashMap<>();
+//        List<Map<String,Object>> checkMap = new ArrayList<>();
+//        List<Map<String,Object>> unCheckMap = new ArrayList<>();
+//        Map<String,Object> temp = new HashMap<>();
 
-        map.put("checkMap",checkMap);
-        map.put("unCheckMap",unCheckMap);
+        List<Map<String,Object>> userPowerMap = new ArrayList<>();
+
 
         if ("userOrg".equals(req.getPowerType())){
+
+
 
             List<Long> userOrgId = userOrgService.getUserOrg(req.getUserId());
             LambdaQueryWrapper<BasicPtda> queryWrapper = new LambdaQueryWrapper<>();
             List<BasicPtda> ptdaList =  ptdaMapper.selectList(queryWrapper);
             for (BasicPtda ptda : ptdaList ){
-                temp.put("powerId",ptda.getId());
-                temp.put("powerName",ptda.getPtdamc());
+                Map<String,Object> map = new HashMap<>();
+                map.put("powerId",ptda.getId());
+                map.put("powerName",ptda.getPtdamc());
+                map.put("check",0);
                 if (userOrgId.contains(ptda.getId())){
-                    checkMap.add(temp);
-                }else{
-                    unCheckMap.add(temp);
+                    map.put("check",1);
                 }
-
+                userPowerMap.add(map);
             }
 
         } else if ("userGys".equals(req.getPowerType())) {
@@ -76,13 +78,15 @@ public class UserPowerBiz {
             List<Gys> gysList = gysMapper.selectByExample(example);
 
             for (Gys gys : gysList){
-                temp.put("powerId",gys.getId());
-                temp.put("powerName",gys.getGysmc());
+                Map<String,Object> map = new HashMap<>();
+                map.put("powerId",gys.getId());
+                map.put("powerName",gys.getGysmc());
+                map.put("check",0);
                 if (userGysId.contains(gys.getId())){
-                    checkMap.add(temp);
-                }else{
-                    unCheckMap.add(temp);
+                    map.put("check",1);
                 }
+
+                userPowerMap.add(map);
             }
 
         } else if ("userCangku".equals(req.getPowerType())) {
@@ -91,17 +95,20 @@ public class UserPowerBiz {
             CangkuExample example = new CangkuExample();
             List<Cangku> cangkuList = cangkuMapper.selectByExample(example);
 
+
             for (Cangku cangku : cangkuList){
-                temp.put("powerId",cangku.getId());
-                temp.put("powerName",cangku.getCkmc());
+                Map<String,Object> map = new HashMap<>();
+                map.put("powerId",cangku.getId());
+                map.put("powerName",cangku.getCkmc());
+                map.put("check",0);
                 if (userCangkuId.contains(cangku.getId())){
-                    checkMap.add(temp);
-                }else{
-                    unCheckMap.add(temp);
+                    map.put("check",1);
                 }
+
+                userPowerMap.add(map);
             }
         }
-        return map;
+        return userPowerMap;
     }
 
     public void authorization(UserPowerReq req) {
