@@ -1,6 +1,7 @@
 package com.febs.system.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -12,12 +13,14 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
+@ToString
 public class DingTalkUser {
 
     private String staffId;
+    private String userid;
     private String name;
     private String orderInDepts;
-    private List<Integer> department;
+    private String department;
     private String position;
     private String mobile;
     private String tel;
@@ -28,4 +31,13 @@ public class DingTalkUser {
     private String jobnumber;
     private boolean isHide;
     private boolean isSenior;
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+        this.userid = staffId;
+    }
 }
