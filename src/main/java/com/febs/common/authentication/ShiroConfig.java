@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Base64Utils;
 
+import javax.servlet.Filter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -74,25 +75,19 @@ public class ShiroConfig {
 
         // 设置 securityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 登录的 url
-        shiroFilterFactoryBean.setLoginUrl(febsProperties.getShiro().getLoginUrl());
-        // 登录成功后跳转的 url
-        shiroFilterFactoryBean.setSuccessUrl(febsProperties.getShiro().getSuccessUrl());
-        // 未授权 url
-        shiroFilterFactoryBean.setUnauthorizedUrl(febsProperties.getShiro().getUnauthorizedUrl());
+
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 设置免认证 url
         String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(febsProperties.getShiro().getAnonUrl(), ",");
         for (String url : anonUrls) {
             filterChainDefinitionMap.put(url, "anon");
-            filterChainDefinitionMap.put("/qiniu/upload", "anon");
         }
-        // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
         filterChainDefinitionMap.put(febsProperties.getShiro().getLogoutUrl(), "logout");
-
-        // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
-        filterChainDefinitionMap.put("/**", "user");
+        filterChainDefinitionMap.put("/**", "authc");
+        LinkedHashMap<String, Filter> filters = new LinkedHashMap<>();
+        filters.put("authc",new ShiroUserFilter());
+        shiroFilterFactoryBean.setFilters(filters);
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
@@ -146,16 +141,6 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
-    }
-
-    /**
-     * 用于开启 Thymeleaf 中的 shiro 标签的使用
-     *
-     * @return ShiroDialect shiro 方言对象
-     */
-    @Bean
-    public ShiroDialect shiroDialect() {
-        return new ShiroDialect();
     }
 
     @Bean
