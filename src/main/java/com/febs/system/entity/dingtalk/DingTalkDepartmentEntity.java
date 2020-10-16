@@ -1,4 +1,4 @@
-package com.febs.system.entity;
+package com.febs.system.entity.dingtalk;
 
 import lombok.Data;
 
@@ -10,11 +10,11 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class DingTalkDepartment {
+public class DingTalkDepartmentEntity {
 
     private Integer id;
     private String name;
-    private Integer parentid;
+    private String parentid;
     private Integer order;
     private boolean createDeptGroup;
     private boolean autoAddUser;

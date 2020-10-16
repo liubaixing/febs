@@ -20,6 +20,8 @@ public interface IUserService extends IService<User> {
      */
     User findByName(String username);
 
+    User findById(Long id);
+
     /**
      * 查找用户详细信息
      *

@@ -1,4 +1,4 @@
-package com.febs.system.entity;
+package com.febs.system.entity.dingtalk;
 
 import lombok.Data;
 import lombok.ToString;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 @ToString
-public class DingTalkUser {
+public class DingTalkUserEntity {
 
     private String staffId;
     private String userid;

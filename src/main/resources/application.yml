@@ -32,6 +32,9 @@ mybatis-plus:
       select-strategy: not_empty
 
 dingtalk:
-  appkey: dingjn8t1jiitsqp4epj
-  appsecret: dsfpfa4ewQEt0uKPIuG5j4JCGwRWfxjs3LMCew1ubPLBHBNsMEKQlOib9-TN4RYJ
-  agentId: 905505135
+  appkey: dingczgoqzm8huijdzxj
+  appsecret: OztKCWz976hauZGfhqD6ckWK2x6qcwlm7sVukdUqO7lyeSwP6d4tF5gnduFWGRqF
+  agentId: 904965633
+#  appkey: dingjn8t1jiitsqp4epj
+#  appsecret: dsfpfa4ewQEt0uKPIuG5j4JCGwRWfxjs3LMCew1ubPLBHBNsMEKQlOib9-TN4RYJ
+#  agentId: 905505135

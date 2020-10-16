@@ -8,17 +8,12 @@ import com.dingtalk.api.response.*;
 import com.febs.common.enums.dingtalk.DingTalkEnum;
 import com.febs.common.exception.FebsException;
 import com.febs.common.service.RedisService;
-import com.febs.system.entity.DingTalkDepartment;
-import com.febs.system.entity.DingTalkUser;
+import com.febs.system.entity.dingtalk.DingTalkDepartmentEntity;
+import com.febs.system.entity.dingtalk.DingTalkUserEntity;
 import com.taobao.api.ApiException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-
-import java.util.*;
 
 /**
  * @ClassName: DingTalkUtil
@@ -31,7 +26,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class DingTalkUtil {
 
-//    private final RedisService redisService;
+    private final RedisService redisService;
 
     @Value("dingtalk.appkey")
     private String appkey;
@@ -43,35 +38,33 @@ public class DingTalkUtil {
     /*钉钉接口URL*/
     private static final String ACCESS_TOKEN_URL = "https://oapi.dingtalk.com/gettoken";
 
-    private static final String USER_CREATE_URL = "https://oapi.dingtalk.com/user/create?access_token=ACCESS_TOKEN";
-    private static final String USER_UPDATE_URL = "https://oapi.dingtalk.com/user/update?access_token=ACCESS_TOKEN";
-    private static final String USER_DELETED_URL = "https://oapi.dingtalk.com/user/delete?access_token=ACCESS_TOKEN&userid=ID";
-    private static final String USER_GET_URL = "https://oapi.dingtalk.com/user/get?access_token=ACCESS_TOKEN&userid=ID";
+    private static final String USER_CREATE_URL = "https://oapi.dingtalk.com/user/create";
+    private static final String USER_UPDATE_URL = "https://oapi.dingtalk.com/user/update";
+    private static final String USER_DELETED_URL = "https://oapi.dingtalk.com/user/delete";
+    private static final String USER_GET_URL = "https://oapi.dingtalk.com/user/get";
 
-    private static final String DEPARTMENT_CREATE_URL = "https://oapi.dingtalk.com/department/create?access_token=ACCESS_TOKEN";
-    private static final String DEPARTMENT_UPDATE_URL = "https://oapi.dingtalk.com/department/update?access_token=ACCESS_TOKEN";
-    private static final String DEPARTMENT_DELETED_URL = "https://oapi.dingtalk.com/department/delete?access_token=ACCESS_TOKEN&id=ID";
-    private static final String DEPARTMENT_GET_URL = "https://oapi.dingtalk.com/department/get?access_token=ACCESS_TOKEN&id=ID";
-
-    private static final String ACCESS_TOKEN = "9fbdc5cc3acc37468d95da56d67df77a";
+    private static final String DEPARTMENT_CREATE_URL = "https://oapi.dingtalk.com/department/create";
+    private static final String DEPARTMENT_UPDATE_URL = "https://oapi.dingtalk.com/department/update";
+    private static final String DEPARTMENT_DELETED_URL = "https://oapi.dingtalk.com/department/delete";
+    private static final String DEPARTMENT_GET_URL = "https://oapi.dingtalk.com/department/get";
 
     public String getDingTalkAccessToken() throws ApiException {
 
-//        Object accessToken = redisService.get("DING_TALK_ACCESS_TOKEN");
-//
-//        if (accessToken != null)
-//            return accessToken.toString();
-//
-//        DefaultDingTalkClient client = new DefaultDingTalkClient(ACCESS_TOKEN_URL);
-//        OapiGettokenRequest request = new OapiGettokenRequest();
-//        request.setAppkey(appkey);
-//        request.setAppsecret(appsecret);
-//        request.setHttpMethod("GET");
-//        OapiGettokenResponse response = client.execute(request);
-//        redisService.set(DING_TALK_ACCESS_TOKEN,response.getAccessToken(),7200L);
-//        return response.getAccessToken();
-        return "";
+        Object accessToken = redisService.get("DING_TALK_ACCESS_TOKEN");
+
+        if (accessToken != null)
+            return accessToken.toString();
+
+        DefaultDingTalkClient client = new DefaultDingTalkClient(ACCESS_TOKEN_URL);
+        OapiGettokenRequest request = new OapiGettokenRequest();
+        request.setAppkey(appkey);
+        request.setAppsecret(appsecret);
+        request.setHttpMethod("GET");
+        OapiGettokenResponse response = client.execute(request);
+        redisService.set(DING_TALK_ACCESS_TOKEN,response.getAccessToken(),7200L);
+        return response.getAccessToken();
     }
+
 
     public Object execute(DingTalkEnum dingTalkEnum,String data) throws ApiException {
         Object obj = null;
@@ -111,77 +104,63 @@ public class DingTalkUtil {
 
     private OapiUserCreateResponse dingTalkUserCreateOrUpdate(String url,String data) throws ApiException
     {
-//        url = url.replace("ACCESS_TOKEN",getDingTalkAccessToken());
-        url = url.replace("ACCESS_TOKEN",ACCESS_TOKEN);
-
         DingTalkClient client = new DefaultDingTalkClient(url);
 
-        DingTalkUser user = JSON.parseObject(data, DingTalkUser.class);
+        DingTalkUserEntity user = JSON.parseObject(data, DingTalkUserEntity.class);
         OapiUserCreateRequest request = BeanUtils.transformFrom(user,OapiUserCreateRequest.class);
-        return client.execute(request);
+        return client.execute(request,getDingTalkAccessToken());
     }
 
     private OapiDepartmentCreateResponse dingTalkDepartmentCreateOrUpdate(String url, String data) throws ApiException
     {
-//        url = url.replace("ACCESS_TOKEN",getDingTalkAccessToken());
-        url = url.replace("ACCESS_TOKEN",ACCESS_TOKEN);
-
         DingTalkClient client = new DefaultDingTalkClient(url);
 
-        DingTalkDepartment department = JSON.parseObject(data, DingTalkDepartment.class);
+        DingTalkDepartmentEntity department = JSON.parseObject(data, DingTalkDepartmentEntity.class);
         OapiDepartmentCreateRequest request = BeanUtils.transformFrom(department,OapiDepartmentCreateRequest.class);
-        return client.execute(request);
+        return client.execute(request,getDingTalkAccessToken());
     }
 
     private OapiUserGetResponse userDeleteOrGet(String url, String data) throws ApiException
     {
-//        url = url.replace("ACCESS_TOKEN",getDingTalkAccessToken()).replace("ID",data);
-        url = url.replace("ACCESS_TOKEN",ACCESS_TOKEN).replace("ID",data);
-
         DingTalkClient client = new DefaultDingTalkClient(url);
         OapiUserGetRequest request = new OapiUserGetRequest();
         request.setUserid(data);
-        OapiUserGetResponse response = client.execute(request,ACCESS_TOKEN);
-        return response;
+        return client.execute(request,getDingTalkAccessToken());
     }
 
 
     private OapiDepartmentGetResponse departmentDeleteOrGet(String url, String data) throws ApiException
     {
-//        url = url.replace("ACCESS_TOKEN",getDingTalkAccessToken()).replace("ID",data);
-        url = url.replace("ACCESS_TOKEN",ACCESS_TOKEN).replace("ID",data);
-
         DingTalkClient client = new DefaultDingTalkClient(url);
         OapiDepartmentGetRequest request = new OapiDepartmentGetRequest();
-//        request.setHttpMethod("GET");
-        return client.execute(request);
+        request.setId(data);
+        return client.execute(request,getDingTalkAccessToken());
     }
 
 
 
     public static void main(String[] args) throws ApiException {
-        DingTalkUtil dingTalkUtil = new DingTalkUtil();
+//        DingTalkUtil dingTalkUtil = new DingTalkUtil();
 
-        DefaultDingTalkClient client = new DefaultDingTalkClient(ACCESS_TOKEN_URL);
-        OapiGettokenRequest request = new OapiGettokenRequest();
-        request.setAppkey("dingleemfjcnobu98wys");
-        request.setAppsecret("yuNTOzAcTvX0XgKhlESc-1Eu78N3uY0A-F5gXmErc2_7MQPU7lO_oN0-0Nb_RKsg");
-//        request.setHttpMethod("GET");
-        OapiGettokenResponse response = client.execute(request);
 
-        DingTalkUser user = new DingTalkUser();
-        user.setStaffId("123456789");
-        user.setName("张超");
-        user.setDepartment(JSON.toJSONString(Arrays.asList(1,2,3)));
+        /*DingTalkUser user = new DingTalkUser();
+        user.setName("张三");
+        user.setDepartment(JSON.toJSONString(Arrays.asList(413188010)));
         user.setPosition("普通员工");
-        user.setMobile("123456789");
-        user.setEmail("15071449236@qq.com");
+        user.setMobile("15071449238");
+        user.setEmail("15071449236@qq.com");*/
 
-        String data = JSON.toJSONString(user);
 
-        Object object = dingTalkUtil.execute(DingTalkEnum.USER_CREATE,data);
-        System.out.println(JSON.toJSONString(object));
+        /*DingTalkDepartment department = new DingTalkDepartment();
+        department.setName("测试部门1");
+        department.setParentid("413188010");
+
+        String data = JSON.toJSONString(department);
+
+        Object object = dingTalkUtil.execute(DingTalkEnum.DEPARTMENT_CREATE,data);
+        System.out.println(JSON.toJSONString(object));*/
+
+
     }
-
 
 }
