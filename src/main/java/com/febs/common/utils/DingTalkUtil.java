@@ -66,7 +66,7 @@ public class DingTalkUtil {
     }
 
 
-    public Object execute(DingTalkEnum dingTalkEnum,String data) throws ApiException {
+    public String execute(DingTalkEnum dingTalkEnum,String data) throws ApiException {
         Object obj = null;
         switch (dingTalkEnum)
         {
@@ -86,10 +86,10 @@ public class DingTalkUtil {
                 obj = dingTalkDepartmentCreateOrUpdate(DEPARTMENT_CREATE_URL,data);
                 break;
             case DEPARTMENT_DELETE:
-                obj = dingTalkDepartmentCreateOrUpdate(DEPARTMENT_UPDATE_URL,data);
+                obj = departmentDeleteOrGet(DEPARTMENT_DELETED_URL,data);
                 break;
             case DEPARTMENT_UPDATE:
-                obj = dingTalkDepartmentCreateOrUpdate(DEPARTMENT_DELETED_URL,data);
+                obj = dingTalkDepartmentCreateOrUpdate(DEPARTMENT_UPDATE_URL,data);
                 break;
             case DEPARTMENT_GET:
                 obj = departmentDeleteOrGet(DEPARTMENT_GET_URL,data);
@@ -98,7 +98,7 @@ public class DingTalkUtil {
                 throw new FebsException("钉钉调用失败");
         }
 
-        return obj;
+        return JSON.toJSONString(obj);
     }
 
 

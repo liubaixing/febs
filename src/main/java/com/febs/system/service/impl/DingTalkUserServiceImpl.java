@@ -20,31 +20,31 @@ import java.util.List;
 public class DingTalkUserServiceImpl implements IDingTalkUserService {
 
     @Resource
-    private DingTalkUserMapper userMapper;
+    private DingTalkUserMapper dingTalkUserMapper;
 
     @Override
     public DingTalkUser getById(Long userId) {
-        return userMapper.selectByPrimaryKey(userId);
+        return dingTalkUserMapper.selectByPrimaryKey(userId);
     }
 
     @Override
     public List<DingTalkUser> getByList(DingTalkUser user) {
         DingTalkUserExample example = new DingTalkUserExample();
-        return userMapper.selectByExample(example);
+        return dingTalkUserMapper.selectByExample(example);
     }
 
     @Override
     public void createUser(DingTalkUser dingTalkUser) {
-        userMapper.insertSelective(dingTalkUser);
+        dingTalkUserMapper.insertSelective(dingTalkUser);
     }
 
     @Override
     public void updateUser(DingTalkUser dingTalkUser) {
-        userMapper.updateByPrimaryKeySelective(dingTalkUser);
+        dingTalkUserMapper.updateByPrimaryKeySelective(dingTalkUser);
     }
 
     @Override
     public void deleteUser(Long id) {
-        userMapper.deleteByPrimaryKey(id);
+        dingTalkUserMapper.deleteByPrimaryKey(id);
     }
 }
