@@ -56,6 +56,7 @@ public class DingTalkDepartmentBiz {
         if (response.getErrcode() == 0){
             department.setId(response.getId());
             departmentService.createDepartment(department);
+            return;
         }
 
         throw new FebsException("钉钉部门添加失败");
@@ -72,6 +73,7 @@ public class DingTalkDepartmentBiz {
         if (response.getErrcode() == 0){
             department.setId(id);
             departmentService.createDepartment(department);
+            return;
         }
 
         throw new FebsException("钉钉部门修改失败");

@@ -20,8 +20,10 @@ import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @ClassName: DingTalkUserBiz
@@ -43,6 +45,7 @@ public class DingTalkUserBiz {
     @Autowired
     private DingTalkUtil dingTalkUtil;
 
+    @Transactional
     public void add(DingTalkUser dingTalkUser) throws ApiException
     {
 
@@ -64,12 +67,14 @@ public class DingTalkUserBiz {
 
            dingTalkUser.setStaffId(response.getUserid());
            dingTalkUserService.createUser(dingTalkUser);
+           return;
        }
 
        throw new FebsException("钉钉用户添加失败");
 
     }
 
+    @Transactional
     public void update(Long id, DingTalkUser user) throws ApiException
     {
 
@@ -77,10 +82,6 @@ public class DingTalkUserBiz {
         if (dingTalkUser == null){
             throw new FebsException("钉钉用户不存在");
         }
-
-        dingTalkUser.setId(id);
-
-        updateCheck(user);
 
         if(!dingTalkUser.getMobile().equals(user.getMobile())){
             DingTalkUserExample example = new DingTalkUserExample();
@@ -90,18 +91,24 @@ public class DingTalkUserBiz {
             }
         }
 
-        DingTalkUserEntity userEntity = BeanUtils.transformFrom(dingTalkUser,DingTalkUserEntity.class);
+        user.setId(id);
+        user.setStaffId(dingTalkUser.getStaffId());
+        updateCheck(user);
+
+        DingTalkUserEntity userEntity = BeanUtils.transformFrom(user,DingTalkUserEntity.class);
 
         String result = dingTalkUtil.execute(DingTalkEnum.USER_UPDATE, JSON.toJSONString(userEntity));
         OapiUserCreateResponse response = JSONObject.parseObject(result,OapiUserCreateResponse.class);
 
         if (response.getErrcode() == 0){
             dingTalkUserService.updateUser(dingTalkUser);
+            return;
         }
 
         throw new FebsException("钉钉用户添加失败");
     }
 
+    @Transactional
     public void delete(Long id) throws ApiException
     {
         DingTalkUser dingTalkUser = dingTalkUserService.getById(id);

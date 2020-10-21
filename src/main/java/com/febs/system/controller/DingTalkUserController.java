@@ -1,5 +1,6 @@
 package com.febs.system.controller;
 
+import com.febs.common.entity.FebsResponse;
 import com.febs.system.biz.DingTalkUserBiz;
 import com.febs.system.entity.DingTalkUser;
 import com.febs.system.service.IDingTalkUserService;
@@ -26,28 +27,31 @@ public class DingTalkUserController {
     private IDingTalkUserService userService;
 
     @GetMapping("/{id}")
-    public DingTalkUser getUser(@PathVariable Long id){
-        return userService.getById(id);
+    public FebsResponse getUser(@PathVariable Long id){
+        return new FebsResponse().success().data(userService.getById(id));
     }
 
     @GetMapping("/list")
-    public List<DingTalkUser> list(DingTalkUser user){
-        return userService.getByList(user);
+    public FebsResponse list(DingTalkUser user){
+        return new FebsResponse().success().data(userService.getByList(user));
     }
 
     @PostMapping("")
-    public void add(DingTalkUser user) throws ApiException {
+    public FebsResponse add(DingTalkUser user) throws ApiException {
         userBiz.add(user);
+        return new FebsResponse().success();
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id,DingTalkUser user) throws ApiException {
+    public FebsResponse update(@PathVariable Long id,DingTalkUser user) throws ApiException {
         userBiz.update(id,user);
+        return new FebsResponse().success();
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) throws ApiException {
+    public FebsResponse delete(@PathVariable Long id) throws ApiException {
         userBiz.delete(id);
+        return new FebsResponse().success();
     }
 
 }

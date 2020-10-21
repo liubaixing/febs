@@ -28,9 +28,9 @@ public class DingTalkUtil {
 
     private final RedisService redisService;
 
-    @Value("dingtalk.appkey")
+    @Value("${dingtalk.appkey}")
     private String appkey;
-    @Value("dingtalk.appsecret")
+    @Value("${dingtalk.appsecret}")
     private String appsecret;
 
     private static final String DING_TALK_ACCESS_TOKEN = "DING_TALK_ACCESS_TOKEN";
