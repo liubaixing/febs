@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.shangpin.mapper.SpkcbMapper">
+  <resultMap id="BaseResultMap" type="com.febs.shangpin.entity.Spkcb">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ck_id" jdbcType="INTEGER" property="ckId" />
+    <result column="ck_name" jdbcType="VARCHAR" property="ckName" />
+    <result column="sku" jdbcType="VARCHAR" property="sku" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="color_id" jdbcType="INTEGER" property="colorId" />
+    <result column="size_id" jdbcType="INTEGER" property="sizeId" />
+    <result column="sl" jdbcType="INTEGER" property="sl" />
+    <result column="sl1" jdbcType="INTEGER" property="sl1" />
+    <result column="sl2" jdbcType="INTEGER" property="sl2" />
+    <result column="sl3" jdbcType="INTEGER" property="sl3" />
+    <result column="sl4" jdbcType="INTEGER" property="sl4" />
+    <result column="sl5" jdbcType="INTEGER" property="sl5" />
+    <result column="sl6" jdbcType="INTEGER" property="sl6" />
+    <result column="sl7" jdbcType="INTEGER" property="sl7" />
+    <result column="ckdm" jdbcType="VARCHAR" property="ckdm" />
+    <result column="shangpin_spdm" jdbcType="VARCHAR" property="shangpinSpdm" />
+    <result column="color_code" jdbcType="VARCHAR" property="colorCode" />
+    <result column="size_code" jdbcType="VARCHAR" property="sizeCode" />
+    <result column="lastchanged" jdbcType="TIMESTAMP" property="lastchanged" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ck_id, ck_name, sku, sku_id, goods_id, color_id, size_id, sl, sl1, sl2, sl3, 
+    sl4, sl5, sl6, sl7, ckdm, shangpin_spdm, color_code, size_code, lastchanged, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.febs.shangpin.entity.SpkcbExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from spkcb
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from spkcb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from spkcb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.febs.shangpin.entity.SpkcbExample">
+    delete from spkcb
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.febs.shangpin.entity.Spkcb" useGeneratedKeys="true">
+    insert into spkcb (ck_id, ck_name, sku, 
+      sku_id, goods_id, color_id, 
+      size_id, sl, sl1, sl2, 
+      sl3, sl4, sl5, sl6, 
+      sl7, ckdm, shangpin_spdm, 
+      color_code, size_code, lastchanged, 
+      remark)
+    values (#{ckId,jdbcType=INTEGER}, #{ckName,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
+      #{skuId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{colorId,jdbcType=INTEGER}, 
+      #{sizeId,jdbcType=INTEGER}, #{sl,jdbcType=INTEGER}, #{sl1,jdbcType=INTEGER}, #{sl2,jdbcType=INTEGER}, 
+      #{sl3,jdbcType=INTEGER}, #{sl4,jdbcType=INTEGER}, #{sl5,jdbcType=INTEGER}, #{sl6,jdbcType=INTEGER}, 
+      #{sl7,jdbcType=INTEGER}, #{ckdm,jdbcType=VARCHAR}, #{shangpinSpdm,jdbcType=VARCHAR}, 
+      #{colorCode,jdbcType=VARCHAR}, #{sizeCode,jdbcType=VARCHAR}, #{lastchanged,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.febs.shangpin.entity.Spkcb" useGeneratedKeys="true">
+    insert into spkcb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ckId != null">
+        ck_id,
+      </if>
+      <if test="ckName != null">
+        ck_name,
+      </if>
+      <if test="sku != null">
+        sku,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="colorId != null">
+        color_id,
+      </if>
+      <if test="sizeId != null">
+        size_id,
+      </if>
+      <if test="sl != null">
+        sl,
+      </if>
+      <if test="sl1 != null">
+        sl1,
+      </if>
+      <if test="sl2 != null">
+        sl2,
+      </if>
+      <if test="sl3 != null">
+        sl3,
+      </if>
+      <if test="sl4 != null">
+        sl4,
+      </if>
+      <if test="sl5 != null">
+        sl5,
+      </if>
+      <if test="sl6 != null">
+        sl6,
+      </if>
+      <if test="sl7 != null">
+        sl7,
+      </if>
+      <if test="ckdm != null">
+        ckdm,
+      </if>
+      <if test="shangpinSpdm != null">
+        shangpin_spdm,
+      </if>
+      <if test="colorCode != null">
+        color_code,
+      </if>
+      <if test="sizeCode != null">
+        size_code,
+      </if>
+      <if test="lastchanged != null">
+        lastchanged,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ckId != null">
+        #{ckId,jdbcType=INTEGER},
+      </if>
+      <if test="ckName != null">
+        #{ckName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null">
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="colorId != null">
+        #{colorId,jdbcType=INTEGER},
+      </if>
+      <if test="sizeId != null">
+        #{sizeId,jdbcType=INTEGER},
+      </if>
+      <if test="sl != null">
+        #{sl,jdbcType=INTEGER},
+      </if>
+      <if test="sl1 != null">
+        #{sl1,jdbcType=INTEGER},
+      </if>
+      <if test="sl2 != null">
+        #{sl2,jdbcType=INTEGER},
+      </if>
+      <if test="sl3 != null">
+        #{sl3,jdbcType=INTEGER},
+      </if>
+      <if test="sl4 != null">
+        #{sl4,jdbcType=INTEGER},
+      </if>
+      <if test="sl5 != null">
+        #{sl5,jdbcType=INTEGER},
+      </if>
+      <if test="sl6 != null">
+        #{sl6,jdbcType=INTEGER},
+      </if>
+      <if test="sl7 != null">
+        #{sl7,jdbcType=INTEGER},
+      </if>
+      <if test="ckdm != null">
+        #{ckdm,jdbcType=VARCHAR},
+      </if>
+      <if test="shangpinSpdm != null">
+        #{shangpinSpdm,jdbcType=VARCHAR},
+      </if>
+      <if test="colorCode != null">
+        #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null">
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastchanged != null">
+        #{lastchanged,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.febs.shangpin.entity.SpkcbExample" resultType="java.lang.Long">
+    select count(*) from spkcb
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update spkcb
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ckId != null">
+        ck_id = #{record.ckId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ckName != null">
+        ck_name = #{record.ckName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sku != null">
+        sku = #{record.sku,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuId != null">
+        sku_id = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.colorId != null">
+        color_id = #{record.colorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sizeId != null">
+        size_id = #{record.sizeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl != null">
+        sl = #{record.sl,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl1 != null">
+        sl1 = #{record.sl1,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl2 != null">
+        sl2 = #{record.sl2,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl3 != null">
+        sl3 = #{record.sl3,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl4 != null">
+        sl4 = #{record.sl4,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl5 != null">
+        sl5 = #{record.sl5,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl6 != null">
+        sl6 = #{record.sl6,jdbcType=INTEGER},
+      </if>
+      <if test="record.sl7 != null">
+        sl7 = #{record.sl7,jdbcType=INTEGER},
+      </if>
+      <if test="record.ckdm != null">
+        ckdm = #{record.ckdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shangpinSpdm != null">
+        shangpin_spdm = #{record.shangpinSpdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colorCode != null">
+        color_code = #{record.colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sizeCode != null">
+        size_code = #{record.sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastchanged != null">
+        lastchanged = #{record.lastchanged,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update spkcb
+    set id = #{record.id,jdbcType=INTEGER},
+      ck_id = #{record.ckId,jdbcType=INTEGER},
+      ck_name = #{record.ckName,jdbcType=VARCHAR},
+      sku = #{record.sku,jdbcType=VARCHAR},
+      sku_id = #{record.skuId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      color_id = #{record.colorId,jdbcType=INTEGER},
+      size_id = #{record.sizeId,jdbcType=INTEGER},
+      sl = #{record.sl,jdbcType=INTEGER},
+      sl1 = #{record.sl1,jdbcType=INTEGER},
+      sl2 = #{record.sl2,jdbcType=INTEGER},
+      sl3 = #{record.sl3,jdbcType=INTEGER},
+      sl4 = #{record.sl4,jdbcType=INTEGER},
+      sl5 = #{record.sl5,jdbcType=INTEGER},
+      sl6 = #{record.sl6,jdbcType=INTEGER},
+      sl7 = #{record.sl7,jdbcType=INTEGER},
+      ckdm = #{record.ckdm,jdbcType=VARCHAR},
+      shangpin_spdm = #{record.shangpinSpdm,jdbcType=VARCHAR},
+      color_code = #{record.colorCode,jdbcType=VARCHAR},
+      size_code = #{record.sizeCode,jdbcType=VARCHAR},
+      lastchanged = #{record.lastchanged,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.febs.shangpin.entity.Spkcb">
+    update spkcb
+    <set>
+      <if test="ckId != null">
+        ck_id = #{ckId,jdbcType=INTEGER},
+      </if>
+      <if test="ckName != null">
+        ck_name = #{ckName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null">
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="colorId != null">
+        color_id = #{colorId,jdbcType=INTEGER},
+      </if>
+      <if test="sizeId != null">
+        size_id = #{sizeId,jdbcType=INTEGER},
+      </if>
+      <if test="sl != null">
+        sl = #{sl,jdbcType=INTEGER},
+      </if>
+      <if test="sl1 != null">
+        sl1 = #{sl1,jdbcType=INTEGER},
+      </if>
+      <if test="sl2 != null">
+        sl2 = #{sl2,jdbcType=INTEGER},
+      </if>
+      <if test="sl3 != null">
+        sl3 = #{sl3,jdbcType=INTEGER},
+      </if>
+      <if test="sl4 != null">
+        sl4 = #{sl4,jdbcType=INTEGER},
+      </if>
+      <if test="sl5 != null">
+        sl5 = #{sl5,jdbcType=INTEGER},
+      </if>
+      <if test="sl6 != null">
+        sl6 = #{sl6,jdbcType=INTEGER},
+      </if>
+      <if test="sl7 != null">
+        sl7 = #{sl7,jdbcType=INTEGER},
+      </if>
+      <if test="ckdm != null">
+        ckdm = #{ckdm,jdbcType=VARCHAR},
+      </if>
+      <if test="shangpinSpdm != null">
+        shangpin_spdm = #{shangpinSpdm,jdbcType=VARCHAR},
+      </if>
+      <if test="colorCode != null">
+        color_code = #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null">
+        size_code = #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastchanged != null">
+        lastchanged = #{lastchanged,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.febs.shangpin.entity.Spkcb">
+    update spkcb
+    set ck_id = #{ckId,jdbcType=INTEGER},
+      ck_name = #{ckName,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      color_id = #{colorId,jdbcType=INTEGER},
+      size_id = #{sizeId,jdbcType=INTEGER},
+      sl = #{sl,jdbcType=INTEGER},
+      sl1 = #{sl1,jdbcType=INTEGER},
+      sl2 = #{sl2,jdbcType=INTEGER},
+      sl3 = #{sl3,jdbcType=INTEGER},
+      sl4 = #{sl4,jdbcType=INTEGER},
+      sl5 = #{sl5,jdbcType=INTEGER},
+      sl6 = #{sl6,jdbcType=INTEGER},
+      sl7 = #{sl7,jdbcType=INTEGER},
+      ckdm = #{ckdm,jdbcType=VARCHAR},
+      shangpin_spdm = #{shangpinSpdm,jdbcType=VARCHAR},
+      color_code = #{colorCode,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      lastchanged = #{lastchanged,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
