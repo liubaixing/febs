@@ -1,6 +1,11 @@
 package com.febs.receipt.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
+import com.alibaba.excel.read.metadata.ReadWorkbook;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
@@ -68,6 +73,17 @@ public class OrderXsController extends BaseController {
     public FebsResponse orderXsList(QueryRequest request, OrderXsReq orderXs) {
         Map<String, Object> dataTable = getDataTable(this.orderXsService.findOrderXss(request, orderXs));
         return new FebsResponse().success().data(dataTable);
+    }
+
+    @ApiOperation("查询销售单")
+    @PostMapping("/list/import")
+    public FebsResponse orderXsList(@RequestParam MultipartFile file) throws IOException {
+        ExcelReaderBuilder excelReaderBuilder = EasyExcel.read(file.getInputStream());
+        ExcelReader excelReader = new ExcelReader(file.getInputStream(), ExcelTypeEnum.XLSX, null);
+        System.out.println(
+                1
+        );
+        return null;
     }
 
     @ApiOperation("查看")

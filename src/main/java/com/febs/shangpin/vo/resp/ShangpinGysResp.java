@@ -1,9 +1,12 @@
 package com.febs.shangpin.vo.resp;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.febs.shangpin.entity.ShangpinGys;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ShangpinGysResp extends ShangpinGys {
@@ -29,5 +32,8 @@ public class ShangpinGysResp extends ShangpinGys {
 
     @ExcelProperty(value = "品牌名称",index = 1)
     private String ppglmc;
+
+    @ExcelIgnore
+    private List<Long> gysList;
 
 }
