@@ -1,11 +1,14 @@
 package com.febs.receipt.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.metadata.ReadWorkbook;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
@@ -24,6 +27,8 @@ import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.shangpin.vo.resp.ShangpinResp;
 import com.febs.system.entity.User;
+import com.febs.system.service.IUserCangkuService;
+import com.febs.system.service.IUserOrgService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +43,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 销售单 Controller
@@ -60,10 +67,20 @@ public class OrderXsController extends BaseController {
     @Autowired
     private OrderXsBiz orderXsBiz;
 
+    @Autowired
+    private IUserCangkuService userCangkuService;
+    @Autowired
+    private IUserOrgService userOrgService;
 
     @GetMapping("")
 //    @RequiresPermissions("orderXs:list")
     public FebsResponse getAllOrderXss(OrderXsReq orderXs) {
+        User user = getCurrentUser();
+
+        if (requestCheck(user,orderXs)){
+            return new FebsResponse().success();
+        }
+
         return new FebsResponse().success().data(orderXsService.findOrderXss(orderXs));
     }
 
@@ -71,19 +88,50 @@ public class OrderXsController extends BaseController {
     @GetMapping("/list")
 //    @RequiresPermissions("orderXs:list")
     public FebsResponse orderXsList(QueryRequest request, OrderXsReq orderXs) {
+        User user = getCurrentUser();
+
+        if (requestCheck(user,orderXs)){
+            return new FebsResponse().success();
+        }
+
         Map<String, Object> dataTable = getDataTable(this.orderXsService.findOrderXss(request, orderXs));
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ApiOperation("查询销售单")
+    @ApiOperation("导入查询")
     @PostMapping("/list/import")
     public FebsResponse orderXsList(@RequestParam MultipartFile file) throws IOException {
-        ExcelReaderBuilder excelReaderBuilder = EasyExcel.read(file.getInputStream());
-        ExcelReader excelReader = new ExcelReader(file.getInputStream(), ExcelTypeEnum.XLSX, null);
-        System.out.println(
-                1
-        );
-        return null;
+
+
+
+        ExcelReaderBuilder excelReaderBuilder1 =  EasyExcelFactory.read(file.getInputStream());
+        List<LinkedHashMap> djbhList = excelReaderBuilder1.doReadAllSync();
+
+        String var = djbhList.stream().map(i -> i.values().toString()).collect(Collectors.joining(","));
+
+        if (CollectionUtils.isEmpty(djbhList)){
+            return new FebsResponse().success();
+        }
+
+        User user = getCurrentUser();
+        OrderXsReq req = new OrderXsReq();
+        if (requestCheck(user,req)){
+            return new FebsResponse().success();
+        }
+//        req.setDjbhList(String.join(",",djbhList));
+        return new FebsResponse().success().data(orderXsService.findOrderXss(req));
+    }
+
+    private boolean requestCheck(User user,OrderXsReq req){
+        List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
+        List<Long> orgList = userOrgService.getUserOrg(user.getUserId());
+
+        if (CollectionUtils.isEmpty(cangkuList) && CollectionUtils.isEmpty(orgList)){
+            return true;
+        }
+        req.setCangkuList(cangkuList);
+        req.setOrgList(orgList);
+        return false;
     }
 
     @ApiOperation("查看")

@@ -265,6 +265,27 @@
             <if test="xs.spmc != null and xs.spmc != ''">
                 and sp.spmc like CONCAT('%',#{xs.spmc},'%')
             </if>
+
+            <if test="xs.djbhList != null and xs.djbhList != ''">
+                and xs.djbh in (${xs.djbhList})
+            </if>
+
+            <if test="xs.cangkuList != null and xs.cangkuList.size() > 0 ">
+                and xs.cangku_id in (
+                <foreach collection="xs.cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
+
+            <if test="xs.orgList != null and xs.orgList.size() > 0 ">
+                and xs.org_id in (
+                <foreach collection="xs.orgList"  separator="," item="orgId">
+                    #{orgId}
+                </foreach>
+                )
+            </if>
+
         </where>
 
     </select>
@@ -381,6 +402,27 @@
             <if test="spmc != null and spmc != ''">
                 and sp.spmc like CONCAT('%',#{spmc},'%')
             </if>
+
+            <if test="djbhList != null and djbhList != ''">
+                and xs.djbh in (${djbhList})
+            </if>
+
+            <if test="cangkuList != null and cangkuList.size() > 0 ">
+                and xs.cangku_id in (
+                <foreach collection="cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
+
+            <if test="orgList != null and orgList.size() > 0 ">
+                and xs.org_id in (
+                <foreach collection="orgList"  separator="," item="orgId">
+                    #{orgId}
+                </foreach>
+                )
+            </if>
+
         </where>
 
     </select>
@@ -486,6 +528,23 @@
             <if test="spmc != null and spmc != ''">
                 and xs.spmc like CONCAT('%',#{spmc},'%')
             </if>
+
+            <if test="cangkuList != null and cangkuList.size() > 0 ">
+                and xs.cangku_id in (
+                <foreach collection="cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
+
+            <if test="orgList != null and orgList.size() > 0 ">
+                and xs.org_id in (
+                <foreach collection="orgList"  separator="," item="orgId">
+                    #{orgId}
+                </foreach>
+                )
+            </if>
+
         </where>
          limit 1
     </select>
