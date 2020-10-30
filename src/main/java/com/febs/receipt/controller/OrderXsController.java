@@ -14,9 +14,11 @@ import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CommonExcelEntity;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.enums.order.OrderStatusEnum;
 import com.febs.common.exception.FebsException;
+import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.listener.goods.ShangpinDataListener;
 import com.febs.common.listener.receipt.OrderXslistener;
 import com.febs.common.utils.ExcelUtil;
@@ -102,14 +104,13 @@ public class OrderXsController extends BaseController {
     @PostMapping("/list/import")
     public FebsResponse orderXsList(@RequestParam MultipartFile file) throws IOException {
 
+        CommonExcelListener<CommonExcelEntity> listener = new CommonExcelListener<CommonExcelEntity>();
 
+        EasyExcel.read(file.getInputStream(),CommonExcelEntity.class,listener).sheet().doRead();
 
-        ExcelReaderBuilder excelReaderBuilder1 =  EasyExcelFactory.read(file.getInputStream());
-        List<LinkedHashMap> djbhList = excelReaderBuilder1.doReadAllSync();
+        List<CommonExcelEntity> datas = listener.getDatas();
 
-        String var = djbhList.stream().map(i -> i.values().toString()).collect(Collectors.joining(","));
-
-        if (CollectionUtils.isEmpty(djbhList)){
+        if (CollectionUtils.isEmpty(datas)){
             return new FebsResponse().success();
         }
 
@@ -118,7 +119,7 @@ public class OrderXsController extends BaseController {
         if (requestCheck(user,req)){
             return new FebsResponse().success();
         }
-//        req.setDjbhList(String.join(",",djbhList));
+        req.setDjbhList(datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.joining(",")));
         return new FebsResponse().success().data(orderXsService.findOrderXss(req));
     }
 
