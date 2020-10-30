@@ -549,6 +549,15 @@
             <if test="sp.lyxt != null">
                 and sp.lyxt = #{sp.lyxt}
             </if>
+            <if test="sp.gysList != null and sp.gysList.size() > 0">
+                and sp.gys_id in
+                <foreach collection="sp.gysList" open="(" separator="," close=")" item="gys">
+                    #{gys}
+                </foreach>
+            </if>
+            <if test="sp.gysList.size() == 0">
+                and sp.gys_id in (-1)
+            </if>
         </where>
     </sql>
 
