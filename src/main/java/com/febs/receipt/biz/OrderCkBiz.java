@@ -13,6 +13,9 @@ import com.febs.receipt.vo.resp.OrderCkResp;
 import com.febs.receipt.vo.resp.OrderCkmxResp;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.receipt.vo.resp.OrderXsmxResp;
+import com.febs.shangpin.entity.Spkcb;
+import com.febs.shangpin.entity.SpkcbExample;
+import com.febs.shangpin.mapper.SpkcbMapper;
 import com.febs.system.entity.User;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +42,8 @@ public class OrderCkBiz {
     @Autowired
     private IOrderXsmxService xsmxService;
 
+    @Resource
+    private SpkcbMapper spkcbMapper;
 
     public OrderCkResp view(Long id) {
         OrderCkResp ckResp =  ckService.findById(id);
@@ -128,5 +134,48 @@ public class OrderCkBiz {
         xsmxService.updateOrderXsmx(xsmx);
 
         ckService.updateOrderCk(ck);
+    }
+
+    @Transactional
+    public void qr(Long id, User user) {
+
+        OrderCk ck = new OrderCk();
+        ck.setId(id);
+        ck.setQr((byte)1);
+        ck.setQrr(user.getUsername());
+        ck.setQrrq(new Date());
+
+        ckService.updateOrderCk(ck);
+
+
+        OrderCkmx orderCkmx = new OrderCkmx();
+        orderCkmx.setPid(id);
+        List<OrderCkmxResp> ckmxRespList = ckmxService.findOrderCkmxs(orderCkmx);
+
+        for (OrderCkmxResp  ckmx : ckmxRespList){
+
+            SpkcbExample example = new SpkcbExample();
+            example.createCriteria().andGoodsIdEqualTo(ckmx.getSpId());
+            List<Spkcb> kcList = spkcbMapper.selectByExample(example);
+
+            if (CollectionUtils.isNotEmpty(kcList)){
+
+                for (Spkcb spkcb : kcList){
+
+                    if (spkcb.getSl() - spkcb.getSl2() - ckmx.getSl() < 0){
+                        throw new FebsException("商品库存不足");
+                    }
+
+                    spkcb.setSl(spkcb.getSl() - ckmx.getSl());
+                    spkcb.setSl2(spkcb.getSl2() + ckmx.getSl());
+                    spkcbMapper.updateByPrimaryKeySelective(spkcb);
+                }
+
+            }
+
+            throw new FebsException("商品库存不存在");
+
+        }
+
     }
 }

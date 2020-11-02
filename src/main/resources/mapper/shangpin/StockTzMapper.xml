@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.shangpin.mapper.StockTzMapper">
+  <resultMap id="BaseResultMap" type="com.febs.shangpin.entity.StockTz">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="djbh" jdbcType="VARCHAR" property="djbh" />
+    <result column="xdrq" jdbcType="INTEGER" property="xdrq" />
+    <result column="cangku_id" jdbcType="INTEGER" property="cangkuId" />
+    <result column="pdlx" jdbcType="TINYINT" property="pdlx" />
+    <result column="bz" jdbcType="VARCHAR" property="bz" />
+    <result column="sl" jdbcType="INTEGER" property="sl" />
+    <result column="je" jdbcType="DECIMAL" property="je" />
+    <result column="fj" jdbcType="VARCHAR" property="fj" />
+    <result column="zdr" jdbcType="VARCHAR" property="zdr" />
+    <result column="qr" jdbcType="TINYINT" property="qr" />
+    <result column="qrr" jdbcType="VARCHAR" property="qrr" />
+    <result column="qrrq" jdbcType="INTEGER" property="qrrq" />
+    <result column="sh" jdbcType="TINYINT" property="sh" />
+    <result column="shr" jdbcType="VARCHAR" property="shr" />
+    <result column="shrq" jdbcType="INTEGER" property="shrq" />
+    <result column="zx" jdbcType="TINYINT" property="zx" />
+    <result column="zxr" jdbcType="VARCHAR" property="zxr" />
+    <result column="zxrq" jdbcType="INTEGER" property="zxrq" />
+    <result column="zs" jdbcType="TINYINT" property="zs" />
+    <result column="zsr" jdbcType="VARCHAR" property="zsr" />
+    <result column="zsrq" jdbcType="INTEGER" property="zsrq" />
+    <result column="zf" jdbcType="TINYINT" property="zf" />
+    <result column="zfr" jdbcType="VARCHAR" property="zfr" />
+    <result column="zfrq" jdbcType="INTEGER" property="zfrq" />
+    <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+    <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+    <result column="ex3" jdbcType="VARCHAR" property="ex3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, djbh, xdrq, cangku_id, pdlx, bz, sl, je, fj, zdr, qr, qrr, qrrq, sh, shr, shrq, 
+    zx, zxr, zxrq, zs, zsr, zsrq, zf, zfr, zfrq, ex1, ex2, ex3
+  </sql>
+  <select id="selectByExample" parameterType="com.febs.shangpin.entity.StockTzExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock_tz
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stock_tz
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from stock_tz
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.febs.shangpin.entity.StockTzExample">
+    delete from stock_tz
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.febs.shangpin.entity.StockTz" useGeneratedKeys="true">
+    insert into stock_tz (djbh, xdrq, cangku_id, 
+      pdlx, bz, sl, je, 
+      fj, zdr, qr, qrr, 
+      qrrq, sh, shr, shrq, 
+      zx, zxr, zxrq, zs, 
+      zsr, zsrq, zf, zfr, 
+      zfrq, ex1, ex2, ex3
+      )
+    values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=INTEGER}, #{cangkuId,jdbcType=INTEGER}, 
+      #{pdlx,jdbcType=TINYINT}, #{bz,jdbcType=VARCHAR}, #{sl,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, 
+      #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR}, 
+      #{qrrq,jdbcType=INTEGER}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=INTEGER}, 
+      #{zx,jdbcType=TINYINT}, #{zxr,jdbcType=VARCHAR}, #{zxrq,jdbcType=INTEGER}, #{zs,jdbcType=TINYINT}, 
+      #{zsr,jdbcType=VARCHAR}, #{zsrq,jdbcType=INTEGER}, #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, 
+      #{zfrq,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.shangpin.entity.StockTz" useGeneratedKeys="true">
+    insert into stock_tz
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="djbh != null">
+        djbh,
+      </if>
+      <if test="xdrq != null">
+        xdrq,
+      </if>
+      <if test="cangkuId != null">
+        cangku_id,
+      </if>
+      <if test="pdlx != null">
+        pdlx,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="sl != null">
+        sl,
+      </if>
+      <if test="je != null">
+        je,
+      </if>
+      <if test="fj != null">
+        fj,
+      </if>
+      <if test="zdr != null">
+        zdr,
+      </if>
+      <if test="qr != null">
+        qr,
+      </if>
+      <if test="qrr != null">
+        qrr,
+      </if>
+      <if test="qrrq != null">
+        qrrq,
+      </if>
+      <if test="sh != null">
+        sh,
+      </if>
+      <if test="shr != null">
+        shr,
+      </if>
+      <if test="shrq != null">
+        shrq,
+      </if>
+      <if test="zx != null">
+        zx,
+      </if>
+      <if test="zxr != null">
+        zxr,
+      </if>
+      <if test="zxrq != null">
+        zxrq,
+      </if>
+      <if test="zs != null">
+        zs,
+      </if>
+      <if test="zsr != null">
+        zsr,
+      </if>
+      <if test="zsrq != null">
+        zsrq,
+      </if>
+      <if test="zf != null">
+        zf,
+      </if>
+      <if test="zfr != null">
+        zfr,
+      </if>
+      <if test="zfrq != null">
+        zfrq,
+      </if>
+      <if test="ex1 != null">
+        ex1,
+      </if>
+      <if test="ex2 != null">
+        ex2,
+      </if>
+      <if test="ex3 != null">
+        ex3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="djbh != null">
+        #{djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="xdrq != null">
+        #{xdrq,jdbcType=INTEGER},
+      </if>
+      <if test="cangkuId != null">
+        #{cangkuId,jdbcType=INTEGER},
+      </if>
+      <if test="pdlx != null">
+        #{pdlx,jdbcType=TINYINT},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null">
+        #{sl,jdbcType=INTEGER},
+      </if>
+      <if test="je != null">
+        #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="fj != null">
+        #{fj,jdbcType=VARCHAR},
+      </if>
+      <if test="zdr != null">
+        #{zdr,jdbcType=VARCHAR},
+      </if>
+      <if test="qr != null">
+        #{qr,jdbcType=TINYINT},
+      </if>
+      <if test="qrr != null">
+        #{qrr,jdbcType=VARCHAR},
+      </if>
+      <if test="qrrq != null">
+        #{qrrq,jdbcType=INTEGER},
+      </if>
+      <if test="sh != null">
+        #{sh,jdbcType=TINYINT},
+      </if>
+      <if test="shr != null">
+        #{shr,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null">
+        #{shrq,jdbcType=INTEGER},
+      </if>
+      <if test="zx != null">
+        #{zx,jdbcType=TINYINT},
+      </if>
+      <if test="zxr != null">
+        #{zxr,jdbcType=VARCHAR},
+      </if>
+      <if test="zxrq != null">
+        #{zxrq,jdbcType=INTEGER},
+      </if>
+      <if test="zs != null">
+        #{zs,jdbcType=TINYINT},
+      </if>
+      <if test="zsr != null">
+        #{zsr,jdbcType=VARCHAR},
+      </if>
+      <if test="zsrq != null">
+        #{zsrq,jdbcType=INTEGER},
+      </if>
+      <if test="zf != null">
+        #{zf,jdbcType=TINYINT},
+      </if>
+      <if test="zfr != null">
+        #{zfr,jdbcType=VARCHAR},
+      </if>
+      <if test="zfrq != null">
+        #{zfrq,jdbcType=INTEGER},
+      </if>
+      <if test="ex1 != null">
+        #{ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="ex2 != null">
+        #{ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="ex3 != null">
+        #{ex3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.febs.shangpin.entity.StockTzExample" resultType="java.lang.Long">
+    select count(*) from stock_tz
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stock_tz
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.djbh != null">
+        djbh = #{record.djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xdrq != null">
+        xdrq = #{record.xdrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.cangkuId != null">
+        cangku_id = #{record.cangkuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pdlx != null">
+        pdlx = #{record.pdlx,jdbcType=TINYINT},
+      </if>
+      <if test="record.bz != null">
+        bz = #{record.bz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sl != null">
+        sl = #{record.sl,jdbcType=INTEGER},
+      </if>
+      <if test="record.je != null">
+        je = #{record.je,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fj != null">
+        fj = #{record.fj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zdr != null">
+        zdr = #{record.zdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qr != null">
+        qr = #{record.qr,jdbcType=TINYINT},
+      </if>
+      <if test="record.qrr != null">
+        qrr = #{record.qrr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrrq != null">
+        qrrq = #{record.qrrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.sh != null">
+        sh = #{record.sh,jdbcType=TINYINT},
+      </if>
+      <if test="record.shr != null">
+        shr = #{record.shr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shrq != null">
+        shrq = #{record.shrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.zx != null">
+        zx = #{record.zx,jdbcType=TINYINT},
+      </if>
+      <if test="record.zxr != null">
+        zxr = #{record.zxr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zxrq != null">
+        zxrq = #{record.zxrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.zs != null">
+        zs = #{record.zs,jdbcType=TINYINT},
+      </if>
+      <if test="record.zsr != null">
+        zsr = #{record.zsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zsrq != null">
+        zsrq = #{record.zsrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.zf != null">
+        zf = #{record.zf,jdbcType=TINYINT},
+      </if>
+      <if test="record.zfr != null">
+        zfr = #{record.zfr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zfrq != null">
+        zfrq = #{record.zfrq,jdbcType=INTEGER},
+      </if>
+      <if test="record.ex1 != null">
+        ex1 = #{record.ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ex2 != null">
+        ex2 = #{record.ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ex3 != null">
+        ex3 = #{record.ex3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stock_tz
+    set Id = #{record.id,jdbcType=BIGINT},
+      djbh = #{record.djbh,jdbcType=VARCHAR},
+      xdrq = #{record.xdrq,jdbcType=INTEGER},
+      cangku_id = #{record.cangkuId,jdbcType=INTEGER},
+      pdlx = #{record.pdlx,jdbcType=TINYINT},
+      bz = #{record.bz,jdbcType=VARCHAR},
+      sl = #{record.sl,jdbcType=INTEGER},
+      je = #{record.je,jdbcType=DECIMAL},
+      fj = #{record.fj,jdbcType=VARCHAR},
+      zdr = #{record.zdr,jdbcType=VARCHAR},
+      qr = #{record.qr,jdbcType=TINYINT},
+      qrr = #{record.qrr,jdbcType=VARCHAR},
+      qrrq = #{record.qrrq,jdbcType=INTEGER},
+      sh = #{record.sh,jdbcType=TINYINT},
+      shr = #{record.shr,jdbcType=VARCHAR},
+      shrq = #{record.shrq,jdbcType=INTEGER},
+      zx = #{record.zx,jdbcType=TINYINT},
+      zxr = #{record.zxr,jdbcType=VARCHAR},
+      zxrq = #{record.zxrq,jdbcType=INTEGER},
+      zs = #{record.zs,jdbcType=TINYINT},
+      zsr = #{record.zsr,jdbcType=VARCHAR},
+      zsrq = #{record.zsrq,jdbcType=INTEGER},
+      zf = #{record.zf,jdbcType=TINYINT},
+      zfr = #{record.zfr,jdbcType=VARCHAR},
+      zfrq = #{record.zfrq,jdbcType=INTEGER},
+      ex1 = #{record.ex1,jdbcType=VARCHAR},
+      ex2 = #{record.ex2,jdbcType=VARCHAR},
+      ex3 = #{record.ex3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.febs.shangpin.entity.StockTz">
+    update stock_tz
+    <set>
+      <if test="djbh != null">
+        djbh = #{djbh,jdbcType=VARCHAR},
+      </if>
+      <if test="xdrq != null">
+        xdrq = #{xdrq,jdbcType=INTEGER},
+      </if>
+      <if test="cangkuId != null">
+        cangku_id = #{cangkuId,jdbcType=INTEGER},
+      </if>
+      <if test="pdlx != null">
+        pdlx = #{pdlx,jdbcType=TINYINT},
+      </if>
+      <if test="bz != null">
+        bz = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null">
+        sl = #{sl,jdbcType=INTEGER},
+      </if>
+      <if test="je != null">
+        je = #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="fj != null">
+        fj = #{fj,jdbcType=VARCHAR},
+      </if>
+      <if test="zdr != null">
+        zdr = #{zdr,jdbcType=VARCHAR},
+      </if>
+      <if test="qr != null">
+        qr = #{qr,jdbcType=TINYINT},
+      </if>
+      <if test="qrr != null">
+        qrr = #{qrr,jdbcType=VARCHAR},
+      </if>
+      <if test="qrrq != null">
+        qrrq = #{qrrq,jdbcType=INTEGER},
+      </if>
+      <if test="sh != null">
+        sh = #{sh,jdbcType=TINYINT},
+      </if>
+      <if test="shr != null">
+        shr = #{shr,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null">
+        shrq = #{shrq,jdbcType=INTEGER},
+      </if>
+      <if test="zx != null">
+        zx = #{zx,jdbcType=TINYINT},
+      </if>
+      <if test="zxr != null">
+        zxr = #{zxr,jdbcType=VARCHAR},
+      </if>
+      <if test="zxrq != null">
+        zxrq = #{zxrq,jdbcType=INTEGER},
+      </if>
+      <if test="zs != null">
+        zs = #{zs,jdbcType=TINYINT},
+      </if>
+      <if test="zsr != null">
+        zsr = #{zsr,jdbcType=VARCHAR},
+      </if>
+      <if test="zsrq != null">
+        zsrq = #{zsrq,jdbcType=INTEGER},
+      </if>
+      <if test="zf != null">
+        zf = #{zf,jdbcType=TINYINT},
+      </if>
+      <if test="zfr != null">
+        zfr = #{zfr,jdbcType=VARCHAR},
+      </if>
+      <if test="zfrq != null">
+        zfrq = #{zfrq,jdbcType=INTEGER},
+      </if>
+      <if test="ex1 != null">
+        ex1 = #{ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="ex2 != null">
+        ex2 = #{ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="ex3 != null">
+        ex3 = #{ex3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.febs.shangpin.entity.StockTz">
+    update stock_tz
+    set djbh = #{djbh,jdbcType=VARCHAR},
+      xdrq = #{xdrq,jdbcType=INTEGER},
+      cangku_id = #{cangkuId,jdbcType=INTEGER},
+      pdlx = #{pdlx,jdbcType=TINYINT},
+      bz = #{bz,jdbcType=VARCHAR},
+      sl = #{sl,jdbcType=INTEGER},
+      je = #{je,jdbcType=DECIMAL},
+      fj = #{fj,jdbcType=VARCHAR},
+      zdr = #{zdr,jdbcType=VARCHAR},
+      qr = #{qr,jdbcType=TINYINT},
+      qrr = #{qrr,jdbcType=VARCHAR},
+      qrrq = #{qrrq,jdbcType=INTEGER},
+      sh = #{sh,jdbcType=TINYINT},
+      shr = #{shr,jdbcType=VARCHAR},
+      shrq = #{shrq,jdbcType=INTEGER},
+      zx = #{zx,jdbcType=TINYINT},
+      zxr = #{zxr,jdbcType=VARCHAR},
+      zxrq = #{zxrq,jdbcType=INTEGER},
+      zs = #{zs,jdbcType=TINYINT},
+      zsr = #{zsr,jdbcType=VARCHAR},
+      zsrq = #{zsrq,jdbcType=INTEGER},
+      zf = #{zf,jdbcType=TINYINT},
+      zfr = #{zfr,jdbcType=VARCHAR},
+      zfrq = #{zfrq,jdbcType=INTEGER},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR},
+      ex3 = #{ex3,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
