@@ -14,7 +14,9 @@ import com.febs.shangpin.entity.*;
 import com.febs.shangpin.mapper.*;
 import com.febs.shangpin.service.IShangpinService;
 import com.febs.shangpin.vo.resp.ShangpinResp;
+import com.febs.system.entity.Cangku;
 import com.febs.system.entity.Gys;
+import com.febs.system.mapper.CangkuMapper;
 import com.febs.system.mapper.GysMapper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +59,11 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     private GysMapper gysMapper;
     @Autowired
     private BasicJldwMapper jldwMapper;
+    @Resource
+    private SpkcbMapper spkcbMapper;
+
+    @Resource
+    private CangkuMapper cangkuMapper;
 
     @Override
     public IPage<ShangpinResp> findShangpins(QueryRequest request, ShangpinResp shangpin) {
@@ -107,6 +115,22 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
             shangpin.setSpdm(GoodsConstant.GOODS_DM_PREFIX+dm);
             this.shangpinMapper.updateByPrimaryKeySelective(shangpin);
         }
+
+        Cangku cangku = cangkuMapper.selectByPrimaryKey(shangpin.getCkId());
+
+        if (cangku == null){
+            throw new FebsException("仓库不存在");
+        }
+
+        Spkcb spkcb = new Spkcb();
+        spkcb.setCkId(cangku.getId());
+        spkcb.setCkdm(cangku.getCkdm());
+        spkcb.setCkName(cangku.getCkmc());
+        spkcb.setGoodsId(shangpin.getId());
+        spkcb.setSl(shangpin.getKcsl());
+        spkcb.setSku(shangpin.getSku());
+        spkcbMapper.insertSelective(spkcb);
+
     }
 
     @Override

@@ -12,10 +12,13 @@ import com.febs.common.utils.BeanUtils;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderCkBiz;
 import com.febs.receipt.entity.OrderCk;
+import com.febs.receipt.entity.OrderCkmx;
 import com.febs.receipt.service.IOrderCkService;
 
+import com.febs.receipt.service.IOrderCkmxService;
 import com.febs.receipt.vo.req.OrderCkReq;
 import com.febs.receipt.vo.resp.OrderCkResp;
+import com.febs.receipt.vo.resp.OrderCkmxResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -129,12 +132,7 @@ public class OrderCkController extends BaseController {
 //    @RequiresPermissions("orderCk:confirm")
     public FebsResponse OrderXsskConfirm(@PathVariable Long id){
         User user = getCurrentUser();
-        OrderCk ck = new OrderCk();
-        ck.setId(id);
-        ck.setQr((byte)1);
-        ck.setQrr(user.getUsername());
-        ck.setQrrq(new Date());
-        orderCkService.updateOrderCk(ck);
+        ckBiz.qr(id,user);
         return new FebsResponse().success();
     }
 

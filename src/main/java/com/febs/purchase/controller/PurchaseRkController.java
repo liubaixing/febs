@@ -112,12 +112,7 @@ public class PurchaseRkController extends BaseController {
 //    @RequiresPermissions("purchaseRk:qr")
     public FebsResponse qr(@PathVariable("id") Long id) throws IOException {
         User user = getCurrentUser();
-        PurchaseRk purchaseRk = new PurchaseRk();
-        purchaseRk.setId(id);
-        purchaseRk.setQr((byte)1);
-        purchaseRk.setQrr(user.getUsername());
-        purchaseRk.setQrrq(new Date());
-        purchaseRkBiz.updateByPrimaryKey(purchaseRk);
+        purchaseRkBiz.qr(id,user);
         return new FebsResponse().success();
     }
 

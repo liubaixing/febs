@@ -191,4 +191,14 @@ public class Shangpin {
     @TableField("deleted")
     private Integer deleted;
 
+    @ExcelIgnore
+    private Integer kcsl;
+    @ExcelIgnore
+    private String sku;
+
+    @ExcelIgnore
+    private Integer ckId;
+    @ExcelIgnore
+    private String ckmc;
+
 }

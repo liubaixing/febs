@@ -8,14 +8,21 @@ import com.febs.purchase.service.IPurchaseRkService;
 import com.febs.purchase.service.IPurchaseRkmxService;
 import com.febs.purchase.vo.req.PurchaseRkReq;
 import com.febs.purchase.vo.resp.PurchaseRkResp;
+import com.febs.purchase.vo.resp.PurchaseRkmxResp;
 import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.service.IOrderXtService;
 import com.febs.receipt.vo.req.OrderXtReq;
 import com.febs.receipt.vo.resp.OrderXtResp;
+import com.febs.shangpin.entity.Spkcb;
+import com.febs.shangpin.entity.SpkcbExample;
+import com.febs.shangpin.mapper.SpkcbMapper;
+import com.febs.system.entity.User;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +38,9 @@ public class PurchaseRkBiz {
 
     @Autowired
     private IOrderXtService xtService;
+
+    @Resource
+    private SpkcbMapper spkcbMapper;
 
     public PurchaseRkResp view(Long id){
 
@@ -93,4 +103,56 @@ public class PurchaseRkBiz {
             rkmxService.createPurchaseRkmx(rkmx);
         }
     }
+
+
+    @Transactional
+    public void qr(Long id, User user) {
+
+        PurchaseRk purchaseRk = new PurchaseRk();
+        purchaseRk.setId(id);
+        purchaseRk.setQr((byte)1);
+        purchaseRk.setQrr(user.getUsername());
+        purchaseRk.setQrrq(new Date());
+        rkService.updatePurchaseRk(purchaseRk);
+
+
+        PurchaseRkmx purchaseRkmx = new PurchaseRkmx();
+        purchaseRkmx.setPid(id);
+
+        List<PurchaseRkmxResp> rkmxRespList = rkmxService.findPurchaseRkmxs(purchaseRkmx);
+
+        if (CollectionUtils.isNotEmpty(rkmxRespList)){
+
+            rkmxRespList.stream().forEach( i ->{
+
+                SpkcbExample example = new SpkcbExample();
+                example.createCriteria().andGoodsIdEqualTo(i.getSpId());
+                List<Spkcb> kcList = spkcbMapper.selectByExample(example);
+
+                if (CollectionUtils.isNotEmpty(kcList)){
+
+                    for (Spkcb spkcb : kcList){
+
+                        if ( spkcb.getSl2() - i.getSl() < 0){
+                            throw new FebsException("确认锁定库存不足");
+                        }
+
+                        spkcb.setSl(spkcb.getSl() + i.getSl());
+                        spkcb.setSl2(spkcb.getSl2()- i.getSl());
+                        spkcbMapper.updateByPrimaryKeySelective(spkcb);
+                    }
+
+                }
+
+                throw new FebsException("商品库存不存在");
+
+            });
+
+        }
+
+        throw new FebsException("入库单明细为空");
+
+    }
+
+
 }

@@ -65,7 +65,7 @@ public class UserPowerBiz {
                 map.put("powerId",ptda.getId());
                 map.put("powerName",ptda.getPtdamc());
                 map.put("check",0);
-                if (userOrgId.contains(ptda.getId())){
+                if (userOrgId.contains(Long.valueOf(ptda.getId()))){
                     map.put("check",1);
                 }
                 userPowerMap.add(map);
@@ -82,7 +82,7 @@ public class UserPowerBiz {
                 map.put("powerId",gys.getId());
                 map.put("powerName",gys.getGysmc());
                 map.put("check",0);
-                if (userGysId.contains(gys.getId())){
+                if (userGysId.contains(Long.valueOf(gys.getId()))){
                     map.put("check",1);
                 }
 
@@ -101,7 +101,7 @@ public class UserPowerBiz {
                 map.put("powerId",cangku.getId());
                 map.put("powerName",cangku.getCkmc());
                 map.put("check",0);
-                if (userCangkuId.contains(cangku.getId())){
+                if (userCangkuId.contains(Long.valueOf(cangku.getId()))){
                     map.put("check",1);
                 }
 
