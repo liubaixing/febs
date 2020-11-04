@@ -1,8 +1,13 @@
 package com.febs.shangpin.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.febs.common.entity.QueryRequest;
 import com.febs.shangpin.entity.StockTz;
 import com.febs.shangpin.entity.StockTzExample;
 import java.util.List;
+
+import com.febs.shangpin.vo.req.StockTzReq;
+import com.febs.shangpin.vo.resp.StockTzResp;
 import org.apache.ibatis.annotations.Param;
 
 public interface StockTzMapper {
@@ -27,4 +32,9 @@ public interface StockTzMapper {
     int updateByPrimaryKeySelective(StockTz record);
 
     int updateByPrimaryKey(StockTz record);
+
+    IPage<StockTzResp> selectPageByQuery(QueryRequest request, @Param("tz")StockTzReq stockTz);
+
+    List<StockTzResp> selectByQuery(StockTzReq stockTz);
+
 }

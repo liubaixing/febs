@@ -22,6 +22,8 @@ import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.listener.goods.ShangpinDataListener;
 import com.febs.common.listener.receipt.OrderXslistener;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.common.utils.StringUtil;
+import com.febs.other.service.IDictionaryService;
 import com.febs.receipt.biz.OrderXsBiz;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.service.IOrderXsService;
@@ -73,6 +75,9 @@ public class OrderXsController extends BaseController {
     private IUserCangkuService userCangkuService;
     @Autowired
     private IUserOrgService userOrgService;
+
+    @Autowired
+    private IDictionaryService dictionaryService;
 
     @GetMapping("")
 //    @RequiresPermissions("orderXs:list")
@@ -140,6 +145,12 @@ public class OrderXsController extends BaseController {
 //    @RequiresPermissions("orderXs:view")
     public FebsResponse view(@PathVariable Long id) {
         return new FebsResponse().success().data(orderXsBiz.view(id));
+    }
+
+    @GetMapping("getSerialNumber")
+    public FebsResponse getSerialNumber(){
+        String serialNumber = StringUtil.serialStr(dictionaryService.incr());
+       return new FebsResponse().success().data(serialNumber);
     }
 
     @ApiOperation("新增销售单")

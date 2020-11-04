@@ -2,6 +2,8 @@ package com.febs.shangpin.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -70,7 +72,7 @@ public class StockTz implements Serializable {
     /**
      * 确认日期
      */
-    private Integer qrrq;
+    private Date qrrq;
 
     /**
      * 0-未审核 1-已审核
@@ -85,7 +87,7 @@ public class StockTz implements Serializable {
     /**
      * 审核日期
      */
-    private Integer shrq;
+    private Date shrq;
 
     /**
      * 0-未执行 1-已执行
@@ -100,7 +102,7 @@ public class StockTz implements Serializable {
     /**
      * 执行日期
      */
-    private Integer zxrq;
+    private Date zxrq;
 
     /**
      * 0-未终审 1-已终审
@@ -115,7 +117,7 @@ public class StockTz implements Serializable {
     /**
      * 终审日期
      */
-    private Integer zsrq;
+    private Date zsrq;
 
     /**
      * 0-未作废 1-已作废
@@ -130,7 +132,7 @@ public class StockTz implements Serializable {
     /**
      * 作废日期
      */
-    private Integer zfrq;
+    private Date zfrq;
 
     /**
      * 备用1

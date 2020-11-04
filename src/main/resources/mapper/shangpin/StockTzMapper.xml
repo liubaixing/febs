@@ -560,4 +560,87 @@
       ex3 = #{ex3,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <sql id="Page_Column_List">
+    tz.Id, tz.djbh, tz.xdrq, tz.cangku_id, tz.pdlx, tz.bz, tz.fj, tz.zdr, tz.qr,
+    tz.qrr, tz.qrrq, tz.sh, tz.shr, tz.shrq, tz.zx, tz.zxr, tz.zxrq, tz.zs, tz.zsr,
+    tz.zsrq, tz.zf, tz.zfr, tz.zfrq
+  </sql>
+
+  <select id="selectPageByQuery" parameterType="com.febs.shangpin.vo.req.StockTzReq" resultType="com.febs.shangpin.vo.resp.StockTzResp">
+    SELECT
+      <include refid="Page_Column_List" />
+      ,ck.ckmc,mx.Id mxId,mx.sp_id,mx.sl,mx.dj,mx.je,mx.flje,mx.zk,mx.sku,sp.spmc
+    FROM stock_tz tz
+    LEFT JOIN system_cangku ck on tz.cangku_id = ck.id
+    LEFT JOIN stock_tzmx mx on tz.Id = mx.pid
+    LEFT JOIN shangpin sp on sp.id = mx.sp_id
+    <where>
+      <if test="tz.startTime != null and tz.endTime != null">
+        and tz.xdrq between #{tz.startTime} and #{tz.endTime}
+      </if>
+      <if test="tz.djbh != null and tz.djbh != ''">
+        and tz.djbh like CONCAT('%',#{tz.djbh},'%')
+      </if>
+      <if test="tz.qr != null ">
+        and tz.qr = #{tz.qr}
+      </if>
+      <if test="tz.qrr != null and tz.qrr != ''">
+        and tz.qrr like CONCAT('%',#{tz.qrr},'%')
+      </if>
+      <if test="tz.sh != null ">
+        and tz.sh = #{tz.sh}
+      </if>
+      <if test="tz.shr != null and tz.shr != ''">
+        and tz.shr like CONCAT('%',#{tz.shr},'%')
+      </if>
+      <if test="tz.cangkuId != null ">
+        and tz.cangku_id = #{tz.cangkuId}
+      </if>
+      <if test="tz.spmc != null and tz.spmc != ''">
+        and sp.spmc like CONCAT('%',#{tz.spmc},'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByQuery" parameterType="com.febs.shangpin.vo.req.StockTzReq" resultType="com.febs.shangpin.vo.resp.StockTzResp">
+    SELECT
+    <include refid="Page_Column_List" />
+    ,ck.ckmc,mx.Id mxId,mx.sp_id spId,mx.sl,mx.dj,mx.je,mx.flje,mx.zk,mx.sku,sp.spmc
+    FROM stock_tz tz
+    LEFT JOIN system_cangku ck on tz.cangku_id = ck.id
+    LEFT JOIN stock_tzmx mx on tz.Id = mx.pid
+    LEFT JOIN shangpin sp on sp.id = mx.sp_id
+    <where>
+      <if test="Id != null ">
+        and tz.Id = #{Id}
+      </if>
+      <if test="startTime != null and endTime != null">
+        and tz.xdrq between #{startTime} and #{endTime}
+      </if>
+      <if test="djbh != null and djbh != ''">
+        and tz.djbh like CONCAT('%',#{djbh},'%')
+      </if>
+      <if test="qr != null ">
+        and tz.qr = #{qr}
+      </if>
+      <if test="qrr != null and qrr != ''">
+        and tz.qrr like CONCAT('%',#{qrr},'%')
+      </if>
+      <if test="sh != null ">
+        and tz.sh = #{sh}
+      </if>
+      <if test="shr != null and shr != ''">
+        and tz.shr like CONCAT('%',#{shr},'%')
+      </if>
+      <if test="cangkuId != null ">
+        and tz.cangku_id = #{cangkuId}
+      </if>
+      <if test="spmc != null and spmc != ''">
+        and sp.spmc like CONCAT('%',#{spmc},'%')
+      </if>
+    </where>
+  </select>
+
 </mapper>
