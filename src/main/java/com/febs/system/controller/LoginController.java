@@ -11,7 +11,9 @@ import com.febs.monitor.service.ILoginLogService;
 import com.febs.system.entity.User;
 import com.febs.system.service.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -99,4 +101,12 @@ public class LoginController extends BaseController {
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException, FebsException {
         validateCodeService.create(request, response);
     }
+
+    @GetMapping("logout")
+    public FebsResponse logout(){
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
+        return new FebsResponse().success();
+    }
+
 }

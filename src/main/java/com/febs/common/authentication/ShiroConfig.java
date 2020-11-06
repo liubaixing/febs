@@ -1,6 +1,5 @@
 package com.febs.common.authentication;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.febs.common.properties.FebsProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +22,10 @@ import org.springframework.util.Base64Utils;
 
 import javax.servlet.Filter;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 
 /**
  * Shiro 配置类
@@ -83,7 +85,7 @@ public class ShiroConfig {
         for (String url : anonUrls) {
             filterChainDefinitionMap.put(url, "anon");
         }
-        filterChainDefinitionMap.put(febsProperties.getShiro().getLogoutUrl(), "logout");
+//        filterChainDefinitionMap.put(febsProperties.getShiro().getLogoutUrl(), "logout");
         filterChainDefinitionMap.put("/**", "authc");
         LinkedHashMap<String, Filter> filters = new LinkedHashMap<>();
         filters.put("authc",new ShiroUserFilter());
