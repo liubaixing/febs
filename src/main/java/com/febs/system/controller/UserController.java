@@ -99,14 +99,9 @@ public class UserController extends BaseController {
 
     @PostMapping("password/update")
     @ControllerEndpoint(exceptionMessage = "修改密码失败")
-    public FebsResponse updatePassword(
-            @NotBlank(message = "{required}") String oldPassword,
-            @NotBlank(message = "{required}") String newPassword) {
+    public FebsResponse updatePassword(@NotBlank(message = "{required}") String password) {
         User user = getCurrentUser();
-        if (!StringUtils.equals(user.getPassword(), Md5Util.encrypt(user.getUsername(), oldPassword))) {
-            throw new FebsException("原密码不正确");
-        }
-        userService.updatePassword(user.getUsername(), newPassword);
+        userService.updatePassword(user.getUsername(), password);
         return new FebsResponse().success();
     }
 

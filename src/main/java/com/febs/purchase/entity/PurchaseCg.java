@@ -136,6 +136,13 @@ public class PurchaseCg {
     /**
      * 是否定制 0-否 1-是
      */
+    @ApiModelProperty("是否含运费（0-否 1-是）")
+    @TableField("sfhyf")
+    private Byte sfhyf;
+
+    /**
+     * 是否定制 0-否 1-是
+     */
     @ApiModelProperty("是否自提（0-否 1-是）")
     @TableField("sfzt")
     private Byte sfzt;

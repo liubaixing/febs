@@ -19,6 +19,7 @@
         <result column="sfjj" jdbcType="TINYINT" property="sfjj" />
         <result column="sfdz" jdbcType="TINYINT" property="sfdz" />
         <result column="sfzt" jdbcType="TINYINT" property="sfzt" />
+        <result column="sfhyf" jdbcType="TINYINT" property="sfhyf" />
         <result column="wldh" jdbcType="VARCHAR" property="wldh" />
         <result column="yqdhrq" jdbcType="TIMESTAMP" property="yqdhrq" />
         <result column="bz" jdbcType="VARCHAR" property="bz" />
@@ -139,7 +140,7 @@
     </sql>
     <sql id="Base_Column_List">
     Id, djbh, xdrq, xsdh, ydjh, user_id, bm_id, gys_id, cangku_id, fpsl_id, fplx_id,
-    djlx_id, cgfzr, xdfzr, sfjj, sfdz,sfzt, wldh, yqdhrq, bz, address, tel, contact, sl, kpsl,
+    djlx_id, cgfzr, xdfzr, sfjj, sfdz,sfzt,sfhyf, wldh, yqdhrq, bz, address, tel, contact, sl, kpsl,
     fksl, tksl, je, kpje, fkje, tkje, fj, zdr, zdrq, qr, qrr, qrrq, sh, auditor, shrq, ecsh,
     ecshr, ecshrq, kssh, ksshr, ksshrq, shqr, shqrr, shqrrq, ksfh, ksfhr, ksfhrq, ksph,
     ksphr, ksphrq, cgfh, cgfhr, cgfhrq, yflr, yflrr, yflrrq, ysflr, ysflrr, ysflrrq,
@@ -180,7 +181,7 @@
       ydjh, user_id, bm_id,
       gys_id, cangku_id, fpsl_id,
       fplx_id, djlx_id, cgfzr,
-      xdfzr, sfjj, sfdz,sfzt,
+      xdfzr, sfjj, sfdz,sfzt,sfhyf,
       wldh, yqdhrq, bz,
       address, tel, contact,
       sl, kpsl, fksl, tksl,
@@ -203,7 +204,7 @@
       #{ydjh,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{bmId,jdbcType=INTEGER},
       #{gysId,jdbcType=INTEGER}, #{cangkuId,jdbcType=INTEGER}, #{fpslId,jdbcType=INTEGER},
       #{fplxId,jdbcType=INTEGER}, #{djlxId,jdbcType=INTEGER}, #{cgfzr,jdbcType=INTEGER},
-      #{xdfzr,jdbcType=INTEGER}, #{sfjj,jdbcType=TINYINT}, #{sfdz,jdbcType=TINYINT}, #{sfzt,jdbcType=TINYINT},
+      #{xdfzr,jdbcType=INTEGER}, #{sfjj,jdbcType=TINYINT}, #{sfdz,jdbcType=TINYINT}, #{sfzt,jdbcType=TINYINT},#{sfhyf,jdbcType=TINYINT},
       #{wldh,jdbcType=VARCHAR}, #{yqdhrq,jdbcType=TIMESTAMP}, #{bz,jdbcType=VARCHAR},
       #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
       #{sl,jdbcType=INTEGER}, #{kpsl,jdbcType=INTEGER}, #{fksl,jdbcType=INTEGER}, #{tksl,jdbcType=INTEGER},
@@ -273,6 +274,9 @@
             </if>
             <if test="sfzt != null">
                 sfzt,
+            </if>
+            <if test="sfhyf != null">
+                sfhyf,
             </if>
             <if test="wldh != null">
                 wldh,
@@ -500,6 +504,9 @@
             </if>
             <if test="sfzt != null">
                 #{sfzt,jdbcType=TINYINT},
+            </if>
+            <if test="sfhyf != null">
+                #{sfhyf,jdbcType=TINYINT},
             </if>
             <if test="wldh != null">
                 #{wldh,jdbcType=VARCHAR},
@@ -740,6 +747,9 @@
             <if test="record.sfzt != null">
                 sfzt = #{record.sfzt,jdbcType=TINYINT},
             </if>
+            <if test="record.sfhyf != null">
+                sfhyf = #{record.sfhyf,jdbcType=TINYINT},
+            </if>
             <if test="record.wldh != null">
                 wldh = #{record.wldh,jdbcType=VARCHAR},
             </if>
@@ -941,6 +951,7 @@
         sfjj = #{record.sfjj,jdbcType=TINYINT},
         sfdz = #{record.sfdz,jdbcType=TINYINT},
         sfzt = #{record.sfzt,jdbcType=TINYINT},
+        sfhyf = #{record.sfhyf,jdbcType=TINYINT},
         wldh = #{record.wldh,jdbcType=VARCHAR},
         yqdhrq = #{record.yqdhrq,jdbcType=TIMESTAMP},
         bz = #{record.bz,jdbcType=VARCHAR},
@@ -1054,6 +1065,9 @@
             </if>
             <if test="sfzt != null">
                 sfzt = #{sfzt,jdbcType=TINYINT},
+            </if>
+            <if test="sfhyf != null">
+                sfhyf = #{sfhyf,jdbcType=TINYINT},
             </if>
             <if test="wldh != null">
                 wldh = #{wldh,jdbcType=VARCHAR},
@@ -1253,6 +1267,7 @@
       sfjj = #{sfjj,jdbcType=TINYINT},
       sfdz = #{sfdz,jdbcType=TINYINT},
       sfzt = #{sfzt,jdbcType=TINYINT},
+      sfhyf = #{sfhyf,jdbcType=TINYINT},
       wldh = #{wldh,jdbcType=VARCHAR},
       yqdhrq = #{yqdhrq,jdbcType=TIMESTAMP},
       bz = #{bz,jdbcType=VARCHAR},
@@ -1317,7 +1332,7 @@
 
     <sql id="Page_Column_List">
         cg.Id, cg.djbh, cg.xdrq, cg.xsdh, cg.ydjh, cg.user_id, cg.bm_id, cg.gys_id, cg.cangku_id, cg.fpsl_id, cg.fplx_id,
-        cg.djlx_id, cg.cgfzr, cg.xdfzr, cg.sfjj, cg.sfdz, cg.sfzt, cg.wldh, cg.yqdhrq, cg.bz, cg.address, cg.tel, cg.contact,
+        cg.djlx_id, cg.cgfzr, cg.xdfzr, cg.sfjj, cg.sfdz, cg.sfzt,cg.sfhyf, cg.wldh, cg.yqdhrq, cg.bz, cg.address, cg.tel, cg.contact,
 		cg.kpsl, cg.fksl, cg.tksl, cg.kpje, cg.fkje, cg.tkje, cg.fj, cg.zdr, cg.zdrq, cg.qr, cg.qrr, cg.qrrq, cg.sh,
 		cg.auditor, cg.shrq, cg.ecsh, cg.ecshr, cg.ecshrq, cg.kssh, cg.ksshr, cg.ksshrq, cg.shqr, cg.shqrr, cg.shqrrq, cg.ksfh,
 		cg.ksfhr, cg.ksfhrq, cg.ksph,cg.ksphr, cg.ksphrq, cg.cgfh, cg.cgfhr, cg.cgfhrq, cg.yflr, cg.yflrr, cg.yflrrq, cg.ysflr,
@@ -1397,6 +1412,9 @@
             </if>
             <if test="cg.sfzt != null ">
                 and cg.sfzt = #{cg.sfzt}
+            </if>
+            <if test="cg.sfhyf != null ">
+                and cg.sfhyf = #{cg.sfhyf}
             </if>
             <if test="cg.wldh != null and cg.wldh != ''">
                 and cg.wldh like CONCAT('%',#{cg.wldh},'%')
@@ -1539,6 +1557,9 @@
             </if>
             <if test="sfzt != null ">
                 and cg.sfzt = #{sfzt}
+            </if>
+            <if test="sfhyf != null ">
+                and cg.sfhyf = #{sfhyf}
             </if>
             <if test="wldh != null and wldh != ''">
                 and cg.wldh like CONCAT('%',#{wldh},'%')
