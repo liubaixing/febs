@@ -138,7 +138,7 @@ public class StockTzBiz {
         }
         StockTzResp stockTzResp = BeanUtils.transformFrom(stockTz,StockTzResp.class);
         StockTzmx req = new StockTzmx();
-        stockTzResp.setTzmxList(stockTzmxService.findStockTzList(req));
+        stockTzResp.setStockTzmxList(stockTzmxService.findStockTzList(req));
 
         return stockTzResp;
     }
