@@ -40,7 +40,7 @@ public class StockTzBiz {
 
     public void save(StockTzReq req){
 
-        if (req != null || CollectionUtils.isNotEmpty(req.getStockTzmxList())){
+        if (req == null || CollectionUtils.isEmpty(req.getStockTzmxList())){
             throw new FebsException("调整单参数为空");
         }
 
@@ -126,5 +126,20 @@ public class StockTzBiz {
         stockTz.setQrr(user.getUsername());
         stockTz.setQrrq(new Date());
         stockTzService.updateObject(stockTz);
+    }
+
+    public StockTzResp view(Long id) {
+
+
+        StockTz stockTz = stockTzService.getStockTzById(id);
+        if (stockTz == null)
+        {
+            throw new FebsException("调整单不存在");
+        }
+        StockTzResp stockTzResp = BeanUtils.transformFrom(stockTz,StockTzResp.class);
+        StockTzmx req = new StockTzmx();
+        stockTzResp.setTzmxList(stockTzmxService.findStockTzList(req));
+
+        return stockTzResp;
     }
 }

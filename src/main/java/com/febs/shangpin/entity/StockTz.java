@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * stock_tz
@@ -22,7 +23,8 @@ public class StockTz implements Serializable {
     /**
      * 单据日期
      */
-    private Integer xdrq;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date xdrq;
 
     /**
      * 仓库ID 仓库名称
@@ -72,6 +74,7 @@ public class StockTz implements Serializable {
     /**
      * 确认日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date qrrq;
 
     /**
@@ -82,11 +85,12 @@ public class StockTz implements Serializable {
     /**
      * 审核人
      */
-    private String shr;
+    private String auditor;
 
     /**
      * 审核日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shrq;
 
     /**
@@ -102,6 +106,7 @@ public class StockTz implements Serializable {
     /**
      * 执行日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zxrq;
 
     /**
@@ -117,6 +122,7 @@ public class StockTz implements Serializable {
     /**
      * 终审日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zsrq;
 
     /**
@@ -132,6 +138,7 @@ public class StockTz implements Serializable {
     /**
      * 作废日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zfrq;
 
     /**

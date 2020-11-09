@@ -38,6 +38,11 @@ public class StockTzController extends BaseController {
         return new FebsResponse().success().data(stockTzService.findStockTzList(req));
     }
 
+    @GetMapping("view/{id}")
+    public FebsResponse view(@PathVariable("id")Long id){
+        return new FebsResponse().success().data(stockTzBiz.view(id));
+    }
+
     @PostMapping("")
     public FebsResponse save(StockTzReq req){
         User user = getCurrentUser();
@@ -72,7 +77,7 @@ public class StockTzController extends BaseController {
         StockTz stockTz = new StockTz();
         stockTz.setId(id);
         stockTz.setSh((byte)1);
-        stockTz.setShr(user.getUsername());
+        stockTz.setAuditor(user.getUsername());
         stockTz.setShrq(new Date());
         stockTzService.updateObject(stockTz);
         return new FebsResponse().success();
