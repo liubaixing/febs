@@ -18,5 +18,5 @@ public class StockTzResp extends StockTz {
     private String sku;
     private String spmc;
 
-    private List<StockTzmxResp> tzmxList;
+    private List<StockTzmxResp> stockTzmxList;
 }
