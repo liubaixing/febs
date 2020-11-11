@@ -1,7 +1,7 @@
 package com.febs.shangpin.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.febs.common.constant.OrderConstant;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
@@ -24,7 +24,8 @@ public class StockTzServiceImpl implements IStockTzService {
 
     @Override
     public IPage<StockTzResp> findStockTzPage(QueryRequest request, StockTzReq stockTz) {
-        return stockTzMapper.selectPageByQuery(request,stockTz);
+        Page<StockTz> page = new Page<>(request.getPageNum(), request.getPageSize());
+        return stockTzMapper.selectPageByQuery(page,stockTz);
     }
 
     @Override

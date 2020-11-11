@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.febs.shangpin.entity.StockTz">
     <id column="Id" jdbcType="BIGINT" property="id" />
     <result column="djbh" jdbcType="VARCHAR" property="djbh" />
-    <result column="xdrq" jdbcType="INTEGER" property="xdrq" />
+    <result column="xdrq" jdbcType="TIMESTAMP" property="xdrq" />
     <result column="cangku_id" jdbcType="INTEGER" property="cangkuId" />
     <result column="pdlx" jdbcType="TINYINT" property="pdlx" />
     <result column="bz" jdbcType="VARCHAR" property="bz" />
@@ -14,19 +14,19 @@
     <result column="zdr" jdbcType="VARCHAR" property="zdr" />
     <result column="qr" jdbcType="TINYINT" property="qr" />
     <result column="qrr" jdbcType="VARCHAR" property="qrr" />
-    <result column="qrrq" jdbcType="INTEGER" property="qrrq" />
+    <result column="qrrq" jdbcType="TIMESTAMP" property="qrrq" />
     <result column="sh" jdbcType="TINYINT" property="sh" />
-    <result column="shr" jdbcType="VARCHAR" property="shr" />
-    <result column="shrq" jdbcType="INTEGER" property="shrq" />
+    <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="shrq" jdbcType="TIMESTAMP" property="shrq" />
     <result column="zx" jdbcType="TINYINT" property="zx" />
     <result column="zxr" jdbcType="VARCHAR" property="zxr" />
-    <result column="zxrq" jdbcType="INTEGER" property="zxrq" />
+    <result column="zxrq" jdbcType="TIMESTAMP" property="zxrq" />
     <result column="zs" jdbcType="TINYINT" property="zs" />
     <result column="zsr" jdbcType="VARCHAR" property="zsr" />
-    <result column="zsrq" jdbcType="INTEGER" property="zsrq" />
+    <result column="zsrq" jdbcType="TIMESTAMP" property="zsrq" />
     <result column="zf" jdbcType="TINYINT" property="zf" />
     <result column="zfr" jdbcType="VARCHAR" property="zfr" />
-    <result column="zfrq" jdbcType="INTEGER" property="zfrq" />
+    <result column="zfrq" jdbcType="TIMESTAMP" property="zfrq" />
     <result column="ex1" jdbcType="VARCHAR" property="ex1" />
     <result column="ex2" jdbcType="VARCHAR" property="ex2" />
     <result column="ex3" jdbcType="VARCHAR" property="ex3" />
@@ -90,7 +90,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, djbh, xdrq, cangku_id, pdlx, bz, sl, je, fj, zdr, qr, qrr, qrrq, sh, shr, shrq, 
+    Id, djbh, xdrq, cangku_id, pdlx, bz, sl, je, fj, zdr, qr, qrr, qrrq, sh, auditor, shrq,
     zx, zxr, zxrq, zs, zsr, zsrq, zf, zfr, zfrq, ex1, ex2, ex3
   </sql>
   <select id="selectByExample" parameterType="com.febs.shangpin.entity.StockTzExample" resultMap="BaseResultMap">
@@ -127,18 +127,18 @@
     insert into stock_tz (djbh, xdrq, cangku_id, 
       pdlx, bz, sl, je, 
       fj, zdr, qr, qrr, 
-      qrrq, sh, shr, shrq, 
+      qrrq, sh, auditor, shrq,
       zx, zxr, zxrq, zs, 
       zsr, zsrq, zf, zfr, 
       zfrq, ex1, ex2, ex3
       )
-    values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=INTEGER}, #{cangkuId,jdbcType=INTEGER}, 
+    values (#{djbh,jdbcType=VARCHAR}, #{xdrq,jdbcType=TIMESTAMP}, #{cangkuId,jdbcType=INTEGER},
       #{pdlx,jdbcType=TINYINT}, #{bz,jdbcType=VARCHAR}, #{sl,jdbcType=INTEGER}, #{je,jdbcType=DECIMAL}, 
       #{fj,jdbcType=VARCHAR}, #{zdr,jdbcType=VARCHAR}, #{qr,jdbcType=TINYINT}, #{qrr,jdbcType=VARCHAR}, 
-      #{qrrq,jdbcType=INTEGER}, #{sh,jdbcType=TINYINT}, #{shr,jdbcType=VARCHAR}, #{shrq,jdbcType=INTEGER}, 
-      #{zx,jdbcType=TINYINT}, #{zxr,jdbcType=VARCHAR}, #{zxrq,jdbcType=INTEGER}, #{zs,jdbcType=TINYINT}, 
-      #{zsr,jdbcType=VARCHAR}, #{zsrq,jdbcType=INTEGER}, #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR}, 
-      #{zfrq,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}
+      #{qrrq,jdbcType=TIMESTAMP}, #{sh,jdbcType=TINYINT}, #{auditor,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP},
+      #{zx,jdbcType=TINYINT}, #{zxr,jdbcType=VARCHAR}, #{zxrq,jdbcType=TIMESTAMP}, #{zs,jdbcType=TINYINT},
+      #{zsr,jdbcType=VARCHAR}, #{zsrq,jdbcType=TIMESTAMP}, #{zf,jdbcType=TINYINT}, #{zfr,jdbcType=VARCHAR},
+      #{zfrq,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.febs.shangpin.entity.StockTz" useGeneratedKeys="true">
@@ -183,8 +183,8 @@
       <if test="sh != null">
         sh,
       </if>
-      <if test="shr != null">
-        shr,
+      <if test="auditor != null">
+        auditor,
       </if>
       <if test="shrq != null">
         shrq,
@@ -231,7 +231,7 @@
         #{djbh,jdbcType=VARCHAR},
       </if>
       <if test="xdrq != null">
-        #{xdrq,jdbcType=INTEGER},
+        #{xdrq,jdbcType=TIMESTAMP},
       </if>
       <if test="cangkuId != null">
         #{cangkuId,jdbcType=INTEGER},
@@ -261,16 +261,16 @@
         #{qrr,jdbcType=VARCHAR},
       </if>
       <if test="qrrq != null">
-        #{qrrq,jdbcType=INTEGER},
+        #{qrrq,jdbcType=TIMESTAMP},
       </if>
       <if test="sh != null">
         #{sh,jdbcType=TINYINT},
       </if>
-      <if test="shr != null">
-        #{shr,jdbcType=VARCHAR},
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
       </if>
       <if test="shrq != null">
-        #{shrq,jdbcType=INTEGER},
+        #{shrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zx != null">
         #{zx,jdbcType=TINYINT},
@@ -279,7 +279,7 @@
         #{zxr,jdbcType=VARCHAR},
       </if>
       <if test="zxrq != null">
-        #{zxrq,jdbcType=INTEGER},
+        #{zxrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zs != null">
         #{zs,jdbcType=TINYINT},
@@ -288,7 +288,7 @@
         #{zsr,jdbcType=VARCHAR},
       </if>
       <if test="zsrq != null">
-        #{zsrq,jdbcType=INTEGER},
+        #{zsrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zf != null">
         #{zf,jdbcType=TINYINT},
@@ -297,7 +297,7 @@
         #{zfr,jdbcType=VARCHAR},
       </if>
       <if test="zfrq != null">
-        #{zfrq,jdbcType=INTEGER},
+        #{zfrq,jdbcType=TIMESTAMP},
       </if>
       <if test="ex1 != null">
         #{ex1,jdbcType=VARCHAR},
@@ -326,7 +326,7 @@
         djbh = #{record.djbh,jdbcType=VARCHAR},
       </if>
       <if test="record.xdrq != null">
-        xdrq = #{record.xdrq,jdbcType=INTEGER},
+        xdrq = #{record.xdrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.cangkuId != null">
         cangku_id = #{record.cangkuId,jdbcType=INTEGER},
@@ -356,16 +356,16 @@
         qrr = #{record.qrr,jdbcType=VARCHAR},
       </if>
       <if test="record.qrrq != null">
-        qrrq = #{record.qrrq,jdbcType=INTEGER},
+        qrrq = #{record.qrrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.sh != null">
         sh = #{record.sh,jdbcType=TINYINT},
       </if>
-      <if test="record.shr != null">
-        shr = #{record.shr,jdbcType=VARCHAR},
+      <if test="record.auditor != null">
+        auditor = #{record.auditor,jdbcType=VARCHAR},
       </if>
       <if test="record.shrq != null">
-        shrq = #{record.shrq,jdbcType=INTEGER},
+        shrq = #{record.shrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.zx != null">
         zx = #{record.zx,jdbcType=TINYINT},
@@ -374,7 +374,7 @@
         zxr = #{record.zxr,jdbcType=VARCHAR},
       </if>
       <if test="record.zxrq != null">
-        zxrq = #{record.zxrq,jdbcType=INTEGER},
+        zxrq = #{record.zxrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.zs != null">
         zs = #{record.zs,jdbcType=TINYINT},
@@ -383,7 +383,7 @@
         zsr = #{record.zsr,jdbcType=VARCHAR},
       </if>
       <if test="record.zsrq != null">
-        zsrq = #{record.zsrq,jdbcType=INTEGER},
+        zsrq = #{record.zsrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.zf != null">
         zf = #{record.zf,jdbcType=TINYINT},
@@ -392,7 +392,7 @@
         zfr = #{record.zfr,jdbcType=VARCHAR},
       </if>
       <if test="record.zfrq != null">
-        zfrq = #{record.zfrq,jdbcType=INTEGER},
+        zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ex1 != null">
         ex1 = #{record.ex1,jdbcType=VARCHAR},
@@ -412,7 +412,7 @@
     update stock_tz
     set Id = #{record.id,jdbcType=BIGINT},
       djbh = #{record.djbh,jdbcType=VARCHAR},
-      xdrq = #{record.xdrq,jdbcType=INTEGER},
+      xdrq = #{record.xdrq,jdbcType=TIMESTAMP},
       cangku_id = #{record.cangkuId,jdbcType=INTEGER},
       pdlx = #{record.pdlx,jdbcType=TINYINT},
       bz = #{record.bz,jdbcType=VARCHAR},
@@ -422,19 +422,19 @@
       zdr = #{record.zdr,jdbcType=VARCHAR},
       qr = #{record.qr,jdbcType=TINYINT},
       qrr = #{record.qrr,jdbcType=VARCHAR},
-      qrrq = #{record.qrrq,jdbcType=INTEGER},
+      qrrq = #{record.qrrq,jdbcType=TIMESTAMP},
       sh = #{record.sh,jdbcType=TINYINT},
-      shr = #{record.shr,jdbcType=VARCHAR},
-      shrq = #{record.shrq,jdbcType=INTEGER},
+      auditor = #{record.auditor,jdbcType=VARCHAR},
+      shrq = #{record.shrq,jdbcType=TIMESTAMP},
       zx = #{record.zx,jdbcType=TINYINT},
       zxr = #{record.zxr,jdbcType=VARCHAR},
-      zxrq = #{record.zxrq,jdbcType=INTEGER},
+      zxrq = #{record.zxrq,jdbcType=TIMESTAMP},
       zs = #{record.zs,jdbcType=TINYINT},
       zsr = #{record.zsr,jdbcType=VARCHAR},
-      zsrq = #{record.zsrq,jdbcType=INTEGER},
+      zsrq = #{record.zsrq,jdbcType=TIMESTAMP},
       zf = #{record.zf,jdbcType=TINYINT},
       zfr = #{record.zfr,jdbcType=VARCHAR},
-      zfrq = #{record.zfrq,jdbcType=INTEGER},
+      zfrq = #{record.zfrq,jdbcType=TIMESTAMP},
       ex1 = #{record.ex1,jdbcType=VARCHAR},
       ex2 = #{record.ex2,jdbcType=VARCHAR},
       ex3 = #{record.ex3,jdbcType=VARCHAR}
@@ -449,7 +449,7 @@
         djbh = #{djbh,jdbcType=VARCHAR},
       </if>
       <if test="xdrq != null">
-        xdrq = #{xdrq,jdbcType=INTEGER},
+        xdrq = #{xdrq,jdbcType=TIMESTAMP},
       </if>
       <if test="cangkuId != null">
         cangku_id = #{cangkuId,jdbcType=INTEGER},
@@ -479,16 +479,16 @@
         qrr = #{qrr,jdbcType=VARCHAR},
       </if>
       <if test="qrrq != null">
-        qrrq = #{qrrq,jdbcType=INTEGER},
+        qrrq = #{qrrq,jdbcType=TIMESTAMP},
       </if>
       <if test="sh != null">
         sh = #{sh,jdbcType=TINYINT},
       </if>
-      <if test="shr != null">
-        shr = #{shr,jdbcType=VARCHAR},
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=VARCHAR},
       </if>
       <if test="shrq != null">
-        shrq = #{shrq,jdbcType=INTEGER},
+        shrq = #{shrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zx != null">
         zx = #{zx,jdbcType=TINYINT},
@@ -497,7 +497,7 @@
         zxr = #{zxr,jdbcType=VARCHAR},
       </if>
       <if test="zxrq != null">
-        zxrq = #{zxrq,jdbcType=INTEGER},
+        zxrq = #{zxrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zs != null">
         zs = #{zs,jdbcType=TINYINT},
@@ -506,7 +506,7 @@
         zsr = #{zsr,jdbcType=VARCHAR},
       </if>
       <if test="zsrq != null">
-        zsrq = #{zsrq,jdbcType=INTEGER},
+        zsrq = #{zsrq,jdbcType=TIMESTAMP},
       </if>
       <if test="zf != null">
         zf = #{zf,jdbcType=TINYINT},
@@ -515,7 +515,7 @@
         zfr = #{zfr,jdbcType=VARCHAR},
       </if>
       <if test="zfrq != null">
-        zfrq = #{zfrq,jdbcType=INTEGER},
+        zfrq = #{zfrq,jdbcType=TIMESTAMP},
       </if>
       <if test="ex1 != null">
         ex1 = #{ex1,jdbcType=VARCHAR},
@@ -532,7 +532,7 @@
   <update id="updateByPrimaryKey" parameterType="com.febs.shangpin.entity.StockTz">
     update stock_tz
     set djbh = #{djbh,jdbcType=VARCHAR},
-      xdrq = #{xdrq,jdbcType=INTEGER},
+      xdrq = #{xdrq,jdbcType=TIMESTAMP},
       cangku_id = #{cangkuId,jdbcType=INTEGER},
       pdlx = #{pdlx,jdbcType=TINYINT},
       bz = #{bz,jdbcType=VARCHAR},
@@ -542,19 +542,19 @@
       zdr = #{zdr,jdbcType=VARCHAR},
       qr = #{qr,jdbcType=TINYINT},
       qrr = #{qrr,jdbcType=VARCHAR},
-      qrrq = #{qrrq,jdbcType=INTEGER},
+      qrrq = #{qrrq,jdbcType=TIMESTAMP},
       sh = #{sh,jdbcType=TINYINT},
-      shr = #{shr,jdbcType=VARCHAR},
-      shrq = #{shrq,jdbcType=INTEGER},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      shrq = #{shrq,jdbcType=TIMESTAMP},
       zx = #{zx,jdbcType=TINYINT},
       zxr = #{zxr,jdbcType=VARCHAR},
-      zxrq = #{zxrq,jdbcType=INTEGER},
+      zxrq = #{zxrq,jdbcType=TIMESTAMP},
       zs = #{zs,jdbcType=TINYINT},
       zsr = #{zsr,jdbcType=VARCHAR},
-      zsrq = #{zsrq,jdbcType=INTEGER},
+      zsrq = #{zsrq,jdbcType=TIMESTAMP},
       zf = #{zf,jdbcType=TINYINT},
       zfr = #{zfr,jdbcType=VARCHAR},
-      zfrq = #{zfrq,jdbcType=INTEGER},
+      zfrq = #{zfrq,jdbcType=TIMESTAMP},
       ex1 = #{ex1,jdbcType=VARCHAR},
       ex2 = #{ex2,jdbcType=VARCHAR},
       ex3 = #{ex3,jdbcType=VARCHAR}
@@ -564,7 +564,7 @@
 
   <sql id="Page_Column_List">
     tz.Id, tz.djbh, tz.xdrq, tz.cangku_id, tz.pdlx, tz.bz, tz.fj, tz.zdr, tz.qr,
-    tz.qrr, tz.qrrq, tz.sh, tz.shr, tz.shrq, tz.zx, tz.zxr, tz.zxrq, tz.zs, tz.zsr,
+    tz.qrr, tz.qrrq, tz.sh, tz.auditor, tz.shrq, tz.zx, tz.zxr, tz.zxrq, tz.zs, tz.zsr,
     tz.zsrq, tz.zf, tz.zfr, tz.zfrq
   </sql>
 
@@ -592,8 +592,8 @@
       <if test="tz.sh != null ">
         and tz.sh = #{tz.sh}
       </if>
-      <if test="tz.shr != null and tz.shr != ''">
-        and tz.shr like CONCAT('%',#{tz.shr},'%')
+      <if test="tz.auditor != null and tz.auditor != ''">
+        and tz.auditor like CONCAT('%',#{tz.auditor},'%')
       </if>
       <if test="tz.cangkuId != null ">
         and tz.cangku_id = #{tz.cangkuId}
@@ -613,8 +613,8 @@
     LEFT JOIN stock_tzmx mx on tz.Id = mx.pid
     LEFT JOIN shangpin sp on sp.id = mx.sp_id
     <where>
-      <if test="Id != null ">
-        and tz.Id = #{Id}
+      <if test="id != null ">
+        and tz.Id = #{id}
       </if>
       <if test="startTime != null and endTime != null">
         and tz.xdrq between #{startTime} and #{endTime}
@@ -631,8 +631,8 @@
       <if test="sh != null ">
         and tz.sh = #{sh}
       </if>
-      <if test="shr != null and shr != ''">
-        and tz.shr like CONCAT('%',#{shr},'%')
+      <if test="auditor != null and auditor != ''">
+        and tz.auditor like CONCAT('%',#{auditor},'%')
       </if>
       <if test="cangkuId != null ">
         and tz.cangku_id = #{cangkuId}
