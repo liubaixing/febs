@@ -201,4 +201,12 @@ public class Shangpin {
     @ExcelIgnore
     private String ckmc;
 
+    @ExcelIgnore
+    private String jdtm;
+    @ExcelIgnore
+    private String sntm;
+    @ExcelIgnore
+    private String lttm;
+    @ExcelIgnore
+    private String qttm;
 }
