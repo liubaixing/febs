@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -36,7 +37,7 @@ import java.util.List;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class OrderCkServiceImpl extends ServiceImpl<OrderCkMapper, OrderCk> implements IOrderCkService {
 
-    @Autowired
+    @Resource
     private OrderCkMapper orderCkMapper;
 
     @Override
@@ -89,11 +90,11 @@ public class OrderCkServiceImpl extends ServiceImpl<OrderCkMapper, OrderCk> impl
 	}
 
     @Override
-    public boolean upload(Collection<CkExcel> data) {
+    public List<CkExcel> upload(Collection<CkExcel> data) {
 
         data.stream().forEach(one->{
             System.out.println(one);
         });
-        return false;
+        return null;
     }
 }

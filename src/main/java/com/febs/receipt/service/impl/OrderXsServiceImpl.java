@@ -2,8 +2,10 @@ package com.febs.receipt.service.impl;
 
 import com.febs.common.constant.OrderConstant;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.OrderXsExcelModel;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.BeanUtils;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.receipt.entity.OrderXs;
@@ -23,8 +25,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 销售单 Service实现
@@ -36,7 +41,7 @@ import java.util.List;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> implements IOrderXsService {
 
-    @Autowired
+    @Resource
     private OrderXsMapper orderXsMapper;
 
     @Override
@@ -146,4 +151,11 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
         return example;
     }
 
+    @Override
+    public List<OrderXsExcelModel> upload(Collection<OrderXsExcelModel> list) {
+
+//        List<OrderXsExcelModel> date = Arrays.asList((OrderXsExcelModel[])list.toArray());
+
+        return null;
+    }
 }

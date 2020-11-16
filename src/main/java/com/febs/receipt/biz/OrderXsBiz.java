@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.febs.basic.entity.*;
 import com.febs.basic.service.*;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.OrderXsExcelModel;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.exception.FebsException;
 import com.febs.purchase.entity.PurchaseCg;
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -177,7 +179,7 @@ public class OrderXsBiz {
     }
 
     public void excelInsert(OrderXsResp resp){
-        excelCheck(resp);
+        /*excelCheck(resp);
         OrderXs orderXs = new OrderXs();
         BeanUtils.copyProperties(resp,orderXs);
         if (StringUtils.isNotBlank(resp.getPtdamc())) {
@@ -284,7 +286,7 @@ public class OrderXsBiz {
         orderXsmx.setPid(xsId);
         orderXsmx.setDj(resp.getJe().multiply(new BigDecimal(resp.getSl())));
         orderXsmx.setXsje(resp.getJe().subtract(resp.getZk()));
-        xsmxService.createOrderXsmx(orderXsmx);
+        xsmxService.createOrderXsmx(orderXsmx);*/
     }
 
     public void confirmOrderXs(OrderXs req,boolean status){
@@ -453,49 +455,64 @@ public class OrderXsBiz {
 
     }
 
-    private void excelCheck(OrderXsResp resp){
-        if (resp.getXdrq() == null) {
-            throw new FebsException("下单日期不能为空");
+    public void excelUpload(List<OrderXsExcelModel> data,String type){
+
+        if (CollectionUtils.isEmpty(data)){
+            throw new FebsException("excel不能为空");
         }
-        if (resp.getSfjj() == null){
-            throw new FebsException("加急不能为空");
+
+        List<OrderXsReq> orderXsReqList = Arrays.asList((OrderXsReq[])data.toArray());
+
+        for (OrderXsReq orderXsReq : orderXsReqList){
+
         }
-        if (StringUtils.isBlank(resp.getYdjh())) {
-            throw new FebsException("客户订单编号不能为空");
+
+
+    }
+
+    private void excelCheck(OrderXsReq req){
+        if (req.getXdrq() == null){
+            throw new FebsException("下单日期为空");
         }
-        if (StringUtils.isBlank(resp.getKhmc())) {
-            throw new FebsException("客户名称不能为空");
+        if (StringUtils.isEmpty(req.getYdjh())){
+            throw new FebsException("客户订单编号为空");
         }
-        if (StringUtils.isBlank(resp.getPtdamc())) {
-            throw new FebsException("购货单位不能为空");
+        if (StringUtils.isEmpty(req.getKhmc())){
+            throw new FebsException("客户名称为空");
         }
-        if (StringUtils.isBlank(resp.getDjlxmc())) {
-            throw new FebsException("单据类型不能为空");
+        Kehu kehu = new Kehu();
+        kehu.setKhmc(req.getKhmc());
+        kehu = kehuService.findOneByQuery(kehu);
+//        req.setKh
+        if (StringUtils.isEmpty(req.getPtdamc())){
+            throw new FebsException("购货单位名称为空");
         }
-        if (StringUtils.isBlank(resp.getKhqymc())) {
-            throw new FebsException("客户区域不能为空");
+        if (StringUtils.isEmpty(req.getAddress())){
+            throw new FebsException("收货地址为空");
         }
-        if (StringUtils.isBlank(resp.getAddress())) {
-            throw new FebsException("收货地址不能为空");
+        if (StringUtils.isEmpty(req.getContact())){
+            throw new FebsException("收货人为空");
         }
-        if (StringUtils.isBlank(resp.getContact())) {
-            throw new FebsException("收货人不能为空");
+        if (StringUtils.isEmpty(req.getTel())){
+            throw new FebsException("联系电话为空");
         }
-        if (StringUtils.isBlank(resp.getTel())) {
-            throw new FebsException("联系电话不能为空");
+        if (StringUtils.isEmpty(req.getSptm())) {
+            throw new FebsException("商品条码为空");
         }
-        if (StringUtils.isBlank(resp.getSpmc())) {
-            throw new FebsException("商品名称不能为空");
+        if (req.getSl() == null) {
+            throw new FebsException("数量为空");
         }
-        if (resp.getSl() == null) {
-            throw new FebsException("数量不能为空");
+        if (req.getJe() == null) {
+            throw new FebsException("金额为空");
         }
-        if (resp.getJe() == null) {
-            throw new FebsException("金额不能为空");
+        if (StringUtils.isEmpty(req.getBmmc())){
+            Bumeng bumeng = new Bumeng();
+            bumeng.setBmmc(req.getBmmc());
+            bumeng = bumengService.findBumengs(bumeng).get(0);
+            req.setBumengId(bumeng.getId());
         }
-        if (resp.getZk() == null) {
-            throw new FebsException("平台折扣不能为空");
-        }
+
+
     }
 
 }

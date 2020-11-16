@@ -82,4 +82,6 @@ public class OrderXsReq extends OrderXs {
     @ExcelIgnore
     private List<Long> orgList;
 
+    @ExcelIgnore
+    private String sptm;
 }

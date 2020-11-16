@@ -1,6 +1,8 @@
 package com.febs.receipt.service;
 
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.OrderXsExcelModel;
+import com.febs.common.service.IExportService;
 import com.febs.receipt.entity.OrderXs;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,7 +19,7 @@ import java.util.List;
  * @author liubaixing
  * @date 2020-06-11 11:36:56
  */
-public interface IOrderXsService extends IService<OrderXs> {
+public interface IOrderXsService extends IService<OrderXs>, IExportService<OrderXsExcelModel> {
     /**
      * 查询（分页）
      *

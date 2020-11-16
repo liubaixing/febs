@@ -15,10 +15,12 @@ import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.entity.excel.CommonExcelEntity;
+import com.febs.common.entity.excel.OrderXsExcelModel;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.enums.order.OrderStatusEnum;
 import com.febs.common.exception.FebsException;
 import com.febs.common.listener.CommonExcelListener;
+import com.febs.common.listener.UploadDataListener;
 import com.febs.common.listener.goods.ShangpinDataListener;
 import com.febs.common.listener.receipt.OrderXslistener;
 import com.febs.common.utils.ExcelUtil;
@@ -329,8 +331,11 @@ public class OrderXsController extends BaseController {
     @ApiOperation("导入")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @PostMapping("upload")
-    public void upload(@RequestParam MultipartFile file) throws IOException{
-        EasyExcel.read(file.getInputStream(), OrderXsResp.class, new OrderXslistener(orderXsBiz)).sheet().doRead();
+    public void upload(@RequestParam MultipartFile file,@RequestParam("type")String type) throws IOException{
+        UploadDataListener<OrderXsExcelModel> listener = new UploadDataListener<OrderXsExcelModel>(orderXsService);
+        EasyExcel.read(file.getInputStream(),OrderXsExcelModel.class,listener).sheet().doRead();
+        List<OrderXsExcelModel> data = listener.getData();
+        orderXsBiz.excelUpload(data,type);
     }
 
 }
