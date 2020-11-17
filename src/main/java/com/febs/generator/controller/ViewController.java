@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author MrBird
  */
+/*
+
 @Controller("generatorViews")
 @RequestMapping(FebsConstant.VIEW_PREFIX + "generator")
 @RequiredArgsConstructor
@@ -35,3 +37,4 @@ public class ViewController {
         return FebsUtil.view("generator/configure");
     }
 }
+*/

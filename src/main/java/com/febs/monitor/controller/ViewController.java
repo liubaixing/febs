@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * @author MrBird
- */
+ *//*
 @Controller("monitorView")
 @RequestMapping(FebsConstant.VIEW_PREFIX + "monitor")
 @RequiredArgsConstructor
@@ -84,4 +84,4 @@ public class ViewController {
     public String swagger() {
         return FebsUtil.view("monitor/swagger");
     }
-}
+}*/

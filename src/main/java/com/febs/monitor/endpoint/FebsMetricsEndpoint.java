@@ -1,14 +1,6 @@
 package com.febs.monitor.endpoint;
 
 import com.febs.common.annotation.FebsEndPoint;
-import io.micrometer.core.instrument.Meter;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Statistic;
-import io.micrometer.core.instrument.Tag;
-import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.lang.Nullable;
 
 import java.util.*;
@@ -21,7 +13,7 @@ import java.util.stream.Collectors;
 @FebsEndPoint
 public class FebsMetricsEndpoint {
 
-    private final MeterRegistry registry;
+    /*private final MeterRegistry registry;
 
     public FebsMetricsEndpoint(MeterRegistry registry) {
         this.registry = registry;
@@ -212,5 +204,5 @@ public class FebsMetricsEndpoint {
         public Set<String> getNames() {
             return this.names;
         }
-    }
+    }*/
 }
