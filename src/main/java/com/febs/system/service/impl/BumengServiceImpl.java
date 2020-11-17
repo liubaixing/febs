@@ -57,7 +57,12 @@ public class BumengServiceImpl extends ServiceImpl<BumengMapper, Bumeng> impleme
     @Override
     public List<Bumeng> findBumengs(Bumeng bumeng) {
 	    LambdaQueryWrapper<Bumeng> queryWrapper = new LambdaQueryWrapper<>();
-		// TODO 设置查询条件
+        if (StringUtils.isNotBlank(bumeng.getBmdm())){
+            queryWrapper.like(Bumeng::getBmdm,bumeng.getBmdm());
+        }
+        if (StringUtils.isNotBlank(bumeng.getBmmc())) {
+            queryWrapper.like(Bumeng::getBmmc,bumeng.getBmmc());
+        }
 		return this.baseMapper.selectList(queryWrapper);
     }
 

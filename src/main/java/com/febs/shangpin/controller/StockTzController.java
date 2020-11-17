@@ -7,12 +7,9 @@ import com.febs.shangpin.biz.StockTzBiz;
 import com.febs.shangpin.entity.StockTz;
 import com.febs.shangpin.service.IStockTzService;
 import com.febs.shangpin.vo.req.StockTzReq;
-import com.febs.shangpin.vo.resp.ShangpinResp;
 import com.febs.system.entity.User;
-import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;

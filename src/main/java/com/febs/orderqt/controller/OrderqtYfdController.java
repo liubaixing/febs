@@ -19,6 +19,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -132,6 +133,13 @@ public class OrderqtYfdController extends BaseController {
         orderqtYfd.setZfrq(new Date());
         this.orderqtYfdService.updateOrderqtYfd(orderqtYfd);
         return new FebsResponse().success();
+    }
+
+    @ApiOperation("导入")
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    @PostMapping("upload")
+    public void upload(@RequestParam MultipartFile file) throws IOException{
+//        EasyExcel.read(file.getInputStream(), OrderXsResp.class, new OrderXslistener(orderXsBiz)).sheet().doRead();//http://47.114.158.77/
     }
 
 }

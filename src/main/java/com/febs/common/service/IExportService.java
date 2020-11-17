@@ -3,6 +3,7 @@ package com.febs.common.service;
 import com.febs.common.entity.ExcelUpload;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @ClassName: IExportService
@@ -21,5 +22,5 @@ public interface IExportService<T extends ExcelUpload> {
      * @param list 导入信息
      * @return 是否成功
      */
-    boolean upload(Collection<T> list);
+    List<T> upload(Collection<T> list);
 }

@@ -19,9 +19,9 @@ public class WhetherConverter implements Converter<Byte> {
 
     @Override
     public Byte convertToJavaData(CellData cellData, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        if("s".equals(cellData.getStringValue())){
+        if("是".equals(cellData.getStringValue())){
             return 1;
-        }else if ("".equals(cellData.getStringValue())){
+        }else if ("否".equals(cellData.getStringValue())){
             return 0;
         }else{
             return 2;
