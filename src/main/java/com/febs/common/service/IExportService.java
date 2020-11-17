@@ -22,5 +22,5 @@ public interface IExportService<T extends ExcelUpload> {
      * @param list 导入信息
      * @return 是否成功
      */
-    List<T> upload(Collection<T> list);
+    List<T> upload(List<T> list);
 }

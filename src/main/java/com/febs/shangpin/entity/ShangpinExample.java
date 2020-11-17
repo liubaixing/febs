@@ -1336,6 +1336,289 @@ public class ShangpinExample {
             addCriterion("deleted not between", value1, value2, "deleted");
             return (Criteria) this;
         }
+
+        /*******************/
+
+        public Criteria andJdtmIsNull() {
+            addCriterion("jdtm is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmIsNotNull() {
+            addCriterion("jdtm is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmEqualTo(String value) {
+            addCriterion("jdtm =", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmNotEqualTo(String value) {
+            addCriterion("jdtm <>", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmGreaterThan(String value) {
+            addCriterion("jdtm >", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmGreaterThanOrEqualTo(String value) {
+            addCriterion("jdtm >=", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmLessThan(String value) {
+            addCriterion("jdtm <", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmLessThanOrEqualTo(String value) {
+            addCriterion("jdtm <=", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmLike(String value) {
+            addCriterion("jdtm like", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmNotLike(String value) {
+            addCriterion("jdtm not like", value, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmIn(List<String> values) {
+            addCriterion("jdtm in", values, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmNotIn(List<String> values) {
+            addCriterion("jdtm not in", values, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmBetween(String value1, String value2) {
+            addCriterion("jdtm between", value1, value2, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andJdtmNotBetween(String value1, String value2) {
+            addCriterion("jdtm not between", value1, value2, "jdtm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmIsNull() {
+            addCriterion("sntm is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmIsNotNull() {
+            addCriterion("sntm is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmEqualTo(String value) {
+            addCriterion("sntm =", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmNotEqualTo(String value) {
+            addCriterion("sntm <>", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmGreaterThan(String value) {
+            addCriterion("sntm >", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmGreaterThanOrEqualTo(String value) {
+            addCriterion("sntm >=", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmLessThan(String value) {
+            addCriterion("sntm <", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmLessThanOrEqualTo(String value) {
+            addCriterion("sntm <=", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmLike(String value) {
+            addCriterion("sntm like", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmNotLike(String value) {
+            addCriterion("sntm not like", value, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmIn(List<String> values) {
+            addCriterion("sntm in", values, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmNotIn(List<String> values) {
+            addCriterion("sntm not in", values, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmBetween(String value1, String value2) {
+            addCriterion("sntm between", value1, value2, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andSntmNotBetween(String value1, String value2) {
+            addCriterion("sntm not between", value1, value2, "sntm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmIsNull() {
+            addCriterion("lttm is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmIsNotNull() {
+            addCriterion("lttm is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmEqualTo(String value) {
+            addCriterion("lttm =", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmNotEqualTo(String value) {
+            addCriterion("lttm <>", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmGreaterThan(String value) {
+            addCriterion("lttm >", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmGreaterThanOrEqualTo(String value) {
+            addCriterion("lttm >=", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmLessThan(String value) {
+            addCriterion("lttm <", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmLessThanOrEqualTo(String value) {
+            addCriterion("lttm <=", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmLike(String value) {
+            addCriterion("lttm like", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmNotLike(String value) {
+            addCriterion("lttm not like", value, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmIn(List<String> values) {
+            addCriterion("lttm in", values, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmNotIn(List<String> values) {
+            addCriterion("lttm not in", values, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmBetween(String value1, String value2) {
+            addCriterion("lttm between", value1, value2, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andLttmNotBetween(String value1, String value2) {
+            addCriterion("lttm not between", value1, value2, "lttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmIsNull() {
+            addCriterion("qttm is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmIsNotNull() {
+            addCriterion("qttm is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmEqualTo(String value) {
+            addCriterion("qttm =", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmNotEqualTo(String value) {
+            addCriterion("qttm <>", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmGreaterThan(String value) {
+            addCriterion("qttm >", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmGreaterThanOrEqualTo(String value) {
+            addCriterion("qttm >=", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmLessThan(String value) {
+            addCriterion("qttm <", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmLessThanOrEqualTo(String value) {
+            addCriterion("qttm <=", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmLike(String value) {
+            addCriterion("qttm like", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmNotLike(String value) {
+            addCriterion("qttm not like", value, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmIn(List<String> values) {
+            addCriterion("qttm in", values, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmNotIn(List<String> values) {
+            addCriterion("qttm not in", values, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmBetween(String value1, String value2) {
+            addCriterion("qttm between", value1, value2, "qttm");
+            return (Criteria) this;
+        }
+
+        public Criteria andQttmNotBetween(String value1, String value2) {
+            addCriterion("qttm not between", value1, value2, "qttm");
+            return (Criteria) this;
+        }
+        
     }
 
     /**

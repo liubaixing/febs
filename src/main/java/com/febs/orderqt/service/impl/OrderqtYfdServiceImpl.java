@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.common.constant.OrderConstant;
 import com.febs.common.constant.OrderqtConstant;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.YfdExcelModel;
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
@@ -94,5 +95,11 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
     @Transactional
 	public void deleteByExample(OrderqtYfdExample example){
         this.orderqtYfdMapper.deleteByExample(example);
+    }
+
+
+    @Override
+    public List<YfdExcelModel> upload(List<YfdExcelModel> list) {
+        return null;
     }
 }

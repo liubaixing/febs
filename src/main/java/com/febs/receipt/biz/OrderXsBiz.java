@@ -16,6 +16,7 @@ import com.febs.receipt.service.*;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.shangpin.entity.Shangpin;
+import com.febs.shangpin.entity.ShangpinExample;
 import com.febs.shangpin.service.IShangpinService;
 import com.febs.system.entity.Bumeng;
 import com.febs.system.entity.Cangku;
@@ -36,6 +37,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderXsBiz {
@@ -461,16 +463,23 @@ public class OrderXsBiz {
             throw new FebsException("excel不能为空");
         }
 
-        List<OrderXsReq> orderXsReqList = Arrays.asList((OrderXsReq[])data.toArray());
+        List<OrderXsReq> orderXsReqList = data.stream().map(one ->{
+            return com.febs.common.utils.BeanUtils.transformFrom(one,OrderXsReq.class);
+        }).collect(Collectors.toList());
 
-        for (OrderXsReq orderXsReq : orderXsReqList){
-
+        for (int i = 0; i<=orderXsReqList.size(); i++){
+            try {
+                excelCheck(orderXsReqList.get(i),type);
+            }catch (FebsException e){
+                throw new FebsException("第"+ i+"条数据异常，"+ e.getMessage());
+            }
         }
 
+        xsService.createOrderXs(null);
 
     }
 
-    private void excelCheck(OrderXsReq req){
+    private void excelCheck(OrderXsReq req,String type){
         if (req.getXdrq() == null){
             throw new FebsException("下单日期为空");
         }
@@ -483,7 +492,7 @@ public class OrderXsBiz {
         Kehu kehu = new Kehu();
         kehu.setKhmc(req.getKhmc());
         kehu = kehuService.findOneByQuery(kehu);
-//        req.setKh
+        req.setKehuId(kehu.getId());
         if (StringUtils.isEmpty(req.getPtdamc())){
             throw new FebsException("购货单位名称为空");
         }
@@ -499,12 +508,45 @@ public class OrderXsBiz {
         if (StringUtils.isEmpty(req.getSptm())) {
             throw new FebsException("商品条码为空");
         }
+
+        ShangpinExample example = new ShangpinExample();
+       ShangpinExample.Criteria criteria = example.createCriteria();
+        switch (type){
+            case "spdm":
+                criteria.andSpdmEqualTo(req.getSptm());
+                break;
+            case "jdtm":
+                criteria.andJdtmEqualTo(req.getSptm());
+                break;
+            case "sntm":
+                criteria.andSntmEqualTo(req.getSptm());
+                break;
+            case "lttm":
+                criteria.andLttmEqualTo(req.getSptm());
+                break;
+            case "qttm":
+                criteria.andQttmEqualTo(req.getSptm());
+                break;
+            default:
+                throw new FebsException("条码类型异常");
+        }
+
+        List<Shangpin> shangpinList = shangpinService.findByExample(example);
+        if (CollectionUtils.isEmpty(shangpinList) || shangpinList.size()>0){
+            throw new FebsException("商品条码异常");
+        }
+        req.setSpId(shangpinList.get(0).getId());
+
         if (req.getSl() == null) {
             throw new FebsException("数量为空");
         }
         if (req.getJe() == null) {
             throw new FebsException("金额为空");
         }
+
+        req.setXsje(req.getZk().multiply(req.getJe()));
+        req.setDj(req.getJe().divide(new BigDecimal(req.getSl())));
+
         if (StringUtils.isEmpty(req.getBmmc())){
             Bumeng bumeng = new Bumeng();
             bumeng.setBmmc(req.getBmmc());
@@ -512,6 +554,9 @@ public class OrderXsBiz {
             req.setBumengId(bumeng.getId());
         }
 
+        if (StringUtils.isBlank(req.getDjbh())){
+
+        }
 
     }
 

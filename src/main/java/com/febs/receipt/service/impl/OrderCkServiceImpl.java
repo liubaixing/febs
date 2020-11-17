@@ -90,7 +90,7 @@ public class OrderCkServiceImpl extends ServiceImpl<OrderCkMapper, OrderCk> impl
 	}
 
     @Override
-    public List<CkExcel> upload(Collection<CkExcel> data) {
+    public List<CkExcel> upload(List<CkExcel> data) {
 
         data.stream().forEach(one->{
             System.out.println(one);

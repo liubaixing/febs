@@ -1,12 +1,14 @@
 package com.febs.receipt.vo.req;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.entity.OrderXsmx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -84,4 +86,13 @@ public class OrderXsReq extends OrderXs {
 
     @ExcelIgnore
     private String sptm;
+
+    @ExcelIgnore
+    private BigDecimal zk;
+
+    @ExcelIgnore
+    private BigDecimal xsje;
+
+    @ExcelIgnore
+    private BigDecimal dj;
 }
