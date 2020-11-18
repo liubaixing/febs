@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.febs.basic.mapper.BasicFplxMapper;
+import com.febs.basic.mapper.BasicFpsdMapper;
 import com.febs.common.constant.OrderConstant;
 import com.febs.common.constant.OrderqtConstant;
 import com.febs.common.entity.QueryRequest;
@@ -17,6 +19,8 @@ import com.febs.orderqt.mapper.OrderqtYfdMapper;
 import com.febs.orderqt.service.IOrderqtYfdService;
 import com.febs.orderqt.vo.req.YfdReq;
 import com.febs.orderqt.vo.resp.YfdResp;
+import com.febs.system.mapper.GysMapper;
+import com.febs.system.service.IGysService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,8 +42,15 @@ import java.util.List;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, OrderqtYfd> implements IOrderqtYfdService {
 
-    @Autowired
+    @Resource
     private OrderqtYfdMapper orderqtYfdMapper;
+
+    @Resource
+    private GysMapper gysMapper;
+    @Resource
+    private BasicFpsdMapper fpsdMapper;
+    @Resource
+    private BasicFplxMapper fplxMapper;
 
     @Override
     public IPage<YfdResp> findOrderqtYfds(QueryRequest request, YfdReq req) {
@@ -100,6 +112,27 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
 
     @Override
     public List<YfdExcelModel> upload(List<YfdExcelModel> list) {
+
+        if (CollectionUtils.isEmpty(list)) {
+            throw new FebsException("excel数据为空");
+        }
+
+
+
+
+        list.stream().forEach(one ->{
+
+
+
+        });
+
+
+
         return null;
     }
+
+    private void excelDataCheck(){
+
+    }
+
 }

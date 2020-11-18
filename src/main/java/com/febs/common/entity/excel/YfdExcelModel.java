@@ -25,28 +25,15 @@ public class YfdExcelModel extends ExcelUpload {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss ")
     private Date rq;
 
-
-    /**
-     * 下单日期
-     */
     @ExcelProperty(value = "供应商",index = 1)
     private String gys;
 
-    /**
-     * 下单日期
-     */
     @ExcelProperty(value = "发票类型",index = 2)
     private String fplx;
 
-    /**
-     * 下单日期
-     */
     @ExcelProperty(value = "发票税率",index = 3)
     private String fpsl;
 
-    /**
-     * 下单日期
-     */
     @ExcelProperty(value = "采购单号",index = 4)
     private String cgdh;
 
