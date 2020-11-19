@@ -24,4 +24,8 @@ public class YfdReq extends OrderqtYfd {
 
     private List<OrderqtYfdmx> yfdmxeList;
 
+    private String ydjh;
+
+    private Integer spId;
+
 }

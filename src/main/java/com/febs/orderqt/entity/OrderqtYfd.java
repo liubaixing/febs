@@ -3,6 +3,8 @@ package com.febs.orderqt.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -127,5 +129,17 @@ public class OrderqtYfd {
      */
     @TableField("ex3")
     private String ex3;
+
+    /**
+     * 发票税点ID
+     */
+    @TableField("fpsd_id")
+    private Integer fpsdId;
+
+    /**
+     * 发票类型ID
+     */
+    @TableField("fplx_id")
+    private Integer fplxId;
 
 }

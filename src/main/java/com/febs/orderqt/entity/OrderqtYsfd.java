@@ -128,4 +128,17 @@ public class OrderqtYsfd {
     @TableField("ex3")
     private String ex3;
 
+    /**
+     * 发票税点ID
+     */
+    @TableField("fpsd_id")
+    private Integer fpsdId;
+
+    /**
+     * 发票类型ID
+     */
+    @TableField("fplx_id")
+    private Integer fplxId;
+
+
 }

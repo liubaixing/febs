@@ -1,6 +1,7 @@
 package com.febs.common.entity.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.febs.common.entity.ExcelUpload;
 import lombok.Data;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class CommonExcelEntity {
+public class CommonExcelEntity extends ExcelUpload {
 
     @ExcelProperty(index = 0)
     private String row;
