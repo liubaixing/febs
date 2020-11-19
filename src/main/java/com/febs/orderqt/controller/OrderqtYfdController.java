@@ -1,10 +1,13 @@
 package com.febs.orderqt.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.YfdExcelModel;
+import com.febs.common.listener.UploadDataListener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.orderqt.biz.OrderqtYfdBiz;
 import com.febs.orderqt.entity.OrderqtYfd;
@@ -139,7 +142,11 @@ public class OrderqtYfdController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @PostMapping("upload")
     public void upload(@RequestParam MultipartFile file) throws IOException{
-//        EasyExcel.read(file.getInputStream(), OrderXsResp.class, new OrderXslistener(orderXsBiz)).sheet().doRead();//http://47.114.158.77/
+
+        UploadDataListener<YfdExcelModel> listener = new UploadDataListener<YfdExcelModel>(orderqtYfdService);
+        EasyExcel.read(file.getInputStream(),YfdExcelModel.class,listener).sheet().doRead();
+        List<YfdExcelModel> data = listener.getData();
+        System.out.println(data);
     }
 
 }

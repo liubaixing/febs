@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.febs.common.constant.OrderConstant;
 import com.febs.common.constant.OrderqtConstant;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.YfdExcelModel;
 import com.febs.common.exception.FebsException;
 import com.febs.common.utils.DateUtil;
 import com.febs.common.utils.StringUtil;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -94,5 +96,11 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
     @Transactional
 	public void deleteByExample(OrderqtYfdExample example){
         this.orderqtYfdMapper.deleteByExample(example);
+    }
+
+    @Override
+    public List<YfdExcelModel> upload(Collection<YfdExcelModel> list) {
+        System.out.println(list);
+        return null;
     }
 }
