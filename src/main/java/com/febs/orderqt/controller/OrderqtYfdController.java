@@ -142,11 +142,7 @@ public class OrderqtYfdController extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @PostMapping("upload")
     public void upload(@RequestParam MultipartFile file) throws IOException{
-
-        UploadDataListener<YfdExcelModel> listener = new UploadDataListener<YfdExcelModel>(orderqtYfdService);
-        EasyExcel.read(file.getInputStream(),YfdExcelModel.class,listener).sheet().doRead();
-        List<YfdExcelModel> data = listener.getData();
-        System.out.println(data);
+        EasyExcel.read(file.getInputStream(), YfdExcelModel.class,new UploadDataListener(orderqtYfdService)).sheet().doRead();
     }
 
 }

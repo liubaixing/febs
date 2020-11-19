@@ -21,9 +21,7 @@ public class UploadDataListener<T extends ExcelUpload> extends AnalysisEventList
 
     private static final Logger LOGGER =
             LoggerFactory.getLogger(UploadDataListener.class);
-    /**
-     * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
-     */
+
     private static final int BATCH_COUNT = 3000;
 
     private List<T> data = new ArrayList<T>();

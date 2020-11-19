@@ -99,6 +99,6 @@ public class OrderXsExcelModel extends ExcelUpload {
     private BigDecimal je;
 
     @ExcelProperty(value = "平台折扣",index = 22)
-    private BigDecimal ptzk;
+    private BigDecimal zk;
 
 }

@@ -1,8 +1,6 @@
 package com.febs.monitor.endpoint;
 
 import com.febs.common.annotation.FebsEndPoint;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 
 import java.util.List;
 
@@ -12,7 +10,7 @@ import java.util.List;
 @FebsEndPoint
 public class FebsHttpTraceEndpoint {
 
-    private final HttpTraceRepository repository;
+    /*private final HttpTraceRepository repository;
 
     public FebsHttpTraceEndpoint(HttpTraceRepository repository) {
         this.repository = repository;
@@ -33,5 +31,5 @@ public class FebsHttpTraceEndpoint {
         public List<HttpTrace> getTraces() {
             return this.traces;
         }
-    }
+    }*/
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+/*
 
 @Controller("systemView")
 @RequiredArgsConstructor
@@ -47,10 +48,10 @@ public class ViewController extends BaseController {
     }
 
 
-    @GetMapping("/")
-    public String redirectIndex() {
-        return "redirect:/index";
-    }
+//    @GetMapping("/")
+//    public String redirectIndex() {
+//        return "redirect:/index";
+//    }
 
     @GetMapping("index")
     public String index(Model model) {
@@ -102,7 +103,8 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/user/userAdd");
     }
 
-    /*@GetMapping(FebsConstant.VIEW_PREFIX + "system/user/detail/{username}")
+    */
+/*@GetMapping(FebsConstant.VIEW_PREFIX + "system/user/detail/{username}")
     @RequiresPermissions("user:view")
     public String systemUserDetail(@PathVariable String username, Model model) {
         resolveUserModel(username, model, true);
@@ -114,7 +116,8 @@ public class ViewController extends BaseController {
     public String systemUserUpdate(@PathVariable String username, Model model) {
         resolveUserModel(username, model, false);
         return FebsUtil.view("system/user/userUpdate");
-    }*/
+    }*//*
+
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/role")
     @RequiresPermissions("role:view")
@@ -154,7 +157,8 @@ public class ViewController extends BaseController {
         return FebsUtil.view("error/500");
     }
 
-    /*private void resolveUserModel(String username, Model model, Boolean transform) {
+    */
+/*private void resolveUserModel(String username, Model model, Boolean transform) {
         User user = userService.findByName(username);
         String deptIds = userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
         user.setDeptIds(deptIds);
@@ -172,6 +176,8 @@ public class ViewController extends BaseController {
         if (user.getLastLoginTime() != null) {
             model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
         }
-    }*/
+    }*//*
+
 
 }
+*/

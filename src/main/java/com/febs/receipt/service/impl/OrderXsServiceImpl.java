@@ -152,10 +152,9 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     }
 
     @Override
-    public List<OrderXsExcelModel> upload(Collection<OrderXsExcelModel> list) {
+    public List<OrderXsExcelModel> upload(List<OrderXsExcelModel> list) {
 
-//        List<OrderXsExcelModel> date = Arrays.asList((OrderXsExcelModel[])list.toArray());
-
+        System.out.println(list);
         return null;
     }
 }

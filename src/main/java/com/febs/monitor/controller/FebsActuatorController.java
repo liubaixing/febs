@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +29,7 @@ public class FebsActuatorController {
 
     private final FebsHttpTraceEndpoint httpTraceEndpoint;
 
-    @GetMapping("httptrace")
+    /*@GetMapping("httptrace")
 //    @RequiresPermissions("httptrace:view")
     @ControllerEndpoint(exceptionMessage = "请求追踪失败")
     public FebsResponse httpTraces(String method, String url) {
@@ -66,5 +65,5 @@ public class FebsActuatorController {
         data.put("rows", febsHttpTraces);
         data.put("total", febsHttpTraces.size());
         return new FebsResponse().success().data(data);
-    }
+    }*/
 }

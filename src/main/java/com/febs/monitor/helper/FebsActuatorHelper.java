@@ -30,7 +30,7 @@ public class FebsActuatorHelper {
 
     private final FebsMetricsEndpoint metricsEndpoint;
 
-    public List<FebsMetricsEndpoint.FebsMetricResponse> getMetricResponseByType(String type) {
+    /*public List<FebsMetricsEndpoint.FebsMetricResponse> getMetricResponseByType(String type) {
         FebsMetricsEndpoint.ListNamesResponse listNames = metricsEndpoint.listNames();
         Set<String> names = listNames.getNames();
         Iterable<String> jvm = names.stream()
@@ -207,5 +207,5 @@ public class FebsActuatorHelper {
     private static Double convertToMb(Object value) {
         return new BigDecimal(String.valueOf(value))
                 .divide(DECIMAL, 3, RoundingMode.HALF_UP).doubleValue();
-    }
+    }*/
 }

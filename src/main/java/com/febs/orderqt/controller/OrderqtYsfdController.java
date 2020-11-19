@@ -1,10 +1,13 @@
 package com.febs.orderqt.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.YfdExcelModel;
+import com.febs.common.listener.UploadDataListener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.orderqt.biz.OrderqtYsfdBiz;
 import com.febs.orderqt.entity.OrderqtYsfd;
@@ -15,10 +18,10 @@ import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -100,6 +103,13 @@ public class OrderqtYsfdController extends BaseController {
     public void export(QueryRequest queryRequest, YsfdReq req, HttpServletResponse response) throws IOException {
         List<YsfdResp> orderqtYsfds = this.orderqtYsfdService.findOrderqtYsfds(queryRequest, req).getRecords();
         ExcelUtil.export(orderqtYsfds, YsfdResp.class,"印刷费单",response);
+    }
+
+    @ApiOperation("导入")
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    @PostMapping("upload")
+    public void upload(@RequestParam MultipartFile file) throws IOException{
+        EasyExcel.read(file.getInputStream(), YfdExcelModel.class,new UploadDataListener(orderqtYsfdService)).sheet().doRead();
     }
 
     @ControllerEndpoint(exceptionMessage = "审核失败")

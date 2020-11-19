@@ -19,8 +19,8 @@ public interface IExportService<T extends ExcelUpload> {
      * 文件上傳
      * </p>
      *
-     * @param list 导入信息
+     * @param data 导入信息
      * @return 是否成功
      */
-    List<T> upload(Collection<T> list);
+    List<T> upload(List<T> data);
 }

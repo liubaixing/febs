@@ -12,7 +12,7 @@ import java.util.Date;
 public class YfdExcelModel extends ExcelUpload {
 
     @ExcelProperty(value = "日期",index = 0)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date djrq;
 
     @ExcelProperty(value = "供应商",index = 1)

@@ -1,6 +1,8 @@
 package com.febs.orderqt.service;
 
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.YfdExcelModel;
+import com.febs.common.service.IExportService;
 import com.febs.orderqt.entity.OrderqtYsfd;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,7 +19,7 @@ import java.util.List;
  * @author liubaixing
  * @date 2020-07-29 14:14:23
  */
-public interface IOrderqtYsfdService extends IService<OrderqtYsfd> {
+public interface IOrderqtYsfdService extends IService<OrderqtYsfd>, IExportService<YfdExcelModel> {
     /**
      * 查询（分页）
      *
