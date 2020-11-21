@@ -116,7 +116,7 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
             this.shangpinMapper.updateByPrimaryKeySelective(shangpin);
         }
 
-        Cangku cangku = cangkuMapper.selectByPrimaryKey(shangpin.getCkId());
+        /*Cangku cangku = cangkuMapper.selectByPrimaryKey(shangpin.getCkId());
 
         if (cangku == null){
             throw new FebsException("仓库不存在");
@@ -129,7 +129,7 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
         spkcb.setGoodsId(shangpin.getId());
         spkcb.setSl(shangpin.getKcsl());
         spkcb.setSku(shangpin.getSku());
-        spkcbMapper.insertSelective(spkcb);
+        spkcbMapper.insertSelective(spkcb);*/
 
     }
 

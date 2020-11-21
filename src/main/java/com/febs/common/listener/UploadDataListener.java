@@ -47,7 +47,7 @@ public class UploadDataListener<T extends ExcelUpload> extends AnalysisEventList
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-//        saveData();
+        saveData();
         LOGGER.info("所有数据解析完成！");
     }
 

@@ -1,12 +1,18 @@
 package com.febs.receipt.biz;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.febs.basic.entity.*;
+import com.febs.basic.mapper.BasicPtdaMapper;
 import com.febs.basic.service.*;
+import com.febs.common.constant.OrderConstant;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.entity.excel.OrderXsExcelModel;
 import com.febs.common.enums.DeletedEnum;
 import com.febs.common.exception.FebsException;
+import com.febs.common.utils.DateUtil;
+import com.febs.common.utils.StringUtil;
+import com.febs.other.service.IDictionaryService;
 import com.febs.purchase.entity.PurchaseCg;
 import com.febs.purchase.entity.PurchaseCgmx;
 import com.febs.purchase.service.IPurchaseCgService;
@@ -33,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
@@ -57,9 +64,8 @@ public class OrderXsBiz {
     @Autowired
     private IShangpinService shangpinService;
 
-    @Autowired
-    private IBasicPtdaService ptdaService;
-
+    @Resource
+    private BasicPtdaMapper ptdaMapper;
     @Autowired
     private IUserService userService;
     @Autowired
@@ -68,14 +74,6 @@ public class OrderXsBiz {
     private IKehuService kehuService;
     @Autowired
     private ICangkuService cangkuService;
-    @Autowired
-    private IBasicKhlyService khlyService;
-    @Autowired
-    private IBasicDjlxService djlxService;
-    @Autowired
-    private IBasicKhqyService khqyService;
-    @Autowired
-    private IBasicLllyService lllyService;
 
     @Autowired
     private IOrderCkService ckService;
@@ -87,6 +85,8 @@ public class OrderXsBiz {
 
     @Autowired
     private IPurchaseCgmxService cgmxService;
+    @Autowired
+    private IDictionaryService dictionaryService;
 
     /**
      * @param request
@@ -475,7 +475,21 @@ public class OrderXsBiz {
             }
         }
 
-        xsService.createOrderXs(null);
+        for (OrderXsReq req : orderXsReqList){
+            OrderXs orderXs = com.febs.common.utils.BeanUtils.transformFrom(req,OrderXs.class);
+            Long pid = xsService.createOrderXs(orderXs);
+
+            OrderXsmx orderXsmx = new OrderXsmx();
+            orderXsmx.setPid(pid);
+            orderXsmx.setSpId(req.getSpId());
+            orderXsmx.setJhsl(req.getSl());
+            orderXsmx.setDj(req.getDj());
+            orderXsmx.setJe(req.getJe());
+            orderXsmx.setZk(req.getZk());
+            orderXsmx.setXsje(req.getXsje());
+            orderXsmx.setCreateTime(new Date());
+            xsmxService.createOrderXsmx(orderXsmx);
+        }
 
     }
 
@@ -493,9 +507,18 @@ public class OrderXsBiz {
         kehu.setKhmc(req.getKhmc());
         kehu = kehuService.findOneByQuery(kehu);
         req.setKehuId(kehu.getId());
+
         if (StringUtils.isEmpty(req.getPtdamc())){
             throw new FebsException("购货单位名称为空");
         }
+        LambdaQueryWrapper<BasicPtda> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(BasicPtda::getPtdadm,req.getPtdamc());
+        BasicPtda ptda = ptdaMapper.selectOne(queryWrapper);
+        if (ptda == null){
+            throw new FebsException("购货单位不存在");
+        }
+        req.setOrgId(ptda.getId());
+
         if (StringUtils.isEmpty(req.getAddress())){
             throw new FebsException("收货地址为空");
         }
@@ -555,7 +578,8 @@ public class OrderXsBiz {
         }
 
         if (StringUtils.isBlank(req.getDjbh())){
-
+            String djbh = ptda.getPtdadm() + DateUtil.getYear() + StringUtil.serialStr(dictionaryService.incr());
+            req.setDjbh(djbh);
         }
 
     }

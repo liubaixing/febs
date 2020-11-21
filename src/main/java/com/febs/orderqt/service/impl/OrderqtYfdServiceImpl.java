@@ -129,12 +129,7 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
     @Override
     public List<YfdExcelModel> upload(List<YfdExcelModel> data) {
 
-        data.stream().forEach(i->{
-            System.out.println("data");
-        });
-
-
-        /*if (CollectionUtils.isEmpty(data)) {
+        if (CollectionUtils.isEmpty(data)) {
             throw new FebsException("excel数据为空");
         }
 
@@ -155,7 +150,7 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
             yfdmx.setSpId(one.getSpId());
             yfdmx.setJe(one.getJe());
             yfdmxMapper.insertSelective(yfdmx);
-        });*/
+        });
         return null;
     }
 
