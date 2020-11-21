@@ -8,36 +8,26 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * @ClassName: YfdExcelModel
- * @Description:
- * @Author:
- * @Date 2020/11/17
- * @Version 1.0
- */
 @Data
 public class YfdExcelModel extends ExcelUpload {
 
-    /**
-     * 下单日期
-     */
-    @ExcelProperty(index = 0)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss ")
+    @ExcelProperty(value = "日期",index = 0)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date djrq;
 
-    @ExcelProperty(index = 1)
+    @ExcelProperty(value = "供应商",index = 1)
     private String gys;
 
-    @ExcelProperty(index = 2)
+    @ExcelProperty(value = "发票类型",index = 2)
     private String fplx;
 
-    @ExcelProperty(index = 3)
+    @ExcelProperty(value = "发票税率",index = 3)
     private String fpsd;
 
-    @ExcelProperty(index = 4)
+    @ExcelProperty(value = "采购单号",index = 4)
     private String cgdh;
 
-    @ExcelProperty(index = 5)
+    @ExcelProperty(value = "金额",index = 5)
     private BigDecimal je;
 
 }
