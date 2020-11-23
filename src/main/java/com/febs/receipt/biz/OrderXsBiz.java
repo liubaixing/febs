@@ -467,11 +467,11 @@ public class OrderXsBiz {
             return com.febs.common.utils.BeanUtils.transformFrom(one,OrderXsReq.class);
         }).collect(Collectors.toList());
 
-        for (int i = 0; i<=orderXsReqList.size(); i++){
+        for (int i = 0; i < orderXsReqList.size(); i++){
             try {
                 excelCheck(orderXsReqList.get(i),type);
             }catch (FebsException e){
-                throw new FebsException("第"+ i+"条数据异常，"+ e.getMessage());
+                throw new FebsException("第"+ (i+1) +"条数据异常，"+ e.getMessage());
             }
         }
 
@@ -500,6 +500,10 @@ public class OrderXsBiz {
         if (StringUtils.isEmpty(req.getYdjh())){
             throw new FebsException("客户订单编号为空");
         }
+
+        User user = userService.findByName(req.getUserName());
+        req.setUserId(user.getUserId());
+
         if (StringUtils.isEmpty(req.getKhmc())){
             throw new FebsException("客户名称为空");
         }
@@ -512,7 +516,7 @@ public class OrderXsBiz {
             throw new FebsException("购货单位名称为空");
         }
         LambdaQueryWrapper<BasicPtda> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(BasicPtda::getPtdadm,req.getPtdamc());
+        queryWrapper.like(BasicPtda::getPtdamc,req.getPtdamc());
         BasicPtda ptda = ptdaMapper.selectOne(queryWrapper);
         if (ptda == null){
             throw new FebsException("购货单位不存在");
@@ -555,7 +559,7 @@ public class OrderXsBiz {
         }
 
         List<Shangpin> shangpinList = shangpinService.findByExample(example);
-        if (CollectionUtils.isEmpty(shangpinList) || shangpinList.size()>0){
+        if (CollectionUtils.isEmpty(shangpinList)){
             throw new FebsException("商品条码异常");
         }
         req.setSpId(shangpinList.get(0).getId());
@@ -570,7 +574,7 @@ public class OrderXsBiz {
         req.setXsje(req.getZk().multiply(req.getJe()));
         req.setDj(req.getJe().divide(new BigDecimal(req.getSl())));
 
-        if (StringUtils.isEmpty(req.getBmmc())){
+        if (StringUtils.isNotBlank(req.getBmmc())){
             Bumeng bumeng = new Bumeng();
             bumeng.setBmmc(req.getBmmc());
             bumeng = bumengService.findBumengs(bumeng).get(0);

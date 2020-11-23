@@ -7,6 +7,8 @@ import com.febs.other.mapper.DictionaryMapper;
 import com.febs.other.service.IDictionaryService;
 import com.febs.receipt.mapper.OrderXsMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
  * @Date 2020/11/4
  * @Version 1.0
  */
+@Transactional(propagation = Propagation.NESTED)
 @Service
 public class DictionaryServiceImpl implements IDictionaryService {
 

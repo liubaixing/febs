@@ -153,8 +153,6 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
 
     @Override
     public List<OrderXsExcelModel> upload(List<OrderXsExcelModel> list) {
-
-        System.out.println(list);
         return null;
     }
 }

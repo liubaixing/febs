@@ -93,7 +93,7 @@ public class OrderXsExcelModel extends ExcelUpload {
     private String spmc;
 
     @ExcelProperty(value = "数量",index = 20)
-    private String sl;
+    private Integer sl;
 
     @ExcelProperty(value = "数量",index = 21)
     private BigDecimal je;
