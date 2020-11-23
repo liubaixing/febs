@@ -331,11 +331,12 @@ public class OrderXsController extends BaseController {
     @ApiOperation("导入")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @PostMapping("upload")
-    public void upload(@RequestParam MultipartFile file,@RequestParam("type")String type) throws IOException{
+    public FebsResponse upload(@RequestParam MultipartFile file,@RequestParam("type")String type) throws IOException{
         UploadDataListener<OrderXsExcelModel> listener = new UploadDataListener<OrderXsExcelModel>(orderXsService);
         EasyExcel.read(file.getInputStream(),OrderXsExcelModel.class,listener).sheet().doRead();
         List<OrderXsExcelModel> data = listener.getData();
         orderXsBiz.excelUpload(data,type);
+        return new FebsResponse().success();
     }
 
 }
