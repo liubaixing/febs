@@ -376,6 +376,8 @@ public class OrderXsBiz {
             cg.setYdjh(orderXs.getYdjh());
             cg.setUserId(req.getUserId());
             cg.setBmId(orderXs.getBumengId());
+            cg.setSfdz(orderXs.getSfdz());
+            cg.setSfjj(orderXs.getSfjj());
 
             Shangpin sp = new Shangpin();
             sp.setId(xsmx.getSpId());

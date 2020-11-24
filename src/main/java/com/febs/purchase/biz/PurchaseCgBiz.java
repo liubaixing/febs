@@ -18,6 +18,8 @@ import com.febs.receipt.entity.OrderXsmx;
 import com.febs.receipt.entity.OrderXsmxExample;
 import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.service.IOrderXsmxService;
+import com.febs.system.entity.User;
+import com.febs.system.service.IUserService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,8 @@ public class PurchaseCgBiz {
     private IPurchaseTcService tcService;
     @Autowired
     private IPurchaseTcmxService tcmxService;
+    @Autowired
+    private IUserService userService;
 
     @Resource
     private PurchaseCgmxMapper cgmxMapper;
@@ -209,5 +213,30 @@ public class PurchaseCgBiz {
 
         cgService.updatePurchaseCg(purchaseCg);
     }
+
+    public void close(PurchaseCg purchaseCg) {
+
+        PurchaseCgResp cgResp = cgService.findById(purchaseCg.getId());
+
+        if (cgResp == null){
+            throw new FebsException("采购单不存在");
+        }
+
+        OrderXsExample example = new OrderXsExample();
+        example.createCriteria().andDjbhEqualTo(cgResp.getXsdh());
+        OrderXs orderXs = xsService.findOrderXs(example);
+
+        if (orderXs == null) {
+            throw new FebsException("销售单不存在");
+        }
+
+        User user = userService.findByName(orderXs.getZxr());
+
+
+        purchaseCg.setXdfzr((int)(long)user.getUserId());
+        cgService.updatePurchaseCg(purchaseCg);
+    }
+
+
 
 }

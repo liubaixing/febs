@@ -288,7 +288,8 @@ public class PurchaseCgController extends BaseController {
         purchaseCg.setZs((byte)1);
         purchaseCg.setZsr(user.getUsername());
         purchaseCg.setZsrq(new Date());
-        this.purchaseCgService.updatePurchaseCg(purchaseCg);
+
+        cgBiz.close(purchaseCg);
         return new FebsResponse().success();
     }
 
