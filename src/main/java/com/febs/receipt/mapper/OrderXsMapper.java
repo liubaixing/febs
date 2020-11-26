@@ -38,6 +38,8 @@ public interface OrderXsMapper extends BaseMapper<OrderXs> {
 
     OrderXsResp selectOneByQuery(OrderXsReq req);
 
+    List<OrderXsResp> selectByXskp(OrderXsReq req);
+
     OrderXs selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") OrderXs record, @Param("example") OrderXsExample example);

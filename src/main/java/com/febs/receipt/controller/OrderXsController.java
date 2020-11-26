@@ -90,7 +90,7 @@ public class OrderXsController extends BaseController {
             return new FebsResponse().success();
         }
 
-        return new FebsResponse().success().data(orderXsService.findOrderXss(orderXs));
+        return new FebsResponse().success().data(orderXsService.findByXskp(orderXs));
     }
 
     @ApiOperation("查询销售单")
