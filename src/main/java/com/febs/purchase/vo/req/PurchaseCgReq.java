@@ -62,4 +62,7 @@ public class PurchaseCgReq extends PurchaseCg {
 
     @ApiModelProperty("明细集合")
     List<PurchaseCgmx> cgmxList;
+
+    @ExcelIgnore
+    private List<Long> cangkuList;
 }

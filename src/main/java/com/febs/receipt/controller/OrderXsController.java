@@ -74,8 +74,6 @@ public class OrderXsController extends BaseController {
     private OrderXsBiz orderXsBiz;
 
     @Autowired
-    private IUserCangkuService userCangkuService;
-    @Autowired
     private IUserOrgService userOrgService;
 
     @Autowired
@@ -131,13 +129,11 @@ public class OrderXsController extends BaseController {
     }
 
     private boolean requestCheck(User user,OrderXsReq req){
-        List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
         List<Long> orgList = userOrgService.getUserOrg(user.getUserId());
 
-        if (CollectionUtils.isEmpty(cangkuList) && CollectionUtils.isEmpty(orgList)){
+        if (CollectionUtils.isEmpty(orgList)){
             return true;
         }
-        req.setCangkuList(cangkuList);
         req.setOrgList(orgList);
         return false;
     }

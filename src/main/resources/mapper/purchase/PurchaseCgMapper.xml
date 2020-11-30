@@ -1479,6 +1479,15 @@
             <if test="cg.ysflr != null">
                 and cg.ysflr = #{cg.ysflr}
             </if>
+
+            <if test="cg.cangkuList != null and cg.cangkuList.size() > 0 ">
+                and cg.cangku_id in (
+                <foreach collection="cg.cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
+
         </where>
     </select>
 
@@ -1624,6 +1633,15 @@
             <if test="ysflr != null">
                 and cg.ysflr = #{ysflr}
             </if>
+
+            <if test="cangkuList != null and cangkuList.size() > 0 ">
+                and cg.cangku_id in (
+                <foreach collection="cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
+
         </where>
     </select>
 

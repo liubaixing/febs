@@ -32,8 +32,10 @@ import com.febs.shangpin.entity.Shangpin;
 import com.febs.shangpin.entity.ShangpinExample;
 import com.febs.shangpin.service.IShangpinService;
 import com.febs.system.entity.User;
+import com.febs.system.service.IUserCangkuService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -82,17 +84,46 @@ public class PurchaseCgController extends BaseController {
 
     @Autowired
     private IShangpinService shangpinService;
+
+    @Autowired
+    private IUserCangkuService userCangkuService;
+
+
     @GetMapping("")
     //@RequiresPermissions("purchaseCg:list")
     public FebsResponse getAllPurchaseCgs(PurchaseCgReq purchaseCg) {
+        User user = getCurrentUser();
+
+        if (requestCheck(user,purchaseCg)){
+            return new FebsResponse().success();
+        }
         return new FebsResponse().success().data(purchaseCgService.findPurchaseCgs(purchaseCg));
     }
 
     @GetMapping("/list")
     //@RequiresPermissions("purchaseCg:list")
     public FebsResponse purchaseCgList(QueryRequest request, PurchaseCgReq purchaseCg) {
+
+        User user = getCurrentUser();
+
+        if (requestCheck(user,purchaseCg)){
+            return new FebsResponse().success();
+        }
+
         Map<String, Object> dataTable = getDataTable(this.purchaseCgService.findPurchaseCgs(request, purchaseCg));
         return new FebsResponse().success().data(dataTable);
+    }
+
+
+
+    private boolean requestCheck(User user,PurchaseCgReq req){
+        List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
+
+        if (CollectionUtils.isEmpty(cangkuList)){
+            return true;
+        }
+        req.setCangkuList(cangkuList);
+        return false;
     }
 
     @ControllerEndpoint(operation = "新增采购单", exceptionMessage = "新增采购单失败")
