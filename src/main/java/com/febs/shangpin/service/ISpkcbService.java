@@ -7,7 +7,7 @@ package com.febs.shangpin.service;
  * @Date 2020/11/21
  * @Version 1.0
  */
-public class ISpkcbService {
+public interface ISpkcbService {
 
 
 

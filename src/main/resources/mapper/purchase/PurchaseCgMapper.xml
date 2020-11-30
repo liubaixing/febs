@@ -1624,6 +1624,9 @@
             <if test="ysflr != null">
                 and cg.ysflr = #{ysflr}
             </if>
+            <if test="djbhList != null and djbhList != ''">
+                and cg.djbh in (${djbhList})
+            </if>
         </where>
     </select>
 

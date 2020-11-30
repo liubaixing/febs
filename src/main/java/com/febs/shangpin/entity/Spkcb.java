@@ -90,6 +90,8 @@ public class Spkcb implements Serializable {
     private String ckdm;
 
     private String shangpinSpdm;
+    private String shangpinSpmc;
+    private String shangpinMemo;
 
     private String colorCode;
 
