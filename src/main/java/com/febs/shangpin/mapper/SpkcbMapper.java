@@ -1,9 +1,12 @@
 package com.febs.shangpin.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.febs.shangpin.entity.Spkcb;
 import com.febs.shangpin.entity.SpkcbExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SpkcbMapper {
     long countByExample(SpkcbExample example);
@@ -27,4 +30,7 @@ public interface SpkcbMapper {
     int updateByPrimaryKeySelective(Spkcb record);
 
     int updateByPrimaryKey(Spkcb record);
+
+    IPage<Spkcb> selectPageByQuery(Page<Spkcb> page, @Param("kc") Spkcb req);
+
 }

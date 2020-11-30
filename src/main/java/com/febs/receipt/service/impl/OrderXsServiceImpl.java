@@ -56,6 +56,11 @@ public class OrderXsServiceImpl extends ServiceImpl<OrderXsMapper, OrderXs> impl
     }
 
     @Override
+    public List<OrderXsResp> findByXskp(OrderXsReq orderXs){
+        return this.orderXsMapper.selectByXskp(orderXs);
+    }
+
+    @Override
     public OrderXs findOrderXs(OrderXsExample example){
         List<OrderXs> orderXs = this.orderXsMapper.selectByExample(example);
         return CollectionUtils.isNotEmpty(orderXs) ? orderXs.get(0) : null;

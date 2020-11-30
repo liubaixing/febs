@@ -468,4 +468,21 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <sql id="Page_Column_List">
+      kc.id, kc.ck_id, kc.ck_name, kc.sku, kc.sku_id, kc.goods_id, kc.color_id, kc.size_id,
+      kc.sl, kc.sl1, kc.sl2, kc.sl3, kc.sl4, kc.sl5, kc.sl6, kc.sl7, kc.ckdm, kc.shangpin_spdm,
+      kc.color_code, kc.size_code, kc.lastchanged, kc.remark
+  </sql>
+
+  <select id="selectPageByQuery" parameterType="com.febs.shangpin.entity.Spkcb" resultType="com.febs.shangpin.entity.Spkcb">
+    SELECT
+    <include refid="Page_Column_List" />
+    ,sp.spmc as shangpinSpmc ,sp.memo as shangpinMemo
+    FROM
+    spkcb kc
+    left join shangpin sp on kc.goods_id = sp.id
+  </select>
+
 </mapper>

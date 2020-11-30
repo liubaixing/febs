@@ -95,7 +95,7 @@
     <sql id="Base_Column_List">
     Id, pid, sp_id, gg1_id, gg2_id, jhsl, tzsl, cksl, dj, je, zk, xsje, kpsl, sksl, tksl,xtsl,
     kpje, skje, tkje,xtje, ex1, ex2, ex3, jsjg, jishuije, sku, create_time, update_time, deleted,
-    cbje
+    cbje,xtsl,xtje
   </sql>
     <select id="selectByExample" parameterType="com.febs.receipt.entity.OrderXsmxExample" resultMap="BaseResultMap">
         select

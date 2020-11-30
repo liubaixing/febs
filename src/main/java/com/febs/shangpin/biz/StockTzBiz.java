@@ -90,7 +90,7 @@ public class StockTzBiz {
     }
 
 
-    public void qr(Long id, User user) {
+    public void sh(Long id, User user) {
         StockTzReq req = new StockTzReq();
         req.setId(id);
         List<StockTzResp> stockTzRspList = stockTzService.findStockTzList(req);
@@ -117,8 +117,7 @@ public class StockTzBiz {
                 spkcb.setSl(spkcb.getSl() + tzResp.getSl());
                 spkcbMapper.updateByPrimaryKeySelective(spkcb);
             }
-            shangpin.setXsj(tzResp.getJe());
-            shangpinService.updateShangpin(shangpin);
+
         }
 
         StockTz stockTz = BeanUtils.transformFrom(req,StockTz.class);

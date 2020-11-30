@@ -1,12 +1,15 @@
 package com.febs.purchase.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CommonExcelEntity;
 import com.febs.common.enums.orderqt.GoodsCodeEnum;
 import com.febs.common.exception.FebsException;
+import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.orderqt.entity.OrderqtYfd;
 import com.febs.orderqt.entity.OrderqtYfdmx;
@@ -40,6 +43,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -48,6 +52,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 采购单 Controller
@@ -113,6 +118,31 @@ public class PurchaseCgController extends BaseController {
         Map<String, Object> dataTable = getDataTable(this.purchaseCgService.findPurchaseCgs(request, purchaseCg));
         return new FebsResponse().success().data(dataTable);
     }
+
+    @ApiOperation("导入查询")
+    @PostMapping("/list/import")
+    public FebsResponse orderXsList(@RequestParam MultipartFile file) throws IOException {
+
+        User user = getCurrentUser();
+
+        CommonExcelListener<CommonExcelEntity> listener = new CommonExcelListener<CommonExcelEntity>();
+
+        EasyExcel.read(file.getInputStream(),CommonExcelEntity.class,listener).sheet().doRead();
+
+        List<CommonExcelEntity> datas = listener.getDatas();
+
+        if (CollectionUtils.isEmpty(datas)){
+            return new FebsResponse().success();
+        }
+
+        PurchaseCgReq req = new PurchaseCgReq();
+        if (requestCheck(user,req)){
+            return new FebsResponse().success();
+        }
+        req.setDjbhList(datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.joining(",")));
+        return new FebsResponse().success().data(purchaseCgService.findPurchaseCgs(req));
+    }
+
 
 
 

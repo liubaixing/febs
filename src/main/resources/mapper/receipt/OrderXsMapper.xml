@@ -427,6 +427,49 @@
 
     </select>
 
+
+    <select id="selectByXskp" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
+        SELECT
+        xs.Id, xs.djbh, 'xs' as orderType,
+        xsmx.id mxId , xsmx.sp_id spId , sp.spdm , sp.spmc , sp.memo
+        ,xsmx.jhsl,xsmx.tzsl,xsmx.cksl,xsmx.dj,xsmx.je,xsmx.zk,xsmx.xsje
+        ,xsmx.kpsl,xsmx.sksl,xsmx.tksl,xsmx.kpje,xsmx.skje,xsmx.tkje,xsmx.xtsl,xsmx.xtje
+        FROM order_xs xs
+        LEFT JOIN order_xsmx xsmx ON xs.id = xsmx.pid
+        LEFT JOIN shangpin sp ON xsmx.sp_id = sp.id
+        <where>
+            <if test="djbh != null and djbh != ''">
+                and xs.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="startTime != null and endTime != null">
+                and xs.xdrq between #{startTime} and #{endTime}
+            </if>
+            <if test="orgId != null">
+                and xs.org_id = #{orgId}
+            </if>
+            <if test="kp != null">
+                and xs.kp = #{kp}
+            </if>
+            <if test="cangkuList != null and cangkuList.size() > 0 ">
+                and xs.cangku_id in (
+                <foreach collection="cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
+
+            <if test="orgList != null and orgList.size() > 0 ">
+                and xs.org_id in (
+                <foreach collection="orgList"  separator="," item="orgId">
+                    #{orgId}
+                </foreach>
+                )
+            </if>
+
+        </where>
+    </select>
+
+
     <select id="selectOneByQuery" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
         SELECT
         <include refid="Page_Column_List" />

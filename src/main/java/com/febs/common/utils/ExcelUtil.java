@@ -12,6 +12,7 @@ public class ExcelUtil {
 
     public static <T> void export( List<T> data, Class<T> clazz,String excelName,HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
+//        response.addHeader( "Content-Disposition", "attachment;filename=" + "" );指定下载文件名称
         response.setCharacterEncoding("utf-8");
         String fileName = URLEncoder.encode(excelName, "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");

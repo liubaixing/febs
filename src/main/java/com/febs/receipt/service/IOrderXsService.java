@@ -37,6 +37,8 @@ public interface IOrderXsService extends IService<OrderXs>, IExportService<Order
      */
     List<OrderXsResp> findOrderXss(OrderXsReq orderXs);
 
+    List<OrderXsResp> findByXskp(OrderXsReq orderXs);
+
     OrderXs findOrderXs(OrderXsExample example);
 
     OrderXsResp findOrderXsDetail(OrderXsReq orderXs);

@@ -205,7 +205,7 @@
                 and xt.tk = #{xt.tk}
             </if>
             <if test="xt.kp != null">
-                and xs.kp = #{xt.kp}
+                and xt.kp = #{xt.kp}
             </if>
             <if test="xt.sh != null">
                 and xt.sh = #{xt.sh}
@@ -311,7 +311,7 @@
                 and xt.tk = #{tk}
             </if>
             <if test="kp != null">
-                and xs.kp = #{kp}
+                and xt.kp = #{kp}
             </if>
             <if test="sh != null">
                 and xt.sh = #{sh}

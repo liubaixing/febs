@@ -1642,6 +1642,9 @@
                 )
             </if>
 
+            <if test="djbhList != null and djbhList != ''">
+                and cg.djbh in (${djbhList})
+            </if>
         </where>
     </select>
 
