@@ -114,7 +114,6 @@ public class OrderXsController extends BaseController {
     public FebsResponse orderXsList(@RequestParam MultipartFile file) throws IOException {
 
         CommonExcelListener<CommonExcelEntity> listener = new CommonExcelListener<CommonExcelEntity>();
-
         EasyExcel.read(file.getInputStream(),CommonExcelEntity.class,listener).sheet().doRead();
 
         List<CommonExcelEntity> datas = listener.getDatas();
@@ -128,7 +127,7 @@ public class OrderXsController extends BaseController {
         if (requestCheck(user,req)){
             return new FebsResponse().success();
         }
-        req.setDjbhList(datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.joining(",")));
+        req.setDjbhList(datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.toList()));
         return new FebsResponse().success().data(orderXsService.findOrderXss(req));
     }
 

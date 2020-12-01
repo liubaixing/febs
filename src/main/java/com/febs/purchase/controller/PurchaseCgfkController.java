@@ -1,10 +1,14 @@
 package com.febs.purchase.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CommonExcelEntity;
+import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.purchase.biz.PurchaseCgfkBiz;
 import com.febs.purchase.entity.PurchaseCgfk;
@@ -13,6 +17,9 @@ import com.febs.purchase.service.IPurchaseCgfkService;
 import com.febs.purchase.vo.req.CgfkCreateReq;
 import com.febs.purchase.vo.req.PurchaseCgfkReq;
 import com.febs.purchase.vo.resp.PurchaseCgfkResp;
+import com.febs.receipt.service.IOrderXsService;
+import com.febs.receipt.vo.req.OrderXsReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +28,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -29,6 +37,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 采购付款 Controller
@@ -49,6 +58,9 @@ public class PurchaseCgfkController extends BaseController {
     @Autowired
     private PurchaseCgfkBiz cgfkBiz;
 
+    @Autowired
+    private IOrderXsService orderXsService;
+
     @GetMapping("")
 //    @RequiresPermissions("purchaseCgfk:list")
     public FebsResponse getAllPurchaseCgfks(PurchaseCgfkReq purchaseCgfk) {
@@ -60,6 +72,31 @@ public class PurchaseCgfkController extends BaseController {
     public FebsResponse purchaseCgfkList(QueryRequest request, PurchaseCgfkReq purchaseCgfk) {
         Map<String, Object> dataTable = getDataTable(this.purchaseCgfkService.findPurchaseCgfks(request, purchaseCgfk));
         return new FebsResponse().success().data(dataTable);
+    }
+
+    @ApiOperation("导入查询")
+    @PostMapping("/list/import")
+    public FebsResponse importQuery(@RequestParam MultipartFile file) throws IOException {
+
+        CommonExcelListener<CommonExcelEntity> listener = new CommonExcelListener<CommonExcelEntity>();
+        EasyExcel.read(file.getInputStream(),CommonExcelEntity.class,listener).sheet().doRead();
+
+        List<CommonExcelEntity> datas = listener.getDatas();
+
+        if (CollectionUtils.isEmpty(datas)){
+            return new FebsResponse().success();
+        }
+
+        List<String> orderXsNoList = datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.toList());
+        List<String> orderTsNoList = datas.stream().map(CommonExcelEntity::getRow1).collect(Collectors.toList());
+
+        OrderXsReq orderXs = new OrderXsReq();
+        orderXs.setDjbhList(orderXsNoList);
+        List<OrderXsResp> orderXsRespList = orderXsService.findByXskp(orderXs);
+
+
+
+        return null;
     }
 
     @ControllerEndpoint(operation = "新增采购付款", exceptionMessage = "新增采购付款失败")

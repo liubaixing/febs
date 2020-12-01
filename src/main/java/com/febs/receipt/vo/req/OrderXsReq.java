@@ -76,7 +76,7 @@ public class OrderXsReq extends OrderXs {
     private List<OrderXsmx> orderXsmxList;
 
     @ExcelIgnore
-    private String djbhList;
+    private List<String> djbhList;
 
     @ExcelIgnore
     private List<Long> cangkuList;

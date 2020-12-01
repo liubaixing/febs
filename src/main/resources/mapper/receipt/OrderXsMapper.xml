@@ -403,8 +403,12 @@
                 and sp.spmc like CONCAT('%',#{spmc},'%')
             </if>
 
-            <if test="djbhList != null and djbhList != ''">
-                and xs.djbh in (${djbhList})
+            <if test="djbhList != null and djbhList.size() > 0 ">
+                and xs.djbh in (
+                <foreach collection="djbhList"  separator="," item="djbh">
+                    #{djbh}
+                </foreach>
+                )
             </if>
 
             <if test="cangkuList != null and cangkuList.size() > 0 ">
@@ -450,6 +454,15 @@
             <if test="kp != null">
                 and xs.kp = #{kp}
             </if>
+
+            <if test="djbhList != null and djbhList.size() > 0 ">
+                and xs.djbh in (
+                <foreach collection="djbhList"  separator="," item="djbh">
+                    #{djbh}
+                </foreach>
+                )
+            </if>
+
             <if test="cangkuList != null and cangkuList.size() > 0 ">
                 and xs.cangku_id in (
                 <foreach collection="cangkuList"  separator="," item="cangkuId">
