@@ -63,7 +63,6 @@ public class StockTzController extends BaseController {
     @GetMapping("/qr/{id}")
     public FebsResponse qr(@PathVariable("id")Long id){
         User user = getCurrentUser();
-//        stockTzBiz.qr(id,user);
         StockTz stockTz = new StockTz();
         stockTz.setId(id);
         stockTz.setQr((byte)1);
@@ -76,7 +75,6 @@ public class StockTzController extends BaseController {
     @GetMapping("/sh/{id}")
     public FebsResponse sh(@PathVariable("id")Long id){
         User user = getCurrentUser();
-        StockTz stockTz = new StockTz();
         stockTzBiz.sh(id,user);
         return new FebsResponse().success();
     }

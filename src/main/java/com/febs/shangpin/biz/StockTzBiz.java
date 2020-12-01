@@ -9,7 +9,9 @@ import com.febs.shangpin.service.IStockTzService;
 import com.febs.shangpin.service.IStockTzmxService;
 import com.febs.shangpin.vo.req.StockTzReq;
 import com.febs.shangpin.vo.resp.StockTzResp;
+import com.febs.system.entity.Cangku;
 import com.febs.system.entity.User;
+import com.febs.system.mapper.CangkuMapper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,8 @@ public class StockTzBiz {
     private IShangpinService shangpinService;
     @Resource
     private SpkcbMapper spkcbMapper;
+    @Resource
+    private CangkuMapper cangkuMapper;
 
     public void save(StockTzReq req){
 
@@ -104,26 +108,37 @@ public class StockTzBiz {
             {
                 throw new FebsException("商品不存在");
             }
+            Cangku cangku = cangkuMapper.selectByPrimaryKey(tzResp.getCangkuId());
+            if (cangku == null)
+            {
+                throw new FebsException("仓库不存在");
+            }
+
 
             SpkcbExample spkcbExample = new SpkcbExample();
             spkcbExample.createCriteria().andGoodsIdEqualTo(tzResp.getSpId());
             List<Spkcb> spkcbList = spkcbMapper.selectByExample(spkcbExample);
             if (CollectionUtils.isEmpty(spkcbList))
             {
-                throw new FebsException("商品库存为空");
-            }
-
-            for (Spkcb spkcb : spkcbList){
+                Spkcb spkcb = new Spkcb();
+                spkcb.setCkId(cangku.getId());
+                spkcb.setCkName(cangku.getCkmc());
+                spkcb.setCkdm(cangku.getCkdm());
+                spkcb.setGoodsId(shangpin.getId());
+                spkcb.setShangpinSpdm(shangpin.getSpdm());
+                spkcb.setSl(tzResp.getSl());
+                spkcbMapper.insertSelective(spkcb);
+            }else{
+                Spkcb spkcb = new Spkcb();
                 spkcb.setSl(spkcb.getSl() + tzResp.getSl());
                 spkcbMapper.updateByPrimaryKeySelective(spkcb);
             }
-
         }
 
         StockTz stockTz = BeanUtils.transformFrom(req,StockTz.class);
-        stockTz.setQr((byte)1);
-        stockTz.setQrr(user.getUsername());
-        stockTz.setQrrq(new Date());
+        stockTz.setSh((byte)1);
+        stockTz.setAuditor(user.getUsername());
+        stockTz.setShrq(new Date());
         stockTzService.updateObject(stockTz);
     }
 
