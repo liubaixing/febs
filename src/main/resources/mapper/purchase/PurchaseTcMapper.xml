@@ -1281,6 +1281,13 @@
             <if test="tc.ysflr != null">
                 and tc.ysflr = #{tc.ysflr}
             </if>
+            <if test="tc.cangkuList != null and tc.cangkuList.size() > 0 ">
+                and tc.cangku_id in (
+                <foreach collection="cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
         </where>
     </select>
 
@@ -1400,6 +1407,23 @@
             <if test="ysflr != null">
                 and tc.ysflr = #{ysflr}
             </if>
+
+            <if test="cangkuList != null and cangkuList.size() > 0 ">
+                and tc.cangku_id in (
+                <foreach collection="cangkuList"  separator="," item="cangkuId">
+                    #{cangkuId}
+                </foreach>
+                )
+            </if>
+
+            <if test="djbhList != null and djbhList != ''">
+                and tc.djbh in (
+                <foreach collection="djbhList"  separator="," item="djbh">
+                    #{djbh}
+                </foreach>
+                )
+            </if>
+
         </where>
     </select>
 

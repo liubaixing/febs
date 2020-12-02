@@ -459,6 +459,13 @@
       <if test="gysmc != null and gysmc != ''">
         and gys.gysmc like CONCAT('%',#{gysmc},'%')
       </if>
+      <if test="djbhList != null and djbhList != ''">
+        and ysf.djbh in (
+        <foreach collection="djbhList"  separator="," item="djbh">
+          #{djbh}
+        </foreach>
+        )
+      </if>
     </where>
   </select>
 

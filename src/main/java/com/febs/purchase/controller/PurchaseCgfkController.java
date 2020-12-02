@@ -10,17 +10,32 @@ import com.febs.common.entity.QueryRequest;
 import com.febs.common.entity.excel.CommonExcelEntity;
 import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.orderqt.service.IOrderqtYfdService;
+import com.febs.orderqt.service.IOrderqtYsfdService;
+import com.febs.orderqt.vo.req.YfdReq;
+import com.febs.orderqt.vo.req.YsfdReq;
+import com.febs.orderqt.vo.resp.YfdResp;
+import com.febs.orderqt.vo.resp.YsfdResp;
 import com.febs.purchase.biz.PurchaseCgfkBiz;
+import com.febs.purchase.entity.PurchaseCg;
 import com.febs.purchase.entity.PurchaseCgfk;
+import com.febs.purchase.service.IPurchaseCgService;
 import com.febs.purchase.service.IPurchaseCgfkService;
 
+import com.febs.purchase.service.IPurchaseTcService;
+import com.febs.purchase.view.CgfkView;
 import com.febs.purchase.vo.req.CgfkCreateReq;
+import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.req.PurchaseCgfkReq;
+import com.febs.purchase.vo.req.PurchaseTcReq;
+import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.purchase.vo.resp.PurchaseCgfkResp;
+import com.febs.purchase.vo.resp.PurchaseTcResp;
 import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.system.entity.User;
+import com.febs.system.service.IUserCangkuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +75,17 @@ public class PurchaseCgfkController extends BaseController {
     private PurchaseCgfkBiz cgfkBiz;
 
     @Autowired
-    private IOrderXsService orderXsService;
+    private IPurchaseCgService cgService;
+
+    @Autowired
+    private IPurchaseTcService tcService;
+    @Autowired
+    private IOrderqtYfdService yfdService;
+    @Autowired
+    private IOrderqtYsfdService ysfdService;
+    @Autowired
+    private IUserCangkuService userCangkuService;
+
 
     @GetMapping("")
 //    @RequiresPermissions("purchaseCgfk:list")
@@ -87,16 +113,55 @@ public class PurchaseCgfkController extends BaseController {
             return new FebsResponse().success();
         }
 
-        List<String> orderXsNoList = datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.toList());
-        List<String> orderTsNoList = datas.stream().map(CommonExcelEntity::getRow1).collect(Collectors.toList());
+        List<String> cgNoList = datas.stream().filter(i->i.getRow2()!=null).map(CommonExcelEntity::getRow2).collect(Collectors.toList());
+        List<String> tcNoList = datas.stream().filter(i->i.getRow3()!=null).map(CommonExcelEntity::getRow3).collect(Collectors.toList());
+        List<String> yfdNoList = datas.stream().filter(i->i.getRow4()!=null).map(CommonExcelEntity::getRow4).collect(Collectors.toList());
+        List<String> ysfdNoList = datas.stream().filter(i->i.getRow5()!=null).map(CommonExcelEntity::getRow5).collect(Collectors.toList());
 
-        OrderXsReq orderXs = new OrderXsReq();
-        orderXs.setDjbhList(orderXsNoList);
-        List<OrderXsResp> orderXsRespList = orderXsService.findByXskp(orderXs);
+        User user = getCurrentUser();
+        List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
 
+        List<PurchaseCgResp> cgRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(cgNoList)){
+            if (CollectionUtils.isNotEmpty(cangkuList)){
+                PurchaseCgReq cgReq = new PurchaseCgReq();
+                cgReq.setCangkuList(cangkuList);
+                cgReq.setDjbhList(cgNoList);
+                cgRespList = cgService.findPurchaseCgs(cgReq);
+            }
+        }
 
+        List<PurchaseTcResp> tcRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(tcNoList)){
 
-        return null;
+            if (CollectionUtils.isNotEmpty(cangkuList)){
+                PurchaseTcReq tcReq = new PurchaseTcReq();
+                tcReq.setCangkuList(cangkuList);
+                tcReq.setDjbhList(tcNoList);
+                tcRespList = tcService.findPurchaseTcs(tcReq);
+            }
+        }
+
+        List<YfdResp> yfdRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(yfdNoList)){
+            YfdReq yfdReq = new YfdReq();
+            yfdReq.setDjbhList(yfdNoList);
+            yfdRespList = yfdService.findOrderqtYfds(yfdReq);
+        }
+
+        List<YsfdResp> ysfdRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(ysfdNoList)){
+            YsfdReq ysfdReq = new YsfdReq();
+            ysfdReq.setDjbhList(ysfdNoList);
+            ysfdRespList = ysfdService.findOrderqtYsfds(ysfdReq);
+        }
+
+        CgfkView cgfkView = new CgfkView();
+        cgfkView.setCgRespList(cgRespList);
+        cgfkView.setTcRespList(tcRespList);
+        cgfkView.setYfdRespList(yfdRespList);
+        cgfkView.setYsfdRespList(ysfdRespList);
+        return new FebsResponse().success().data(cgfkView);
     }
 
     @ControllerEndpoint(operation = "新增采购付款", exceptionMessage = "新增采购付款失败")

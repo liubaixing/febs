@@ -67,6 +67,6 @@ public class PurchaseCgReq extends PurchaseCg {
     private List<Long> cangkuList;
 
     @ExcelIgnore
-    private String djbhList;
+    private List<String> djbhList;
 
 }

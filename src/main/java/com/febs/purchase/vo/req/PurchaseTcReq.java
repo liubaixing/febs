@@ -1,5 +1,6 @@
 package com.febs.purchase.vo.req;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.febs.purchase.entity.PurchaseTc;
 import com.febs.purchase.entity.PurchaseTcmx;
 import io.swagger.annotations.ApiModelProperty;
@@ -52,4 +53,11 @@ public class PurchaseTcReq extends PurchaseTc {
 
 
     private List<PurchaseTcmx> tcmxList;
+
+    @ExcelIgnore
+    private List<Long> cangkuList;
+
+    @ExcelIgnore
+    private List<String> djbhList;
+
 }

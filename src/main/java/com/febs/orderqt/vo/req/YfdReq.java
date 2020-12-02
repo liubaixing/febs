@@ -1,5 +1,6 @@
 package com.febs.orderqt.vo.req;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.febs.orderqt.entity.OrderqtYfd;
 import com.febs.orderqt.entity.OrderqtYfdmx;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,5 +28,8 @@ public class YfdReq extends OrderqtYfd {
     private String ydjh;
 
     private Integer spId;
+
+    @ExcelIgnore
+    private List<String> djbhList;
 
 }
