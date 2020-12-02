@@ -1643,8 +1643,13 @@
             </if>
 
             <if test="djbhList != null and djbhList != ''">
-                and cg.djbh in (${djbhList})
+                and cg.djbh in (
+                <foreach collection="djbhList"  separator="," item="djbh">
+                    #{djbh}
+                </foreach>
+                )
             </if>
+
         </where>
     </select>
 

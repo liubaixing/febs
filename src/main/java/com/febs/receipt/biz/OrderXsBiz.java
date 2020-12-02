@@ -339,12 +339,13 @@ public class OrderXsBiz {
         orderXs.setZxrq(req.getZxrq());
         xsService.updateOrderXs(orderXs);
 
-        Cangku ck = cangkuService.findById(orderXs.getCangkuId());
-
-        if (ck == null) throw new FebsException("销售单仓库不存在");
-
         if (0 == req.getZxfs()){
             //自发，生成出库单
+
+            Cangku ck = cangkuService.findById(orderXs.getCangkuId());
+
+            if (ck == null) throw new FebsException("销售单仓库不存在");
+
             OrderCk orderCk = new OrderCk();
             orderCk.setYdbh(orderXs.getDjbh());
             orderCk.setYdjh(orderXs.getYdjh());
@@ -375,7 +376,7 @@ public class OrderXsBiz {
             cg.setBmId(orderXs.getBumengId());
             cg.setSfdz(orderXs.getSfdz());
             cg.setSfjj(orderXs.getSfjj());
-
+            cg.setCangkuId(1);
             Shangpin sp = new Shangpin();
             sp.setId(xsmx.getSpId());
             sp = shangpinService.findOneByQuery(sp);

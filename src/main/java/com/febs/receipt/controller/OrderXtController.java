@@ -1,10 +1,13 @@
 package com.febs.receipt.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CommonExcelEntity;
+import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.receipt.biz.OrderXtBiz;
 import com.febs.receipt.entity.OrderXs;
@@ -13,23 +16,28 @@ import com.febs.receipt.service.IOrderXtService;
 
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.req.OrderXtReq;
+import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.receipt.vo.resp.OrderXtResp;
 import com.febs.system.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 销退单 Controller
@@ -62,6 +70,34 @@ public class OrderXtController extends BaseController {
     public FebsResponse orderXtList(QueryRequest request, OrderXtReq orderXt) {
         Map<String, Object> dataTable = getDataTable(this.xtBiz.findByPage(request, orderXt));
         return new FebsResponse().success().data(dataTable);
+    }
+
+    @ApiOperation("导入查询")
+    @PostMapping("/list/import")
+    public FebsResponse orderXsList(@RequestParam MultipartFile file) throws IOException {
+
+        CommonExcelListener<CommonExcelEntity> listener = new CommonExcelListener<CommonExcelEntity>();
+        EasyExcel.read(file.getInputStream(),CommonExcelEntity.class,listener).sheet().doRead();
+
+        List<CommonExcelEntity> datas = listener.getDatas();
+
+        if (CollectionUtils.isEmpty(datas)){
+            return new FebsResponse().success();
+        }
+
+        List<String> orderXsNoList = datas.stream().filter(i -> i.getRow() != null).map(CommonExcelEntity::getRow).collect(Collectors.toList());
+
+        List<OrderXtResp> orderXtRespList = new ArrayList<>();
+
+        if (CollectionUtils.isNotEmpty(orderXsNoList)){
+            OrderXtReq req = new OrderXtReq();
+
+            req.setDjbhList(orderXsNoList);
+            orderXtRespList = orderXtService.findOrderXts(req);
+        }
+
+
+        return new FebsResponse().success().data(orderXtRespList);
     }
 
     @ControllerEndpoint(operation = "新增销退单", exceptionMessage = "新增销退单失败")

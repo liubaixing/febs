@@ -2,10 +2,13 @@ package com.febs.receipt.view;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.febs.receipt.vo.resp.OrderXsResp;
+import com.febs.receipt.vo.resp.OrderXtResp;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @ClassName: OrderXskpView
@@ -17,7 +20,10 @@ import java.math.BigDecimal;
 @Data
 public class OrderXskpView {
 
-    private Long id;
+    private List<OrderXsResp> orderXsRespList;
+    private List<OrderXtResp> orderXtRespList;
+
+    /*private Long id;
     private Long mxId;
     private Integer spId;
 
@@ -40,7 +46,7 @@ public class OrderXskpView {
 
     private BigDecimal xsje;
     private Integer xtsl;
-    private BigDecimal xtje;
+    private BigDecimal xtje;*/
 
 
 }

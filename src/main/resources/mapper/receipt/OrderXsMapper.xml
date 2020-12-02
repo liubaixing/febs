@@ -463,14 +463,6 @@
                 )
             </if>
 
-            <if test="cangkuList != null and cangkuList.size() > 0 ">
-                and xs.cangku_id in (
-                <foreach collection="cangkuList"  separator="," item="cangkuId">
-                    #{cangkuId}
-                </foreach>
-                )
-            </if>
-
             <if test="orgList != null and orgList.size() > 0 ">
                 and xs.org_id in (
                 <foreach collection="orgList"  separator="," item="orgId">
@@ -602,7 +594,7 @@
             </if>
 
         </where>
-         limit 1
+         <!--limit 1 ->
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

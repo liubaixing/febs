@@ -373,6 +373,14 @@
             <if test="spmc != null and spmc != ''">
                 and sp.spmc like CONCAT('%',#{spmc},'%')
             </if>
+
+            <if test="djbhList != null and djbhList.size() > 0 ">
+                and xt.djbh in (
+                <foreach collection="djbhList"  separator="," item="djbh">
+                    #{djbh}
+                </foreach>
+                )
+            </if>
         </where>
 
     </select>

@@ -1,5 +1,6 @@
 package com.febs.receipt.vo.req;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.febs.receipt.entity.OrderXt;
 import com.febs.receipt.entity.OrderXtmx;
 import io.swagger.annotations.ApiModelProperty;
@@ -64,5 +65,11 @@ public class OrderXtReq extends OrderXt {
     private Integer zxfs;
 
     private List<OrderXtmx> orderXtmxList;
+
+    @ExcelIgnore
+    private List<String> djbhList;
+
+    @ExcelIgnore
+    private List<Long> cangkuList;
 
 }

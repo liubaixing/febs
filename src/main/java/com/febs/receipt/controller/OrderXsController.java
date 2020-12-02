@@ -1,14 +1,6 @@
 package com.febs.receipt.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.EasyExcelFactory;
-import com.alibaba.excel.ExcelReader;
-import com.alibaba.excel.metadata.Sheet;
-import com.alibaba.excel.read.builder.ExcelReaderBuilder;
-import com.alibaba.excel.read.metadata.ReadWorkbook;
-import com.alibaba.excel.support.ExcelTypeEnum;
-import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
@@ -16,13 +8,8 @@ import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
 import com.febs.common.entity.excel.CommonExcelEntity;
 import com.febs.common.entity.excel.OrderXsExcelModel;
-import com.febs.common.enums.DeletedEnum;
-import com.febs.common.enums.order.OrderStatusEnum;
-import com.febs.common.exception.FebsException;
 import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.listener.UploadDataListener;
-import com.febs.common.listener.goods.ShangpinDataListener;
-import com.febs.common.listener.receipt.OrderXslistener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.common.utils.StringUtil;
 import com.febs.other.service.IDictionaryService;
@@ -31,25 +18,22 @@ import com.febs.receipt.entity.OrderXs;
 import com.febs.receipt.service.IOrderXsService;
 import com.febs.receipt.vo.req.OrderXsReq;
 import com.febs.receipt.vo.resp.OrderXsResp;
-import com.febs.shangpin.vo.resp.ShangpinResp;
 import com.febs.system.entity.User;
-import com.febs.system.service.IUserCangkuService;
 import com.febs.system.service.IUserOrgService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -122,13 +106,25 @@ public class OrderXsController extends BaseController {
             return new FebsResponse().success();
         }
 
-        User user = getCurrentUser();
-        OrderXsReq req = new OrderXsReq();
-        if (requestCheck(user,req)){
-            return new FebsResponse().success();
+        List<String> orderXsNoList = datas.stream().filter(i -> i.getRow() != null).map(CommonExcelEntity::getRow).collect(Collectors.toList());
+
+        List<OrderXsResp> orderXsRespList = new ArrayList<>();
+
+        if (CollectionUtils.isNotEmpty(orderXsNoList)){
+            User user = getCurrentUser();
+            OrderXsReq req = new OrderXsReq();
+
+            List<Long> orgList = userOrgService.getUserOrg(user.getUserId());
+            if (CollectionUtils.isNotEmpty(orgList)){
+                req.setOrgList(orgList);
+                req.setDjbhList(orderXsNoList);
+
+                orderXsRespList = orderXsService.findOrderXss(req);
+            }
+
         }
-        req.setDjbhList(datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.toList()));
-        return new FebsResponse().success().data(orderXsService.findOrderXss(req));
+
+        return new FebsResponse().success().data(orderXsRespList);
     }
 
     private boolean requestCheck(User user,OrderXsReq req){
