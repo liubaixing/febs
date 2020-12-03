@@ -316,6 +316,7 @@ public class OrderXsBiz {
         xsService.updateOrderXs(orderXs);
     }
 
+    @Transactional
     public void executeOrderXs(OrderXsReq req,boolean status){
         OrderXsmx xsmx = xsmxService.findById(req.getMxId());
         if (xsmx == null) {
