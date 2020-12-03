@@ -20,6 +20,7 @@ public class StockTzReq extends StockTz {
     private Date endTime;
 
     private String spmc;
+    private Integer spId;
 
     private List<StockTzmx> stockTzmxList;
 

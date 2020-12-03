@@ -41,6 +41,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 运费单 Service实现
@@ -135,9 +136,11 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
             throw new FebsException("excel数据为空");
         }
 
-        List<YfdReq> list = new ArrayList<>();
+        List<YfdReq> list = excelDataCheck(data);
 
-        excelDataCheck(data,list);
+        if (CollectionUtils.isEmpty(list)){
+            throw new FebsException("excel数据校验异常");
+        }
 
         list.stream().forEach(one ->{
             OrderqtYfd yfd = new OrderqtYfd();
@@ -157,9 +160,9 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
     }
 
 
-    private void excelDataCheck(List<YfdExcelModel> source, List<YfdReq> target){
+    private List<YfdReq> excelDataCheck(List<YfdExcelModel> source){
 
-        source.stream().forEach(one -> {
+       return source.stream().map(one -> {
             YfdReq yfd = new YfdReq();
             yfd.setDjrq(one.getDjrq());
 
@@ -216,7 +219,8 @@ public class OrderqtYfdServiceImpl extends ServiceImpl<OrderqtYfdMapper, Orderqt
             }else{
                 yfd.setFpsdId(gys.getFpsdId());
             }
-        });
+            return yfd;
+        }).collect(Collectors.toList());
 
     }
 

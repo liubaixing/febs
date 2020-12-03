@@ -139,7 +139,6 @@ public class PurchaseCgController extends BaseController {
         if (requestCheck(user,req)){
             return new FebsResponse().success();
         }
-        req.setDjbhList(datas.stream().map(CommonExcelEntity::getRow).collect(Collectors.joining(",")));
         return new FebsResponse().success().data(purchaseCgService.findPurchaseCgs(req));
     }
 

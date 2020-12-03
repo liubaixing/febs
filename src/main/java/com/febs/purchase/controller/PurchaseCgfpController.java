@@ -1,33 +1,55 @@
 package com.febs.purchase.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CommonExcelEntity;
+import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.utils.ExcelUtil;
+import com.febs.orderqt.service.IOrderqtYfdService;
+import com.febs.orderqt.service.IOrderqtYsfdService;
+import com.febs.orderqt.vo.req.YfdReq;
+import com.febs.orderqt.vo.req.YsfdReq;
+import com.febs.orderqt.vo.resp.YfdResp;
+import com.febs.orderqt.vo.resp.YsfdResp;
 import com.febs.purchase.biz.PurchaseCgfpBiz;
 import com.febs.purchase.entity.PurchaseCgfp;
+import com.febs.purchase.service.IPurchaseCgService;
 import com.febs.purchase.service.IPurchaseCgfpService;
 
+import com.febs.purchase.service.IPurchaseTcService;
+import com.febs.purchase.view.CgfkView;
+import com.febs.purchase.view.CgfpView;
 import com.febs.purchase.vo.req.CgfpCreateReq;
+import com.febs.purchase.vo.req.PurchaseCgReq;
 import com.febs.purchase.vo.req.PurchaseCgfpReq;
+import com.febs.purchase.vo.req.PurchaseTcReq;
+import com.febs.purchase.vo.resp.PurchaseCgResp;
 import com.febs.purchase.vo.resp.PurchaseCgfpResp;
+import com.febs.purchase.vo.resp.PurchaseTcResp;
 import com.febs.system.entity.User;
+import com.febs.system.service.IUserCangkuService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 采购发票 Controller
@@ -47,6 +69,17 @@ public class PurchaseCgfpController extends BaseController {
     @Autowired
     private PurchaseCgfpBiz cgfpBiz;
 
+    @Autowired
+    private IPurchaseCgService cgService;
+    @Autowired
+    private IPurchaseTcService tcService;
+    @Autowired
+    private IOrderqtYfdService yfdService;
+    @Autowired
+    private IOrderqtYsfdService ysfdService;
+    @Autowired
+    private IUserCangkuService userCangkuService;
+
 
     @GetMapping("")
 //    @RequiresPermissions("purchaseCgfp:list")
@@ -59,6 +92,70 @@ public class PurchaseCgfpController extends BaseController {
     public FebsResponse purchaseCgfpList(QueryRequest request, PurchaseCgfpReq purchaseCgfp) {
         Map<String, Object> dataTable = getDataTable(this.purchaseCgfpService.findPurchaseCgfps(request, purchaseCgfp));
         return new FebsResponse().success().data(dataTable);
+    }
+
+    @ApiOperation("导入查询")
+    @PostMapping("/list/import")
+    public FebsResponse importQuery(@RequestParam MultipartFile file) throws IOException {
+
+        CommonExcelListener<CommonExcelEntity> listener = new CommonExcelListener<CommonExcelEntity>();
+        EasyExcel.read(file.getInputStream(),CommonExcelEntity.class,listener).sheet().doRead();
+
+        List<CommonExcelEntity> datas = listener.getDatas();
+
+        if (CollectionUtils.isEmpty(datas)){
+            return new FebsResponse().success();
+        }
+
+        List<String> cgNoList = datas.stream().filter(i->i.getRow2()!=null).map(CommonExcelEntity::getRow2).collect(Collectors.toList());
+        List<String> tcNoList = datas.stream().filter(i->i.getRow3()!=null).map(CommonExcelEntity::getRow3).collect(Collectors.toList());
+        List<String> yfdNoList = datas.stream().filter(i->i.getRow4()!=null).map(CommonExcelEntity::getRow4).collect(Collectors.toList());
+        List<String> ysfdNoList = datas.stream().filter(i->i.getRow5()!=null).map(CommonExcelEntity::getRow5).collect(Collectors.toList());
+
+        User user = getCurrentUser();
+        List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
+
+        List<PurchaseCgResp> cgRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(cgNoList)){
+            if (CollectionUtils.isNotEmpty(cangkuList)){
+                PurchaseCgReq cgReq = new PurchaseCgReq();
+                cgReq.setCangkuList(cangkuList);
+                cgReq.setDjbhList(cgNoList);
+                cgRespList = cgService.findPurchaseCgs(cgReq);
+            }
+        }
+
+        List<PurchaseTcResp> tcRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(tcNoList)){
+
+            if (CollectionUtils.isNotEmpty(cangkuList)){
+                PurchaseTcReq tcReq = new PurchaseTcReq();
+                tcReq.setCangkuList(cangkuList);
+                tcReq.setDjbhList(tcNoList);
+                tcRespList = tcService.findPurchaseTcs(tcReq);
+            }
+        }
+
+        List<YfdResp> yfdRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(yfdNoList)){
+            YfdReq yfdReq = new YfdReq();
+            yfdReq.setDjbhList(yfdNoList);
+            yfdRespList = yfdService.findOrderqtYfds(yfdReq);
+        }
+
+        List<YsfdResp> ysfdRespList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(ysfdNoList)){
+            YsfdReq ysfdReq = new YsfdReq();
+            ysfdReq.setDjbhList(ysfdNoList);
+            ysfdRespList = ysfdService.findOrderqtYsfds(ysfdReq);
+        }
+
+        CgfpView cgfpView = new CgfpView();
+        cgfpView.setCgRespList(cgRespList);
+        cgfpView.setTcRespList(tcRespList);
+        cgfpView.setYfdRespList(yfdRespList);
+        cgfpView.setYsfdRespList(ysfdRespList);
+        return new FebsResponse().success().data(cgfpView);
     }
 
     @ControllerEndpoint(operation = "新增采购发票", exceptionMessage = "新增采购发票失败")

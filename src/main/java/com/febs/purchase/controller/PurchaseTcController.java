@@ -1,32 +1,36 @@
 package com.febs.purchase.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.CommonExcelEntity;
+import com.febs.common.listener.CommonExcelListener;
 import com.febs.common.utils.ExcelUtil;
 import com.febs.purchase.biz.PurchaseTcBiz;
 import com.febs.purchase.entity.PurchaseTc;
 import com.febs.purchase.service.IPurchaseTcService;
-
 import com.febs.purchase.vo.req.PurchaseTcReq;
 import com.febs.purchase.vo.resp.PurchaseTcResp;
 import com.febs.system.entity.User;
+import com.febs.system.service.IUserCangkuService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 退仓单 Controller
@@ -46,6 +50,9 @@ public class PurchaseTcController extends BaseController {
     @Autowired
     private PurchaseTcBiz tcBiz;
 
+    @Autowired
+    private IUserCangkuService userCangkuService;
+
     @GetMapping("")
 //    @RequiresPermissions("purchaseTc:list")
     public FebsResponse getAllPurchaseTcs(PurchaseTcReq purchaseTc) {
@@ -57,6 +64,35 @@ public class PurchaseTcController extends BaseController {
     public FebsResponse purchaseTcList(QueryRequest request, PurchaseTcReq purchaseTc) {
         Map<String, Object> dataTable = getDataTable(this.purchaseTcService.findPurchaseTcs(request, purchaseTc));
         return new FebsResponse().success().data(dataTable);
+    }
+
+
+    @ApiOperation("导入查询")
+    @PostMapping("/list/import")
+    public FebsResponse orderXsList(@RequestParam MultipartFile file) throws IOException {
+
+        User user = getCurrentUser();
+
+        CommonExcelListener<CommonExcelEntity> listener = new CommonExcelListener<CommonExcelEntity>();
+
+        EasyExcel.read(file.getInputStream(),CommonExcelEntity.class,listener).sheet().doRead();
+
+        List<CommonExcelEntity> datas = listener.getDatas();
+
+        if (CollectionUtils.isEmpty(datas)){
+            return new FebsResponse().success();
+        }
+        List<String> djbhList = datas.stream().filter(i -> i.getRow3() != null).map(CommonExcelEntity::getRow3).collect(Collectors.toList());
+
+        List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
+        if (CollectionUtils.isEmpty(cangkuList)){
+            return new FebsResponse().success();
+        }
+
+        PurchaseTcReq req = new PurchaseTcReq();
+        req.setCangkuList(cangkuList);
+        req.setDjbhList(djbhList);
+        return new FebsResponse().success().data(purchaseTcService.findPurchaseTcs(req));
     }
 
     @ControllerEndpoint(operation = "新增退仓单", exceptionMessage = "新增退仓单失败")

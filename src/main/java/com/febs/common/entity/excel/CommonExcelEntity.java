@@ -33,7 +33,7 @@ public class CommonExcelEntity extends ExcelUpload {
     private String row2;
 
     /**
-     * 采购退款单号
+     * 退仓单号
      */
     @ExcelProperty(index = 3)
     private String row3;

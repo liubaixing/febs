@@ -1,17 +1,25 @@
 package com.febs.shangpin.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.febs.common.annotation.ControllerEndpoint;
 import com.febs.common.controller.BaseController;
 import com.febs.common.entity.FebsResponse;
 import com.febs.common.entity.QueryRequest;
+import com.febs.common.entity.excel.StockTzExcelModel;
+import com.febs.common.entity.excel.YfdExcelModel;
+import com.febs.common.listener.UploadDataListener;
 import com.febs.shangpin.biz.StockTzBiz;
 import com.febs.shangpin.entity.StockTz;
 import com.febs.shangpin.service.IStockTzService;
 import com.febs.shangpin.vo.req.StockTzReq;
 import com.febs.system.entity.User;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 
 @Slf4j
@@ -114,4 +122,13 @@ public class StockTzController extends BaseController {
         stockTzService.updateObject(stockTz);
         return new FebsResponse().success();
     }
+
+
+    @ApiOperation("导入")
+    @ControllerEndpoint(exceptionMessage = "导出Excel失败")
+    @PostMapping("upload")
+    public void upload(@RequestParam MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), StockTzExcelModel.class,new UploadDataListener(stockTzService)).sheet().doRead();
+    }
+
 }

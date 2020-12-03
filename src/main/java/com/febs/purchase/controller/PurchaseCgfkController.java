@@ -78,8 +78,6 @@ public class PurchaseCgfkController extends BaseController {
     private IPurchaseCgService cgService;
 
     @Autowired
-    private IPurchaseTcService tcService;
-    @Autowired
     private IOrderqtYfdService yfdService;
     @Autowired
     private IOrderqtYsfdService ysfdService;
@@ -114,7 +112,6 @@ public class PurchaseCgfkController extends BaseController {
         }
 
         List<String> cgNoList = datas.stream().filter(i->i.getRow2()!=null).map(CommonExcelEntity::getRow2).collect(Collectors.toList());
-        List<String> tcNoList = datas.stream().filter(i->i.getRow3()!=null).map(CommonExcelEntity::getRow3).collect(Collectors.toList());
         List<String> yfdNoList = datas.stream().filter(i->i.getRow4()!=null).map(CommonExcelEntity::getRow4).collect(Collectors.toList());
         List<String> ysfdNoList = datas.stream().filter(i->i.getRow5()!=null).map(CommonExcelEntity::getRow5).collect(Collectors.toList());
 
@@ -128,17 +125,6 @@ public class PurchaseCgfkController extends BaseController {
                 cgReq.setCangkuList(cangkuList);
                 cgReq.setDjbhList(cgNoList);
                 cgRespList = cgService.findPurchaseCgs(cgReq);
-            }
-        }
-
-        List<PurchaseTcResp> tcRespList = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(tcNoList)){
-
-            if (CollectionUtils.isNotEmpty(cangkuList)){
-                PurchaseTcReq tcReq = new PurchaseTcReq();
-                tcReq.setCangkuList(cangkuList);
-                tcReq.setDjbhList(tcNoList);
-                tcRespList = tcService.findPurchaseTcs(tcReq);
             }
         }
 
@@ -158,7 +144,6 @@ public class PurchaseCgfkController extends BaseController {
 
         CgfkView cgfkView = new CgfkView();
         cgfkView.setCgRespList(cgRespList);
-        cgfkView.setTcRespList(tcRespList);
         cgfkView.setYfdRespList(yfdRespList);
         cgfkView.setYsfdRespList(ysfdRespList);
         return new FebsResponse().success().data(cgfkView);

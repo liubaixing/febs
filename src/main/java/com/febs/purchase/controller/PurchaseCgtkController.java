@@ -47,6 +47,8 @@ public class PurchaseCgtkController extends BaseController {
     @Autowired
     private PurchaseCgtkBiz cgtkBiz;
 
+
+
     @GetMapping("")
 //    @RequiresPermissions("purchaseCgtk:list")
     public FebsResponse getAllPurchaseCgtks(PurchaseCgtkReq purchaseCgtk) {
