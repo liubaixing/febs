@@ -343,7 +343,7 @@ public class OrderXsBiz {
         if (0 == req.getZxfs()){
             //自发，生成出库单
 
-            Cangku ck = cangkuService.findById(orderXs.getCangkuId());
+            Cangku ck = cangkuService.findById(req.getCangkuId());
 
             if (ck == null) throw new FebsException("销售单仓库不存在");
 
@@ -351,7 +351,7 @@ public class OrderXsBiz {
             orderCk.setYdbh(orderXs.getDjbh());
             orderCk.setYdjh(orderXs.getYdjh());
             orderCk.setXdrq(new Date());
-            orderCk.setCangkuId(orderXs.getCangkuId());
+            orderCk.setCangkuId(req.getCangkuId());
             orderCk.setKehuId(orderXs.getKehuId());
             orderCk.setOrgId(orderXs.getOrgId());
             orderCk.setDjlxId(orderXs.getDjlxId());
@@ -383,7 +383,6 @@ public class OrderXsBiz {
             sp = shangpinService.findOneByQuery(sp);
 
             cg.setGysId(sp.getGysId());
-            cg.setCangkuId(req.getCangkuId());
             cg.setSl(req.getTzsl());
             cg.setJe(shangpin.getCgj().multiply(new BigDecimal(req.getTzsl())));
             cg.setZdr(req.getZxr());
