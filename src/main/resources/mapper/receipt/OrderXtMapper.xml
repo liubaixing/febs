@@ -195,6 +195,9 @@
             <if test="xt.djbh != null and xt.djbh != ''">
                 and xt.djbh like CONCAT('%',#{xt.djbh},'%')
             </if>
+            <if test="xt.ydbh != null and xt.ydbh != ''">
+                and xt.ydbh like CONCAT('%',#{xt.ydbh},'%')
+            </if>
             <if test="xt.startTime != null and xt.endTime != null">
                 and xt.xdrq between #{xt.startTime} and #{xt.endTime}
             </if>
@@ -300,6 +303,9 @@
             </if>
             <if test="djbh != null and djbh != ''">
                 and xt.djbh like CONCAT('%',#{djbh},'%')
+            </if>
+            <if test="ydbh != null and ydbh != ''">
+                and xt.ydbh like CONCAT('%',#{ydbh},'%')
             </if>
             <if test="startTime != null and endTime != null">
                 and xt.xdrq between #{startTime} and #{endTime}

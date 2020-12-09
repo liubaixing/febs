@@ -22,10 +22,8 @@ import com.febs.receipt.vo.resp.OrderXsResp;
 import com.febs.shangpin.entity.Shangpin;
 import com.febs.shangpin.entity.ShangpinExample;
 import com.febs.shangpin.service.IShangpinService;
-import com.febs.system.entity.Bumeng;
-import com.febs.system.entity.Cangku;
-import com.febs.system.entity.Kehu;
-import com.febs.system.entity.User;
+import com.febs.system.entity.*;
+import com.febs.system.mapper.GysMapper;
 import com.febs.system.service.IBumengService;
 import com.febs.system.service.ICangkuService;
 import com.febs.system.service.IKehuService;
@@ -84,6 +82,8 @@ public class OrderXsBiz {
     private IPurchaseCgmxService cgmxService;
     @Autowired
     private IDictionaryService dictionaryService;
+    @Resource
+    private GysMapper gysMapper;
 
     /**
      * @param request
@@ -382,6 +382,10 @@ public class OrderXsBiz {
             sp.setId(xsmx.getSpId());
             sp = shangpinService.findOneByQuery(sp);
 
+            Gys gys = gysMapper.selectByPrimaryKey(sp.getGysId());
+
+            cg.setFplxId(gys.getFplxId());
+            cg.setFpslId(gys.getFpsdId());
             cg.setGysId(sp.getGysId());
             cg.setSl(req.getTzsl());
             cg.setJe(shangpin.getCgj().multiply(new BigDecimal(req.getTzsl())));
@@ -453,6 +457,8 @@ public class OrderXsBiz {
         orderXtmx.setJhsl(req.getTksl());
         orderXtmx.setJe(req.getTkje());
         orderXtmx.setDj(req.getTkje().divide(new BigDecimal(req.getTksl())));
+        orderXtmx.setZk(mx.getZk());
+        orderXtmx.setXsje(req.getTkje().multiply(mx.getZk()));
         xtmxService.createOrderXtmx(orderXtmx);
 
     }
