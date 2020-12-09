@@ -483,6 +483,14 @@
     FROM
     spkcb kc
     left join shangpin sp on kc.goods_id = sp.id
+    <where>
+      <if test="kc.ckName != null and kc.ckName != ''">
+        and kc.ck_name like CONCAT('%',#{kc.ckName},'%')
+      </if>
+      <if test="kc.shangpinSpmc != null and kc.shangpinSpmc != ''">
+        and sp.spmc like CONCAT('%',#{kc.shangpinSpmc},'%')
+      </if>
+    </where>
   </select>
 
 </mapper>
