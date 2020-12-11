@@ -59,11 +59,6 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
     private GysMapper gysMapper;
     @Autowired
     private BasicJldwMapper jldwMapper;
-    @Resource
-    private SpkcbMapper spkcbMapper;
-
-    @Resource
-    private CangkuMapper cangkuMapper;
 
     @Override
     public IPage<ShangpinResp> findShangpins(QueryRequest request, ShangpinResp shangpin) {

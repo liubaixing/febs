@@ -538,7 +538,10 @@
             dl.dlmc,
             xl.xlmc,
             qt.qtlbmc,
-            pp.ppglmc
+            pp.ppglmc,
+            kc.sl,
+            kc.sl2,
+            kc.ck_name as ckName
         FROM
             shangpin sp
             LEFT JOIN system_gys gys ON sp.gys_id = gys.id
@@ -548,7 +551,7 @@
             LEFT JOIN shangpin_xl xl ON sp.xl_id = xl.id
             LEFT JOIN shangpin_qtlb qt ON sp.qtlb_id = qt.id
             LEFT JOIN shangpin_ppgl pp ON sp.pp_id = pp.id
-
+            LEFT JOIN spkcb kc ON sp.id = kc.goods_id
         <where>
             <if test="sp.spdm != null and sp.spdm != ''">
                 and sp.spdm like CONCAT('%',#{sp.spdm},'%')

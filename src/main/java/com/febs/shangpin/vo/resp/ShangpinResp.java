@@ -44,6 +44,15 @@ public class ShangpinResp extends Shangpin {
     private String ppglmc;
 
     @ExcelIgnore
+    private Integer sl;
+
+    @ExcelIgnore
+    private Integer sl2;
+
+    @ExcelIgnore
+    private String ckName;
+
+    @ExcelIgnore
     private List<Long> gysList;
 
 }
