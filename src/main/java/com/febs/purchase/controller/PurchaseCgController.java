@@ -49,6 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -136,10 +137,20 @@ public class PurchaseCgController extends BaseController {
         }
 
         PurchaseCgReq req = new PurchaseCgReq();
-        if (requestCheck(user,req)){
-            return new FebsResponse().success();
+
+        List<String> djbhList = datas.stream().filter(i -> i.getRow2() != null).map(CommonExcelEntity::getRow2).collect(Collectors.toList());
+
+        List<PurchaseCgResp> cgRespList = new ArrayList<>();
+
+        if (CollectionUtils.isNotEmpty(djbhList)){
+            if (requestCheck(user,req)){
+                return new FebsResponse().success();
+            }
+            req.setDjbhList(djbhList);
+            cgRespList = purchaseCgService.findPurchaseCgs(req);
         }
-        return new FebsResponse().success().data(purchaseCgService.findPurchaseCgs(req));
+
+        return new FebsResponse().success().data(cgRespList);
     }
 
 

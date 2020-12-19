@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -82,17 +83,23 @@ public class PurchaseTcController extends BaseController {
         if (CollectionUtils.isEmpty(datas)){
             return new FebsResponse().success();
         }
-        List<String> djbhList = datas.stream().filter(i -> i.getRow3() != null).map(CommonExcelEntity::getRow3).collect(Collectors.toList());
+        List<String> tcNoList = datas.stream().filter(i -> i.getRow3() != null).map(CommonExcelEntity::getRow3).collect(Collectors.toList());
 
-        List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
-        if (CollectionUtils.isEmpty(cangkuList)){
-            return new FebsResponse().success();
+        List<PurchaseTcResp> tcResps = new ArrayList<>();
+
+        if (CollectionUtils.isNotEmpty(tcNoList)){
+            List<Long> cangkuList = userCangkuService.getUserCangku(user.getUserId());
+            if (CollectionUtils.isEmpty(cangkuList)){
+                return new FebsResponse().success();
+            }
+
+            PurchaseTcReq req = new PurchaseTcReq();
+            req.setCangkuList(cangkuList);
+            req.setDjbhList(tcNoList);
+            tcResps = purchaseTcService.findPurchaseTcs(req);
         }
 
-        PurchaseTcReq req = new PurchaseTcReq();
-        req.setCangkuList(cangkuList);
-        req.setDjbhList(djbhList);
-        return new FebsResponse().success().data(purchaseTcService.findPurchaseTcs(req));
+        return new FebsResponse().success().data(tcResps);
     }
 
     @ControllerEndpoint(operation = "新增退仓单", exceptionMessage = "新增退仓单失败")
