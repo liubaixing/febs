@@ -1,4 +1,4 @@
-name: febs action
+#name: febs action
 
 #on:
 #  push:
@@ -6,39 +6,39 @@ name: febs action
   #pull_request:
   # branches: [ master ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@master
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1  #使用官方脚本创建java环境
-      with:
-        java-version: 1.8
-    - name: Build with Maven
-      run: mvn -B package -Dmaven.test.skip=true
-
-    - name: Deploy
-      uses: garygrossgarten/github-action-scp@release
-      with:
-        local: ./target
-        remote: /home/febs
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.HOST_USER }}
-        password: ${{ secrets.HOST_PASSWORD }}
-        port: ${{ secrets.HOST_PORT }}
-
-    - name: Restart
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.HOST_USER }}
-        password: ${{ secrets.HOST_PASSWORD }}
-        port: ${{ secrets.HOST_PORT }}
-        script: |
-          cd /projects
-          rm -rf febs.jar
-          mv /home/febs/febs.jar /projects
-          cd /projects
-          ./test.sh
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - uses: actions/checkout@master
+#    - name: Set up JDK 1.8
+#      uses: actions/setup-java@v1  #使用官方脚本创建java环境
+#      with:
+#        java-version: 1.8
+#    - name: Build with Maven
+#      run: mvn -B package -Dmaven.test.skip=true
+#
+#    - name: Deploy
+#      uses: garygrossgarten/github-action-scp@release
+#      with:
+#        local: ./target
+#        remote: /home/febs
+#        host: ${{ secrets.HOST }}
+#        username: ${{ secrets.HOST_USER }}
+#        password: ${{ secrets.HOST_PASSWORD }}
+#        port: ${{ secrets.HOST_PORT }}
+#
+#    - name: Restart
+#      uses: appleboy/ssh-action@master
+#      with:
+#        host: ${{ secrets.HOST }}
+#        username: ${{ secrets.HOST_USER }}
+#        password: ${{ secrets.HOST_PASSWORD }}
+#        port: ${{ secrets.HOST_PORT }}
+#        script: |
+#          cd /projects
+#          rm -rf febs.jar
+#          mv /home/febs/febs.jar /projects
+#          cd /projects
+#          ./test.sh
