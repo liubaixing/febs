@@ -605,6 +605,7 @@
                 and sp.gys_id in (-1)
             </if>
         </where>
+        ORDER BY sp.create_time DESC
     </sql>
 
     <select id="selectDetailPage" resultType="com.febs.shangpin.vo.resp.ShangpinResp">

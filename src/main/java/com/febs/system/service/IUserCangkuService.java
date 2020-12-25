@@ -23,5 +23,7 @@ public interface IUserCangkuService {
 
     void create(UserCangku userCangku);
 
+    int insertBacth(List<UserCangku> userCangkuList);
+
     void delete(UserCangkuExample example);
 }

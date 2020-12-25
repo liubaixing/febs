@@ -106,6 +106,15 @@
     values (#{userId,jdbcType=BIGINT}, #{cangkuId,jdbcType=BIGINT}, #{controlStatus,jdbcType=VARCHAR}, 
       #{extras,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER})
   </insert>
+
+  <insert id="insertBacth"  parameterType="java.util.List" >
+    insert into user_gys (user_id,cangku_id)
+    values
+    <foreach collection="userCangkuList" open="(" separator="," close=")" item="userCang">
+      #{userCang.userId},#{userCang.cangku_id},
+    </foreach>
+  </insert>
+
   <insert id="insertSelective" keyColumn="user_cangku_id" keyProperty="userCangkuId" parameterType="com.febs.system.entity.UserCangku" useGeneratedKeys="true">
     insert into user_cangku
     <trim prefix="(" suffix=")" suffixOverrides=",">

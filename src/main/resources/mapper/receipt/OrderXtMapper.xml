@@ -271,7 +271,7 @@
                 and sp.spmc like CONCAT('%',#{xt.spmc},'%')
             </if>
         </where>
-
+        ORDER BY xt.xdrq desc
     </select>
 
     <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXtReq" resultType="com.febs.receipt.vo.resp.OrderXtResp">
@@ -322,7 +322,7 @@
             <if test="sh != null">
                 and xt.sh = #{sh}
             </if>
-            <if test="auditor != null">
+            <if test="auditor != null and auditor != ''">
                 and xt.auditor like CONCAT('%',#{auditor},'%')
             </if>
             <if test="zx != null">
@@ -388,7 +388,7 @@
                 )
             </if>
         </where>
-
+        ORDER BY xt.xdrq desc
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

@@ -434,6 +434,7 @@
         and gys.gysmc like CONCAT('%',#{ysf.gysmc},'%')
       </if>
     </where>
+    ORDER BY ysf.djrq DESC
   </select>
 
   <select id="selectByQuery" parameterType="com.febs.orderqt.vo.req.YsfdReq" resultType="com.febs.orderqt.vo.resp.YsfdResp">
@@ -459,7 +460,7 @@
       <if test="gysmc != null and gysmc != ''">
         and gys.gysmc like CONCAT('%',#{gysmc},'%')
       </if>
-      <if test="djbhList != null and djbhList != ''">
+      <if test="djbhList != null and djbhList.size() > 0">
         and ysf.djbh in (
         <foreach collection="djbhList"  separator="," item="djbh">
           #{djbh}
@@ -467,6 +468,7 @@
         )
       </if>
     </where>
+    ORDER BY ysf.djrq DESC
   </select>
 
 </mapper>

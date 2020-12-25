@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: UserPowerBiz
@@ -125,13 +126,9 @@ public class UserPowerBiz {
             example.createCriteria().andUserIdEqualTo(req.getUserId());
             userOrgService.delete(example);
 
-            for (Long powerId : powerIds){
-                UserOrg userOrg = new UserOrg();
-                userOrg.setUserId(req.getUserId());
-                userOrg.setOrgId(powerId);
-                userOrgService.create(userOrg);
-            }
-
+            List<UserOrg> userOrgList = powerIds.stream().map(UserOrg::new).collect(Collectors.toList());
+            userOrgList.forEach(e -> e.setUserId(req.getUserId()));
+            userOrgService.insertBacth(userOrgList);
 
         } else if ("userGys".equals(req.getPowerType())) {
 
@@ -139,13 +136,9 @@ public class UserPowerBiz {
             example.createCriteria().andUserIdEqualTo(req.getUserId());
             userGysService.deleted(example);
 
-            for (Long powerId : powerIds){
-                UserGys userGys = new UserGys();
-                userGys.setUserId(req.getUserId());
-                userGys.setGysId(powerId);
-                userGysService.create(userGys);
-            }
-
+            List<UserGys> userGysList = powerIds.stream().map(UserGys::new).collect(Collectors.toList());
+            userGysList.forEach(e -> e.setUserId(req.getUserId()));
+            userGysService.insertBacth(userGysList);
 
         } else if ("userCangku".equals(req.getPowerType())) {
 
@@ -153,12 +146,10 @@ public class UserPowerBiz {
             example.createCriteria().andUserIdEqualTo(req.getUserId());
             userCangkuService.delete(example);
 
-            for (Long powerId : powerIds){
-                UserCangku userCangku = new UserCangku();
-                userCangku.setUserId(req.getUserId());
-                userCangku.setCangkuId(powerId);
-                userCangkuService.create(userCangku);
-            }
+            List<UserCangku> userCangkuList = powerIds.stream().map(UserCangku::new).collect(Collectors.toList());
+            userCangkuList.forEach(e -> e.setUserId(req.getUserId()));
+            userCangkuService.insertBacth(userCangkuList);
+
         }
 
     }

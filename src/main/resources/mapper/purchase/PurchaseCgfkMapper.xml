@@ -580,7 +580,7 @@
                 and spmc like CONCAT('%',#{fk.spmc},'%')
             </if>
         </where>
-
+        ORDER BY fk.djrq desc
     </select>
 
 
@@ -632,6 +632,7 @@
                 and spmc like CONCAT('%',#{spmc},'%')
             </if>
         </where>
+        ORDER BY fk.djrq desc
     </select>
 
 </mapper>

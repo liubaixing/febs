@@ -9,6 +9,10 @@ import lombok.Data;
  */
 @Data
 public class UserOrg implements Serializable {
+
+    public UserOrg(){}
+    public UserOrg(Long orgId){this.orgId = orgId;}
+
     /**
      * 用户授权购货单位id
      */

@@ -9,6 +9,15 @@ import lombok.Data;
  */
 @Data
 public class UserGys implements Serializable {
+
+    public UserGys(){
+
+    }
+
+    public UserGys(Long gysId){
+        this.gysId = gysId;
+    }
+
     /**
      * 用户授权供应商id
      */

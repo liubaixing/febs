@@ -14,6 +14,8 @@ public interface UserCangkuMapper {
 
     int insert(UserCangku record);
 
+    int insertBacth(List<UserCangku> userCangkuList);
+
     int insertSelective(UserCangku record);
 
     List<UserCangku> selectByExample(UserCangkuExample example);

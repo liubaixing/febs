@@ -581,7 +581,7 @@
                 and spmc like CONCAT('%',#{tk.spmc},'%')
             </if>
         </where>
-
+        ORDER BY tk.djrq DESC
     </select>
 
 
@@ -633,6 +633,7 @@
                 and spmc like CONCAT('%',#{spmc},'%')
             </if>
         </where>
+        ORDER BY tk.djrq DESC
     </select>
 
 

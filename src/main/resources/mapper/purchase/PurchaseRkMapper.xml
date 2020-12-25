@@ -709,6 +709,7 @@
                 and rk.zfr like CONCAT('%',#{rk.zfr},'%')
             </if>
         </where>
+        ORDER BY rk.xdrq DESC
     </select>
 
     <select id="selectByQuery" parameterType="com.febs.purchase.vo.req.PurchaseRkReq" resultType="com.febs.purchase.vo.resp.PurchaseRkResp">
@@ -776,7 +777,7 @@
                 and rk.zfr like CONCAT('%',#{zfr},'%')
             </if>
         </where>
-
+        ORDER BY rk.xdrq DESC
     </select>
 
 </mapper>

@@ -21,5 +21,7 @@ public interface IUserGysService {
 
     void create(UserGys userGys);
 
+    int insertBacth(List<UserGys> userGysList);
+
     void deleted(UserGysExample example);
 }

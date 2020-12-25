@@ -48,6 +48,11 @@ public class UserCangkuServiceImpl implements IUserCangkuService {
     }
 
     @Override
+    public int insertBacth(List<UserCangku> userCangkuList) {
+        return userCangkuMapper.insertBacth(userCangkuList);
+    }
+
+    @Override
     public void delete(UserCangkuExample example) {
         userCangkuMapper.deleteByExample(example);
     }

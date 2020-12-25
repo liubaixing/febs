@@ -723,6 +723,7 @@
                 and ck.ydjh like CONCAT('%',#{ck.ydjh},'%')
             </if>
         </where>
+        ORDER BY ck.xdrq DESC
     </select>
 
 
@@ -800,6 +801,7 @@
                 and ck.ydjh like CONCAT('%',#{ydjh},'%')
             </if>
         </where>
+        ORDER BY ck.xdrq DESC
     </select>
 
 </mapper>

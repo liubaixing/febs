@@ -106,6 +106,15 @@
     values (#{userId,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{controlStatus,jdbcType=VARCHAR}, 
       #{extras,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER})
   </insert>
+
+  <insert id="insertBacth"  parameterType="java.util.List" >
+    insert into user_gys (user_id,org_id)
+    values
+    <foreach collection="userOrgList" open="(" separator="," close=")" item="userOrg">
+      #{userOrg.userId},#{userOrg.orgId},
+    </foreach>
+  </insert>
+
   <insert id="insertSelective" keyColumn="user_org_id" keyProperty="userOrgId" parameterType="com.febs.system.entity.UserOrg" useGeneratedKeys="true">
     insert into user_org
     <trim prefix="(" suffix=")" suffixOverrides=",">

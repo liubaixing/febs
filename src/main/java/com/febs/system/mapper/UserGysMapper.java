@@ -14,6 +14,8 @@ public interface UserGysMapper {
 
     int insert(UserGys record);
 
+    int insertBacth(List<UserGys> userGysList);
+
     int insertSelective(UserGys record);
 
     List<UserGys> selectByExample(UserGysExample example);

@@ -1489,6 +1489,7 @@
             </if>
 
         </where>
+        ORDER BY cg.xdrq DESC
     </select>
 
     <select id="selectByQuery" parameterType="com.febs.purchase.vo.req.PurchaseCgReq" resultType="com.febs.purchase.vo.resp.PurchaseCgResp">
@@ -1642,7 +1643,7 @@
                 )
             </if>
 
-            <if test="djbhList != null and djbhList != ''">
+            <if test="djbhList != null and djbhList.size() > 0 ">
                 and cg.djbh in (
                 <foreach collection="djbhList"  separator="," item="djbh">
                     #{djbh}
@@ -1651,6 +1652,7 @@
             </if>
 
         </where>
+        ORDER BY cg.xdrq DESC
     </select>
 
 </mapper>

@@ -182,6 +182,7 @@ public class ShangpinServiceImpl extends ServiceImpl<ShangpinMapper, Shangpin> i
         }
         Shangpin shangpin = new Shangpin();
         BeanUtils.copyProperties(sp,shangpin);
+        shangpin.setCreateTime(new Date());
         createShangpin(shangpin);
     }
 

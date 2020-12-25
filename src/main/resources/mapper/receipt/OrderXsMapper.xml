@@ -250,7 +250,7 @@
             <if test="xs.sh != null">
                 and xs.sh = #{xs.sh}
             </if>
-            <if test="xs.auditor!=null">
+            <if test="xs.auditor!=null and xs.auditor != ''">
                 and xs.auditor like CONCAT('%',#{xs.auditor},'%')
             </if>
             <if test="xs.zdr != null and xs.zdr != ''">
@@ -266,7 +266,7 @@
                 and sp.spmc like CONCAT('%',#{xs.spmc},'%')
             </if>
 
-            <if test="xs.djbhList != null and xs.djbhList != ''">
+            <if test="xs.djbhList != null and xs.djbhList.size() > 0">
                 and xs.djbh in (${xs.djbhList})
             </if>
 
@@ -287,7 +287,7 @@
             </if>
 
         </where>
-
+        ORDER BY xs.xdrq DESC
     </select>
 
     <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXsReq" resultType="com.febs.receipt.vo.resp.OrderXsResp">
@@ -428,7 +428,7 @@
             </if>
 
         </where>
-
+        ORDER BY xs.xdrq DESC
     </select>
 
 
@@ -472,6 +472,7 @@
             </if>
 
         </where>
+        ORDER BY xs.xdrq DESC
     </select>
 
 
@@ -594,7 +595,7 @@
             </if>
 
         </where>
-        <!--limit 1 -->
+        ORDER BY xs.xdrq DESC
    </select>
 
    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

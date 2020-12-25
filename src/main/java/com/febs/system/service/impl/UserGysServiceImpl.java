@@ -43,6 +43,10 @@ public class UserGysServiceImpl implements IUserGysService {
         userGysMapper.insertSelective(userGys);
     }
 
+    public int insertBacth(List<UserGys> userGysList) {
+       return userGysMapper.insertBacth(userGysList);
+    }
+
     @Override
     public void deleted(UserGysExample example) {
         userGysMapper.deleteByExample(example);

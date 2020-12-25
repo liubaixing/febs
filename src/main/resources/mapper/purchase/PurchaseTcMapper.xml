@@ -1289,6 +1289,7 @@
                 )
             </if>
         </where>
+        ORDER BY tc.xdrq DESC
     </select>
 
     <select id="selectByQuery" parameterType="com.febs.purchase.vo.req.PurchaseTcReq" resultType="com.febs.purchase.vo.resp.PurchaseTcResp">
@@ -1416,7 +1417,7 @@
                 )
             </if>
 
-            <if test="djbhList != null and djbhList != ''">
+            <if test="djbhList != null and djbhList.size() > 0">
                 and tc.djbh in (
                 <foreach collection="djbhList"  separator="," item="djbh">
                     #{djbh}
@@ -1425,6 +1426,7 @@
             </if>
 
         </where>
+        ORDER BY tc.xdrq DESC
     </select>
 
 </mapper>

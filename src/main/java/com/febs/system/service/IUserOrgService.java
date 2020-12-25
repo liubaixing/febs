@@ -21,6 +21,8 @@ public interface IUserOrgService {
 
     void create(UserOrg userOrg);
 
+    int insertBacth(List<UserOrg> userOrgList);
+
     void delete(UserOrgExample example);
 
 }

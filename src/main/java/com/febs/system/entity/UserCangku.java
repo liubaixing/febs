@@ -9,6 +9,10 @@ import lombok.Data;
  */
 @Data
 public class UserCangku implements Serializable {
+
+    public UserCangku(){}
+    public UserCangku(Long cangkuId){this.cangkuId = cangkuId;}
+
     /**
      * 用户授权仓库id
      */

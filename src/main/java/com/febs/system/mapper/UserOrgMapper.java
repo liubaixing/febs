@@ -14,6 +14,8 @@ public interface UserOrgMapper {
 
     int insert(UserOrg record);
 
+    int insertBacth(List<UserOrg> userOrgList);
+
     int insertSelective(UserOrg record);
 
     List<UserOrg> selectByExample(UserOrgExample example);

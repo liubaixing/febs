@@ -603,6 +603,7 @@
                 and sp.spmc like CONCAT('%',#{sk.spmc},'%')
             </if>
         </where>
+        ORDER BY sk.djrq desc
     </select>
 
     <select id="selectByQuery" parameterType="com.febs.receipt.vo.req.OrderXsskReq" resultType="com.febs.receipt.vo.resp.OrderXsskResp">
@@ -655,6 +656,7 @@
                 and sp.spmc like CONCAT('%',#{spmc},'%')
             </if>
         </where>
+        ORDER BY sk.djrq desc
     </select>
 
 </mapper>

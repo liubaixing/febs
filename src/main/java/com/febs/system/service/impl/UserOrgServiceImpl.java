@@ -45,6 +45,11 @@ public class UserOrgServiceImpl implements IUserOrgService {
     }
 
     @Override
+    public int insertBacth(List<UserOrg> userOrgList) {
+        return userOrgMapper.insertBacth(userOrgList);
+    }
+
+    @Override
     public void delete(UserOrgExample example) {
         userOrgMapper.deleteByExample(example);
     }
