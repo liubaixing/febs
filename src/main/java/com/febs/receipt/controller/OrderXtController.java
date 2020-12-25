@@ -85,14 +85,14 @@ public class OrderXtController extends BaseController {
             return new FebsResponse().success();
         }
 
-        List<String> orderXsNoList = datas.stream().filter(i -> i.getRow() != null).map(CommonExcelEntity::getRow).collect(Collectors.toList());
+        List<String> orderXtNoList = datas.stream().filter(i -> i.getRow1() != null).map(CommonExcelEntity::getRow1).collect(Collectors.toList());
 
         List<OrderXtResp> orderXtRespList = new ArrayList<>();
 
-        if (CollectionUtils.isNotEmpty(orderXsNoList)){
+        if (CollectionUtils.isNotEmpty(orderXtNoList)){
             OrderXtReq req = new OrderXtReq();
 
-            req.setDjbhList(orderXsNoList);
+            req.setDjbhList(orderXtNoList);
             orderXtRespList = orderXtService.findOrderXts(req);
         }
 
